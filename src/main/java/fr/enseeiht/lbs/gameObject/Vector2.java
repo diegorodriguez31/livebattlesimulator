@@ -1,3 +1,5 @@
+package main.java.fr.enseeiht.lbs.gameObject;
+
 public class Vector2 {
     public float x,y;
 
@@ -39,9 +41,9 @@ public class Vector2 {
     }
 
     /**
-     * Increment this with an other Vector2
+     * Increment this with an other main.java.fr.enseeiht.lbs.gameObject.Vector2
      * @param other
-     * @return the incremented Vector2
+     * @return the incremented main.java.fr.enseeiht.lbs.gameObject.Vector2
      */
     Vector2 inc(Vector2 other){
         this.x += other.x;
@@ -50,9 +52,9 @@ public class Vector2 {
     }
 
     /**
-     * Decrement this with an other Vector2
+     * Decrement this with an other main.java.fr.enseeiht.lbs.gameObject.Vector2
      * @param other
-     * @return the decrement Vector2
+     * @return the decrement main.java.fr.enseeiht.lbs.gameObject.Vector2
      */
     Vector2 dec(Vector2 other){
         this.x -= other.x;
