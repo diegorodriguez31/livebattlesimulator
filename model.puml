@@ -1,0 +1,85 @@
+@startuml
+
+class Battle {
+    + void run()
+}
+
+interface Objectif{
+    + int getWinner(Battle context)
+}
+
+class Army {
+
+}
+
+interface GameObject{
+    + void init(Battle context)
+    + void update(Time deltaTime, Battle context)
+    + void end(Battle context)
+}
+
+abstract class Entity{
+    - int health
+    + Stats getStats()
+    + Stats getRawStats()
+    + void recieveDamage(int health)
+}
+
+abstract class Unit {
+    + Stats getStats()
+    + Stats getRawStats()
+}
+
+class Stats {
+
+}
+
+interface AI {
+    + Action getAction(Unit unit, Battle context)
+}
+
+class Vector2{
+    - float x
+    - float y
+    + Vector2 add(Vector2 other)
+    + Vector2 sub(Vector2 other)
+    + Vector2 inc(Vector2 other)
+    + Vector2 dec(Vector2 other)
+    + Vector2 scale(float x)
+    + float distance()
+    + float sqrDistance()
+}
+
+interface Action{
+    + void execute()
+}
+
+interface Buff{
+    void accept(BuffVisitor visitor)
+    void update(float deltaTime)
+}
+
+interface BuffVisitor<T extends Buff>{
+    void visit(T visitor)
+}
+
+Battle "1" o--> "0..n teams" Army
+Battle "1" o--> "0..n objects" GameObject
+Battle "1" x--> "1 objectif" Objectif
+Unit "1" x--> "1 ai" AI
+Unit "1" x--> "0..n buffs" Buff
+Entity "1" x--> "1 postion" Vector2
+Entity "1" x--> "1 stats" Stats
+
+
+Army "1 team" o--- "0..n units" Unit
+
+AI ..> Action : "<<uses>>"
+Unit ..> BuffVisitor : "<<uses>>"
+BuffVisitor <..> Buff : "<<uses>>"
+
+Entity ..|> GameObject
+Unit --|> Entity
+
+
+@enduml
