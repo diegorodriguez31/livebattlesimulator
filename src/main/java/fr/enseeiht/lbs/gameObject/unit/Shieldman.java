@@ -1,7 +1,7 @@
 package main.java.fr.enseeiht.lbs.gameObject.unit;
 
-import main.java.fr.enseeiht.lbs.gameObject.unit.visitors.BuffVisitor;
-import main.java.fr.enseeiht.lbs.gameObject.unit.visitors.ShieldManBuffVisitor;
+import main.java.fr.enseeiht.lbs.gameObject.unit.visitors.SBuffVisitor;
+import main.java.fr.enseeiht.lbs.gameObject.unit.visitors.ShieldManSBuffVisitor;
 import main.java.fr.enseeiht.lbs.gameObject.Statistic;
 
 public class Shieldman extends Infantryman {
@@ -27,7 +27,7 @@ public class Shieldman extends Infantryman {
     }
 
     @Override
-    protected BuffVisitor getVisitor() {
-        return new ShieldManBuffVisitor(stats);
+    protected SBuffVisitor getStatVisitor() {
+        return new ShieldManSBuffVisitor(stats);
     }
 }

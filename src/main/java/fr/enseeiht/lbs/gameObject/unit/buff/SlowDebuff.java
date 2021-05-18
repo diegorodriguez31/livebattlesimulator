@@ -1,7 +1,6 @@
 package main.java.fr.enseeiht.lbs.gameObject.unit.buff;
 
-import main.java.fr.enseeiht.lbs.gameObject.unit.visitors.BuffVisitor;
-import main.java.fr.enseeiht.lbs.gameObject.unit.Unit;
+import main.java.fr.enseeiht.lbs.gameObject.unit.visitors.IBuffVisitor;
 
 public class SlowDebuff implements Buff {
 
@@ -10,12 +9,8 @@ public class SlowDebuff implements Buff {
     public SlowDebuff() {}
 
     @Override
-    public void accept(BuffVisitor visitor) {
+    public void accept(IBuffVisitor visitor) {
         visitor.visit(this);
-    }
-
-    @Override
-    public void update(Unit unit, double deltaTime) {
     }
 
     public double getSlow() {

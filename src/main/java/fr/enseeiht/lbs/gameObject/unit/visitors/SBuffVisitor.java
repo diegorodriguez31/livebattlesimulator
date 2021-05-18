@@ -6,21 +6,24 @@ import main.java.fr.enseeiht.lbs.gameObject.unit.buff.FireDebuff;
 import main.java.fr.enseeiht.lbs.gameObject.unit.buff.FreezeDebuff;
 import main.java.fr.enseeiht.lbs.gameObject.unit.buff.SlowDebuff;
 
-public class BuffVisitor{
+public class SBuffVisitor implements IBuffVisitor {
     Stats stats;
 
-    public BuffVisitor(Stats stats){
+    public SBuffVisitor(Stats stats){
         this.stats = new Stats(stats);
     }
 
+    @Override
     public void visit(FireDebuff buff) {
         stats.addStat(Statistic.ARMOR, 0);
     }
 
+    @Override
     public void visit(FreezeDebuff buff) {
         stats.addStat(Statistic.SPEED, 0);
     }
 
+    @Override
     public void visit(SlowDebuff buff) {
         stats.addStat(Statistic.SPEED, buff.getSlow() * getStats().getStatisticValue(Statistic.SPEED));
     }

@@ -3,9 +3,9 @@ package main.java.fr.enseeiht.lbs.gameObject.unit.visitors;
 import main.java.fr.enseeiht.lbs.gameObject.Stats;
 import main.java.fr.enseeiht.lbs.gameObject.unit.buff.FreezeDebuff;
 
-public class ShieldManBuffVisitor extends BuffVisitor {
+public class ShieldManSBuffVisitor extends SBuffVisitor {
 
-    public ShieldManBuffVisitor(Stats stats) {
+    public ShieldManSBuffVisitor(Stats stats) {
         super(stats);
     }
 
