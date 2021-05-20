@@ -5,8 +5,8 @@ import main.java.fr.enseeiht.lbs.gameObject.Stats;
 import main.java.fr.enseeiht.lbs.gameObject.unit.ai.AI;
 import main.java.fr.enseeiht.lbs.gameObject.unit.buff.Buff;
 import main.java.fr.enseeiht.lbs.gameObject.Entity;
-import main.java.fr.enseeiht.lbs.gameObject.unit.visitors.SBuffVisitor;
-import main.java.fr.enseeiht.lbs.gameObject.unit.visitors.UBuffVisitor;
+import main.java.fr.enseeiht.lbs.gameObject.unit.visitors.StatModifierBuffVisitor;
+import main.java.fr.enseeiht.lbs.gameObject.unit.visitors.TicBuffVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ public abstract class Unit extends Entity {
 
     @Override
     public Stats getStats() {
-        SBuffVisitor visitor = getStatVisitor();
+        StatModifierBuffVisitor visitor = getStatVisitor();
         for (Buff buff : buffs) {
             buff.accept(visitor);
         }
@@ -25,8 +25,10 @@ public abstract class Unit extends Entity {
     }
 
     @Override
-    public void update(Battle context, float deltaTime) {
-        UBuffVisitor visitor = getUpdateVisitor(deltaTime);
+    public void update(Battle context, long deltaTime) {
+
+        // update buffs
+        TicBuffVisitor visitor = getUpdateVisitor(deltaTime);
         for (Buff buff : buffs) {
             buff.accept(visitor);
         }
@@ -36,11 +38,11 @@ public abstract class Unit extends Entity {
         buffs.add(buff);
     }
 
-    protected SBuffVisitor getStatVisitor(){
-        return new SBuffVisitor(stats);
+    protected StatModifierBuffVisitor getStatVisitor(){
+        return new StatModifierBuffVisitor(stats);
     }
-    protected UBuffVisitor getUpdateVisitor(float deltaTime){
-        return new UBuffVisitor(deltaTime,this);
+    protected TicBuffVisitor getUpdateVisitor(long deltaTime){
+        return new TicBuffVisitor(deltaTime,this);
     }
 
     public Stats getRawStats() {

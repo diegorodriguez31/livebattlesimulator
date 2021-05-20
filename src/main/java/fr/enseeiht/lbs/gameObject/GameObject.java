@@ -2,8 +2,17 @@ package main.java.fr.enseeiht.lbs.gameObject;
 
 import main.java.fr.enseeiht.lbs.battleSimulator.Battle;
 
-public interface GameObject {
-    void start(Battle context);
-    void update(Battle context, float deltaTime);
-    void end(Battle context);
+public abstract class GameObject {
+
+    public void setReady(){
+        Battle.getInstance().addGameObject(this);
+    }
+
+    public void removeFromBattle(){
+        Battle.getInstance().removeGameObject(this);
+    }
+
+    abstract public void start(Battle context);
+    abstract public void update(Battle context, long deltaTime);
+    abstract public void end(Battle context);
 }

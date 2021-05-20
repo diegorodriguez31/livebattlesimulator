@@ -14,6 +14,7 @@ public class BuffAction implements Action {
 
     @Override
     public void execute() {
+        System.out.println("execute debuff");
         victime.addBuffs(buff);
     }
 }

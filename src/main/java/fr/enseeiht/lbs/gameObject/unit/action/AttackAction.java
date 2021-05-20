@@ -15,6 +15,7 @@ public class AttackAction implements Action {
 
     @Override
     public void execute() {
+        System.out.println("execute attack");
         victime.receiveDamage(attaquant.getStats().getStatisticValue(Statistic.DAMAGE));
     }
 }

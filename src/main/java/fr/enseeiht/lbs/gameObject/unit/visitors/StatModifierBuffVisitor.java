@@ -6,10 +6,10 @@ import main.java.fr.enseeiht.lbs.gameObject.unit.buff.FireDebuff;
 import main.java.fr.enseeiht.lbs.gameObject.unit.buff.FreezeDebuff;
 import main.java.fr.enseeiht.lbs.gameObject.unit.buff.SlowDebuff;
 
-public class SBuffVisitor implements IBuffVisitor {
+public class StatModifierBuffVisitor implements IBuffVisitor {
     Stats stats;
 
-    public SBuffVisitor(Stats stats){
+    public StatModifierBuffVisitor(Stats stats){
         this.stats = new Stats(stats);
     }
 
