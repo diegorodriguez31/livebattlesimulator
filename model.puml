@@ -1,37 +1,49 @@
 @startuml
 
 class Battle {
+    - Battle()
+    + void init(List<Army> armies)
     + void run()
+    + void addGameObject(GameObject o)
+    + void removeGameObject(GameObject o)
+    + {static} Battle getInstance()
 }
 
 interface Objectif{
-    + int getWinner(Battle context)
+    + Army getWinner(Battle context)
 }
 
 class Army {
-
+    + addUnit(Unit unit);
+    + removeUnit(Unit unit);
 }
 
-interface GameObject{
-    + void init(Battle context)
-    + void update(Time deltaTime, Battle context)
-    + void end(Battle context)
+abstract class GameObject{
+    + void setReady()
+    + {abstract}void init(Battle context)
+    + {abstract}void update(Time deltaTime, Battle context)
+    + {abstract}void end(Battle context)
+    + void remove()
 }
 
 abstract class Entity{
     - int health
     + Stats getStats()
-    + Stats getRawStats()
     + void recieveDamage(int health)
 }
 
 abstract class Unit {
     + Stats getStats()
     + Stats getRawStats()
+    + void addBuff(Buff buff)
+    # void getStatBuffVisitor()
+    # void getUpdateBuffVisitor(float deltaTime)
 }
 
 class Stats {
-
+    void addStat(Statistic stat, double value)
+    double getStatisticValue(Statistic stat)
+    bool containStat(Statistic stat)
 }
 
 interface AI {
@@ -55,12 +67,21 @@ interface Action{
 }
 
 interface Buff{
-    void accept(BuffVisitor visitor)
-    void update(float deltaTime)
+    + void accept(BuffVisitor visitor)
 }
 
 interface BuffVisitor<T extends Buff>{
-    void visit(T visitor)
+    + void visit(T visitor)
+}
+
+class UpdateBuffVisitor{
+    # float deltaTime
+    + void visit(T visitor)
+}
+
+class StatsBuffVisitor{
+    + void visit(T visitor)
+    + Stats getStats()
 }
 
 Battle "1" o--> "0..n teams" Army
@@ -70,15 +91,20 @@ Unit "1" x--> "1 ai" AI
 Unit "1" x--> "0..n buffs" Buff
 Entity "1" x--> "1 postion" Vector2
 Entity "1" x--> "1 stats" Stats
+Battle "1" --> "1 instance "Battle
 
 
 Army "1 team" o--- "0..n units" Unit
 
 AI ..> Action : "<<uses>>"
-Unit ..> BuffVisitor : "<<uses>>"
+Unit ..> UpdateBuffVisitor : "<<uses>>"
+Unit ..> StatsBuffVisitor : "<<uses>>"
 BuffVisitor <..> Buff : "<<uses>>"
+StatsBuffVisitor o--> "1 computedStats" Stats
 
 Entity ..|> GameObject
+StatsBuffVisitor ..|> BuffVisitor
+UpdateBuffVisitor ..|> BuffVisitor
 Unit --|> Entity
 
 
