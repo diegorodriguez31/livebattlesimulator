@@ -1,28 +1,27 @@
 package main.java.fr.enseeiht.lbs.battleSimulator;
 
-import main.java.fr.enseeiht.lbs.gameObject.Entity;
-import main.java.fr.enseeiht.lbs.gameObject.GameObject;
-import main.java.fr.enseeiht.lbs.gameObject.unit.Unit;
-import main.java.fr.enseeiht.lbs.gameObject.unit.action.AttackAction;
-import main.java.fr.enseeiht.lbs.gameObject.unit.action.BuffAction;
-import main.java.fr.enseeiht.lbs.gameObject.unit.buff.FreezeDebuff;
-import main.java.fr.enseeiht.lbs.gameObject.unit.Infantryman;
-import main.java.fr.enseeiht.lbs.gameObject.unit.Shieldman;
-
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import main.java.fr.enseeiht.lbs.gameObject.GameObject;
+import main.java.fr.enseeiht.lbs.gameObject.unit.Unit;
+
 public class Battle {
 
     private long lastTime;
+    
+    private PropertyChangeSupport propertyChangeSupport;
 
     Objectif objectif;
     List<Army> armies;
     List<GameObject> objects;
 
     private Battle() {
+    	this.propertyChangeSupport = new PropertyChangeSupport(this);
     }
 
     static Battle instance;
@@ -44,6 +43,9 @@ public class Battle {
         lastTime = System.currentTimeMillis();
         long tempTotal = 0;
         while(objectif.getWinner(this) == null){
+        	//save initial state 
+        	List<GameObject> oldGameObjects = this.objects;
+        	
             long deltaTime = System.currentTimeMillis()-lastTime;
             lastTime = System.currentTimeMillis();
             tempTotal += deltaTime;
@@ -53,7 +55,10 @@ public class Battle {
             while(it.hasNext()){
                 it.next().update(this, deltaTime);
             }
-
+            
+            //notify Observers
+            this.propertyChangeSupport.firePropertyChange("gameObjects", oldGameObjects, this.objects);
+            
             try {
                 Thread.sleep(1000/60);
             }catch (InterruptedException e){
@@ -63,6 +68,10 @@ public class Battle {
 
 
     }
+    
+    public void addGameObjectsObserver(PropertyChangeListener propertyChangeListener) {
+    	propertyChangeSupport.addPropertyChangeListener("ameObjects", propertyChangeListener);
+	}
 
     /*public void run2() {
         Infantryman attaquant = new Infantryman(100, 1, 10);
