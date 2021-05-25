@@ -1,19 +1,18 @@
 package main.java.fr.enseeiht.lbs.gameObject.unit;
 
 import main.java.fr.enseeiht.lbs.battleSimulator.Battle;
-import main.java.fr.enseeiht.lbs.gameObject.Stats;
 import main.java.fr.enseeiht.lbs.gameObject.Statistic;
-import main.java.fr.enseeiht.lbs.gameObject.unit.action.AttackAction;
+import main.java.fr.enseeiht.lbs.gameObject.Stats;
+import main.java.fr.enseeiht.lbs.gameObject.Vector2;
 import main.java.fr.enseeiht.lbs.gameObject.unit.action.BuffAction;
-import main.java.fr.enseeiht.lbs.gameObject.unit.buff.Buff;
 import main.java.fr.enseeiht.lbs.gameObject.unit.buff.FireDebuff;
 
 public class Infantryman extends Unit {
 
     protected long cooldown;
 
-    public Infantryman(float x, float y, double health, double speed, double damage, long cooldown) {
-    	super(x, y);
+    public Infantryman(Vector2 position, double health, double speed, double damage, long cooldown) {
+    	super(position);
     	
         this.health = health;
 

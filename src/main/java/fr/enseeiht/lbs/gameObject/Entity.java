@@ -5,8 +5,8 @@ public abstract class Entity extends GameObject {
     protected Stats stats;
     protected Vector2 position;
     
-    public Entity(float x, float y) {
-    	this.position = new Vector2(x, y);
+    public Entity(Vector2 position) {
+    	this.position = position;
     }
 
     public Stats getStats() {
