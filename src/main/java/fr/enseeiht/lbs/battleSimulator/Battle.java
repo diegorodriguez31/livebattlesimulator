@@ -1,13 +1,7 @@
 package main.java.fr.enseeiht.lbs.battleSimulator;
 
-import main.java.fr.enseeiht.lbs.gameObject.Entity;
 import main.java.fr.enseeiht.lbs.gameObject.GameObject;
 import main.java.fr.enseeiht.lbs.gameObject.unit.Unit;
-import main.java.fr.enseeiht.lbs.gameObject.unit.action.AttackAction;
-import main.java.fr.enseeiht.lbs.gameObject.unit.action.BuffAction;
-import main.java.fr.enseeiht.lbs.gameObject.unit.buff.FreezeDebuff;
-import main.java.fr.enseeiht.lbs.gameObject.unit.Infantryman;
-import main.java.fr.enseeiht.lbs.gameObject.unit.Shieldman;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -22,7 +16,7 @@ public class Battle {
     List<Army> armies;
     List<GameObject> objects;
 
-    private float speedMut = 1;
+    private float deltaTimeMultiplier = 1.0f;
 
     private Battle() {
     }
@@ -53,7 +47,7 @@ public class Battle {
             System.out.println("total time" + tempTotal);
             Iterator<GameObject> it = objects.stream().iterator();
             while(it.hasNext()){
-                it.next().update(this, (long) (deltaTime*speedMut));
+                it.next().update(this, (long) (deltaTime * deltaTimeMultiplier));
             }
 
             try {
@@ -64,12 +58,12 @@ public class Battle {
         }
     }
 
-    public void setSpeedMut(float speedMut) {
-        this.speedMut = speedMut;
+    public void setDeltaTimeMultiplier(float deltaTimeMultiplier) {
+        this.deltaTimeMultiplier = deltaTimeMultiplier;
     }
 
-    public float getSpeedMut() {
-        return speedMut;
+    public float getDeltaTimeMultiplier() {
+        return deltaTimeMultiplier;
     }
 
     /*public void run2() {

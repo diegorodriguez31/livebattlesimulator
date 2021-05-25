@@ -12,11 +12,11 @@ public class SpeedControlPanel extends JPanel{
         var playButton = new JButton("⏸");
         this.add(playButton);
         playButton.addActionListener(actionEvent -> {
-            if (model.getSpeedMut()==0.0f){
-                model.setSpeedMut(1.0f);
+            if (model.getDeltaTimeMultiplier()==0.0f){
+                model.setDeltaTimeMultiplier(1.0f);
                 playButton.setText("⏸");
             }else {
-                model.setSpeedMut(0.0f);
+                model.setDeltaTimeMultiplier(0.0f);
                 playButton.setText("▶");
             }
         });
