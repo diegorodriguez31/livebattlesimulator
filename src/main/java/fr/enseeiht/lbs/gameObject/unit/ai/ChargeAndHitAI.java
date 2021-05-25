@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ChargeAndHitAI implements AI {
 
-    private long cdr;
+    private long cooldown;
 
     private IAttackAction attack;
     private IMovementAction movement;
@@ -23,7 +23,7 @@ public class ChargeAndHitAI implements AI {
     public ChargeAndHitAI(IAttackAction attack, IMovementAction movement) {
         this.attack = attack;
         this.movement = movement;
-        cdr=0;
+        cooldown =0;
     }
 
     @Override
@@ -33,11 +33,11 @@ public class ChargeAndHitAI implements AI {
             attack.setTarget(target);
         }
         if (target.getPosition().sub(self.getPosition()).sqrSize()<self.getStats().getStatisticValue(Statistic.REACH)){
-            if (cdr<0){
-                cdr = (long) self.getStats().getStatisticValue(Statistic.COOLDOWN);
+            if (cooldown < 0){
+                cooldown = (long) self.getStats().getStatisticValue(Statistic.COOLDOWN);
                 return Arrays.asList(attack);
             }else{
-                cdr-=deltaTime;
+                cooldown -= deltaTime;
                 return new ArrayList<>();
             }
         }else{

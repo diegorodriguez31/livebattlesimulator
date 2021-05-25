@@ -4,6 +4,7 @@ import main.java.fr.enseeiht.lbs.gameObject.GameObject;
 import main.java.fr.enseeiht.lbs.gameObject.unit.Unit;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,8 +48,8 @@ public class Battle {
             for (GameObject object : objects) {
                 object.update(this, deltaTime);
             }
-            for (var it = endObjects.iterator();it.hasNext();) {
-                var o = it.next();
+            for (Iterator<GameObject> it = endObjects.iterator(); it.hasNext();) {
+                GameObject o = it.next();
                 o.end(this);
                 objects.remove(o);
                 it.remove();
