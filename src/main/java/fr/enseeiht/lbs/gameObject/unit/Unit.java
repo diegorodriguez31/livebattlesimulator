@@ -12,7 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Unit extends Entity {
-    private AI ai;
+    public Unit(float x, float y) {
+		super(x, y);
+	}
+
+	private AI ai;
     List<Buff> buffs = new ArrayList<>();
 
     @Override

@@ -12,7 +12,9 @@ public class Infantryman extends Unit {
 
     protected long cooldown;
 
-    public Infantryman(double health, double speed, double damage, long cooldown) {
+    public Infantryman(float x, float y, double health, double speed, double damage, long cooldown) {
+    	super(x, y);
+    	
         this.health = health;
 
         stats = new Stats();

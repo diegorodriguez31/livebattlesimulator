@@ -3,6 +3,7 @@ package main.java.fr.enseeiht.lbs.battleSimulator;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,6 +16,7 @@ public class Battle {
     private long lastTime;
     
     private PropertyChangeSupport propertyChangeSupport;
+    private String propertyGameObjects = "gameObjects";
 
     Objectif objectif;
     List<Army> armies;
@@ -42,9 +44,11 @@ public class Battle {
     public void run(){
         lastTime = System.currentTimeMillis();
         long tempTotal = 0;
+        
+        //notify Observers that battle is starting
+        this.propertyChangeSupport.firePropertyChange(propertyGameObjects, null, this.objects);
+        
         while(objectif.getWinner(this) == null){
-        	//save initial state 
-        	List<GameObject> oldGameObjects = this.objects;
         	
             long deltaTime = System.currentTimeMillis()-lastTime;
             lastTime = System.currentTimeMillis();
@@ -57,7 +61,8 @@ public class Battle {
             }
             
             //notify Observers
-            this.propertyChangeSupport.firePropertyChange("gameObjects", oldGameObjects, this.objects);
+            this.propertyChangeSupport.firePropertyChange(propertyGameObjects, null, this.objects);
+
             
             try {
                 Thread.sleep(1000/60);
@@ -70,8 +75,13 @@ public class Battle {
     }
     
     public void addGameObjectsObserver(PropertyChangeListener propertyChangeListener) {
-    	propertyChangeSupport.addPropertyChangeListener("ameObjects", propertyChangeListener);
+    	//Only adds the listener once
+    	if (! Arrays.asList(propertyChangeSupport.getPropertyChangeListeners(propertyGameObjects)).contains(propertyChangeListener)) {
+    		propertyChangeSupport.addPropertyChangeListener(propertyGameObjects, propertyChangeListener);    		
+    	}
 	}
+    
+    
 
     /*public void run2() {
         Infantryman attaquant = new Infantryman(100, 1, 10);

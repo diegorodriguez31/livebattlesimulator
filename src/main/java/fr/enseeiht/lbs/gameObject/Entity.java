@@ -4,6 +4,10 @@ public abstract class Entity extends GameObject {
     protected double health;
     protected Stats stats;
     protected Vector2 position;
+    
+    public Entity(float x, float y) {
+    	this.position = new Vector2(x, y);
+    }
 
     public Stats getStats() {
         return stats;
@@ -23,4 +27,10 @@ public abstract class Entity extends GameObject {
     public boolean isDead(){
         return getHealth()<=0;
     }
+
+	public Vector2 getPosition() {
+		return position;
+	}
+
+	
 }
