@@ -22,6 +22,8 @@ public class Battle {
     List<Army> armies;
     List<GameObject> objects;
 
+    private float speedMut = 1;
+
     private Battle() {
     }
 
@@ -51,7 +53,7 @@ public class Battle {
             System.out.println("total time" + tempTotal);
             Iterator<GameObject> it = objects.stream().iterator();
             while(it.hasNext()){
-                it.next().update(this, deltaTime);
+                it.next().update(this, (long) (deltaTime*speedMut));
             }
 
             try {
@@ -60,8 +62,14 @@ public class Battle {
                 System.err.println(e.getMessage());
             }
         }
+    }
 
+    public void setSpeedMut(float speedMut) {
+        this.speedMut = speedMut;
+    }
 
+    public float getSpeedMut() {
+        return speedMut;
     }
 
     /*public void run2() {
