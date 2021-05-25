@@ -1,46 +1,31 @@
 package main.java.fr.enseeiht.lbs.gameObject.unit;
 
-import main.java.fr.enseeiht.lbs.battleSimulator.Battle;
-import main.java.fr.enseeiht.lbs.gameObject.unit.action.AttackAction;
+import main.java.fr.enseeiht.lbs.gameObject.Vector2;
 import main.java.fr.enseeiht.lbs.gameObject.unit.action.BuffAction;
-import main.java.fr.enseeiht.lbs.gameObject.unit.buff.Buff;
+import main.java.fr.enseeiht.lbs.gameObject.unit.action.FlightMovementAction;
+import main.java.fr.enseeiht.lbs.gameObject.unit.ai.ChargeAndHitAI;
 import main.java.fr.enseeiht.lbs.gameObject.unit.buff.FireDebuff;
 import main.java.fr.enseeiht.lbs.gameObject.unit.visitors.StatModifierBuffVisitor;
 import main.java.fr.enseeiht.lbs.gameObject.unit.visitors.ShieldManSBuffVisitor;
 import main.java.fr.enseeiht.lbs.gameObject.Statistic;
-import main.java.fr.enseeiht.lbs.gameObject.unit.visitors.TicBuffVisitor;
 
 public class Shieldman extends Infantryman {
 
-    public Shieldman(double health, double speed, double damage, double armor, long cooldown) {
-        super(health, speed, damage, cooldown);
+    public Shieldman(Vector2 position, double health, double speed, double damage, double armor, long cooldown, double reach) {
+        super(position, health, speed, damage, cooldown, reach);
         stats.addStat(Statistic.ARMOR, armor);
+        ai = new ChargeAndHitAI(new BuffAction(new FireDebuff()), new FlightMovementAction(this));
     }
 
     @Override
     public void status(){
         System.out.println("Shieldman status :");
+        System.out.println("position : "+ getPosition());
         System.out.println("health : " + getHealth());
         System.out.println("armure : " + getStats().getStatisticValue(Statistic.ARMOR));
         System.out.println("speed : " + getStats().getStatisticValue(Statistic.SPEED));
         System.out.println("damage : " + getStats().getStatisticValue(Statistic.DAMAGE));
         System.out.println("-----------------------------------------");
-    }
-
-    @Override
-    public void update(Battle context, long deltaTime) {
-        TicBuffVisitor visitor = getUpdateVisitor(deltaTime);
-        for (Buff buff : buffs) {
-            buff.accept(visitor);
-        }
-
-        // actions made by the unit
-        cooldown-=deltaTime;
-        if (cooldown<0){
-            new AttackAction(this, context.getEnnemyArmies(this).get(0).getUnits().get(0)).execute();
-            cooldown = (long) getStats().getStatisticValue(Statistic.COOLDOWN);
-        }
-        status();
     }
 
     @Override
