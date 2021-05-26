@@ -11,8 +11,8 @@ import main.java.fr.enseeiht.lbs.gameObject.Statistic;
 
 public class Shieldman extends Infantryman {
 
-    public Shieldman(Vector2 position, double health, double speed, double damage, double armor, long cooldown, double reach) {
-        super(position, health, speed, damage, cooldown, reach);
+    public Shieldman(Vector2 position, double health, double speed, double damage, double armor, long cooldown, double range) {
+        super(position, health, speed, damage, cooldown, range);
         stats.addStat(Statistic.ARMOR, armor);
         ai = new ChargeAndHitAI(new BuffAction(new FireDebuff()), new FlightMovementAction(this));
     }

@@ -11,14 +11,14 @@ import main.java.fr.enseeiht.lbs.gameObject.unit.ai.ChargeAndHitAI;
 public class Infantryman extends Unit {
     protected long cooldown;
 
-    public Infantryman(Vector2 position, double health, double speed, double damage, long cooldown, double reach) {
+    public Infantryman(Vector2 position, double health, double speed, double damage, long cooldown, double range) {
         super(health, position);
 
         stats = new Stats();
         stats.addStat(Statistic.SPEED, speed);
         stats.addStat(Statistic.DAMAGE, damage);
         stats.addStat(Statistic.COOLDOWN, cooldown);
-        stats.addStat(Statistic.RANGE, reach);
+        stats.addStat(Statistic.RANGE, range);
         ai = new ChargeAndHitAI(new AttackAction(this), new FlightMovementAction(this));
     }
 
