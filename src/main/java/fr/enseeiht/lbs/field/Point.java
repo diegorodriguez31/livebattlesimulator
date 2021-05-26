@@ -74,7 +74,7 @@ public class Point {
         this.y += dy;
     }
 
-    
+
 
 //  Gestion de la couleur
 
