@@ -10,8 +10,8 @@ import main.java.fr.enseeiht.lbs.gameObject.unit.ai.ChargeAndHitAI;
 
 public class Infantryman extends Unit {
 
-    public Infantryman(Vector2 position, double health, double speed, double damage, long cooldown, double reach) {
-        super(health, position);
+    public Infantryman(String name, Vector2 position, double health, double speed, double damage, long cooldown, double reach) {
+        super(name, health, position);
 
         stats = new Stats();
         stats.addStat(Statistic.SPEED, speed);
@@ -34,8 +34,6 @@ public class Infantryman extends Unit {
     public void start(Battle context) {
 
     }
-
-
 
     @Override
     public void end(Battle context) {

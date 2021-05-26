@@ -18,11 +18,12 @@ public abstract class Unit extends Entity {
     protected AI ai;
     List<Buff> buffs = new ArrayList<>();
     protected long cooldown;
+    private String name;
 
     // create basic fighting unit
-    public Unit(double health, Vector2 vector, double damage, long cooldown, double speed, double range, double accuracy, double agility) {
+    public Unit(String name, double health, Vector2 vector, double damage, long cooldown, double speed, double range, double accuracy, double agility) {
         super(health, vector);
-
+        this.name = name;
         stats = new Stats();
         stats.addStat(Statistic.DAMAGE, damage);
         stats.addStat(Statistic.COOLDOWN, cooldown);
@@ -33,8 +34,9 @@ public abstract class Unit extends Entity {
         this.cooldown = cooldown;
     }
 
-    public Unit(double health, Vector2 position) {
+    public Unit(String name, double health, Vector2 position) {
         super(health, position);
+        this.name = name;
     }
 
     @Override
@@ -46,7 +48,14 @@ public abstract class Unit extends Entity {
         return visitor.getStats();
     }
 
-    public abstract void status();
+    public void status() {
+        System.out.println(this.name + " status :");
+        System.out.println("health : " + getHealth());
+        System.out.println("damage : " + getStats().getStatisticValue(Statistic.DAMAGE));
+        System.out.println("speed : " + getStats().getStatisticValue(Statistic.SPEED));
+        System.out.println("-----------------------------------------");
+
+    }
 
     // method inspired by Unity Game Motor
     // this is the behaviour of the unit !!!

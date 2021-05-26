@@ -3,6 +3,7 @@ package main.java.fr.enseeiht.lbs.gameObject.unit;
 public class RawStatsManager {
 
     // KNIGHT
+    public static final String KNIGHT_NAME = "Knight";
     public static final double KNIGHT_HEALTH = 100;
     public static final double KNIGHT_DAMAGE = 30;
     public static final long KNIGHT_COOLDOWN = 1;

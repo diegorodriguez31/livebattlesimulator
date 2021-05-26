@@ -1,34 +1,38 @@
 package main.java.fr.enseeiht.lbs.gameObject.unit.visitors;
 
-import main.java.fr.enseeiht.lbs.gameObject.Statistic;
 import main.java.fr.enseeiht.lbs.gameObject.Stats;
+import main.java.fr.enseeiht.lbs.gameObject.unit.Knight;
 import main.java.fr.enseeiht.lbs.gameObject.unit.buff.FireDebuff;
 import main.java.fr.enseeiht.lbs.gameObject.unit.buff.FreezeDebuff;
 import main.java.fr.enseeiht.lbs.gameObject.unit.buff.SlowDebuff;
 
-public class StatModifierBuffVisitor implements BuffVisitor {
-    Stats stats;
+public class KnightBuffVisitor extends StatModifierBuffVisitor {
+    Knight target;
 
-    public StatModifierBuffVisitor(Stats stats){
-        this.stats = new Stats(stats);
+    public KnightBuffVisitor(Stats stats, Knight target) {
+        super(stats);
+        this.target = target;
     }
 
     @Override
     public void visit(FireDebuff buff) {
-        stats.addStat(Statistic.ARMOR, 0);
+        if (!target.hasArmor()) {
+            super.visit(buff);
+        }
     }
 
     @Override
     public void visit(FreezeDebuff buff) {
-        stats.addStat(Statistic.SPEED, 0);
+        if (!target.hasArmor()) {
+            super.visit(buff);
+        }
     }
 
     @Override
     public void visit(SlowDebuff buff) {
-        stats.addStat(Statistic.SPEED, buff.getSlow() * getStats().getStatisticValue(Statistic.SPEED));
+        if (!target.hasArmor()) {
+            super.visit(buff);
+        }
     }
 
-    public Stats getStats() {
-        return stats;
-    }
 }

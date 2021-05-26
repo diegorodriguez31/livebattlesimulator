@@ -5,7 +5,7 @@ import main.java.fr.enseeiht.lbs.gameObject.unit.buff.FireDebuff;
 import main.java.fr.enseeiht.lbs.gameObject.unit.buff.FreezeDebuff;
 import main.java.fr.enseeiht.lbs.gameObject.unit.buff.SlowDebuff;
 
-public class TicBuffVisitor implements IBuffVisitor{
+public class TicBuffVisitor implements BuffVisitor {
 
     private static final double FIRE_DEBUFF_DAMAGE = 20.0;
     private static final double FREEZE_DEBUFF_DAMAGE = 10.0;
@@ -30,6 +30,6 @@ public class TicBuffVisitor implements IBuffVisitor{
 
     @Override
     public void visit(SlowDebuff buff) {
-
+        // do nothing
     }
 }
