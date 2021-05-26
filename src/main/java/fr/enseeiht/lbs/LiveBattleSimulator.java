@@ -3,13 +3,11 @@ package main.java.fr.enseeiht.lbs;
 import main.java.fr.enseeiht.lbs.battleSimulator.Army;
 import main.java.fr.enseeiht.lbs.battleSimulator.Battle;
 import main.java.fr.enseeiht.lbs.battleSimulator.Extermination;
-import main.java.fr.enseeiht.lbs.controller.SpeedControlPanel;
-import main.java.fr.enseeiht.lbs.controller.gui.SpeedControlGUI;
+import main.java.fr.enseeiht.lbs.controller.gui.SpeedGUI;
 import main.java.fr.enseeiht.lbs.gameObject.unit.Infantryman;
 import main.java.fr.enseeiht.lbs.gameObject.unit.Shieldman;
 import main.java.fr.enseeiht.lbs.gameObject.unit.Unit;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +24,7 @@ public class LiveBattleSimulator {
                 u.setReady();
             }
         }
-        new SpeedControlGUI(battle);
+        new SpeedGUI(battle);
         battle.run();
     }
 
