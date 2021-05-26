@@ -3,6 +3,8 @@ package main.java.fr.enseeiht.lbs.gameObject.unit;
 import main.java.fr.enseeiht.lbs.battleSimulator.Battle;
 import main.java.fr.enseeiht.lbs.gameObject.Statistic;
 import main.java.fr.enseeiht.lbs.gameObject.Stats;
+import main.java.fr.enseeiht.lbs.gameObject.Vector2;
+import main.java.fr.enseeiht.lbs.gameObject.unit.action.Action;
 import main.java.fr.enseeiht.lbs.gameObject.unit.ai.AI;
 import main.java.fr.enseeiht.lbs.gameObject.unit.buff.Buff;
 import main.java.fr.enseeiht.lbs.gameObject.Entity;
@@ -13,27 +15,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Unit extends Entity {
-    private AI ai;
+    protected AI ai;
     List<Buff> buffs = new ArrayList<>();
     protected long cooldown;
 
     // create basic fighting unit
-    public Unit(double health, double damage, long cooldown, double speed, double range, double accuracy, double agility) {
-        this.health = health;
+    public Unit(double health, Vector2 vector, double damage, long cooldown, double speed, double range, double accuracy, double agility) {
+        super(health, vector);
 
         stats = new Stats();
         stats.addStat(Statistic.DAMAGE, damage);
         stats.addStat(Statistic.COOLDOWN, cooldown);
         stats.addStat(Statistic.SPEED, speed);
-        stats.addStat(Statistic.RANGE, range);
+        stats.addStat(Statistic.REACH, range);
         stats.addStat(Statistic.ACCURACY, accuracy);
         stats.addStat(Statistic.AGILITY, agility);
         this.cooldown = cooldown;
     }
 
-    // create basic structures
-    public Unit(double health) {
-        this.health = health;
+    public Unit(double health, Vector2 position) {
+        super(health, position);
     }
 
     @Override
@@ -45,11 +46,17 @@ public abstract class Unit extends Entity {
         return visitor.getStats();
     }
 
+    public abstract void status();
+
     // method inspired by Unity Game Motor
     // this is the behaviour of the unit !!!
     @Override
     public void update(Battle context, long deltaTime) {
-
+        for (Action a :
+                ai.getActions(this,context,deltaTime)) {
+            a.execute(deltaTime);
+        }
+        status();
         // update buffs
         TicBuffVisitor visitor = getUpdateVisitor(deltaTime);
         for (Buff buff : buffs) {

@@ -27,7 +27,7 @@ public class Vector2 {
      * @param other
      * @return the addition result
      */
-    Vector2 add(Vector2 other){
+    public Vector2 add(Vector2 other){
         return new Vector2(this.x + other.x, this.y + other.y);
     }
 
@@ -36,7 +36,7 @@ public class Vector2 {
      * @param other
      * @return the subscription result
      */
-    Vector2 sub(Vector2 other){
+    public Vector2 sub(Vector2 other){
         return new Vector2(this.x - other.x, this.y - other.y);
     }
 
@@ -45,7 +45,7 @@ public class Vector2 {
      * @param other
      * @return the incremented main.java.fr.enseeiht.lbs.gameObject.Vector2
      */
-    Vector2 inc(Vector2 other){
+    public Vector2 inc(Vector2 other){
         this.x += other.x;
         this.y += other.y;
         return this;
@@ -56,7 +56,7 @@ public class Vector2 {
      * @param other
      * @return the decrement main.java.fr.enseeiht.lbs.gameObject.Vector2
      */
-    Vector2 dec(Vector2 other){
+    public Vector2 dec(Vector2 other){
         this.x -= other.x;
         this.y -= other.y;
         return this;
@@ -66,7 +66,7 @@ public class Vector2 {
      * Return the size of the vector
      * @return the size
      */
-    float size(){
+    public float size(){
         return (float) Math.sqrt(this.sqrSize());
     }
 
@@ -75,7 +75,7 @@ public class Vector2 {
      * Faster than plain size can be used for size comparaison
      * @return the size
      */
-    float sqrSize(){
+    public float sqrSize(){
         return this.x * this.x + this.y * this.y;
     }
 
@@ -84,7 +84,7 @@ public class Vector2 {
      * @param scale factor
      * @return Scaled vector
      */
-    Vector2 scale(float scale){
+    public Vector2 scale(float scale){
         return new Vector2(this.x * scale, this.y * scale);
     }
 
@@ -92,7 +92,7 @@ public class Vector2 {
      * Scales the vector to be of lenght 1
      * @return The normalized vector
      */
-    Vector2 normalize(){
+    public Vector2 normalize(){
         return scale(1/size());
     }
 
@@ -100,7 +100,12 @@ public class Vector2 {
      * Scales the vector to be of a given length
      * @return The normalized vector
      */
-    Vector2 normalize(float length){
+    public Vector2 normalize(float length){
         return scale(length/size());
+    }
+
+    @Override
+    public String toString() {
+        return "("+x+", "+y+")";
     }
 }

@@ -4,18 +4,25 @@ import main.java.fr.enseeiht.lbs.gameObject.Statistic;
 import main.java.fr.enseeiht.lbs.gameObject.unit.Unit;
 import main.java.fr.enseeiht.lbs.gameObject.unit.buff.Buff;
 
-public class BuffAction implements Action {
-    Unit victime;
+public class BuffAction implements IAttackAction {
+    Unit target;
     Buff buff;
 
-    public BuffAction(Unit victime, Buff buff) {
+    public BuffAction(Buff buff) {
         this.buff = buff;
-        this.victime = victime;
+        this.target = null;
     }
 
     @Override
-    public void execute() {
-        System.out.println("execute debuff");
-        victime.addBuffs(buff);
+    public void execute(long deltaTime) {
+        if (target == null||buff==null) {
+            return;
+        }
+        target.addBuffs(buff);
+    }
+
+    @Override
+    public void setTarget(Unit unit) {
+        target = unit;
     }
 }

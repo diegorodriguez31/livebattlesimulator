@@ -5,6 +5,11 @@ public abstract class Entity extends GameObject {
     protected Stats stats;
     protected Vector2 position;
 
+    public Entity(double health, Vector2 position) {
+        this.health = health;
+        this.position = position;
+    }
+
     public Stats getStats() {
         return stats;
     }
@@ -18,6 +23,10 @@ public abstract class Entity extends GameObject {
         if (isDead()){
             this.removeFromBattle();
         }
+    }
+
+    public Vector2 getPosition() {
+        return position;
     }
 
     public boolean isDead(){

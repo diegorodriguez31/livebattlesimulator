@@ -2,6 +2,7 @@ package main.java.fr.enseeiht.lbs.gameObject.unit;
 
 import main.java.fr.enseeiht.lbs.battleSimulator.Battle;
 import main.java.fr.enseeiht.lbs.gameObject.Statistic;
+import main.java.fr.enseeiht.lbs.gameObject.Vector2;
 import main.java.fr.enseeiht.lbs.gameObject.unit.action.BuffAction;
 import main.java.fr.enseeiht.lbs.gameObject.unit.buff.FireDebuff;
 import main.java.fr.enseeiht.lbs.gameObject.unit.visitors.ShieldManSBuffVisitor;
@@ -12,32 +13,18 @@ import static main.java.fr.enseeiht.lbs.gameObject.unit.RawStatsManager.*;
 
 public class Knight extends Unit{
 
-    public Knight(double health, double damage, long cooldown, double speed, double range, double accuracy, double agility, double armor) {
-        super(health, damage, cooldown, speed, range, accuracy, agility);
+    public Knight(double health, Vector2 vector, double damage, long cooldown, double speed, double range, double accuracy, double agility, double armor) {
+        super(health, vector, damage, cooldown, speed, range, accuracy, agility);
         stats.addStat(ARMOR, armor);
     }
 
-    public Knight() {
-        this(KNIGHT_HEALTH, KNIGHT_DAMAGE, KNIGHT_COOLDOWN, KNIGHT_SPEED, KNIGHT_RANGE, KNIGHT_ACCURACY,KNIGHT_AGILITY, KNIGHT_ARMOR);
+    public Knight(Vector2 vector) {
+        this(KNIGHT_HEALTH, vector, KNIGHT_DAMAGE, KNIGHT_COOLDOWN, KNIGHT_SPEED, KNIGHT_RANGE, KNIGHT_ACCURACY,KNIGHT_AGILITY, KNIGHT_ARMOR);
     }
-
 
     @Override
     public void start(Battle context) {
 
-    }
-
-    @Override
-    public void update(Battle context, long deltaTime) {
-        super.update(context, deltaTime);
-
-        // actions made by the unit
-        cooldown-=deltaTime;
-        if (cooldown<0){
-            new BuffAction(context.getEnnemyArmies(this).get(0).getUnits().get(0), new FireDebuff()).execute();
-            cooldown = (long) getStats().getStatisticValue(Statistic.COOLDOWN);
-        }
-        status();
     }
 
     public void status(){
