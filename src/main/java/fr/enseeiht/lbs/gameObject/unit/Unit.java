@@ -2,6 +2,7 @@ package main.java.fr.enseeiht.lbs.gameObject.unit;
 
 import main.java.fr.enseeiht.lbs.battleSimulator.Battle;
 import main.java.fr.enseeiht.lbs.gameObject.Stats;
+import main.java.fr.enseeiht.lbs.gameObject.Vector2;
 import main.java.fr.enseeiht.lbs.gameObject.unit.ai.AI;
 import main.java.fr.enseeiht.lbs.gameObject.unit.buff.Buff;
 import main.java.fr.enseeiht.lbs.gameObject.Entity;
@@ -12,7 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Unit extends Entity {
-    private AI ai;
+    public Unit(Vector2 position) {
+		super(position);
+	}
+
+	private AI ai;
     List<Buff> buffs = new ArrayList<>();
 
     @Override
