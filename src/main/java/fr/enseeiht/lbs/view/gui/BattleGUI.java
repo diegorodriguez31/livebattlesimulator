@@ -5,7 +5,7 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
-import main.java.fr.enseeiht.lbs.battleSimulator.Battle;
+import main.java.fr.enseeiht.lbs.model.battleSimulator.Battle;
 import main.java.fr.enseeiht.lbs.view.content.BattleView;
 
 @SuppressWarnings("serial")
