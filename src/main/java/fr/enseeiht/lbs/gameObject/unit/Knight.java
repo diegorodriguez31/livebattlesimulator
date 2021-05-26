@@ -14,7 +14,7 @@ import main.java.fr.enseeiht.lbs.gameObject.unit.visitors.TicBuffVisitor;
 import static main.java.fr.enseeiht.lbs.gameObject.Statistic.*;
 import static main.java.fr.enseeiht.lbs.gameObject.unit.RawStatsManager.*;
 
-public class Knight extends Unit{
+public class Knight extends Unit {
 
     public Knight(String name, double health, Vector2 vector, double damage, long cooldown, double speed, double range, double accuracy, double agility, double armor) {
         super(name, health, vector, damage, cooldown, speed, range, accuracy, agility);
@@ -34,7 +34,8 @@ public class Knight extends Unit{
     @Override
     public void status(){
         super.status();
-        System.out.println("armor : " + getStats().getStatisticValue(ARMOR));
+        System.out.println("\tArmor : " + getStats().getStatisticValue(ARMOR));
+        System.out.println("\n");
     }
 
     @Override
@@ -44,8 +45,12 @@ public class Knight extends Unit{
 
     @Override
     public void receiveDamage(double damage) {
-        double reducedDamage = damage * (getStats().getStatisticValue(ARMOR)/100);
-        super.receiveDamage(reducedDamage);
+        if (hasArmor()) {
+            double reducedDamage = damage * (getStats().getStatisticValue(ARMOR) / 100);
+            super.receiveDamage(reducedDamage);
+        } else {
+            super.receiveDamage(damage);
+        }
     }
 
     protected TicBuffVisitor getUpdateVisitor(long deltaTime){

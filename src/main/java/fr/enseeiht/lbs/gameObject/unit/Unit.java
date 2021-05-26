@@ -50,11 +50,13 @@ public abstract class Unit extends Entity {
 
     public void status() {
         System.out.println(this.name + " status :");
-        System.out.println("health : " + getHealth());
-        System.out.println("damage : " + getStats().getStatisticValue(Statistic.DAMAGE));
-        System.out.println("speed : " + getStats().getStatisticValue(Statistic.SPEED));
-        System.out.println("-----------------------------------------");
-
+        System.out.println("\tHealth : " + getHealth());
+        System.out.println("\tDamage : " + getStats().getStatisticValue(Statistic.DAMAGE));
+        System.out.println("\tCooldown : " + getStats().getStatisticValue(Statistic.COOLDOWN));
+        System.out.println("\tSpeed : " + getStats().getStatisticValue(Statistic.SPEED));
+        System.out.println("\tRange : " + getStats().getStatisticValue(Statistic.REACH));
+        System.out.println("\tAccuracy : " + getStats().getStatisticValue(Statistic.ACCURACY));
+        System.out.println("\tAgility : " + getStats().getStatisticValue(Statistic.AGILITY));
     }
 
     // method inspired by Unity Game Motor
