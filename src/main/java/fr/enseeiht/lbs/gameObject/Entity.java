@@ -4,6 +4,10 @@ public abstract class Entity extends GameObject {
     protected double health;
     protected Stats stats;
     protected Vector2 position;
+    
+    public Entity(Vector2 position) {
+    	this.position = position;
+    }
 
     public Entity(double health, Vector2 position) {
         this.health = health;

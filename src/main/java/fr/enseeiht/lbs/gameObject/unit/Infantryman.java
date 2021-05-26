@@ -1,14 +1,16 @@
 package main.java.fr.enseeiht.lbs.gameObject.unit;
 
 import main.java.fr.enseeiht.lbs.battleSimulator.Battle;
-import main.java.fr.enseeiht.lbs.gameObject.Stats;
 import main.java.fr.enseeiht.lbs.gameObject.Statistic;
+import main.java.fr.enseeiht.lbs.gameObject.Stats;
 import main.java.fr.enseeiht.lbs.gameObject.Vector2;
 import main.java.fr.enseeiht.lbs.gameObject.unit.action.AttackAction;
 import main.java.fr.enseeiht.lbs.gameObject.unit.action.FlightMovementAction;
 import main.java.fr.enseeiht.lbs.gameObject.unit.ai.ChargeAndHitAI;
 
 public class Infantryman extends Unit {
+    protected long cooldown;
+
     public Infantryman(Vector2 position, double health, double speed, double damage, long cooldown, double reach) {
         super(health, position);
 
