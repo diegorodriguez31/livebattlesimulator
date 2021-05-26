@@ -22,6 +22,6 @@ public class FlightMovementAction implements IMovementAction {
         this.self.getPosition().inc(
                 target.sub(self.getPosition())
                         .normalize(
-                                (float) self.getStats().getStatisticValue(Statistic.SPEED)*deltaTime));
+                                (float) self.getStats().getStatisticValue(Statistic.SPEED)*deltaTime/1000));
     }
 }

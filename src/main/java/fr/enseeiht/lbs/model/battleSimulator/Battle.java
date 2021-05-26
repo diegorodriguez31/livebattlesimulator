@@ -1,9 +1,5 @@
 package main.java.fr.enseeiht.lbs.model.battleSimulator;
 
-import main.java.fr.enseeiht.lbs.gameObject.GameObject;
-import main.java.fr.enseeiht.lbs.gameObject.unit.Unit;
-import main.java.fr.enseeiht.lbs.gameObject.GameObject;
-import main.java.fr.enseeiht.lbs.gameObject.unit.Unit;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
