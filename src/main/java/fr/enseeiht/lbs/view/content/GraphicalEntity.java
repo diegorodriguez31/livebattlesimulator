@@ -16,8 +16,8 @@ public class GraphicalEntity extends Component{
 	}
 
 	@Override
-	public void paint(Graphics g) {
-		super.paint(g);
-		((Graphics2D) g).drawRect(((int)position.x)-5, ((int)position.y)-5, 11, 11);
+	public void paint(Graphics graphics) {
+		super.paint(graphics);
+		((Graphics2D) graphics).drawRect(((int)position.x)-5, ((int)position.y)-5, 11, 11);
 	}
 }
