@@ -80,6 +80,7 @@ public abstract class Unit extends Entity {
     protected StatModifierBuffVisitor getStatVisitor(){
         return new StatModifierBuffVisitor(stats);
     }
+
     protected TicBuffVisitor getUpdateVisitor(long deltaTime){
         return new TicBuffVisitor(deltaTime,this);
     }

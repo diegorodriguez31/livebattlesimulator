@@ -19,6 +19,7 @@ public class BuffAction implements IAttackAction {
             return;
         }
         target.addBuffs(buff);
+        System.out.println("DEBUFF !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     }
 
     @Override

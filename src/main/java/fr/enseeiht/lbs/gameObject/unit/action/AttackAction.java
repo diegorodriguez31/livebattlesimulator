@@ -20,6 +20,7 @@ public class AttackAction implements IAttackAction {
             return;
         }
         target.receiveDamage(attaquant.getStats().getStatisticValue(Statistic.DAMAGE));
+        System.out.println("ATTAAAAAAAAQUE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     }
 
     @Override
