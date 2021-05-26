@@ -8,7 +8,7 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-import main.java.fr.enseeiht.lbs.gameObject.Entity;
+import main.java.fr.enseeiht.lbs.model.gameObject.Entity;
 
 @SuppressWarnings("serial")
 public class BattleView extends JPanel implements PropertyChangeListener{
