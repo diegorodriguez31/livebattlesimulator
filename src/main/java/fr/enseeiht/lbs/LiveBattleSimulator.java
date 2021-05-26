@@ -3,6 +3,7 @@ package main.java.fr.enseeiht.lbs;
 import java.util.ArrayList;
 import java.util.List;
 
+import main.java.fr.enseeiht.lbs.controller.gui.SpeedGUI;
 import main.java.fr.enseeiht.lbs.model.battleSimulator.Army;
 import main.java.fr.enseeiht.lbs.model.battleSimulator.Battle;
 import main.java.fr.enseeiht.lbs.model.battleSimulator.Extermination;
@@ -25,11 +26,11 @@ public class LiveBattleSimulator {
                 u.setReady();
             }
         }
+        new SpeedGUI(battle);
 
         new BattleGUI(battle);
         
         battle.run();
-        
     }
 
     public static List<Army> createArmies(){
