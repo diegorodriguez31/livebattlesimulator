@@ -37,11 +37,11 @@ public class LiveBattleSimulator {
         List<Army> armies = new ArrayList<>();
 
         Army army1 = new Army();
-        Unit unit11 = new Infantryman(new Vector2(250,200), 100, 1, 10, 1000);
+        Unit unit11 = new Infantryman(new Vector2(250, 10), 100, 1.5, 80, 500, 10);
         army1.addUnit(unit11);
 
         Army army2 = new Army();
-        Unit unit21 = new Shieldman(new Vector2(250,260), 200, 1, 10, 50, 500);
+        Unit unit21 = new Shieldman(new Vector2(250, 200), 200, 2.5, 10, 50, 8000, 3);
         army2.addUnit(unit21);
 
         armies.add(army1);

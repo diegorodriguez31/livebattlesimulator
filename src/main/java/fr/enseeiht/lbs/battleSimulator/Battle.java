@@ -2,6 +2,8 @@ package main.java.fr.enseeiht.lbs.battleSimulator;
 
 import main.java.fr.enseeiht.lbs.gameObject.GameObject;
 import main.java.fr.enseeiht.lbs.gameObject.unit.Unit;
+import main.java.fr.enseeiht.lbs.gameObject.GameObject;
+import main.java.fr.enseeiht.lbs.gameObject.unit.Unit;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -10,9 +12,6 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import main.java.fr.enseeiht.lbs.gameObject.GameObject;
-import main.java.fr.enseeiht.lbs.gameObject.unit.Unit;
 
 public class Battle {
 
@@ -24,6 +23,7 @@ public class Battle {
     Objectif objectif;
     List<Army> armies;
     List<GameObject> objects;
+    List<GameObject> endObjects;
 
     private float deltaTimeMultiplier = 1.0f;
 
@@ -44,6 +44,7 @@ public class Battle {
         this.objectif = objectif;
         this.armies = armies;
         objects = new ArrayList<>();
+        endObjects = new ArrayList<>();
     }
 
     public void run(){
@@ -59,9 +60,14 @@ public class Battle {
             tempTotal += deltaTime;
             System.out.println("delta time" + deltaTime);
             System.out.println("total time" + tempTotal);
-            Iterator<GameObject> it = objects.stream().iterator();
-            while(it.hasNext()){
-                it.next().update(this, (long) (deltaTime * deltaTimeMultiplier));
+            for (GameObject object : objects) {
+                object.update(this, (long) (deltaTime * deltaTimeMultiplier));
+            }
+            for (Iterator<GameObject> it = endObjects.iterator(); it.hasNext();) {
+                GameObject o = it.next();
+                o.end(this);
+                objects.remove(o);
+                it.remove();
             }
 
             //notify Observers
@@ -92,37 +98,6 @@ public class Battle {
 
 
 
-    /*public void run2() {
-        Infantryman attaquant = new Infantryman(100, 1, 10);
-        attaquant.status();
-
-        Shieldman victime = new Shieldman(100, 1, 10, 50);
-        victime.status();
-        System.out.println("Init OK\n");
-
-        new AttackAction(attaquant, victime).execute();
-
-        System.out.println("Victime attaquée !\n");
-        victime.status();
-
-        new BuffAction(victime, new FreezeDebuff()).execute();
-        System.out.println("Victime FIRE débuff !\n");
-        victime.status();
-
-        victime.update(this, 1);
-        victime.status();
-
-        victime.update(this, 1);
-        victime.status();
-
-        victime.update(this, 1);
-        victime.status();
-
-        new BuffAction(attaquant, new FreezeDebuff()).execute();
-        System.out.println("Freeze sur attquant débuff !\n");
-        attaquant.status();
-    }*/
-
     public List<Army> getArmies() {
         return armies;
     }
@@ -131,11 +106,21 @@ public class Battle {
         return armies.stream().filter(army -> !army.getUnits().contains(unit)).collect(Collectors.toList());
     }
 
+    public Unit findClosestEnemy(Unit unit){
+        return getEnnemyArmies(unit).stream()
+                .flatMap(army -> army.getUnits().stream())
+                .reduce(getEnnemyArmies(unit).get(0).getUnits().get(0),
+                        (unit1, unit2) -> (unit.getPosition().sub(unit1.getPosition()).sqrSize() < unit.getPosition().sub(unit2.getPosition()).sqrSize() || unit2.isDead() ?
+                                unit1 :
+                                unit2)
+                );
+    }
+
     public void addGameObject(GameObject gameObject) {
         objects.add(gameObject);
     }
 
     public void removeGameObject(GameObject gameObject) {
-        objects.remove(gameObject);
+        endObjects.add(gameObject);
     }
 }
