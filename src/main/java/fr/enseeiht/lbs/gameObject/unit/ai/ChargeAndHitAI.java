@@ -32,7 +32,7 @@ public class ChargeAndHitAI implements AI {
             target = context.findClosestEnemy(self);
             attack.setTarget(target);
         }
-        if (target.getPosition().sub(self.getPosition()).sqrSize()<self.getStats().getStatisticValue(Statistic.REACH)){
+        if (target.getPosition().sub(self.getPosition()).sqrSize()<self.getStats().getStatisticValue(Statistic.RANGE)){
             if (cooldown < 0){
                 cooldown = (long) self.getStats().getStatisticValue(Statistic.COOLDOWN);
                 return Arrays.asList(attack);

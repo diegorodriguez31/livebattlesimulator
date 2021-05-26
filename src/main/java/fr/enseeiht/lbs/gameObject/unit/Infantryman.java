@@ -18,7 +18,7 @@ public class Infantryman extends Unit {
         stats.addStat(Statistic.SPEED, speed);
         stats.addStat(Statistic.DAMAGE, damage);
         stats.addStat(Statistic.COOLDOWN, cooldown);
-        stats.addStat(Statistic.REACH, reach);
+        stats.addStat(Statistic.RANGE, reach);
         ai = new ChargeAndHitAI(new AttackAction(this), new FlightMovementAction(this));
     }
 
