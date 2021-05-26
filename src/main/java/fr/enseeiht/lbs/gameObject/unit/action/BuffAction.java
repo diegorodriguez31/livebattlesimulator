@@ -1,5 +1,6 @@
 package main.java.fr.enseeiht.lbs.gameObject.unit.action;
 
+import main.java.fr.enseeiht.lbs.gameObject.Statistic;
 import main.java.fr.enseeiht.lbs.gameObject.unit.Unit;
 import main.java.fr.enseeiht.lbs.gameObject.unit.buff.Buff;
 

@@ -10,10 +10,8 @@ import main.java.fr.enseeiht.lbs.gameObject.unit.buff.FireDebuff;
 
 public class Infantryman extends Unit {
 
-    protected long cooldown;
-
     public Infantryman(double health, double speed, double damage, long cooldown) {
-        this.health = health;
+        super(health);
 
         stats = new Stats();
         stats.addStat(Statistic.SPEED, speed);
