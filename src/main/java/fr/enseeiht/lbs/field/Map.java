@@ -32,7 +32,6 @@ public class Map {
                 contenu.add(lb);//on ajoute la case à la fenêtre
             }
         }
-
 }
 
     public static void main(String[] args) {
