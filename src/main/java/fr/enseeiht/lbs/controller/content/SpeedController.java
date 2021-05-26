@@ -1,6 +1,6 @@
 package main.java.fr.enseeiht.lbs.controller.content;
 
-import main.java.fr.enseeiht.lbs.battleSimulator.Battle;
+import main.java.fr.enseeiht.lbs.model.battleSimulator.Battle;
 
 import javax.swing.*;
 
