@@ -31,10 +31,10 @@ public class LiveBattleSimulator {
 
 
 		World world = new World(20, 10, 35, 10, 5, 50);
-		new MapGUI(world);
-		MapText.writeWorld(world);	
 
 		new BattleGUI(battle);
+		new MapGUI(world);
+		MapText.writeWorld(world);	
 
 		battle.run();
 
@@ -44,11 +44,11 @@ public class LiveBattleSimulator {
 		List<Army> armies = new ArrayList<>();
 
 		Army army1 = new Army();
-		Unit unit11 = new Infantryman(new Vector2(250,200), 100, 1, 10, 1000);
+		Unit unit11 = new Infantryman(new Vector2(250,200), 100, 1, 10, 1000, 3);
 		army1.addUnit(unit11);
 
 		Army army2 = new Army();
-		Unit unit21 = new Shieldman(new Vector2(250,260), 200, 1, 10, 50, 500);
+		Unit unit21 = new Shieldman(new Vector2(250,260), 200, 1, 10, 50, 500, 10);
 		army2.addUnit(unit21);
 
 		armies.add(army1);

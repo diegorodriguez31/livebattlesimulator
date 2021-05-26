@@ -1,5 +1,6 @@
 package main.java.fr.enseeiht.lbs.model.battleSimulator;
 
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
@@ -21,6 +22,9 @@ public class Battle {
     Objectif objectif;
     List<Army> armies;
     List<GameObject> objects;
+    List<GameObject> endObjects;
+
+    private float deltaTimeMultiplier = 1.0f;
 
     private Battle() {
     	this.propertyChangeSupport = new PropertyChangeSupport(this);
@@ -39,80 +43,59 @@ public class Battle {
         this.objectif = objectif;
         this.armies = armies;
         objects = new ArrayList<>();
+        endObjects = new ArrayList<>();
     }
 
     public void run(){
         lastTime = System.currentTimeMillis();
         long tempTotal = 0;
-        
+
         //notify Observers that battle is starting
         this.propertyChangeSupport.firePropertyChange(propertyGameObjects, null, this.objects);
-        
+
         while(objectif.getWinner(this) == null){
-        	
             long deltaTime = System.currentTimeMillis()-lastTime;
             lastTime = System.currentTimeMillis();
             tempTotal += deltaTime;
             System.out.println("delta time" + deltaTime);
             System.out.println("total time" + tempTotal);
-            Iterator<GameObject> it = objects.stream().iterator();
-            while(it.hasNext()){
-                it.next().update(this, deltaTime);
+            for (GameObject object : objects) {
+                object.update(this, (long) (deltaTime * deltaTimeMultiplier));
             }
-            
+            for (Iterator<GameObject> it = endObjects.iterator(); it.hasNext();) {
+                GameObject o = it.next();
+                o.end(this);
+                objects.remove(o);
+                it.remove();
+            }
+
             //notify Observers
             this.propertyChangeSupport.firePropertyChange(propertyGameObjects, null, this.objects);
 
-            
             try {
                 Thread.sleep(1000/60);
             }catch (InterruptedException e){
                 System.err.println(e.getMessage());
             }
         }
-
-
     }
-    
+
+    public void setDeltaTimeMultiplier(float deltaTimeMultiplier) {
+        this.deltaTimeMultiplier = deltaTimeMultiplier;
+    }
+
+    public float getDeltaTimeMultiplier() {
+        return deltaTimeMultiplier;
+    }
+
     public void addGameObjectsObserver(PropertyChangeListener propertyChangeListener) {
     	//Only adds the listener once
     	if (! Arrays.asList(propertyChangeSupport.getPropertyChangeListeners(propertyGameObjects)).contains(propertyChangeListener)) {
-    		propertyChangeSupport.addPropertyChangeListener(propertyGameObjects, propertyChangeListener);    		
+    		propertyChangeSupport.addPropertyChangeListener(propertyGameObjects, propertyChangeListener);
     	}
 	}
-    
-    
 
-    /*public void run2() {
-        Infantryman attaquant = new Infantryman(100, 1, 10);
-        attaquant.status();
 
-        Shieldman victime = new Shieldman(100, 1, 10, 50);
-        victime.status();
-        System.out.println("Init OK\n");
-
-        new AttackAction(attaquant, victime).execute();
-
-        System.out.println("Victime attaquée !\n");
-        victime.status();
-
-        new BuffAction(victime, new FreezeDebuff()).execute();
-        System.out.println("Victime FIRE débuff !\n");
-        victime.status();
-
-        victime.update(this, 1);
-        victime.status();
-
-        victime.update(this, 1);
-        victime.status();
-
-        victime.update(this, 1);
-        victime.status();
-
-        new BuffAction(attaquant, new FreezeDebuff()).execute();
-        System.out.println("Freeze sur attquant débuff !\n");
-        attaquant.status();
-    }*/
 
     public List<Army> getArmies() {
         return armies;
@@ -122,11 +105,21 @@ public class Battle {
         return armies.stream().filter(army -> !army.getUnits().contains(unit)).collect(Collectors.toList());
     }
 
+    public Unit findClosestEnemy(Unit unit){
+        return getEnnemyArmies(unit).stream()
+                .flatMap(army -> army.getUnits().stream())
+                .reduce(getEnnemyArmies(unit).get(0).getUnits().get(0),
+                        (unit1, unit2) -> (unit.getPosition().sub(unit1.getPosition()).sqrSize() < unit.getPosition().sub(unit2.getPosition()).sqrSize() || unit2.isDead() ?
+                                unit1 :
+                                unit2)
+                );
+    }
+
     public void addGameObject(GameObject gameObject) {
         objects.add(gameObject);
     }
 
     public void removeGameObject(GameObject gameObject) {
-        objects.remove(gameObject);
+        endObjects.add(gameObject);
     }
 }

@@ -1,6 +1,7 @@
 package main.java.fr.enseeiht.lbs.view.content;
 
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.LinkedList;
@@ -26,6 +27,7 @@ public class BattleView extends JPanel implements PropertyChangeListener{
 			modifiedGameObjectTreatement(propertyChangeEvent);
 
 		this.repaint();
+        Toolkit.getDefaultToolkit().sync();
 	}
 
 	private void modifiedGameObjectTreatement(PropertyChangeEvent propertyChangeEvent) {
