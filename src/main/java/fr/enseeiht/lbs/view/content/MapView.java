@@ -27,7 +27,7 @@ public class MapView extends JPanel {
 	
 
 	
-	private static Color getCorrespondingColor(WorldElement worldElement) {
+	public static Color getCorrespondingColor(WorldElement worldElement) {
 		Color color;
         switch (worldElement) {
             case WATER:
