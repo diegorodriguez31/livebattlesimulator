@@ -1,15 +1,17 @@
 package main.java.fr.enseeiht.lbs;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import main.java.fr.enseeiht.lbs.battleSimulator.Army;
 import main.java.fr.enseeiht.lbs.battleSimulator.Battle;
 import main.java.fr.enseeiht.lbs.battleSimulator.Extermination;
 import main.java.fr.enseeiht.lbs.controller.gui.SpeedGUI;
+import main.java.fr.enseeiht.lbs.gameObject.Vector2;
 import main.java.fr.enseeiht.lbs.gameObject.unit.Infantryman;
 import main.java.fr.enseeiht.lbs.gameObject.unit.Shieldman;
 import main.java.fr.enseeiht.lbs.gameObject.unit.Unit;
-
-import java.util.ArrayList;
-import java.util.List;
+import main.java.fr.enseeiht.lbs.view.gui.BattleGUI;
 
 public class LiveBattleSimulator {
 
@@ -25,6 +27,9 @@ public class LiveBattleSimulator {
             }
         }
         new SpeedGUI(battle);
+
+        new BattleGUI(battle);
+
         battle.run();
     }
 
@@ -32,11 +37,11 @@ public class LiveBattleSimulator {
         List<Army> armies = new ArrayList<>();
 
         Army army1 = new Army();
-        Unit unit11 = new Infantryman(100, 1, 10, 1000);
+        Unit unit11 = new Infantryman(new Vector2(250,200), 100, 1, 10, 1000);
         army1.addUnit(unit11);
 
         Army army2 = new Army();
-        Unit unit21 = new Shieldman(200, 1, 10, 50, 500);
+        Unit unit21 = new Shieldman(new Vector2(250,260), 200, 1, 10, 50, 500);
         army2.addUnit(unit21);
 
         armies.add(army1);

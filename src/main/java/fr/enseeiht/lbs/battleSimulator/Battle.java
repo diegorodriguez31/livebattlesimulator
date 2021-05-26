@@ -3,14 +3,23 @@ package main.java.fr.enseeiht.lbs.battleSimulator;
 import main.java.fr.enseeiht.lbs.gameObject.GameObject;
 import main.java.fr.enseeiht.lbs.gameObject.unit.Unit;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import main.java.fr.enseeiht.lbs.gameObject.GameObject;
+import main.java.fr.enseeiht.lbs.gameObject.unit.Unit;
+
 public class Battle {
 
     private long lastTime;
+
+    private PropertyChangeSupport propertyChangeSupport;
+    private String propertyGameObjects = "gameObjects";
 
     Objectif objectif;
     List<Army> armies;
@@ -19,6 +28,7 @@ public class Battle {
     private float deltaTimeMultiplier = 1.0f;
 
     private Battle() {
+    	this.propertyChangeSupport = new PropertyChangeSupport(this);
     }
 
     static Battle instance;
@@ -39,6 +49,10 @@ public class Battle {
     public void run(){
         lastTime = System.currentTimeMillis();
         long tempTotal = 0;
+
+        //notify Observers that battle is starting
+        this.propertyChangeSupport.firePropertyChange(propertyGameObjects, null, this.objects);
+
         while(objectif.getWinner(this) == null){
             long deltaTime = System.currentTimeMillis()-lastTime;
             lastTime = System.currentTimeMillis();
@@ -49,6 +63,9 @@ public class Battle {
             while(it.hasNext()){
                 it.next().update(this, (long) (deltaTime * deltaTimeMultiplier));
             }
+
+            //notify Observers
+            this.propertyChangeSupport.firePropertyChange(propertyGameObjects, null, this.objects);
 
             try {
                 Thread.sleep(1000/60);
@@ -65,6 +82,15 @@ public class Battle {
     public float getDeltaTimeMultiplier() {
         return deltaTimeMultiplier;
     }
+
+    public void addGameObjectsObserver(PropertyChangeListener propertyChangeListener) {
+    	//Only adds the listener once
+    	if (! Arrays.asList(propertyChangeSupport.getPropertyChangeListeners(propertyGameObjects)).contains(propertyChangeListener)) {
+    		propertyChangeSupport.addPropertyChangeListener(propertyGameObjects, propertyChangeListener);
+    	}
+	}
+
+
 
     /*public void run2() {
         Infantryman attaquant = new Infantryman(100, 1, 10);

@@ -1,19 +1,18 @@
 package main.java.fr.enseeiht.lbs.gameObject.unit;
 
 import main.java.fr.enseeiht.lbs.battleSimulator.Battle;
-import main.java.fr.enseeiht.lbs.gameObject.unit.action.AttackAction;
-import main.java.fr.enseeiht.lbs.gameObject.unit.action.BuffAction;
-import main.java.fr.enseeiht.lbs.gameObject.unit.buff.Buff;
-import main.java.fr.enseeiht.lbs.gameObject.unit.buff.FireDebuff;
-import main.java.fr.enseeiht.lbs.gameObject.unit.visitors.StatModifierBuffVisitor;
-import main.java.fr.enseeiht.lbs.gameObject.unit.visitors.ShieldManSBuffVisitor;
 import main.java.fr.enseeiht.lbs.gameObject.Statistic;
+import main.java.fr.enseeiht.lbs.gameObject.Vector2;
+import main.java.fr.enseeiht.lbs.gameObject.unit.action.AttackAction;
+import main.java.fr.enseeiht.lbs.gameObject.unit.buff.Buff;
+import main.java.fr.enseeiht.lbs.gameObject.unit.visitors.ShieldManSBuffVisitor;
+import main.java.fr.enseeiht.lbs.gameObject.unit.visitors.StatModifierBuffVisitor;
 import main.java.fr.enseeiht.lbs.gameObject.unit.visitors.TicBuffVisitor;
 
 public class Shieldman extends Infantryman {
 
-    public Shieldman(double health, double speed, double damage, double armor, long cooldown) {
-        super(health, speed, damage, cooldown);
+    public Shieldman(Vector2 position, double health, double speed, double damage, double armor, long cooldown) {
+        super(position, health, speed, damage, cooldown);
         stats.addStat(Statistic.ARMOR, armor);
     }
 
