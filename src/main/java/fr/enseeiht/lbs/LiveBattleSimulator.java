@@ -12,6 +12,7 @@ import main.java.fr.enseeiht.lbs.model.battleSimulator.Extermination;
 import main.java.fr.enseeiht.lbs.model.gameObject.Vector2;
 import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.view.gui.BattleWorldGUI;
+import main.java.fr.enseeiht.lbs.view.gui.WorldText;
 
 public class LiveBattleSimulator {
     public static final int SUPER_PIXEL_SIZE = 11;
@@ -29,11 +30,12 @@ public class LiveBattleSimulator {
 		}
 
 
-		World world = new World(20, 10, 35, 10, 5, 50);
+		World world = new World(20, 20, 35, 10, 5, 50);
+
 //		new BattleGUI(battle);
 //		new SpeedGUI(battle);
 //		new WorldGUI(world);
-//		WorldText.writeWorld(world);	
+		WorldText.writeWorld(world);
 		new BattleWorldGUI(battle, world);
 
 		battle.run();
