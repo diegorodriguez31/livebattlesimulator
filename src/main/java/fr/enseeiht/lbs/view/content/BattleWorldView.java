@@ -30,7 +30,7 @@ public class BattleWorldView extends JPanel implements PropertyChangeListener{
 			for (int y = 0; y < world.getSizeY(); y++) {
 				JLabel worldCase = new JLabel();
 				WorldElement worldElement = world.getTile(x,y); //c prend le character du tableau qui est à sa place 
-				worldCase.setBackground(MapView.getCorrespondingColor(worldElement)); // la case est remplie de la couleur correspondante
+				worldCase.setBackground(WorldView.getCorrespondingColor(worldElement)); // la case est remplie de la couleur correspondante
 				worldCase.setOpaque(true);
 				this.add(worldCase);
 			}

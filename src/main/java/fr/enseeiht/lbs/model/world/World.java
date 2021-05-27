@@ -55,8 +55,6 @@ public class World {
 
 		//Create the shapes over the world
 		createShapes(WorldElement.DESERT, nbDesert);
-
-
 		createShapes(WorldElement.WATER, nbWater);
 		createShapes(WorldElement.ROCK, nbRocks);
 	}

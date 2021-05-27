@@ -3,7 +3,7 @@ package main.java.fr.enseeiht.lbs.view.gui;
 import javax.swing.JFrame;
 
 import main.java.fr.enseeiht.lbs.model.world.World;
-import main.java.fr.enseeiht.lbs.view.content.MapView;
+import main.java.fr.enseeiht.lbs.view.content.WorldView;
 
 @SuppressWarnings("serial")
 public class WorldGUI extends JFrame{
@@ -11,7 +11,7 @@ public class WorldGUI extends JFrame{
 
     public WorldGUI(World world){
     	
-        MapView mapView = new MapView(world);
+        WorldView mapView = new WorldView(world);
         this.add(mapView);
         
         this.setLocation(100,200);
