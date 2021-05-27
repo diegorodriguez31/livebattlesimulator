@@ -24,7 +24,7 @@ public class World {
 
 	private static final Random random = new Random();
 
-	private WorldElement mainElem;
+	private WorldElement mainElement;
 
 	public World(int sizeX, int sizeY, int percentDesert, int percentWater, int percentRocks, int percentForest) {
 		this.sizeX = sizeX;
@@ -36,7 +36,7 @@ public class World {
 	private void generateWorld(final int percentDesert, final int percentWater, int percentRocks, int percentForest) {
 
 		final int nbTiles = sizeX * sizeY;
-		mainElem = WorldElement.FOREST; //idealement un calcul du plus gros pourcentage
+		mainElement = WorldElement.FOREST; //idealement un calcul du plus gros pourcentage
 
 		// Error detections. If percentages are too bigs, we limit them !!
 		if (percentRocks > 33) percentRocks = 33;
@@ -49,7 +49,7 @@ public class World {
 		// We fill with this element
 		for (int x = 0; x < sizeX; x++) {
 			for (int y = 0; y < sizeY; y++) {
-				this.worldElements[x][y]=mainElem;
+				this.worldElements[x][y]= mainElement;
 			}
 		}
 
@@ -76,7 +76,7 @@ public class World {
 			cellmap = doSimulationStep(cellmap, deathLimit, birthLimit);
 		}
 		affichcells(cellmap);
-		finaliseMap(worldElements,cellmap,value,mainElem);
+		finaliseMap(worldElements,cellmap,value);
 	}
 
 	private int createRandomShape(final WorldElement backElem, final int maxTiles) {
@@ -134,8 +134,7 @@ public class World {
 				//In case the index we're looking at it off the edge of the map
 
 				else if (neighbour_x < 0 || neighbour_y < 0 || neighbour_x >= map.length || neighbour_y >= map[0].length) {
-
-
+					
 				}
 				//Otherwise, a normal check of the neighbour
 				else if (map[neighbour_x][neighbour_y]) {
@@ -193,7 +192,7 @@ public class World {
 		return newMap;
 	}
 
-	public void finaliseMap(WorldElement[][] map, boolean[][] oldmap, WorldElement elem, WorldElement mainElem ){
+	public void finaliseMap(WorldElement[][] map, boolean[][] oldmap, WorldElement elem){
 		int y = 0;
 		for (int oy = 0; oy < sizeY; oy++) {
 			int x = 0;
@@ -204,7 +203,7 @@ public class World {
 
 				else {
 					if (map[x][y] == elem){
-						map[x][y] = mainElem;
+						map[x][y] = mainElement;
 					}
 				}
 				x++;
