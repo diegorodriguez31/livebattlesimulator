@@ -8,6 +8,8 @@ public class FlightMovementAction implements IMovementAction {
     private Unit self;
     private Vector2 target;
 
+    private final int SUPER_PIXEL_SIZE = 11;
+
     public FlightMovementAction(Unit self) {
         this.self = self;
     }
@@ -22,6 +24,6 @@ public class FlightMovementAction implements IMovementAction {
         this.self.getPosition().inc(
                 target.sub(self.getPosition())
                         .normalize(
-                                (float) self.getStats().getStatisticValue(Statistic.SPEED)*deltaTime/1000));
+                                (float) self.getStats().getStatisticValue(Statistic.SPEED)*SUPER_PIXEL_SIZE*deltaTime/1000));
     }
 }

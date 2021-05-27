@@ -11,6 +11,7 @@ import main.java.fr.enseeiht.lbs.model.battleSimulator.Army;
 import main.java.fr.enseeiht.lbs.model.battleSimulator.Battle;
 import main.java.fr.enseeiht.lbs.model.battleSimulator.Extermination;
 import main.java.fr.enseeiht.lbs.model.gameObject.Vector2;
+import main.java.fr.enseeiht.lbs.model.gameObject.unit.soldier.Shieldman;
 import main.java.fr.enseeiht.lbs.view.gui.BattleGUI;
 
 public class LiveBattleSimulator {
@@ -42,8 +43,11 @@ public class LiveBattleSimulator {
         army1.addUnit(knight1);
 
         Army army2 = new Army();
-        Unit peasant2 = new Peasant(new Vector2(200, 210));
-        army2.addUnit(peasant2);
+        //Unit peasant2 = new Peasant(new Vector2(200, 210));
+        //army2.addUnit(peasant2);
+
+        Unit shieldMan = new Shieldman("shieldman", new Vector2(250,260), 200, 10, 10, 50, 500, 200);
+        army2.addUnit(shieldMan);
 
         armies.add(army1);
         armies.add(army2);
