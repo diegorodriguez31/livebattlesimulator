@@ -13,6 +13,10 @@ import main.java.fr.enseeiht.lbs.model.gameObject.unit.ai.AI;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
+import static main.java.fr.enseeiht.lbs.model.gameObject.Statistic.ACCURACY;
+import static main.java.fr.enseeiht.lbs.model.gameObject.Statistic.AGILITY;
 
 public abstract class Unit extends Entity {
     protected AI ai;
@@ -29,7 +33,7 @@ public abstract class Unit extends Entity {
         stats.addStat(Statistic.COOLDOWN, cooldown);
         stats.addStat(Statistic.SPEED, speed);
         stats.addStat(Statistic.RANGE, range);
-        stats.addStat(Statistic.ACCURACY, accuracy);
+        stats.addStat(ACCURACY, accuracy);
         stats.addStat(Statistic.AGILITY, agility);
         this.cooldown = cooldown;
     }
@@ -49,13 +53,13 @@ public abstract class Unit extends Entity {
     }
 
     public void status() {
-        System.out.println(this.name + " status :");
+        System.out.println(name + " status :");
         System.out.println("\tHealth : " + getHealth());
         System.out.println("\tDamage : " + getStats().getStatisticValue(Statistic.DAMAGE));
         System.out.println("\tCooldown : " + getStats().getStatisticValue(Statistic.COOLDOWN));
         System.out.println("\tSpeed : " + getStats().getStatisticValue(Statistic.SPEED));
         System.out.println("\tRange : " + getStats().getStatisticValue(Statistic.RANGE));
-        System.out.println("\tAccuracy : " + getStats().getStatisticValue(Statistic.ACCURACY));
+        System.out.println("\tAccuracy : " + getStats().getStatisticValue(ACCURACY));
         System.out.println("\tAgility : " + getStats().getStatisticValue(Statistic.AGILITY));
     }
 
@@ -75,6 +79,15 @@ public abstract class Unit extends Entity {
         }
     }
 
+    public void receiveDamage(double damage) {
+        if (!dodge()) {
+            health -= damage;
+            if (isDead()){
+                removeFromBattle();
+            }
+        }
+    }
+
     public void addBuffs(Buff buff) {
         buffs.add(buff);
     }
@@ -89,5 +102,15 @@ public abstract class Unit extends Entity {
 
     public Stats getRawStats() {
         return stats;
+    }
+
+    public boolean attackSucess(){
+        Random random = new Random();
+        return (random.nextInt(100) + 1) < getStats().getStatisticValue(ACCURACY);
+    }
+
+    public boolean dodge(){
+        Random random = new Random();
+        return (random.nextInt(100) + 1) < getStats().getStatisticValue(AGILITY);
     }
 }

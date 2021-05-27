@@ -9,7 +9,7 @@ public class RawStatsManager {
     public static final double PEASANT_COOLDOWN = 1;
     public static final double PEASANT_SPEED = 1;
     public static final double PEASANT_RANGE = 1;
-    public static final double PEASANT_ACCURACY = 30;
+    public static final double PEASANT_ACCURACY = 50;
     public static final double PEASANT_AGILITY = 10;
 
     // KNIGHT
@@ -41,7 +41,7 @@ public class RawStatsManager {
     public static final double MAGE_SPEED = 1;
     public static final double MAGE_RANGE = 5;
     public static final double MAGE_ACCURACY = 90;
-    public static final double MAGE_AGILITY = 50;
+    public static final double MAGE_AGILITY = 20;
     public static final double MAGE_AREA_OF_EFFECT = 5;
 
     // GIANT
@@ -82,7 +82,7 @@ public class RawStatsManager {
     public static final double HORSEMAN_COOLDOWN = 2;
     public static final double HORSEMAN_SPEED = 5;
     public static final double HORSEMAN_RANGE = 5;
-    public static final double HORSEMAN_ACCURACY = 70;
+    public static final double HORSEMAN_ACCURACY = 80;
     public static final double HORSEMAN_AGILITY = 10;
     public static final double HORSEMAN_ARMOR = 30;
 
@@ -105,7 +105,7 @@ public class RawStatsManager {
     public static final double TROLL_SPEED = 2;
     public static final double TROLL_RANGE = 1;
     public static final double TROLL_ACCURACY = 80;
-    public static final double TROLL_AGILITY = 70;
+    public static final double TROLL_AGILITY = 60;
     public static final double TROLL_ARMOR = 20;
 
     // SAMURAI
@@ -126,7 +126,7 @@ public class RawStatsManager {
     public static final double VIKING_COOLDOWN = 2;
     public static final double VIKING_SPEED = 1;
     public static final double VIKING_RANGE = 1;
-    public static final double VIKING_ACCURACY = 70;
+    public static final double VIKING_ACCURACY = 80;
     public static final double VIKING_AGILITY = 20;
     public static final double VIKING_ARMOR = 30;
     public static final double VIKING_SHIELD = 100;

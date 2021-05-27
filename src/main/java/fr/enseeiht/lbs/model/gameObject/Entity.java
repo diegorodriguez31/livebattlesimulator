@@ -18,13 +18,6 @@ public abstract class Entity extends GameObject {
         return health;
     }
 
-    public void receiveDamage(double damage){
-        health -= damage;
-        if (isDead()){
-            this.removeFromBattle();
-        }
-    }
-
     public Vector2 getPosition() {
         return position;
     }

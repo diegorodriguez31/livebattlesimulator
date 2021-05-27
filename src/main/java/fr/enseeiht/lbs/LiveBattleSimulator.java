@@ -44,11 +44,23 @@ public class LiveBattleSimulator {
         army1.addUnit(knight1);
 
         Army army2 = new Army();
-        //Unit peasant2 = new Peasant(new Vector2(200, 210));
-        //army2.addUnit(peasant2);
+        Unit peasant2 = new Peasant(new Vector2(200, 200));
+        army2.addUnit(peasant2);
 
-        Unit shieldMan = new Shieldman("shieldman", new Vector2(250,260), 200, 1, 10, 50, 500, 10);
-        army2.addUnit(shieldMan);
+        Unit peasant3 = new Peasant(new Vector2(200, 100));
+        army2.addUnit(peasant3);
+
+        Unit peasant4 = new Peasant(new Vector2(200, 300));
+        army2.addUnit(peasant4);
+
+        Unit peasant5 = new Peasant(new Vector2(200, 20));
+        army2.addUnit(peasant5);
+
+        Unit peasant6 = new Peasant(new Vector2(200, 60));
+        army2.addUnit(peasant6);
+
+        //Unit shieldMan = new Shieldman("shieldman", new Vector2(250,260), 200, 1, 10, 50, 3, 10);
+        //army2.addUnit(shieldMan);
 
         armies.add(army1);
         armies.add(army2);
