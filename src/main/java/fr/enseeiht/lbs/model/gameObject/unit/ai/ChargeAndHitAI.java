@@ -25,7 +25,7 @@ public class ChargeAndHitAI implements AI {
     public ChargeAndHitAI(IAttackAction attack, IMovementAction movement) {
         this.attack = attack;
         this.movement = movement;
-        cooldown =0;
+        cooldown = 0;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class ChargeAndHitAI implements AI {
         }
         if (target.getPosition().sub(self.getPosition()).sqrSize()<self.getStats().getStatisticValue(Statistic.RANGE)*SUPER_PIXEL_SIZE){
             if (cooldown < 0){
-                cooldown = (long) self.getStats().getStatisticValue(Statistic.COOLDOWN);
+                cooldown = (long) self.getStats().getStatisticValue(Statistic.COOLDOWN)*1000;
                 return Arrays.asList(attack);
             }else{
                 cooldown -= deltaTime;
