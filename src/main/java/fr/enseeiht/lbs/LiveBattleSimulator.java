@@ -3,15 +3,14 @@ package main.java.fr.enseeiht.lbs;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.java.fr.enseeiht.lbs.battleSimulator.Army;
-import main.java.fr.enseeiht.lbs.battleSimulator.Battle;
-import main.java.fr.enseeiht.lbs.battleSimulator.Extermination;
-import main.java.fr.enseeiht.lbs.gameObject.Vector2;
-import main.java.fr.enseeiht.lbs.gameObject.unit.soldier.Infantryman;
-import main.java.fr.enseeiht.lbs.gameObject.unit.soldier.Knight;
-import main.java.fr.enseeiht.lbs.gameObject.unit.soldier.Peasant;
-import main.java.fr.enseeiht.lbs.gameObject.unit.soldier.Shieldman;
-import main.java.fr.enseeiht.lbs.gameObject.unit.Unit;
+import main.java.fr.enseeiht.lbs.model.gameObject.unit.Unit;
+import main.java.fr.enseeiht.lbs.model.gameObject.unit.soldier.Knight;
+import main.java.fr.enseeiht.lbs.model.gameObject.unit.soldier.Peasant;
+import main.java.fr.enseeiht.lbs.controller.gui.SpeedGUI;
+import main.java.fr.enseeiht.lbs.model.battleSimulator.Army;
+import main.java.fr.enseeiht.lbs.model.battleSimulator.Battle;
+import main.java.fr.enseeiht.lbs.model.battleSimulator.Extermination;
+import main.java.fr.enseeiht.lbs.model.gameObject.Vector2;
 import main.java.fr.enseeiht.lbs.view.gui.BattleGUI;
 
 public class LiveBattleSimulator {
@@ -27,11 +26,11 @@ public class LiveBattleSimulator {
                 u.setReady();
             }
         }
+        new SpeedGUI(battle);
 
         new BattleGUI(battle);
         
         battle.run();
-        
     }
 
     public static List<Army> createArmies(){

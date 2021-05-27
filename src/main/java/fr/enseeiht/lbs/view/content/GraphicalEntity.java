@@ -4,7 +4,7 @@ import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import main.java.fr.enseeiht.lbs.gameObject.Vector2;
+import main.java.fr.enseeiht.lbs.model.gameObject.Vector2;
 
 @SuppressWarnings("serial")
 public class GraphicalEntity extends Component{
