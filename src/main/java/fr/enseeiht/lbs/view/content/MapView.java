@@ -17,7 +17,7 @@ public class MapView extends JPanel {
         for (int x = 0; x < world.getSizeX(); x++) {
             for (int y = 0; y < world.getSizeY(); y++) {
                 JLabel worldCase = new JLabel();
-                WorldElement worldElement = world.getCase(x,y); //c prend le character du tableau qui est à sa place 
+                WorldElement worldElement = world.getTile(x,y); //c prend le character du tableau qui est à sa place 
                 worldCase.setBackground(getCorrespondingColor(worldElement)); // la case est remplie de la couleur correspondante
                 worldCase.setOpaque(true);
                 this.add(worldCase);

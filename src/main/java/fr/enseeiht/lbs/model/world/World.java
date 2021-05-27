@@ -57,10 +57,11 @@ public class World {
 	}
 
 	private void createShapes(final WorldElement value, int nbTiles) {
-		int curNb = 0;
-		while (nbTiles > 0) {
-			curNb = 1+ random.nextInt(nbTiles);
-			nbTiles = nbTiles - ( createRandomShape(value, curNb));
+		int curentNbTiles = 0;
+		int nextShapeSize = 0;
+		while (nbTiles > curentNbTiles) {
+			nextShapeSize = 1 + random.nextInt(nbTiles - curentNbTiles);
+			curentNbTiles = curentNbTiles + ( createRandomShape(value, nextShapeSize));
 		}
 	}
 
@@ -114,10 +115,11 @@ public class World {
 		return sizeY;
 	}
 
-	public WorldElement[][] getTab() {
+	public WorldElement[][] getWorldElements() {
 		return worldElements;
 	}
-	public WorldElement getCase(int xx, int yy){
+	
+	public WorldElement getTile(int xx, int yy){
 		return this.worldElements[xx][yy];
 	}
 

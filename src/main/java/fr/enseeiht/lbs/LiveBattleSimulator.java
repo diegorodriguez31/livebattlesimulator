@@ -14,8 +14,8 @@ import main.java.fr.enseeiht.lbs.model.gameObject.unit.Unit;
 import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.view.gui.BattleGUI;
 import main.java.fr.enseeiht.lbs.view.gui.BattleWorldGUI;
-import main.java.fr.enseeiht.lbs.view.gui.MapGUI;
-import main.java.fr.enseeiht.lbs.view.gui.MapText;
+import main.java.fr.enseeiht.lbs.view.gui.WorldGUI;
+import main.java.fr.enseeiht.lbs.view.gui.WorldText;
 
 public class LiveBattleSimulator {
 
@@ -36,8 +36,8 @@ public class LiveBattleSimulator {
 
 		new BattleGUI(battle);
 		new SpeedGUI(battle);
-		new MapGUI(world);
-		MapText.writeWorld(world);	
+		new WorldGUI(world);
+		WorldText.writeWorld(world);	
 		new BattleWorldGUI(battle, world);
 
 		battle.run();

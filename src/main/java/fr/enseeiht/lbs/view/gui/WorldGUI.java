@@ -6,10 +6,10 @@ import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.view.content.MapView;
 
 @SuppressWarnings("serial")
-public class MapGUI extends JFrame{
+public class WorldGUI extends JFrame{
 
 
-    public MapGUI(World world){
+    public WorldGUI(World world){
     	
         MapView mapView = new MapView(world);
         this.add(mapView);
