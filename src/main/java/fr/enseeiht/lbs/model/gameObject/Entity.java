@@ -22,7 +22,7 @@ public abstract class Entity extends GameObject {
         return position;
     }
 
-    public boolean isDead(){
-        return getHealth()<=0;
+    public boolean isDead() {
+        return getHealth() <= 0;
     }
 }
