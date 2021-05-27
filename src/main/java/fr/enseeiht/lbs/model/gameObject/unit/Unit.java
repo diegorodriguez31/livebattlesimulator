@@ -1,3 +1,4 @@
+
 package main.java.fr.enseeiht.lbs.model.gameObject.unit;
 
 import main.java.fr.enseeiht.lbs.model.battleSimulator.Battle;
