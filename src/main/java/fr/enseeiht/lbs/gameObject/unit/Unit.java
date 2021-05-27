@@ -17,11 +17,11 @@ import java.util.List;
 public abstract class Unit extends Entity {
     protected AI ai;
     List<Buff> buffs = new ArrayList<>();
-    protected long cooldown;
+    protected double cooldown;
     private String name;
 
     // create basic fighting unit
-    public Unit(String name, double health, Vector2 vector, double damage, long cooldown, double speed, double range, double accuracy, double agility) {
+    public Unit(String name, double health, Vector2 vector, double damage, double cooldown, double speed, double range, double accuracy, double agility) {
         super(health, vector);
         this.name = name;
         stats = new Stats();

@@ -16,7 +16,7 @@ import static main.java.fr.enseeiht.lbs.gameObject.unit.RawStatsManager.*;
 
 public class Knight extends Unit {
 
-    public Knight(String name, double health, Vector2 vector, double damage, long cooldown, double speed, double range, double accuracy, double agility, double armor) {
+    public Knight(String name, double health, Vector2 vector, double damage, double cooldown, double speed, double range, double accuracy, double agility, double armor) {
         super(name, health, vector, damage, cooldown, speed, range, accuracy, agility);
         stats.addStat(ARMOR, armor);
         ai = new ChargeAndHitAI(new AttackAction(this), new FlightMovementAction(this));
