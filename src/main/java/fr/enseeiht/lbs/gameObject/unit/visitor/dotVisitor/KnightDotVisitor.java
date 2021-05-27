@@ -1,13 +1,14 @@
-package main.java.fr.enseeiht.lbs.gameObject.unit.visitors;
+package main.java.fr.enseeiht.lbs.gameObject.unit.visitor.dotVisitor;
 
-import main.java.fr.enseeiht.lbs.gameObject.unit.Knight;
+import main.java.fr.enseeiht.lbs.gameObject.unit.soldier.Knight;
 import main.java.fr.enseeiht.lbs.gameObject.unit.buff.FireDebuff;
 import main.java.fr.enseeiht.lbs.gameObject.unit.buff.FreezeDebuff;
 import main.java.fr.enseeiht.lbs.gameObject.unit.buff.SlowDebuff;
+import main.java.fr.enseeiht.lbs.gameObject.unit.visitor.BasicDotVisitor;
 
-public class KnightTicBuffVisitor extends TicBuffVisitor{
+public class KnightDotVisitor extends BasicDotVisitor {
 
-    public KnightTicBuffVisitor(long deltaTime, Knight unit) {
+    public KnightDotVisitor(long deltaTime, Knight unit) {
         super(deltaTime, unit);
     }
 

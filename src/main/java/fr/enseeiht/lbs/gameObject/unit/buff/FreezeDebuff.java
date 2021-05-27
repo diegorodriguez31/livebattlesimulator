@@ -1,6 +1,6 @@
 package main.java.fr.enseeiht.lbs.gameObject.unit.buff;
 
-import main.java.fr.enseeiht.lbs.gameObject.unit.visitors.BuffVisitor;
+import main.java.fr.enseeiht.lbs.gameObject.unit.visitor.BuffVisitor;
 
 public class FreezeDebuff implements Buff {
 

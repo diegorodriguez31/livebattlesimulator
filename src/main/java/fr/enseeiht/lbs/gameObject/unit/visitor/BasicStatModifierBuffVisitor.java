@@ -1,4 +1,4 @@
-package main.java.fr.enseeiht.lbs.gameObject.unit.visitors;
+package main.java.fr.enseeiht.lbs.gameObject.unit.visitor;
 
 import main.java.fr.enseeiht.lbs.gameObject.Statistic;
 import main.java.fr.enseeiht.lbs.gameObject.Stats;
@@ -6,10 +6,10 @@ import main.java.fr.enseeiht.lbs.gameObject.unit.buff.FireDebuff;
 import main.java.fr.enseeiht.lbs.gameObject.unit.buff.FreezeDebuff;
 import main.java.fr.enseeiht.lbs.gameObject.unit.buff.SlowDebuff;
 
-public class StatModifierBuffVisitor implements BuffVisitor {
+public class BasicStatModifierBuffVisitor implements BuffVisitor {
     Stats stats;
 
-    public StatModifierBuffVisitor(Stats stats){
+    public BasicStatModifierBuffVisitor(Stats stats){
         this.stats = new Stats(stats);
     }
 

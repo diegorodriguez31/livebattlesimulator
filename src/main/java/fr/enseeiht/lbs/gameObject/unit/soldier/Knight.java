@@ -1,15 +1,13 @@
-package main.java.fr.enseeiht.lbs.gameObject.unit;
+package main.java.fr.enseeiht.lbs.gameObject.unit.soldier;
 
 import main.java.fr.enseeiht.lbs.battleSimulator.Battle;
 import main.java.fr.enseeiht.lbs.gameObject.Vector2;
-import main.java.fr.enseeiht.lbs.gameObject.unit.action.Action;
+import main.java.fr.enseeiht.lbs.gameObject.unit.Unit;
 import main.java.fr.enseeiht.lbs.gameObject.unit.action.AttackAction;
 import main.java.fr.enseeiht.lbs.gameObject.unit.action.FlightMovementAction;
 import main.java.fr.enseeiht.lbs.gameObject.unit.ai.ChargeAndHitAI;
-import main.java.fr.enseeiht.lbs.gameObject.unit.buff.Buff;
-import main.java.fr.enseeiht.lbs.gameObject.unit.visitors.KnightTicBuffVisitor;
-import main.java.fr.enseeiht.lbs.gameObject.unit.visitors.StatModifierBuffVisitor;
-import main.java.fr.enseeiht.lbs.gameObject.unit.visitors.TicBuffVisitor;
+import main.java.fr.enseeiht.lbs.gameObject.unit.visitor.dotVisitor.KnightDotVisitor;
+import main.java.fr.enseeiht.lbs.gameObject.unit.visitor.BasicDotVisitor;
 
 import static main.java.fr.enseeiht.lbs.gameObject.Statistic.*;
 import static main.java.fr.enseeiht.lbs.gameObject.unit.RawStatsManager.*;
@@ -35,16 +33,12 @@ public class Knight extends Unit {
 
     @Override
     public void receiveDamage(double damage) {
-        if (hasArmor()) {
-            double reducedDamage = damage * (getStats().getStatisticValue(ARMOR) / 100);
-            super.receiveDamage(reducedDamage);
-        } else {
-            super.receiveDamage(damage);
-        }
+        double reducedDamage = damage - (damage * (getStats().getStatisticValue(ARMOR) / 100));
+        super.receiveDamage(reducedDamage);
     }
 
-    protected TicBuffVisitor getUpdateVisitor(long deltaTime){
-        return new KnightTicBuffVisitor(deltaTime,this);
+    protected BasicDotVisitor getUpdateVisitor(long deltaTime){
+        return new KnightDotVisitor(deltaTime,this);
     }
 
     public boolean hasArmor(){

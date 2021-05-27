@@ -1,14 +1,12 @@
-package main.java.fr.enseeiht.lbs.gameObject.unit;
+package main.java.fr.enseeiht.lbs.gameObject.unit.soldier;
 
 import main.java.fr.enseeiht.lbs.battleSimulator.Battle;
 import main.java.fr.enseeiht.lbs.gameObject.Vector2;
+import main.java.fr.enseeiht.lbs.gameObject.unit.Unit;
 import main.java.fr.enseeiht.lbs.gameObject.unit.action.AttackAction;
 import main.java.fr.enseeiht.lbs.gameObject.unit.action.FlightMovementAction;
 import main.java.fr.enseeiht.lbs.gameObject.unit.ai.ChargeAndHitAI;
-import main.java.fr.enseeiht.lbs.gameObject.unit.visitors.KnightTicBuffVisitor;
-import main.java.fr.enseeiht.lbs.gameObject.unit.visitors.TicBuffVisitor;
 
-import static main.java.fr.enseeiht.lbs.gameObject.Statistic.*;
 import static main.java.fr.enseeiht.lbs.gameObject.unit.RawStatsManager.*;
 
 public class Peasant extends Unit {
@@ -33,10 +31,6 @@ public class Peasant extends Unit {
         super.receiveDamage(damage);
     }
 
-    protected TicBuffVisitor getUpdateVisitor(long deltaTime){
-        return new KnightTicBuffVisitor(deltaTime,this);
-    }
-
     @Override
     public void start(Battle context) {
 
@@ -46,14 +40,4 @@ public class Peasant extends Unit {
     public void end(Battle context) {
 
     }
-}
-
-
-/*
-
-
-
-
-
-
 }

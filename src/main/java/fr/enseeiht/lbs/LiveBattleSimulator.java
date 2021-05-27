@@ -7,9 +7,10 @@ import main.java.fr.enseeiht.lbs.battleSimulator.Army;
 import main.java.fr.enseeiht.lbs.battleSimulator.Battle;
 import main.java.fr.enseeiht.lbs.battleSimulator.Extermination;
 import main.java.fr.enseeiht.lbs.gameObject.Vector2;
-import main.java.fr.enseeiht.lbs.gameObject.unit.Infantryman;
-import main.java.fr.enseeiht.lbs.gameObject.unit.Knight;
-import main.java.fr.enseeiht.lbs.gameObject.unit.Shieldman;
+import main.java.fr.enseeiht.lbs.gameObject.unit.soldier.Infantryman;
+import main.java.fr.enseeiht.lbs.gameObject.unit.soldier.Knight;
+import main.java.fr.enseeiht.lbs.gameObject.unit.soldier.Peasant;
+import main.java.fr.enseeiht.lbs.gameObject.unit.soldier.Shieldman;
 import main.java.fr.enseeiht.lbs.gameObject.unit.Unit;
 import main.java.fr.enseeiht.lbs.view.gui.BattleGUI;
 
@@ -37,15 +38,13 @@ public class LiveBattleSimulator {
         List<Army> armies = new ArrayList<>();
 
         Army army1 = new Army();
-        Unit unit11 = new Infantryman("Infantry man", new Vector2(30, 10), 100, 1.5, 80, 500, 10);
-        army1.addUnit(unit11);
 
-        Unit knight = new Knight(new Vector2(100, 20));
-        army1.addUnit(knight);
+        Unit knight1 = new Knight(new Vector2(100, 150));
+        army1.addUnit(knight1);
 
         Army army2 = new Army();
-        Unit unit21 = new Shieldman("Shield man", new Vector2(250, 200), 200, 2.5, 10, 50, 500, 3);
-        army2.addUnit(unit21);
+        Unit peasant2 = new Peasant(new Vector2(200, 210));
+        army2.addUnit(peasant2);
 
         armies.add(army1);
         armies.add(army2);

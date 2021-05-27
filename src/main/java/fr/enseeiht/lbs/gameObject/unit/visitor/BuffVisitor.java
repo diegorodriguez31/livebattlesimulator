@@ -1,4 +1,4 @@
-package main.java.fr.enseeiht.lbs.gameObject.unit.visitors;
+package main.java.fr.enseeiht.lbs.gameObject.unit.visitor;
 
 import main.java.fr.enseeiht.lbs.gameObject.unit.buff.FireDebuff;
 import main.java.fr.enseeiht.lbs.gameObject.unit.buff.FreezeDebuff;

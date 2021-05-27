@@ -1,9 +1,10 @@
-package main.java.fr.enseeiht.lbs.gameObject.unit;
+package main.java.fr.enseeiht.lbs.gameObject.unit.soldier;
 
 import main.java.fr.enseeiht.lbs.battleSimulator.Battle;
 import main.java.fr.enseeiht.lbs.gameObject.Statistic;
 import main.java.fr.enseeiht.lbs.gameObject.Stats;
 import main.java.fr.enseeiht.lbs.gameObject.Vector2;
+import main.java.fr.enseeiht.lbs.gameObject.unit.Unit;
 import main.java.fr.enseeiht.lbs.gameObject.unit.action.AttackAction;
 import main.java.fr.enseeiht.lbs.gameObject.unit.action.FlightMovementAction;
 import main.java.fr.enseeiht.lbs.gameObject.unit.ai.ChargeAndHitAI;

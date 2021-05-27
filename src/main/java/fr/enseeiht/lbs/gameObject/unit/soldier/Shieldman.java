@@ -1,12 +1,12 @@
-package main.java.fr.enseeiht.lbs.gameObject.unit;
+package main.java.fr.enseeiht.lbs.gameObject.unit.soldier;
 
 import main.java.fr.enseeiht.lbs.gameObject.Vector2;
 import main.java.fr.enseeiht.lbs.gameObject.unit.action.BuffAction;
 import main.java.fr.enseeiht.lbs.gameObject.unit.action.FlightMovementAction;
 import main.java.fr.enseeiht.lbs.gameObject.unit.ai.ChargeAndHitAI;
 import main.java.fr.enseeiht.lbs.gameObject.unit.buff.FireDebuff;
-import main.java.fr.enseeiht.lbs.gameObject.unit.visitors.StatModifierBuffVisitor;
-import main.java.fr.enseeiht.lbs.gameObject.unit.visitors.ShieldManBuffVisitor;
+import main.java.fr.enseeiht.lbs.gameObject.unit.visitor.BasicStatModifierBuffVisitor;
+import main.java.fr.enseeiht.lbs.gameObject.unit.visitor.statModifierVisitor.ShieldManBuffVisitor;
 import main.java.fr.enseeiht.lbs.gameObject.Statistic;
 
 public class Shieldman extends Infantryman {
@@ -35,7 +35,7 @@ public class Shieldman extends Infantryman {
     }
 
     @Override
-    protected StatModifierBuffVisitor getStatVisitor() {
+    protected BasicStatModifierBuffVisitor getStatVisitor() {
         return new ShieldManBuffVisitor(stats);
     }
 }
