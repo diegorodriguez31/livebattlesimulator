@@ -15,6 +15,7 @@ import main.java.fr.enseeiht.lbs.model.gameObject.unit.soldier.Shieldman;
 import main.java.fr.enseeiht.lbs.view.gui.BattleGUI;
 
 public class LiveBattleSimulator {
+    public static final int SUPER_PIXEL_SIZE = 11;
 
     public static void main(String[] args) {
         Battle battle = Battle.getInstance();
@@ -46,7 +47,7 @@ public class LiveBattleSimulator {
         //Unit peasant2 = new Peasant(new Vector2(200, 210));
         //army2.addUnit(peasant2);
 
-        Unit shieldMan = new Shieldman("shieldman", new Vector2(250,260), 200, 10, 10, 50, 500, 200);
+        Unit shieldMan = new Shieldman("shieldman", new Vector2(250,260), 200, 1, 10, 50, 500, 10);
         army2.addUnit(shieldMan);
 
         armies.add(army1);
