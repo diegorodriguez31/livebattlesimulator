@@ -9,8 +9,8 @@ public class SpriteGraphicalEntity extends GraphicalEntity {
 
     private String spritePath;
 
-    public SpriteGraphicalEntity(Vector2 position, String spritePath) {
-        super(position);
+    public SpriteGraphicalEntity(Vector2 position, String spritePath, Color color) {
+        super(position, color);
         this.spritePath = spritePath;
     }
 
@@ -20,6 +20,7 @@ public class SpriteGraphicalEntity extends GraphicalEntity {
         try {
             Image image = SpriteBuffer.getSprite(this.spritePath);
             graphics.drawImage(image, (int) position.x - 5, (int) position.y - 5, null);
+            paintLabel(graphics);
         } catch (IOException e) {
             e.printStackTrace();
             super.paint(graphics);
