@@ -21,7 +21,7 @@ public abstract class Unit extends Entity {
     private String name;
 
     // create basic fighting unit
-    public Unit(String name, double health, Vector2 vector, double damage, double cooldown, double speed, double range, double accuracy, double agility) {
+    public Unit(Vector2 vector, String name, double health, double damage, double cooldown, double speed, double range, double accuracy, double agility) {
         super(health, vector);
         this.name = name;
         stats = new Stats();
