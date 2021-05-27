@@ -6,10 +6,10 @@ import main.java.fr.enseeiht.lbs.model.gameObject.unit.Unit;
 
 public class AttackAction implements IAttackAction {
 
-    Entity attaquant;
-    Entity target;
+    Unit attaquant;
+    Unit target;
 
-    public AttackAction(Entity attaquant) {
+    public AttackAction(Unit attaquant) {
         this.attaquant = attaquant;
         this.target = null;
     }
@@ -19,7 +19,10 @@ public class AttackAction implements IAttackAction {
         if (target == null||attaquant==null) {
             return;
         }
-        target.receiveDamage(attaquant.getStats().getStatisticValue(Statistic.DAMAGE));
+
+        if (attaquant.attackSucess()) {
+            target.receiveDamage(attaquant.getStats().getStatisticValue(Statistic.DAMAGE));
+        }
     }
 
     @Override

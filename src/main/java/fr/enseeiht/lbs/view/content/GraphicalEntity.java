@@ -6,6 +6,8 @@ import java.awt.Graphics2D;
 
 import main.java.fr.enseeiht.lbs.model.gameObject.Vector2;
 
+import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.SUPER_PIXEL_SIZE;
+
 @SuppressWarnings("serial")
 public class GraphicalEntity extends Component{
 	
@@ -18,6 +20,6 @@ public class GraphicalEntity extends Component{
 	@Override
 	public void paint(Graphics graphics) {
 		super.paint(graphics);
-		((Graphics2D) graphics).drawRect(((int)position.x)-5, ((int)position.y)-5, 11, 11);
+		((Graphics2D) graphics).drawRect(((int)position.x)-5, ((int)position.y)-5, SUPER_PIXEL_SIZE, SUPER_PIXEL_SIZE);
 	}
 }

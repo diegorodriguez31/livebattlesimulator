@@ -1,7 +1,7 @@
 package main.java.fr.enseeiht.lbs.model.gameObject.unit.buff;
 
-import main.java.fr.enseeiht.lbs.model.gameObject.unit.visitors.IBuffVisitor;
+import main.java.fr.enseeiht.lbs.model.gameObject.unit.visitor.BuffVisitor;
 
 public interface Buff {
-    void accept(IBuffVisitor visitor);
+    void accept(BuffVisitor visitor);
 }

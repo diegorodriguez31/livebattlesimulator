@@ -1,19 +1,19 @@
-package main.java.fr.enseeiht.lbs.model.gameObject.unit.visitors;
+package main.java.fr.enseeiht.lbs.model.gameObject.unit.visitor;
 
 import main.java.fr.enseeiht.lbs.model.gameObject.unit.Unit;
 import main.java.fr.enseeiht.lbs.model.gameObject.unit.buff.FireDebuff;
 import main.java.fr.enseeiht.lbs.model.gameObject.unit.buff.FreezeDebuff;
 import main.java.fr.enseeiht.lbs.model.gameObject.unit.buff.SlowDebuff;
 
-public class TicBuffVisitor implements IBuffVisitor{
+public class BasicDotVisitor implements BuffVisitor {
 
     private static final double FIRE_DEBUFF_DAMAGE = 20.0;
     private static final double FREEZE_DEBUFF_DAMAGE = 10.0;
 
-    long deltaTime;
-    Unit unit;
+    protected long deltaTime;
+    protected Unit unit;
 
-    public TicBuffVisitor(long deltaTime, Unit unit) {
+    public BasicDotVisitor(long deltaTime, Unit unit) {
         this.deltaTime = deltaTime;
         this.unit = unit;
     }
@@ -30,6 +30,6 @@ public class TicBuffVisitor implements IBuffVisitor{
 
     @Override
     public void visit(SlowDebuff buff) {
-
+        // do nothing
     }
 }
