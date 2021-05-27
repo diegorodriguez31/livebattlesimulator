@@ -17,6 +17,7 @@ public class BuffAction implements IAttackAction {
         if (target == null||buff==null) {
             return;
         }
+
         target.addBuffs(buff);
     }
 

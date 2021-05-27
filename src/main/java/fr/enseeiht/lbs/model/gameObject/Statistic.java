@@ -1,5 +1,5 @@
 package main.java.fr.enseeiht.lbs.model.gameObject;
 
 public enum Statistic {
-    SPEED, DAMAGE, ARMOR, COOLDOWN, RANGE
+    DAMAGE, COOLDOWN, SPEED, RANGE, ACCURACY, AGILITY, ARMOR, AREA_OF_EFFECT, SHIELD
 }

@@ -31,7 +31,7 @@ public class MapView extends JPanel {
 		Color color;
         switch (worldElement) {
             case WATER:
-                color = new Color(0, 0, 255);
+                color = new Color(0, 150, 255);
                 break;
             case DESERT:
                 color = new Color(252, 196, 0);
@@ -40,7 +40,7 @@ public class MapView extends JPanel {
                 color = new Color(34, 184, 36);
                 break;
             case ROCK:
-                color = new Color(138, 86, 21);
+                color = new Color(111, 111, 106);
                 break;
             default:
             	color = new Color(93,250,53);
