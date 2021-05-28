@@ -1,4 +1,5 @@
 @startuml
+namespace model{
 
 class Battle {
     - Battle()
@@ -106,6 +107,20 @@ Entity ..|> GameObject
 StatsBuffVisitor ..|> BuffVisitor
 UpdateBuffVisitor ..|> BuffVisitor
 Unit --|> Entity
+Battle --> PropertyChangeSupport
 
+}
 
+namespace view{
+
+}
+
+namespace controler{
+
+}
+
+view ..|> PropertyChangeListener
+
+model.PropertyChangeSupport o-- PropertyChangeListener
+controler x--> model.Battle
 @enduml
