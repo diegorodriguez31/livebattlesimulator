@@ -30,12 +30,12 @@ public class LiveBattleSimulator {
 		}
 
 
-		World world = new World(20, 20, 35, 10, 5, 50);
+		World world = new World(20, 20, 10, 30, 5, 0,55);
 
 //		new BattleGUI(battle);
 //		new SpeedGUI(battle);
 //		new WorldGUI(world);
-		WorldText.writeWorld(world);
+//		WorldText.writeWorld(world);
 		new BattleWorldGUI(battle, world);
 
 		battle.run();
