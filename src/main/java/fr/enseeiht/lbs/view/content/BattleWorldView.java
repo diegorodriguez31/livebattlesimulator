@@ -1,6 +1,5 @@
 package main.java.fr.enseeiht.lbs.view.content;
 
-import main.java.fr.enseeiht.lbs.model.gameObject.Entity;
 import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.model.world.WorldElement;
 
@@ -12,7 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @SuppressWarnings("serial")
-public class BattleWorldView extends JPanel implements PropertyChangeListener {
+public class BattleWorldView extends BattleView implements PropertyChangeListener {
 
     private static final int WORLD_TO_PIXEL = 11;
 
@@ -44,15 +43,6 @@ public class BattleWorldView extends JPanel implements PropertyChangeListener {
         Toolkit.getDefaultToolkit().sync();
     }
 
-    private void modifiedGameObjectTreatement(PropertyChangeEvent propertyChangeEvent) {
-        graphicalEntities.clear();
-        for (Object gameObject : (List<?>) propertyChangeEvent.getNewValue()) {
-            if (gameObject instanceof Entity) {
-                Entity entity = (Entity) gameObject;
-                this.graphicalEntities.add(new GraphicalEntity(entity.getPosition().scale(WORLD_TO_PIXEL)));
-            }
-        }
-    }
 
     @Override
     public void paint(Graphics graphics) {
