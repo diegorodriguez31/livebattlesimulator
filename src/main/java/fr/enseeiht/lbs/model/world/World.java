@@ -68,14 +68,14 @@ public class World {
 		}
 		boolean[][] cellmap;
 		cellmap = initialiseMap(worldElements, value);
-		affichcells(cellmap);
+//		affichcells(cellmap);  Pour debug
 		int numberOfSteps = 3;
 		int deathLimit = 3;
 		int birthLimit = 3;
 		for(int i=0; i<numberOfSteps; i++){
 			cellmap = doSimulationStep(cellmap, deathLimit, birthLimit);
 		}
-		affichcells(cellmap);
+//		affichcells(cellmap); Pour debug
 		finaliseMap(worldElements,cellmap,value);
 	}
 

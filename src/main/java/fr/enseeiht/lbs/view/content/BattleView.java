@@ -61,8 +61,8 @@ public class BattleView extends JPanel implements PropertyChangeListener {
                 Color color = null;
                 if (entity instanceof Unit) {
                     Unit unit = (Unit) entity;
-                    if (unit.getTeam() != null && unit.getTeam().getColorIndex() < teamColors.size()) {
-                        color = teamColors.get(unit.getTeam().getColorIndex());
+                    if (unit.getTeam() != null && unit.getTeam().getArmyIndex() < teamColors.size()) {
+                        color = teamColors.get(unit.getTeam().getArmyIndex());
                     }
                 }
                 if (sprite != null) {
