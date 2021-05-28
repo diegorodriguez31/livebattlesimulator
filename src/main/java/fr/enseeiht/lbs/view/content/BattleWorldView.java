@@ -3,8 +3,9 @@ package main.java.fr.enseeiht.lbs.view.content;
 import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.model.world.WorldElement;
 
-import javax.swing.*;
 import java.awt.*;
+import main.java.fr.enseeiht.lbs.model.gameObject.Entity;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.LinkedList;
@@ -12,6 +13,8 @@ import java.util.List;
 
 @SuppressWarnings("serial")
 public class BattleWorldView extends BattleView implements PropertyChangeListener {
+
+    private static final int WORLD_TO_PIXEL = 11;
 
     private List<GraphicalEntity> graphicalEntities;
 

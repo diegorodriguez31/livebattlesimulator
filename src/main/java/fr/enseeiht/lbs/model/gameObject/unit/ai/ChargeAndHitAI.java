@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.SUPER_PIXEL_SIZE;
-
 public class ChargeAndHitAI implements AI {
 
     private long cooldown;
@@ -30,19 +28,22 @@ public class ChargeAndHitAI implements AI {
 
     @Override
     public List<Action> getActions(Unit self, Battle context, long deltaTime) {
-        if (target==null || target.isDead()){
+        if (target == null || target.isDead()) {
             target = context.findClosestEnemy(self);
             attack.setTarget(target);
         }
-        if (target.getPosition().sub(self.getPosition()).sqrSize()<self.getStats().getStatisticValue(Statistic.RANGE)*SUPER_PIXEL_SIZE){
-            if (cooldown < 0){
-                cooldown = (long) self.getStats().getStatisticValue(Statistic.COOLDOWN)*1000;
+        if (target == null) {
+            return new ArrayList<>();
+        }
+        if (target.getPosition().sub(self.getPosition()).sqrSize() < self.getStats().getStatisticValue(Statistic.RANGE)) {
+            if (cooldown < 0) {
+                cooldown = (long) self.getStats().getStatisticValue(Statistic.COOLDOWN) * 1000;
                 return Arrays.asList(attack);
-            }else{
+            } else {
                 cooldown -= deltaTime;
                 return new ArrayList<>();
             }
-        }else{
+        } else {
             movement.setTarget(target.getPosition());
             return Arrays.asList(movement);
         }

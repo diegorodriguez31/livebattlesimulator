@@ -7,6 +7,10 @@ import main.java.fr.enseeiht.lbs.model.gameObject.unit.soldier.Peasant;
 
 import javax.swing.*;
 import java.awt.*;
+import main.java.fr.enseeiht.lbs.model.gameObject.Entity;
+
+import javax.swing.*;
+import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -16,6 +20,8 @@ import java.util.List;
 
 @SuppressWarnings("serial")
 public class BattleView extends JPanel implements PropertyChangeListener {
+
+    private static final int WORLD_TO_PIXEL = 11;
 
     private List<GraphicalEntity> graphicalEntities;
 
@@ -60,9 +66,9 @@ public class BattleView extends JPanel implements PropertyChangeListener {
                     }
                 }
                 if (sprite != null) {
-                    this.graphicalEntities.add(new SpriteGraphicalEntity(entity.getPosition(), sprite, color));
+                    this.graphicalEntities.add(new SpriteGraphicalEntity(entity.getPosition().scale(WORLD_TO_PIXEL), sprite, color));
                 } else {
-                    this.graphicalEntities.add(new GraphicalEntity(entity.getPosition(), color));
+                    this.graphicalEntities.add(new GraphicalEntity(entity.getPosition().scale(WORLD_TO_PIXEL), color));
                 }
 
             }
