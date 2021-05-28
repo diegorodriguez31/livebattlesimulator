@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Army {
-    private static int maxColorIndex = 0;
+    private static int maxArmyIndex = 0;
 
     private List<Unit> units;
-    private int colorIndex;
+    private int armyIndex;
 
     public Army() {
         this.units = new ArrayList<>();
-        colorIndex = maxColorIndex++;
+        armyIndex = maxArmyIndex++;
     }
 
     public List<Unit> getUnits() {
@@ -29,7 +29,7 @@ public class Army {
         return units.stream().filter(unit -> unit.getHealth() > 0).count();
     }
 
-    public int getColorIndex() {
-        return colorIndex;
+    public int getArmyIndex() {
+        return armyIndex;
     }
 }
