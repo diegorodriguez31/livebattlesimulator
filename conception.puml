@@ -75,6 +75,14 @@ interface BuffVisitor<T extends Buff>{
     + void visit(T visitor)
 }
 
+interface AttackAction{
+    +setTarget(Unit target)
+}
+
+interface MoveAction{
+    +setTarget(Vector2 target)
+}
+
 class UpdateBuffVisitor{
     # float deltaTime
     + void visit(T visitor)
@@ -98,6 +106,8 @@ Battle "1" --> "1 instance "Battle
 Army "1 team" o--- "0..n units" Unit
 
 AI ..> Action : "<<uses>>"
+Action --|> MoveAction
+Action --|> AttackAction
 Unit ..> UpdateBuffVisitor : "<<uses>>"
 Unit ..> StatsBuffVisitor : "<<uses>>"
 BuffVisitor <..> Buff : "<<uses>>"
