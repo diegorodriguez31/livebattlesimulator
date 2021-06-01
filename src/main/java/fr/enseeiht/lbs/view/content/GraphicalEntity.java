@@ -15,6 +15,7 @@ public class GraphicalEntity extends Component {
     public GraphicalEntity(Vector2 position, Color labelColor) {
         this.position = new Vector2(position);
         this.labelColor = labelColor;
+        
     }
 
     @Override

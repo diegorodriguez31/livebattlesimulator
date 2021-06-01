@@ -83,7 +83,6 @@ public class BattleView extends JPanel implements PropertyChangeListener {
     @Override
     public void paint(Graphics graphics) {
         super.paint(graphics);
-
         for (GraphicalEntity entityGraphic : this.graphicalEntities) {
             entityGraphic.paint(graphics);
         }

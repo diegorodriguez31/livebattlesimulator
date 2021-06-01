@@ -12,7 +12,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.VERBOSE;
+
+
 public class Battle {
+
 
     private long lastTime;
 
@@ -57,8 +61,12 @@ public class Battle {
             long deltaTime = System.currentTimeMillis() - lastTime;
             lastTime = System.currentTimeMillis();
             tempTotal += deltaTime;
-            System.out.println("delta time" + deltaTime);
-            System.out.println("total time" + tempTotal);
+            if (VERBOSE >= 1) {
+                System.out.println("delta time" + deltaTime);
+                if (VERBOSE >= 2) {
+                    System.out.println("total time" + tempTotal);
+                }
+            }
             for (GameObject object : objects) {
                 object.update(this, (long) (deltaTime * deltaTimeMultiplier));
             }

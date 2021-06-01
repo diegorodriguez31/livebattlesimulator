@@ -9,13 +9,13 @@ import main.java.fr.enseeiht.lbs.model.gameObject.unit.soldier.Knight;
 import main.java.fr.enseeiht.lbs.model.gameObject.unit.soldier.Peasant;
 import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.view.gui.BattleWorldGUI;
-import main.java.fr.enseeiht.lbs.view.gui.WorldText;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LiveBattleSimulator {
     public static final int SUPER_PIXEL_SIZE = 11;
+    public static final int VERBOSE = 0;
 
     public static void main(String[] args) {
         Battle battle = Battle.getInstance();

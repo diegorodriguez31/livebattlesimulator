@@ -26,5 +26,5 @@ public class BattleWorldView extends BattleView implements PropertyChangeListene
             }
         }
     }
-    
+
 }

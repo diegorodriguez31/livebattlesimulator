@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.VERBOSE;
 import static main.java.fr.enseeiht.lbs.model.gameObject.Statistic.ACCURACY;
 import static main.java.fr.enseeiht.lbs.model.gameObject.Statistic.AGILITY;
 
@@ -73,7 +74,9 @@ public abstract class Unit extends Entity {
                 ai.getActions(this, context, deltaTime)) {
             a.execute(deltaTime);
         }
-        status();
+        if (VERBOSE >= 2) {
+            status();
+        }
         // update buffs
         BasicDotVisitor visitor = getUpdateVisitor(deltaTime);
         for (Buff buff : buffs) {
