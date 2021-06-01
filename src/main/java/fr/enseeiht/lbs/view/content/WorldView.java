@@ -2,15 +2,18 @@ package main.java.fr.enseeiht.lbs.view.content;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.model.world.WorldElement;
+import main.java.fr.enseeiht.lbs.view.gui.WorldGUI;
 
 @SuppressWarnings("serial")
-public class WorldView extends JPanel {
+public class WorldView extends JPanel implements PropertyChangeListener {
 
 	public WorldView(World world) {
 		this.setLayout(new GridLayout(world.getSizeX(), world.getSizeY()));//construit une grille de la même taille que le tableau de char
@@ -45,5 +48,19 @@ public class WorldView extends JPanel {
             	break;
         }
         return color;
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
+	    Object source = propertyChangeEvent.getSource();
+        if (source==World.PROPERTY_RELOAD_MAP)
+            System.out.println(World.PROPERTY_RELOAD_MAP);
+            modifymap(propertyChangeEvent);
+        this.repaint();
+    }
+    public void modifymap(PropertyChangeEvent propertyChangeEvent){
+
+        World world = new World(20, 20, 35, 10, 5, 0, 50);
+        new WorldGUI(world);
     }
 }

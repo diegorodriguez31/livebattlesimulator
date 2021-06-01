@@ -4,8 +4,6 @@ import main.java.fr.enseeiht.lbs.model.gameObject.Statistic;
 import main.java.fr.enseeiht.lbs.model.gameObject.Vector2;
 import main.java.fr.enseeiht.lbs.model.gameObject.unit.Unit;
 
-import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.SUPER_PIXEL_SIZE;
-
 public class FlightMovementAction implements IMovementAction {
     private Unit self;
     private Vector2 target;
@@ -21,9 +19,9 @@ public class FlightMovementAction implements IMovementAction {
 
     @Override
     public void execute(long deltaTime) {
-        this.self.getPosition().inc(
-                target.sub(self.getPosition())
-                        .normalize(
-                                (float) self.getStats().getStatisticValue(Statistic.SPEED)*SUPER_PIXEL_SIZE*deltaTime/1000));
+        float speed = (float) self.getStats().getStatisticValue(Statistic.SPEED) * deltaTime / 1000;
+        Vector2 deltaPos = target.sub(self.getPosition());
+        float traveledDistance = Math.min(deltaPos.size(), speed);
+        this.self.getPosition().inc(deltaPos.normalize(traveledDistance));
     }
 }

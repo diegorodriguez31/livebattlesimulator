@@ -1,16 +1,16 @@
-
 package main.java.fr.enseeiht.lbs.model.gameObject.unit;
 
-import main.java.fr.enseeiht.lbs.model.gameObject.Statistic;
-import main.java.fr.enseeiht.lbs.model.gameObject.unit.buff.Buff;
-import main.java.fr.enseeiht.lbs.model.gameObject.unit.visitor.BasicStatModifierBuffVisitor;
-import main.java.fr.enseeiht.lbs.model.gameObject.unit.visitor.BasicDotVisitor;
+import main.java.fr.enseeiht.lbs.model.battleSimulator.Army;
 import main.java.fr.enseeiht.lbs.model.battleSimulator.Battle;
 import main.java.fr.enseeiht.lbs.model.gameObject.Entity;
+import main.java.fr.enseeiht.lbs.model.gameObject.Statistic;
 import main.java.fr.enseeiht.lbs.model.gameObject.Stats;
 import main.java.fr.enseeiht.lbs.model.gameObject.Vector2;
 import main.java.fr.enseeiht.lbs.model.gameObject.unit.action.Action;
 import main.java.fr.enseeiht.lbs.model.gameObject.unit.ai.AI;
+import main.java.fr.enseeiht.lbs.model.gameObject.unit.buff.Buff;
+import main.java.fr.enseeiht.lbs.model.gameObject.unit.visitor.BasicDotVisitor;
+import main.java.fr.enseeiht.lbs.model.gameObject.unit.visitor.BasicStatModifierBuffVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +24,7 @@ public abstract class Unit extends Entity {
     List<Buff> buffs = new ArrayList<>();
     protected double cooldown;
     private String name;
+    private Army team;
 
     // create basic fighting unit
     public Unit(Vector2 vector, String name, double health, double damage, double cooldown, double speed, double range, double accuracy, double agility) {
@@ -69,7 +70,7 @@ public abstract class Unit extends Entity {
     @Override
     public void update(Battle context, long deltaTime) {
         for (Action a :
-                ai.getActions(this,context,deltaTime)) {
+                ai.getActions(this, context, deltaTime)) {
             a.execute(deltaTime);
         }
         status();
@@ -83,7 +84,7 @@ public abstract class Unit extends Entity {
     public void receiveDamage(double damage) {
         if (!dodge()) {
             health -= damage;
-            if (isDead()){
+            if (isDead()) {
                 removeFromBattle();
             }
         }
@@ -93,25 +94,33 @@ public abstract class Unit extends Entity {
         buffs.add(buff);
     }
 
-    protected BasicStatModifierBuffVisitor getStatVisitor(){
+    protected BasicStatModifierBuffVisitor getStatVisitor() {
         return new BasicStatModifierBuffVisitor(stats);
     }
 
-    protected BasicDotVisitor getUpdateVisitor(long deltaTime){
-        return new BasicDotVisitor(deltaTime,this);
+    protected BasicDotVisitor getUpdateVisitor(long deltaTime) {
+        return new BasicDotVisitor(deltaTime, this);
     }
 
     public Stats getRawStats() {
         return stats;
     }
 
-    public boolean attackSucess(){
+    public boolean attackSucess() {
         Random random = new Random();
         return (random.nextInt(100) + 1) < getStats().getStatisticValue(ACCURACY);
     }
 
-    public boolean dodge(){
+    public boolean dodge() {
         Random random = new Random();
         return (random.nextInt(100) + 1) < getStats().getStatisticValue(AGILITY);
+    }
+
+    public Army getTeam() {
+        return team;
+    }
+
+    public void setTeam(Army team) {
+        this.team = team;
     }
 }
