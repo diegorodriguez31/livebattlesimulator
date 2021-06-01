@@ -20,17 +20,10 @@ public class BattleView extends JPanel implements PropertyChangeListener {
 
     private static final int WORLD_TO_PIXEL = 11;
 
-    protected Vector2 worldToPixel(Vector2 world) {
-        return world.scale(WORLD_TO_PIXEL);
-    }
-
-    protected Vector2 pixelToWorld(Vector2 pixel) {
-        return pixel.scale(1f / WORLD_TO_PIXEL);
-    }
-
     private List<GraphicalEntity> graphicalEntities;
 
     private final static HashMap<Class<? extends Entity>, String> entitySprites = new HashMap<>();
+
     private final static List<Color> teamColors = new ArrayList<>();
 
     static {
@@ -45,7 +38,20 @@ public class BattleView extends JPanel implements PropertyChangeListener {
 
     public BattleView() {
         this.setVisible(true);
+        this.setPreferredSize(new Dimension(500, 500));
         this.graphicalEntities = new LinkedList<>();
+    }
+
+    protected Vector2 worldToPixel(Vector2 world) {
+        return world.scale(WORLD_TO_PIXEL);
+    }
+
+    protected Vector2 pixelToWorld(Vector2 pixel) {
+        return pixel.scale(1f / WORLD_TO_PIXEL);
+    }
+
+    protected Vector2 pixelToWorld(int x, int y) {
+        return new Vector2(x, y).scale(1f / WORLD_TO_PIXEL);
     }
 
     @Override
