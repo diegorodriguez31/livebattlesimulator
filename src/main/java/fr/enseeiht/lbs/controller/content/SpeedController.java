@@ -12,7 +12,7 @@ import main.java.fr.enseeiht.lbs.model.battleSimulator.Battle;
 public class SpeedController extends JPanel{
 
 	private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#0.00");
-	private static final float LOW_INCREMENT = 0.15f;
+	private static final float LOW_INCREMENT = 0.10f;
 	private static final float HIGH_INCREMENT = 0.75f;
 	
 	private float deltaTimeMultiplier;
@@ -53,11 +53,11 @@ public class SpeedController extends JPanel{
 		});
 
 		playButton.addActionListener(actionEvent -> {
-			if (model.getDeltaTimeMultiplier() < Battle.MIN_DELTA_TIME_MULTIPLIER){
+			if (model.getDeltaTimeMultiplier() <= Battle.MIN_DELTA_TIME_MULTIPLIER){
 				model.setDeltaTimeMultiplier(deltaTimeMultiplier);
 			}else {
 				this.deltaTimeMultiplier = model.getDeltaTimeMultiplier();
-				model.setDeltaTimeMultiplier(0.0f);
+				model.setDeltaTimeMultiplier(Battle.STOPPED_DELTA_TIME_MULTIPLIER);
 			}
 			updateButtons();
 		});
