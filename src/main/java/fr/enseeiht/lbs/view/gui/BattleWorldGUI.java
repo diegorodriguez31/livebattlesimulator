@@ -2,10 +2,7 @@ package main.java.fr.enseeiht.lbs.view.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 
-import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
@@ -20,7 +17,8 @@ public class BattleWorldGUI extends JFrame {
 	public BattleWorldGUI(World world) {
 		Battle battle = Battle.getInstance();
 		BattleWorldView battleWorldView = new BattleWorldView(world);
-		battle.addGameObjectsObserver(battleWorldView);
+		battle.addObserver(battleWorldView, Battle.PROPERTY_GAME_OBJECTS);
+		battle.addObserver(battleWorldView, Battle.PROPERTY_RESULTS);
 
 		this.setLayout(new BorderLayout());
 		this.add(battleWorldView, BorderLayout.CENTER);

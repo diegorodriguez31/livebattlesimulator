@@ -72,7 +72,6 @@ public class LiveBattleSimulator {
 
         //Unit shieldMan = new Shieldman("shieldman", new Vector2(250,260), 200, 1, 10, 50, 3, 10);
         //army2.addUnit(shieldMan);
-
         armies.add(army1);
         armies.add(army2);
 

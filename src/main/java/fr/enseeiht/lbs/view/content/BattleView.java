@@ -1,5 +1,7 @@
 package main.java.fr.enseeiht.lbs.view.content;
 
+import main.java.fr.enseeiht.lbs.model.battleSimulator.Army;
+import main.java.fr.enseeiht.lbs.model.battleSimulator.Battle;
 import main.java.fr.enseeiht.lbs.model.gameObject.Entity;
 import main.java.fr.enseeiht.lbs.model.gameObject.unit.Unit;
 import main.java.fr.enseeiht.lbs.model.gameObject.unit.soldier.Knight;
@@ -7,15 +9,10 @@ import main.java.fr.enseeiht.lbs.model.gameObject.unit.soldier.Peasant;
 
 import javax.swing.*;
 import java.awt.*;
-import main.java.fr.enseeiht.lbs.model.gameObject.Entity;
 
-import javax.swing.*;
-import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.List;
 
 @SuppressWarnings("serial")
@@ -26,16 +23,21 @@ public class BattleView extends JPanel implements PropertyChangeListener {
     private List<GraphicalEntity> graphicalEntities;
 
     private final static HashMap<Class<? extends Entity>, String> entitySprites = new HashMap<>();
-    private final static List<Color> teamColors = new ArrayList<>();
+    public final static List<Color> teamColors = new ArrayList<>();
+    public final static Map<Color, String> colorsNames = new HashMap<>();
 
     static {
         entitySprites.put(Knight.class, "Knight.png");
         entitySprites.put(Peasant.class, "Peasant.png");
 
         teamColors.add(Color.BLUE);
+        colorsNames.put(teamColors.get(0), "bleue");
         teamColors.add(Color.RED);
+        colorsNames.put(teamColors.get(1), "rouge");
         teamColors.add(Color.GREEN);
+        colorsNames.put(teamColors.get(2), "verte");
         teamColors.add(Color.YELLOW);
+        colorsNames.put(teamColors.get(3), "jaune");
     }
 
     public BattleView() {
@@ -45,14 +47,13 @@ public class BattleView extends JPanel implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
-        if (propertyChangeEvent.getPropertyName().equals("gameObjects"))
-            modifiedGameObjectTreatement(propertyChangeEvent);
-
+        if (propertyChangeEvent.getPropertyName().equals(Battle.PROPERTY_GAME_OBJECTS))
+            modifiedGameObjectTreatment(propertyChangeEvent);
         this.repaint();
         Toolkit.getDefaultToolkit().sync();
     }
 
-    protected void modifiedGameObjectTreatement(PropertyChangeEvent propertyChangeEvent) {
+    protected void modifiedGameObjectTreatment(PropertyChangeEvent propertyChangeEvent) {
         graphicalEntities.clear();
         for (Object gameObject : (List<?>) propertyChangeEvent.getNewValue()) {
             if (gameObject instanceof Entity) {
@@ -73,6 +74,14 @@ public class BattleView extends JPanel implements PropertyChangeListener {
 
             }
         }
+    }
+
+    protected void endGameTreatment(PropertyChangeEvent propertyChangeEvent) {
+        Army winner = (Army) propertyChangeEvent.getNewValue();
+        Color color = BattleView.teamColors.get(winner.getArmyIndex());
+        String colorName = BattleView.colorsNames.get(color);
+        String result = "L'armée " + colorName + " a gagnée";
+        JOptionPane.showMessageDialog(null, result);
     }
 
     @Override
