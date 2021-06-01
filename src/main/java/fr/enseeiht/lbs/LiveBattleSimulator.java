@@ -36,7 +36,7 @@ public class LiveBattleSimulator {
 //		new SpeedGUI(battle);
 //		new WorldGUI(world);
 //      WorldText.writeWorld(world);
-        new BattleWorldGUI(battle, world);
+        new BattleWorldGUI(world);
 
         battle.run();
     }
