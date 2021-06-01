@@ -37,10 +37,10 @@ public class BattleSimulationController extends JPanel {
         World world = new World(20, 20, 35, 10, 5, 50);
 
         BattleWorldView battleWorldView = new BattleWorldView(world);
-        Battle.getInstance().addGameObjectsObserver(battleWorldView);
+        Battle.getInstance().addObserver(battleWorldView, Battle.PROPERTY_GAME_OBJECTS);
 
         setLayout(new BorderLayout());
-        add(new SpeedController(Battle.getInstance()), BorderLayout.SOUTH);
+        add(new SpeedController(), BorderLayout.SOUTH);
         add(homePageButton, BorderLayout.NORTH);
         add(battleWorldView, BorderLayout.CENTER);
     }

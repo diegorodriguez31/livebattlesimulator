@@ -19,14 +19,21 @@ public class Battle {
     private int nbArmies;
 
     private PropertyChangeSupport propertyChangeSupport;
-    private String propertyGameObjects = "gameObjects";
+    public static final String PROPERTY_GAME_OBJECTS = "gameObjects";
+    public static final String PROPERTY_RESULTS = "results";
 
     Objectif objectif;
     List<Army> armies;
     List<GameObject> objects;
     List<GameObject> endObjects;
 
-    private float deltaTimeMultiplier = 1.0f;
+    public static final float DEFAULT_DELTA_TIME_MULTIPLIER = 1.0f;
+    public static final float STOPPED_DELTA_TIME_MULTIPLIER = 0.00f;
+    public static final float MAX_DELTA_TIME_MULTIPLIER = 10.0f;
+    public static final float MIN_DELTA_TIME_MULTIPLIER = 0.01f;
+    
+    private float deltaTimeMultiplier = STOPPED_DELTA_TIME_MULTIPLIER;
+    
 
     private Battle() {
         this.propertyChangeSupport = new PropertyChangeSupport(this);
@@ -57,7 +64,7 @@ public class Battle {
         long tempTotal = 0;
 
         //notify Observers that battle is starting
-        this.propertyChangeSupport.firePropertyChange(propertyGameObjects, null, this.objects);
+        this.propertyChangeSupport.firePropertyChange(PROPERTY_GAME_OBJECTS, null, this.objects);
 
         while (objectif.getWinner(this) == null) {
             long deltaTime = System.currentTimeMillis() - lastTime;
@@ -76,7 +83,7 @@ public class Battle {
             }
 
             //notify Observers
-            this.propertyChangeSupport.firePropertyChange(propertyGameObjects, null, this.objects);
+            this.propertyChangeSupport.firePropertyChange(PROPERTY_GAME_OBJECTS, null, this.objects);
 
             try {
                 Thread.sleep(1000 / 60);
@@ -84,6 +91,9 @@ public class Battle {
                 System.err.println(e.getMessage());
             }
         }
+        Army winner = objectif.getWinner(this);
+        // Notify observers that the battle is finished
+        this.propertyChangeSupport.firePropertyChange(PROPERTY_RESULTS, null, winner);
     }
 
     public void setDeltaTimeMultiplier(float deltaTimeMultiplier) {
@@ -94,10 +104,10 @@ public class Battle {
         return deltaTimeMultiplier;
     }
 
-    public void addGameObjectsObserver(PropertyChangeListener propertyChangeListener) {
+    public void addObserver(PropertyChangeListener propertyChangeListener, String propertyName) {
         //Only adds the listener once
-        if (!Arrays.asList(propertyChangeSupport.getPropertyChangeListeners(propertyGameObjects)).contains(propertyChangeListener)) {
-            propertyChangeSupport.addPropertyChangeListener(propertyGameObjects, propertyChangeListener);
+        if (!Arrays.asList(propertyChangeSupport.getPropertyChangeListeners(propertyName)).contains(propertyChangeListener)) {
+            propertyChangeSupport.addPropertyChangeListener(propertyName, propertyChangeListener);
         }
     }
 
