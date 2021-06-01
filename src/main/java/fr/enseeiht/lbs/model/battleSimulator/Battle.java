@@ -25,7 +25,13 @@ public class Battle {
     List<GameObject> objects;
     List<GameObject> endObjects;
 
-    private float deltaTimeMultiplier = 1.0f;
+    public static final float DEFAULT_DELTA_TIME_MULTIPLIER = 1.0f;
+    public static final float STOPPED_DELTA_TIME_MULTIPLIER = 0.00f;
+    public static final float MAX_DELTA_TIME_MULTIPLIER = 10.0f;
+    public static final float MIN_DELTA_TIME_MULTIPLIER = 0.01f;
+    
+    private float deltaTimeMultiplier = STOPPED_DELTA_TIME_MULTIPLIER;
+    
 
     private Battle() {
         this.propertyChangeSupport = new PropertyChangeSupport(this);

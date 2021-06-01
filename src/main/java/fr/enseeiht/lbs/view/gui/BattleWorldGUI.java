@@ -22,7 +22,7 @@ public class BattleWorldGUI extends JFrame {
 
 		this.setLayout(new BorderLayout());
 		this.add(battleWorldView, BorderLayout.CENTER);
-		this.add(new SpeedController(battle), BorderLayout.SOUTH);
+		this.add(new SpeedController(), BorderLayout.SOUTH);
 		
 		this.pack();
         this.setSize(new Dimension(500,500));
