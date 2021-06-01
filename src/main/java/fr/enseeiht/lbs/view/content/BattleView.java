@@ -1,13 +1,10 @@
 package main.java.fr.enseeiht.lbs.view.content;
 
 import main.java.fr.enseeiht.lbs.model.gameObject.Entity;
+import main.java.fr.enseeiht.lbs.model.gameObject.Vector2;
 import main.java.fr.enseeiht.lbs.model.gameObject.unit.Unit;
 import main.java.fr.enseeiht.lbs.model.gameObject.unit.soldier.Knight;
 import main.java.fr.enseeiht.lbs.model.gameObject.unit.soldier.Peasant;
-
-import javax.swing.*;
-import java.awt.*;
-import main.java.fr.enseeiht.lbs.model.gameObject.Entity;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,6 +19,14 @@ import java.util.List;
 public class BattleView extends JPanel implements PropertyChangeListener {
 
     private static final int WORLD_TO_PIXEL = 11;
+
+    protected Vector2 worldToPixel(Vector2 world) {
+        return world.scale(WORLD_TO_PIXEL);
+    }
+
+    protected Vector2 pixelToWorld(Vector2 pixel) {
+        return pixel.scale(1f / WORLD_TO_PIXEL);
+    }
 
     private List<GraphicalEntity> graphicalEntities;
 
@@ -62,13 +67,13 @@ public class BattleView extends JPanel implements PropertyChangeListener {
                 if (entity instanceof Unit) {
                     Unit unit = (Unit) entity;
                     if (unit.getTeam() != null && unit.getTeam().getArmyIndex() < teamColors.size()) {
-                        color = teamColors.get(unit.getTeam().getArmyIndex());
+                        color = teamColors.get(unit.getTeam().getArmyIndex() % teamColors.size());
                     }
                 }
                 if (sprite != null) {
-                    this.graphicalEntities.add(new SpriteGraphicalEntity(entity.getPosition().scale(WORLD_TO_PIXEL), sprite, color));
+                    this.graphicalEntities.add(new SpriteGraphicalEntity(worldToPixel(entity.getPosition()), sprite, color));
                 } else {
-                    this.graphicalEntities.add(new GraphicalEntity(entity.getPosition().scale(WORLD_TO_PIXEL), color));
+                    this.graphicalEntities.add(new GraphicalEntity(worldToPixel(entity.getPosition()), color));
                 }
 
             }

@@ -5,24 +5,17 @@ import main.java.fr.enseeiht.lbs.model.world.WorldElement;
 
 import javax.swing.*;
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.LinkedList;
-import java.util.List;
 
 @SuppressWarnings("serial")
 public class BattleWorldView extends BattleView implements PropertyChangeListener {
 
     private static final int WORLD_TO_PIXEL = 11;
 
-    private List<GraphicalEntity> graphicalEntities;
-
     public BattleWorldView(World world) {
-        this.graphicalEntities = new LinkedList<>();
+        super();
         this.setLayout(new GridLayout(world.getSizeX(), world.getSizeY()));//construit une grille de la même taille que le tableau de char
         this.setVisible(true);
-
-
         for (int x = 0; x < world.getSizeX(); x++) {
             for (int y = 0; y < world.getSizeY(); y++) {
                 JLabel worldCase = new JLabel();
@@ -33,23 +26,5 @@ public class BattleWorldView extends BattleView implements PropertyChangeListene
             }
         }
     }
-
-    @Override
-    public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
-        if (propertyChangeEvent.getPropertyName().equals("gameObjects"))
-            modifiedGameObjectTreatement(propertyChangeEvent);
-
-        this.repaint();
-        Toolkit.getDefaultToolkit().sync();
-    }
-
-
-    @Override
-    public void paint(Graphics graphics) {
-        super.paint(graphics);
-
-        for (GraphicalEntity entityGraphic : this.graphicalEntities) {
-            entityGraphic.paint(graphics);
-        }
-    }
+    
 }
