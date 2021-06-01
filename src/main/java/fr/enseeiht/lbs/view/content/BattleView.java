@@ -35,7 +35,7 @@ public class BattleView extends JPanel implements PropertyChangeListener {
         teamColors.add(Color.RED);
         colorsNames.put(teamColors.get(1), "rouge");
         teamColors.add(Color.GREEN);
-        colorsNames.put(teamColors.get(2), "vert");
+        colorsNames.put(teamColors.get(2), "verte");
         teamColors.add(Color.YELLOW);
         colorsNames.put(teamColors.get(3), "jaune");
     }

@@ -14,8 +14,8 @@ import main.java.fr.enseeiht.lbs.view.content.BattleWorldView;
 @SuppressWarnings("serial")
 public class BattleWorldGUI extends JFrame {
 
-	public BattleWorldGUI(Battle battle, World world) {
-		
+	public BattleWorldGUI(World world) {
+		Battle battle = Battle.getInstance();
 		BattleWorldView battleWorldView = new BattleWorldView(world);
 		battle.addObserver(battleWorldView, Battle.PROPERTY_GAME_OBJECTS);
 		battle.addObserver(battleWorldView, Battle.PROPERTY_RESULTS);

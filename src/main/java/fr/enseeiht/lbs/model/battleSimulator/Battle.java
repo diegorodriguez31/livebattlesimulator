@@ -52,7 +52,7 @@ public class Battle {
         long tempTotal = 0;
 
         //notify Observers that battle is starting
-        this.propertyChangeSupport.firePropertyChange(PROPERTY_GAME_OBJECTS, null, this.armies);
+        this.propertyChangeSupport.firePropertyChange(PROPERTY_GAME_OBJECTS, null, this.objects);
 
         while (objectif.getWinner(this) == null) {
             long deltaTime = System.currentTimeMillis() - lastTime;
