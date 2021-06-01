@@ -15,7 +15,7 @@ public class SpeedController extends JPanel{
 	private static final float LOW_INCREMENT = 0.10f;
 	private static final float HIGH_INCREMENT = 0.75f;
 	
-	private float deltaTimeMultiplier;
+	private float storedDeltaTimeMultiplier;
 	
 	Battle model;
 	JButton slowerButton;
@@ -24,7 +24,7 @@ public class SpeedController extends JPanel{
 
 	public SpeedController() {
 		this.model = Battle.getInstance();
-		this.deltaTimeMultiplier = Battle.DEFAULT_DELTA_TIME_MULTIPLIER;
+		this.storedDeltaTimeMultiplier = Battle.DEFAULT_DELTA_TIME_MULTIPLIER;
 
 		slowerButton = new JButton("⏪");
 		slowerButton.setEnabled(false);
@@ -40,23 +40,23 @@ public class SpeedController extends JPanel{
 
 		slowerButton.addActionListener(actionEvent -> {
 			//Change local attribute value
-			deltaTimeMultiplier = model.getDeltaTimeMultiplier();
-			if (deltaTimeMultiplier <= Battle.DEFAULT_DELTA_TIME_MULTIPLIER){
-				if (deltaTimeMultiplier - LOW_INCREMENT >= Battle.MIN_DELTA_TIME_MULTIPLIER )
-					deltaTimeMultiplier -= LOW_INCREMENT;
+			storedDeltaTimeMultiplier = model.getDeltaTimeMultiplier();
+			if (storedDeltaTimeMultiplier <= Battle.DEFAULT_DELTA_TIME_MULTIPLIER){
+				if (storedDeltaTimeMultiplier - LOW_INCREMENT >= Battle.MIN_DELTA_TIME_MULTIPLIER )
+					storedDeltaTimeMultiplier -= LOW_INCREMENT;
 			}else {
-				deltaTimeMultiplier -= HIGH_INCREMENT;
+				storedDeltaTimeMultiplier -= HIGH_INCREMENT;
 			}
 			//Update view and model
-			model.setDeltaTimeMultiplier(deltaTimeMultiplier);
+			model.setDeltaTimeMultiplier(storedDeltaTimeMultiplier);
 			updateButtons();
 		});
 
 		playButton.addActionListener(actionEvent -> {
-			if (model.getDeltaTimeMultiplier() <= Battle.MIN_DELTA_TIME_MULTIPLIER){
-				model.setDeltaTimeMultiplier(deltaTimeMultiplier);
+			if (model.getDeltaTimeMultiplier() == Battle.STOPPED_DELTA_TIME_MULTIPLIER){
+				model.setDeltaTimeMultiplier(storedDeltaTimeMultiplier);
 			}else {
-				this.deltaTimeMultiplier = model.getDeltaTimeMultiplier();
+				this.storedDeltaTimeMultiplier = model.getDeltaTimeMultiplier();
 				model.setDeltaTimeMultiplier(Battle.STOPPED_DELTA_TIME_MULTIPLIER);
 			}
 			updateButtons();
@@ -64,15 +64,15 @@ public class SpeedController extends JPanel{
 
 		fasterButton.addActionListener(actionEvent -> {
 			//Change local attribute value
-			deltaTimeMultiplier = model.getDeltaTimeMultiplier();
-			if (deltaTimeMultiplier < Battle.DEFAULT_DELTA_TIME_MULTIPLIER){
-				deltaTimeMultiplier += LOW_INCREMENT;
+			storedDeltaTimeMultiplier = model.getDeltaTimeMultiplier();
+			if (storedDeltaTimeMultiplier < Battle.DEFAULT_DELTA_TIME_MULTIPLIER){
+				storedDeltaTimeMultiplier += LOW_INCREMENT;
 			}else {
-				if (deltaTimeMultiplier + HIGH_INCREMENT <= Battle.MAX_DELTA_TIME_MULTIPLIER )
-					deltaTimeMultiplier += HIGH_INCREMENT;
+				if (storedDeltaTimeMultiplier + HIGH_INCREMENT <= Battle.MAX_DELTA_TIME_MULTIPLIER )
+					storedDeltaTimeMultiplier += HIGH_INCREMENT;
 			}
 			//Update view and model
-			model.setDeltaTimeMultiplier(deltaTimeMultiplier);
+			model.setDeltaTimeMultiplier(storedDeltaTimeMultiplier);
 			updateButtons();
 		});
 	}
@@ -92,7 +92,7 @@ public class SpeedController extends JPanel{
 		//if time is not stopped
 		else {
 			//update play button
-			playButton.setText("⏸ (x"+ DECIMAL_FORMAT.format(deltaTimeMultiplier) + ")"); 
+			playButton.setText("⏸ (x"+ DECIMAL_FORMAT.format(storedDeltaTimeMultiplier) + ")"); 
 			//update slower button
 			if (localDeltaTimeMultiplier - LOW_INCREMENT >= Battle.MIN_DELTA_TIME_MULTIPLIER) {	
 				slowerButton.setEnabled(true);
