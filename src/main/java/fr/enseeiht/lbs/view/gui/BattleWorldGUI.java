@@ -29,7 +29,6 @@ public class BattleWorldGUI extends JFrame {
 		this.pack();
         this.setSize(new Dimension(500,500));
         this.setVisible(true);
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
 	
 }

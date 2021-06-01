@@ -15,6 +15,8 @@ import java.util.stream.Collectors;
 public class Battle {
 
     private long lastTime;
+    private String name;
+    private int nbArmies;
 
     private PropertyChangeSupport propertyChangeSupport;
     private String propertyGameObjects = "gameObjects";
@@ -44,6 +46,10 @@ public class Battle {
         this.armies = armies;
         objects = new ArrayList<>();
         endObjects = new ArrayList<>();
+    }
+
+    public static void reset() {
+        instance = null;
     }
 
     public void run() {
@@ -95,6 +101,21 @@ public class Battle {
         }
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getNbArmies() {
+        return nbArmies;
+    }
+
+    public void setNbArmies(int nbArmies) {
+        this.nbArmies = nbArmies;
+    }
 
     public List<Army> getArmies() {
         return armies;
