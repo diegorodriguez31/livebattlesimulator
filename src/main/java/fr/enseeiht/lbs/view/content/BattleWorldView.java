@@ -1,5 +1,6 @@
 package main.java.fr.enseeiht.lbs.view.content;
 
+import main.java.fr.enseeiht.lbs.model.battleSimulator.Battle;
 import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.model.world.WorldElement;
 
@@ -36,9 +37,10 @@ public class BattleWorldView extends BattleView implements PropertyChangeListene
 
     @Override
     public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
-        if (propertyChangeEvent.getPropertyName().equals("gameObjects"))
-            modifiedGameObjectTreatement(propertyChangeEvent);
-
+        if (propertyChangeEvent.getPropertyName().equals(Battle.PROPERTY_GAME_OBJECTS))
+            modifiedGameObjectTreatment(propertyChangeEvent);
+        if (propertyChangeEvent.getPropertyName().equals(Battle.PROPERTY_RESULTS))
+            endGameTreatment(propertyChangeEvent);
         this.repaint();
         Toolkit.getDefaultToolkit().sync();
     }
