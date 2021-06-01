@@ -1,5 +1,6 @@
 package main.java.fr.enseeiht.lbs.view.content;
 
+import main.java.fr.enseeiht.lbs.model.battleSimulator.Battle;
 import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.model.world.WorldElement;
 
