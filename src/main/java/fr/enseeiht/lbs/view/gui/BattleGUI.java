@@ -14,7 +14,7 @@ public class BattleGUI extends JFrame {
 	public BattleGUI(Battle battle) {
 		
 		BattleView battleView = new BattleView();
-		battle.addGameObjectsObserver(battleView);
+		battle.addObserver(battleView, Battle.PROPERTY_GAME_OBJECTS);
 
 		this.add(battleView);
 		
