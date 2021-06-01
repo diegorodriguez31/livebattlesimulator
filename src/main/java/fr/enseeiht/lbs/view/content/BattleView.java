@@ -1,10 +1,10 @@
 package main.java.fr.enseeiht.lbs.view.content;
 
 import main.java.fr.enseeiht.lbs.model.gameObject.Entity;
-import main.java.fr.enseeiht.lbs.model.gameObject.Vector2;
 import main.java.fr.enseeiht.lbs.model.gameObject.unit.Unit;
 import main.java.fr.enseeiht.lbs.model.gameObject.unit.soldier.Knight;
 import main.java.fr.enseeiht.lbs.model.gameObject.unit.soldier.Peasant;
+import main.java.fr.enseeiht.lbs.utils.Vector2;
 
 import javax.swing.*;
 import java.awt.*;

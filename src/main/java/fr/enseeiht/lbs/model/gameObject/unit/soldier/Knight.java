@@ -1,13 +1,14 @@
 package main.java.fr.enseeiht.lbs.model.gameObject.unit.soldier;
 
 import main.java.fr.enseeiht.lbs.model.battleSimulator.Battle;
-import main.java.fr.enseeiht.lbs.model.gameObject.Vector2;
+import main.java.fr.enseeiht.lbs.model.gameObject.Stats;
 import main.java.fr.enseeiht.lbs.model.gameObject.unit.Unit;
 import main.java.fr.enseeiht.lbs.model.gameObject.unit.action.AttackAction;
 import main.java.fr.enseeiht.lbs.model.gameObject.unit.action.FlightMovementAction;
 import main.java.fr.enseeiht.lbs.model.gameObject.unit.ai.ChargeAndHitAI;
-import main.java.fr.enseeiht.lbs.model.gameObject.unit.visitor.dotVisitor.KnightDotVisitor;
 import main.java.fr.enseeiht.lbs.model.gameObject.unit.visitor.BasicDotVisitor;
+import main.java.fr.enseeiht.lbs.model.gameObject.unit.visitor.dotVisitor.KnightDotVisitor;
+import main.java.fr.enseeiht.lbs.utils.Vector2;
 
 import static main.java.fr.enseeiht.lbs.model.gameObject.Statistic.ARMOR;
 import static main.java.fr.enseeiht.lbs.model.gameObject.unit.RawStatsManager.*;
@@ -21,11 +22,15 @@ public class Knight extends Unit {
     }
 
     public Knight(Vector2 vector) {
-        this(vector, KNIGHT_NAME, KNIGHT_HEALTH, KNIGHT_DAMAGE, KNIGHT_COOLDOWN, KNIGHT_SPEED, KNIGHT_RANGE, KNIGHT_ACCURACY,KNIGHT_AGILITY, KNIGHT_ARMOR);
+        this(vector, KNIGHT_NAME, KNIGHT_HEALTH, KNIGHT_DAMAGE, KNIGHT_COOLDOWN, KNIGHT_SPEED, KNIGHT_RANGE, KNIGHT_ACCURACY, KNIGHT_AGILITY, KNIGHT_ARMOR);
+    }
+
+    public Knight(Stats stats, Vector2 position) {
+        super(stats, position);
     }
 
     @Override
-    public void status(){
+    public void status() {
         super.status();
         System.out.println("\tArmor : " + getStats().getStatisticValue(ARMOR));
         System.out.println("\n");
@@ -37,11 +42,11 @@ public class Knight extends Unit {
         super.receiveDamage(reducedDamage);
     }
 
-    protected BasicDotVisitor getUpdateVisitor(long deltaTime){
-        return new KnightDotVisitor(deltaTime,this);
+    protected BasicDotVisitor getUpdateVisitor(long deltaTime) {
+        return new KnightDotVisitor(deltaTime, this);
     }
 
-    public boolean hasArmor(){
+    public boolean hasArmor() {
         return getStats().getStatisticValue(ARMOR) > 0;
     }
 

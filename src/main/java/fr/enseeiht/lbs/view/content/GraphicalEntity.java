@@ -1,6 +1,6 @@
 package main.java.fr.enseeiht.lbs.view.content;
 
-import main.java.fr.enseeiht.lbs.model.gameObject.Vector2;
+import main.java.fr.enseeiht.lbs.utils.Vector2;
 
 import java.awt.*;
 
@@ -15,7 +15,7 @@ public class GraphicalEntity extends Component {
     public GraphicalEntity(Vector2 position, Color labelColor) {
         this.position = new Vector2(position);
         this.labelColor = labelColor;
-        
+
     }
 
     @Override

@@ -5,12 +5,12 @@ import main.java.fr.enseeiht.lbs.model.battleSimulator.Battle;
 import main.java.fr.enseeiht.lbs.model.gameObject.Entity;
 import main.java.fr.enseeiht.lbs.model.gameObject.Statistic;
 import main.java.fr.enseeiht.lbs.model.gameObject.Stats;
-import main.java.fr.enseeiht.lbs.model.gameObject.Vector2;
 import main.java.fr.enseeiht.lbs.model.gameObject.unit.action.Action;
 import main.java.fr.enseeiht.lbs.model.gameObject.unit.ai.AI;
 import main.java.fr.enseeiht.lbs.model.gameObject.unit.buff.Buff;
 import main.java.fr.enseeiht.lbs.model.gameObject.unit.visitor.BasicDotVisitor;
 import main.java.fr.enseeiht.lbs.model.gameObject.unit.visitor.BasicStatModifierBuffVisitor;
+import main.java.fr.enseeiht.lbs.utils.Vector2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +44,10 @@ public abstract class Unit extends Entity {
     public Unit(String name, double health, Vector2 position) {
         super(health, position);
         this.name = name;
+    }
+
+    public Unit(Stats stats, Vector2 position) {
+        super(stats, position);
     }
 
     @Override

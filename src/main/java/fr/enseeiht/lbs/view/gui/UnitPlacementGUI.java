@@ -10,9 +10,9 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class UnitPlacementGUI extends JFrame {
-    public UnitPlacementGUI(Battle battle, World world) {
+    public UnitPlacementGUI(World world) {
         this.setLayout(new BorderLayout());
-        this.add(new UnitPlacement(battle, world), BorderLayout.CENTER);
+        this.add(new UnitPlacement(world), BorderLayout.CENTER);
         this.pack();
         //this.setSize(new Dimension(500, 500));
         this.setVisible(true);
@@ -23,6 +23,6 @@ public class UnitPlacementGUI extends JFrame {
         Battle battle = Battle.getInstance();
         World world = new World(20, 20, 35, 10, 5, 50);
         battle.init(new Extermination(), new ArrayList<>());
-        UnitPlacementGUI controler = new UnitPlacementGUI(battle, world);
+        UnitPlacementGUI controler = new UnitPlacementGUI(world);
     }
 }
