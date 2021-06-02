@@ -9,7 +9,6 @@ import main.java.fr.enseeiht.lbs.view.gui.LiveBattleSimulatorGUI;
 import java.util.List;
 
 public class LiveBattleSimulator {
-    public static final int SUPER_PIXEL_SIZE = 11;
 
     public static void main(String[] args) {
         LiveBattleSimulatorGUI.getInstance();

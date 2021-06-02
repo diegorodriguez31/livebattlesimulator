@@ -4,11 +4,10 @@ import main.java.fr.enseeiht.lbs.model.game_object.Vector2;
 
 import java.awt.*;
 
-import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.SUPER_PIXEL_SIZE;
-
 @SuppressWarnings("serial")
 public class GraphicalEntity extends Component {
 
+    public static final int SUPER_PIXEL_SIZE = 11;
     protected Vector2 position;
     private Color labelColor;
 
@@ -20,7 +19,7 @@ public class GraphicalEntity extends Component {
     @Override
     public void paint(Graphics graphics) {
         super.paint(graphics);
-        ((Graphics2D) graphics).drawRect(((int) position.x) - 5, ((int) position.y) - 5, SUPER_PIXEL_SIZE, SUPER_PIXEL_SIZE);
+        ((Graphics2D) graphics).drawRect(((int) position.x) - (SUPER_PIXEL_SIZE/2), ((int) position.y) - (SUPER_PIXEL_SIZE/2), SUPER_PIXEL_SIZE, SUPER_PIXEL_SIZE);
         paintLabel(graphics);
     }
 
