@@ -13,6 +13,9 @@ import java.util.List;
 import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.createArmies;
 import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.mainFrame;
 
+/**
+ * Controleur qui gère le choix nom de la bataille et le nombre d'armées.
+ */
 public class BattleArmiesChoiceController extends JPanel {
 
     JTextField battleName;
@@ -106,6 +109,9 @@ public class BattleArmiesChoiceController extends JPanel {
         add(cancelButton, layoutConstraint);
     }
 
+    /**
+     * Sauve dans le modèle le nom de la bataille et le nombre d'armées.
+     */
     private void saveValues() {
         if (!battleName.getText().equals("Nom de bataille")) {
             Battle.getInstance().setName(battleName.getText());

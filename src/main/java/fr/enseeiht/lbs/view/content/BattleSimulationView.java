@@ -7,6 +7,9 @@ import main.java.fr.enseeiht.lbs.model.world.World;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Vue qui affiche la bataille et le controleur de vitesse de déroulement de bataille.
+ */
 public class BattleSimulationView extends JPanel {
 
     public BattleSimulationView(World world) {

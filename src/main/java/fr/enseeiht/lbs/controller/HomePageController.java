@@ -6,6 +6,9 @@ import java.awt.*;
 
 import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.mainFrame;
 
+/**
+ * Controleur qui gère la page d'accueil.
+ */
 public class HomePageController extends JPanel {
 
     public HomePageController() {
