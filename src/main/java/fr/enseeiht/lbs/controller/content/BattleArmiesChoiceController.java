@@ -1,11 +1,16 @@
 package main.java.fr.enseeiht.lbs.controller.content;
 
+import main.java.fr.enseeiht.lbs.model.battleSimulator.Army;
 import main.java.fr.enseeiht.lbs.model.battleSimulator.Battle;
+import main.java.fr.enseeiht.lbs.model.battleSimulator.Extermination;
+import main.java.fr.enseeiht.lbs.model.gameObject.unit.Unit;
 
 import javax.swing.*;
 
 import java.awt.*;
+import java.util.List;
 
+import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.createArmies;
 import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.mainFrame;
 
 public class BattleArmiesChoiceController extends JPanel {
@@ -34,7 +39,6 @@ public class BattleArmiesChoiceController extends JPanel {
         cancelButton.addActionListener(actionEvent -> {
             Battle.reset();
             mainFrame().showHomePage();
-            this.setVisible(false);
         });
 
         JButton okButton = new JButton("OK");
@@ -42,8 +46,11 @@ public class BattleArmiesChoiceController extends JPanel {
 
         okButton.addActionListener(actionEvent -> {
             saveValues();
+
+            // APPELER LE CONTROLLEUR QUI PERMET DE PLACER LES TROUPES /////////////////
+            // à faire par mathieu
+
             mainFrame().showBattleSimulation();
-            this.setVisible(false);
 
             new Thread(() -> {
                 Battle.getInstance().run();

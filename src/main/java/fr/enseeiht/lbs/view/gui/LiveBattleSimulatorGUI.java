@@ -5,10 +5,16 @@ import main.java.fr.enseeiht.lbs.controller.content.BattleSimulationController;
 import main.java.fr.enseeiht.lbs.controller.content.HomePageController;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class LiveBattleSimulatorGUI extends JFrame {
 
     static LiveBattleSimulatorGUI instance;
+    static JPanel cards;
+
+    static String HOME_PAGE_CARD = "HOME_PAGE_CARD";
+    static String ARMIES_NB_CHOICES_CARD = "ARMIES_NB_CHOICES_CARD";
+    static String BATTLE_SIMULATION_CARD = "BATTLE_SIMULATION_CARD";
 
     public static LiveBattleSimulatorGUI getInstance() {
         if (instance == null) {
@@ -18,32 +24,42 @@ public class LiveBattleSimulatorGUI extends JFrame {
     }
 
     private LiveBattleSimulatorGUI() {
+        cards = new JPanel(new CardLayout());
+        getContentPane().add(cards);
+
+        cards.add(new HomePageController(), HOME_PAGE_CARD);
+        cards.add(new BattleArmiesChoiceController(), ARMIES_NB_CHOICES_CARD);
+
         showHomePage();
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        /*BattleSimulationController battleSimulationController = new BattleSimulationController();
+        getContentPane().add(battleSimulationController,"sim");
+        setChangesReady();*/
     }
 
     private void setChangesReady(){
-        this.pack();
+        pack();
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
-        this.setVisible(true);
+        setVisible(true);
     }
 
     public void showHomePage(){
-        getContentPane().removeAll();
-        getContentPane().add(new HomePageController());
+        CardLayout cl = (CardLayout)(cards.getLayout());
+        cl.show(cards, HOME_PAGE_CARD);
         setChangesReady();
     }
 
     public void showBattleArmiesChoice(){
-        getContentPane().removeAll();
-        getContentPane().add(new BattleArmiesChoiceController());
+        CardLayout cl = (CardLayout)(cards.getLayout());
+        cl.show(cards, ARMIES_NB_CHOICES_CARD);
         setChangesReady();
     }
 
     public void showBattleSimulation(){
-        BattleSimulationController battleSimulationController = new BattleSimulationController();
-        getContentPane().removeAll();
-        getContentPane().add(battleSimulationController);
+        cards.add(new BattleSimulationController(), BATTLE_SIMULATION_CARD);
+        CardLayout cl = (CardLayout)(cards.getLayout());
+        cl.show(cards, BATTLE_SIMULATION_CARD);
         setChangesReady();
     }
 }
