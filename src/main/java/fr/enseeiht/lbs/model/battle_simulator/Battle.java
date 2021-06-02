@@ -16,7 +16,6 @@ public class Battle {
 
     private long lastTime;
     private String name;
-    private int nbArmies;
 
     private PropertyChangeSupport propertyChangeSupport;
     public static final String PROPERTY_GAME_OBJECTS = "gameObjects";
@@ -48,9 +47,17 @@ public class Battle {
         return instance;
     }
 
-    public void init(Objectif objectif, List<Army> armies) {
+    /**
+     * Init battle, does not create Units.
+     * @param objectif the objectif of the game
+     * @param nbArmies the number of armies to create
+     */
+    public void init(Objectif objectif, int nbArmies) {
         this.objectif = objectif;
-        this.armies = armies;
+        this.armies = new ArrayList<>();
+        for (int armyIndex = 0; armyIndex < nbArmies; armyIndex++) {
+            this.armies.add(new Army(armyIndex));
+        }
         objects = new ArrayList<>();
         endObjects = new ArrayList<>();
     }
@@ -121,24 +128,16 @@ public class Battle {
         this.name = name;
     }
 
-    public int getNbArmies() {
-        return nbArmies;
-    }
-
-    public void setNbArmies(int nbArmies) {
-        this.nbArmies = nbArmies;
-    }
-
     public List<Army> getArmies() {
         return armies;
     }
 
-    public List<Army> getEnnemyArmies(Unit unit) {
+    public List<Army> getEnemyArmies(Unit unit) {
         return armies.stream().filter(army -> !army.getUnits().contains(unit)).collect(Collectors.toList());
     }
 
     public Unit findClosestEnemy(Unit unit) {
-        return getEnnemyArmies(unit).stream()
+        return getEnemyArmies(unit).stream()
                 .flatMap(army -> army.getUnits().stream())
                 .reduce(null,
                         (selected, it) -> {

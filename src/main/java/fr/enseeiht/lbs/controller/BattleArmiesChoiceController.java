@@ -6,9 +6,7 @@ import main.java.fr.enseeiht.lbs.model.battle_simulator.Extermination;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
 
 import javax.swing.*;
-
 import java.awt.*;
-import java.util.List;
 
 import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.createArmies;
 import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.mainFrame;
@@ -56,18 +54,15 @@ public class BattleArmiesChoiceController extends JPanel {
 
             mainFrame().showBattleSimulation();
 
-            List<Army> armies = createArmies();
-            Battle.getInstance().init(new Extermination(), armies);
-            for (Army army : armies) {
+            createArmies();
+            for (Army army : Battle.getInstance().getArmies()) {
                 for (Unit u :
                         army.getUnits()) {
                     u.setReady();
                 }
             }
 
-            new Thread(() -> {
-                Battle.getInstance().run();
-            }).start();
+            new Thread(() -> Battle.getInstance().run()).start();
         });
 
         // set the layout
@@ -119,6 +114,6 @@ public class BattleArmiesChoiceController extends JPanel {
             Battle.getInstance().setName("Bataille");
         }
 
-        Battle.getInstance().setNbArmies((Integer) nbArmiesSpinner.getValue());
+        Battle.getInstance().init(new Extermination(), (Integer) nbArmiesSpinner.getValue());
     }
 }
