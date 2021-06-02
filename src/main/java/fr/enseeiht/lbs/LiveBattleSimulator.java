@@ -1,18 +1,11 @@
 package main.java.fr.enseeiht.lbs;
 
-import main.java.fr.enseeiht.lbs.model.battleSimulator.Army;
-import main.java.fr.enseeiht.lbs.model.battleSimulator.Battle;
-import main.java.fr.enseeiht.lbs.model.battleSimulator.Extermination;
-import main.java.fr.enseeiht.lbs.model.gameObject.Vector2;
-import main.java.fr.enseeiht.lbs.model.gameObject.unit.Unit;
-import main.java.fr.enseeiht.lbs.model.gameObject.unit.soldier.Knight;
-import main.java.fr.enseeiht.lbs.model.gameObject.unit.soldier.Peasant;
-import main.java.fr.enseeiht.lbs.model.world.World;
-import main.java.fr.enseeiht.lbs.view.gui.BattleWorldGUI;
+import main.java.fr.enseeiht.lbs.model.battle_simulator.Army;
+import main.java.fr.enseeiht.lbs.model.game_object.Vector2;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.Knight;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.Peasant;
 import main.java.fr.enseeiht.lbs.view.gui.LiveBattleSimulatorGUI;
-import main.java.fr.enseeiht.lbs.view.gui.WorldText;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 

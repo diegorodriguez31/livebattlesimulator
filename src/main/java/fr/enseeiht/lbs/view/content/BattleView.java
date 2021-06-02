@@ -1,12 +1,13 @@
 package main.java.fr.enseeiht.lbs.view.content;
 
-import main.java.fr.enseeiht.lbs.model.battleSimulator.Army;
-import main.java.fr.enseeiht.lbs.model.battleSimulator.Battle;
-import main.java.fr.enseeiht.lbs.model.gameObject.Entity;
-import main.java.fr.enseeiht.lbs.model.gameObject.unit.Unit;
-import main.java.fr.enseeiht.lbs.model.gameObject.unit.soldier.Knight;
-import main.java.fr.enseeiht.lbs.model.gameObject.unit.soldier.Peasant;
-import main.java.fr.enseeiht.lbs.view.gui.LiveBattleSimulatorGUI;
+import main.java.fr.enseeiht.lbs.model.battle_simulator.Army;
+import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
+import main.java.fr.enseeiht.lbs.model.game_object.Entity;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.Knight;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.Peasant;
+import main.java.fr.enseeiht.lbs.view.adapter.GraphicalEntity;
+import main.java.fr.enseeiht.lbs.view.adapter.SpriteGraphicalEntity;
 
 import javax.swing.*;
 import java.awt.*;
@@ -49,8 +50,9 @@ public class BattleView extends JPanel implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
-        if (propertyChangeEvent.getPropertyName().equals(Battle.PROPERTY_GAME_OBJECTS))
+        if (propertyChangeEvent.getPropertyName().equals(Battle.PROPERTY_GAME_OBJECTS)) {
             modifiedGameObjectTreatment(propertyChangeEvent);
+        }
         this.repaint();
         Toolkit.getDefaultToolkit().sync();
     }
@@ -82,11 +84,8 @@ public class BattleView extends JPanel implements PropertyChangeListener {
         Army winner = (Army) propertyChangeEvent.getNewValue();
         Color color = BattleView.teamColors.get(winner.getArmyIndex());
         String colorName = BattleView.colorsNames.get(color);
-        String result = "L'armée " + colorName + " a gagnée\n" +
-                        "la bataille : ''" + Battle.getInstance().getName() + "''";
+        String result = Battle.getInstance().getName() + "\nL'armée " + colorName + " a gagné";
         JOptionPane.showMessageDialog(null, result);
-        Battle.reset();
-        mainFrame().showHomePage();
     }
 
     @Override

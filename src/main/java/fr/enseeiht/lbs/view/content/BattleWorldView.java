@@ -1,8 +1,9 @@
 package main.java.fr.enseeiht.lbs.view.content;
 
-import main.java.fr.enseeiht.lbs.model.battleSimulator.Battle;
+import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
 import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.model.world.WorldElement;
+import main.java.fr.enseeiht.lbs.view.adapter.GraphicalEntity;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,6 +32,9 @@ public class BattleWorldView extends BattleView implements PropertyChangeListene
                 this.add(worldCase);
             }
         }
+
+        Battle.getInstance().addObserver(this, Battle.PROPERTY_GAME_OBJECTS);
+        Battle.getInstance().addObserver(this, Battle.PROPERTY_RESULTS);
     }
 
     @Override

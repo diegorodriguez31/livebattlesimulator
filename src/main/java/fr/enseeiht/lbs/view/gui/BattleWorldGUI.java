@@ -1,7 +1,6 @@
 package main.java.fr.enseeiht.lbs.view.gui;
 
-import main.java.fr.enseeiht.lbs.controller.content.SpeedController;
-import main.java.fr.enseeiht.lbs.model.battleSimulator.Battle;
+import main.java.fr.enseeiht.lbs.controller.SpeedController;
 import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.view.content.BattleWorldView;
 
@@ -12,10 +11,7 @@ import java.awt.*;
 public class BattleWorldGUI extends JFrame {
 
 	public BattleWorldGUI(World world) {
-		Battle battle = Battle.getInstance();
 		BattleWorldView battleWorldView = new BattleWorldView(world);
-		battle.addObserver(battleWorldView, Battle.PROPERTY_GAME_OBJECTS);
-		battle.addObserver(battleWorldView, Battle.PROPERTY_RESULTS);
 
 		this.setLayout(new BorderLayout());
 		this.add(battleWorldView, BorderLayout.CENTER);

@@ -1,9 +1,9 @@
 package main.java.fr.enseeiht.lbs.view.gui;
 
-import main.java.fr.enseeiht.lbs.controller.content.BattleArmiesChoiceController;
-import main.java.fr.enseeiht.lbs.controller.content.BattleSimulationController;
-import main.java.fr.enseeiht.lbs.controller.content.HomePageController;
-import main.java.fr.enseeiht.lbs.model.battleSimulator.Battle;
+import main.java.fr.enseeiht.lbs.controller.BattleArmiesChoiceController;
+import main.java.fr.enseeiht.lbs.model.world.World;
+import main.java.fr.enseeiht.lbs.view.content.BattleSimulationView;
+import main.java.fr.enseeiht.lbs.controller.HomePageController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -43,7 +43,11 @@ public class LiveBattleSimulatorGUI extends JFrame {
 
     public void showHomePage(){
         cards.add(new HomePageController(), HOME_PAGE_CARD);
-        cards.add(new BattleSimulationController(), BATTLE_SIMULATION_CARD);
+
+        // TODO to refactor
+        World world = new World(20, 20, 35, 10, 5, 50);
+        cards.add(new BattleSimulationView(world), BATTLE_SIMULATION_CARD);
+
         CardLayout cl = (CardLayout)(cards.getLayout());
         cl.show(cards, HOME_PAGE_CARD);
         setChangesReady();
