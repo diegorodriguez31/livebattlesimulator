@@ -6,14 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Army {
-    private static int maxArmyIndex = 0;
 
     private List<Unit> units;
     private int armyIndex;
 
-    public Army() {
+    public Army(int index) {
         this.units = new ArrayList<>();
-        armyIndex = maxArmyIndex++;
+        armyIndex = index;
     }
 
     public List<Unit> getUnits() {

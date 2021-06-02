@@ -14,8 +14,6 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class BattleWorldView extends BattleView implements PropertyChangeListener {
 
-    private static final int WORLD_TO_PIXEL = 11;
-
     private List<GraphicalEntity> graphicalEntities;
 
     public BattleWorldView(World world) {

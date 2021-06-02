@@ -22,6 +22,7 @@ public class BattleSimulationController extends JPanel {
         homePageButton = new JButton("Home Page");
 
         homePageButton.addActionListener(actionEvent -> {
+            Battle.reset();
             mainFrame().showHomePage();
         });
 

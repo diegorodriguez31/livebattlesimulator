@@ -1,12 +1,10 @@
 package main.java.fr.enseeiht.lbs.controller.content;
 
-import java.awt.GridLayout;
-import java.text.DecimalFormat;
-
-import javax.swing.JButton;
-import javax.swing.JPanel;
-
 import main.java.fr.enseeiht.lbs.model.battleSimulator.Battle;
+
+import javax.swing.*;
+import java.awt.*;
+import java.text.DecimalFormat;
 
 @SuppressWarnings("serial")
 public class SpeedController extends JPanel{

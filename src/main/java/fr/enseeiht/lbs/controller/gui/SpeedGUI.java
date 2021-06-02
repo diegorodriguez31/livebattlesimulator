@@ -1,7 +1,6 @@
 package main.java.fr.enseeiht.lbs.controller.gui;
 
 import main.java.fr.enseeiht.lbs.controller.content.SpeedController;
-import main.java.fr.enseeiht.lbs.model.battleSimulator.Battle;
 
 import javax.swing.*;
 import java.awt.*;

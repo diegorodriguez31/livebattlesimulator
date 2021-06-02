@@ -1,15 +1,12 @@
 package main.java.fr.enseeiht.lbs.view.gui;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-
-import javax.swing.JFrame;
-import javax.swing.WindowConstants;
-
 import main.java.fr.enseeiht.lbs.controller.content.SpeedController;
 import main.java.fr.enseeiht.lbs.model.battleSimulator.Battle;
 import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.view.content.BattleWorldView;
+
+import javax.swing.*;
+import java.awt.*;
 
 @SuppressWarnings("serial")
 public class BattleWorldGUI extends JFrame {

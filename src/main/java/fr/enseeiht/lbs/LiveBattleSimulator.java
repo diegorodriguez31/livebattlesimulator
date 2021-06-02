@@ -31,14 +31,14 @@ public class LiveBattleSimulator {
         List<Army> armies = new ArrayList<>();
 
         // ARMY 1
-        Army army1 = new Army();
+        Army army1 = new Army(0);
 
         for (int i = 15; i <= 24; i = i+3) {
             army1.addUnit(new Knight(new Vector2(10, i)));
         }
 
         // ARMY 2
-        Army army2 = new Army();
+        Army army2 = new Army(1);
 
         for (int i = 10; i <= 30; i = i+3) {
             army2.addUnit(new Peasant(new Vector2(20, i)));
@@ -49,6 +49,7 @@ public class LiveBattleSimulator {
 
         //Unit shieldMan = new Shieldman("shieldman", new Vector2(250,260), 200, 1, 10, 50, 3, 10);
         //army2.addUnit(shieldMan);
+
         armies.add(army1);
         armies.add(army2);
 
