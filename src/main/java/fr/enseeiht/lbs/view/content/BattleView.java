@@ -6,15 +6,14 @@ import main.java.fr.enseeiht.lbs.model.gameObject.Entity;
 import main.java.fr.enseeiht.lbs.model.gameObject.unit.Unit;
 import main.java.fr.enseeiht.lbs.model.gameObject.unit.soldier.Knight;
 import main.java.fr.enseeiht.lbs.model.gameObject.unit.soldier.Peasant;
+import main.java.fr.enseeiht.lbs.utils.Vector2;
 
 import javax.swing.*;
 import java.awt.*;
-import main.java.fr.enseeiht.lbs.utils.Vector2;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 @SuppressWarnings("serial")
 public class BattleView extends JPanel implements PropertyChangeListener {
@@ -55,7 +54,7 @@ public class BattleView extends JPanel implements PropertyChangeListener {
         return pixel.scale(1f / WORLD_TO_PIXEL);
     }
 
-    protected Vector2 pixelToWorld(int x, int y) {
+    public Vector2 pixelToWorld(int x, int y) {
         return new Vector2(x, y).scale(1f / WORLD_TO_PIXEL);
     }
 

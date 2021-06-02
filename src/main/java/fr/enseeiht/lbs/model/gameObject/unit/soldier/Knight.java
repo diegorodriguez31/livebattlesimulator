@@ -25,8 +25,8 @@ public class Knight extends Unit {
         this(vector, KNIGHT_NAME, KNIGHT_HEALTH, KNIGHT_DAMAGE, KNIGHT_COOLDOWN, KNIGHT_SPEED, KNIGHT_RANGE, KNIGHT_ACCURACY, KNIGHT_AGILITY, KNIGHT_ARMOR);
     }
 
-    public Knight(Stats stats, Vector2 position) {
-        super(stats, position);
+    public Knight(String name, Stats stats, Vector2 position) {
+        super(name, stats, position);
     }
 
     @Override

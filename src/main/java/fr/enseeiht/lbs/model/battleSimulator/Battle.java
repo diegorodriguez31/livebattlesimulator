@@ -131,11 +131,15 @@ public class Battle {
 
     public void addGameObject(GameObject gameObject) {
         objects.add(gameObject);
-        propertyChangeSupport.firePropertyChange(propertyGameObjects, null, this.objects);
+        propertyChangeSupport.firePropertyChange(PROPERTY_GAME_OBJECTS, null, this.objects);
     }
 
     public void removeGameObject(GameObject gameObject) {
         endObjects.add(gameObject);
-        propertyChangeSupport.firePropertyChange(propertyGameObjects, null, this.objects);
+        propertyChangeSupport.firePropertyChange(PROPERTY_GAME_OBJECTS, null, this.objects);
+    }
+
+    public List<GameObject> getObjects() {
+        return objects;
     }
 }

@@ -22,8 +22,8 @@ public class Infantryman extends Unit {
         ai = new ChargeAndHitAI(new AttackAction(this), new FlightMovementAction(this));
     }
 
-    public Infantryman(Stats stats, Vector2 position) {
-        super(stats, position);
+    public Infantryman(String name, Stats stats, Vector2 position) {
+        super(name, stats, position);
     }
 
     public void status() {

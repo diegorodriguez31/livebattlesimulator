@@ -24,13 +24,11 @@ public abstract class Unit extends Entity {
     protected AI ai;
     List<Buff> buffs = new ArrayList<>();
     protected double cooldown;
-    private String name;
     private Army team;
 
     // create basic fighting unit
     public Unit(Vector2 vector, String name, double health, double damage, double cooldown, double speed, double range, double accuracy, double agility) {
-        super(health, vector);
-        this.name = name;
+        super(name, health, vector);
         stats = new Stats();
         stats.addStat(Statistic.DAMAGE, damage);
         stats.addStat(Statistic.COOLDOWN, cooldown);
@@ -42,12 +40,11 @@ public abstract class Unit extends Entity {
     }
 
     public Unit(String name, double health, Vector2 position) {
-        super(health, position);
-        this.name = name;
+        super(name, health, position);
     }
 
-    public Unit(Stats stats, Vector2 position) {
-        super(stats, position);
+    public Unit(String name, Stats stats, Vector2 position) {
+        super(name, stats, position);
     }
 
     @Override
@@ -60,7 +57,7 @@ public abstract class Unit extends Entity {
     }
 
     public void status() {
-        System.out.println(name + " status :");
+        System.out.println(getName() + " status :");
         System.out.println("\tHealth : " + getHealth());
         System.out.println("\tDamage : " + getStats().getStatisticValue(Statistic.DAMAGE));
         System.out.println("\tCooldown : " + getStats().getStatisticValue(Statistic.COOLDOWN));

@@ -1,9 +1,9 @@
-package main.java.fr.enseeiht.lbs.view.gui;
+package main.java.fr.enseeiht.lbs.controller.gui;
 
+import main.java.fr.enseeiht.lbs.controller.content.UnitPlacement;
 import main.java.fr.enseeiht.lbs.model.battleSimulator.Battle;
 import main.java.fr.enseeiht.lbs.model.battleSimulator.Extermination;
 import main.java.fr.enseeiht.lbs.model.world.World;
-import main.java.fr.enseeiht.lbs.view.content.UnitPlacement;
 
 import javax.swing.*;
 import java.awt.*;

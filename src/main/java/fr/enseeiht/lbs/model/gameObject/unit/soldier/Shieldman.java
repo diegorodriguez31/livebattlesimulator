@@ -18,8 +18,8 @@ public class Shieldman extends Infantryman {
         ai = new ChargeAndHitAI(new BuffAction(new FireDebuff()), new FlightMovementAction(this));
     }
 
-    public Shieldman(Stats stats, Vector2 position) {
-        super(stats, position);
+    public Shieldman(String name, Stats stats, Vector2 position) {
+        super(name, stats, position);
     }
 
     @Override

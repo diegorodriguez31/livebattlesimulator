@@ -21,8 +21,8 @@ public class Peasant extends Unit {
         this(vector, PEASANT_NAME, PEASANT_HEALTH, PEASANT_DAMAGE, PEASANT_COOLDOWN, PEASANT_SPEED, PEASANT_RANGE, PEASANT_ACCURACY, PEASANT_AGILITY);
     }
 
-    public Peasant(Stats stats, Vector2 position) {
-        super(stats, position);
+    public Peasant(String name, Stats stats, Vector2 position) {
+        super(name, stats, position);
     }
 
     @Override

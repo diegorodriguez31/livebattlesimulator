@@ -8,7 +8,7 @@ import main.java.fr.enseeiht.lbs.utils.Vector2;
 
 public class InfantryCreator implements EntityCreator {
     @Override
-    public Entity createEntity(Vector2 position, Stats stats) {
-        return new Infantryman(stats, position);
+    public Entity createEntity(String name, Vector2 position, Stats stats) {
+        return new Infantryman(name, stats, position);
     }
 }
