@@ -1,9 +1,9 @@
 package main.java.fr.enseeiht.lbs.controller.content;
 
-import main.java.fr.enseeiht.lbs.model.battleSimulator.Battle;
-import main.java.fr.enseeiht.lbs.model.gameObject.Entity;
-import main.java.fr.enseeiht.lbs.model.gameObject.EntityFactory;
-import main.java.fr.enseeiht.lbs.model.gameObject.unit.Unit;
+import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
+import main.java.fr.enseeiht.lbs.model.game_object.Entity;
+import main.java.fr.enseeiht.lbs.model.game_object.EntityFactory;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
 import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.view.content.BattleView;
 import main.java.fr.enseeiht.lbs.view.content.BattleWorldView;

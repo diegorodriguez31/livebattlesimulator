@@ -1,13 +1,12 @@
 package main.java.fr.enseeiht.lbs.controller.gui;
 
 import main.java.fr.enseeiht.lbs.controller.content.UnitPlacement;
-import main.java.fr.enseeiht.lbs.model.battleSimulator.Battle;
-import main.java.fr.enseeiht.lbs.model.battleSimulator.Extermination;
+import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
+import main.java.fr.enseeiht.lbs.model.battle_simulator.Extermination;
 import main.java.fr.enseeiht.lbs.model.world.World;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class UnitPlacementGUI extends JFrame {
     public UnitPlacementGUI(World world) {
@@ -22,7 +21,7 @@ public class UnitPlacementGUI extends JFrame {
     public static void main(String[] args) {
         Battle battle = Battle.getInstance();
         World world = new World(20, 20, 35, 10, 5, 50);
-        battle.init(new Extermination(), new ArrayList<>());
+        battle.init(new Extermination(), 2);
         UnitPlacementGUI controler = new UnitPlacementGUI(world);
     }
 }

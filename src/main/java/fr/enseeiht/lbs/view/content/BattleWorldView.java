@@ -1,8 +1,9 @@
 package main.java.fr.enseeiht.lbs.view.content;
 
-import main.java.fr.enseeiht.lbs.model.battleSimulator.Battle;
+import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
 import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.model.world.WorldElement;
+import main.java.fr.enseeiht.lbs.view.adapter.GraphicalEntity;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +21,7 @@ public class BattleWorldView extends BattleView implements PropertyChangeListene
         for (int x = 0; x < world.getSizeX(); x++) {
             for (int y = 0; y < world.getSizeY(); y++) {
                 JLabel worldCase = new JLabel();
-                WorldElement worldElement = world.getTile(x, y); //c prend le character du tableau qui est à sa place
+                WorldElement worldElement = world.getTile(x, y); // prend le character du tableau qui est à sa place
                 worldCase.setBackground(WorldView.getCorrespondingColor(worldElement)); // la case est remplie de la couleur correspondante
                 worldCase.setOpaque(true);
                 this.add(worldCase);
