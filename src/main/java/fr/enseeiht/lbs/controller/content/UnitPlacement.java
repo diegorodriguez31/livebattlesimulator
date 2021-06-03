@@ -19,12 +19,15 @@ public class UnitPlacement extends JPanel {
     private final Battle model;
     private String selectedUnit;
     private final JComboBox<String> armySelect;
-    private JScrollPane unitList;
+    private final JPanel unitList, unitTypePanel;
+    private final ButtonGroup group;
+    private final ActionListener listener;
 
     public UnitPlacement(World world) {// TODO : take world from model
         this.model = Battle.getInstance();
         setLayout(new BorderLayout());
 
+        // Creates the view of the game
         BattleView battleView = new BattleWorldView(world);
         model.addObserver(battleView, Battle.PROPERTY_GAME_OBJECTS);
         battleView.addMouseListener(new MouseInputListener() {
@@ -71,49 +74,61 @@ public class UnitPlacement extends JPanel {
         });
         this.add(battleView, BorderLayout.CENTER);
 
-        ButtonGroup group = new ButtonGroup();
-
-        JPanel unitTypePanel = new JPanel();
-        ActionListener listener = actionEvent -> selectedUnit = actionEvent.getActionCommand();
-        for (String u : EntityFactory.getEntityTypes().stream()
-                .sorted(String::compareTo)
-                .collect(Collectors.toList())) {
-            JRadioButton button = new JRadioButton(u);
-            button.setActionCommand(u);
-            button.addActionListener(listener);
-            group.add(button);
-            unitTypePanel.add(button);
-        }
+        // Creates the list of entities
+        group = new ButtonGroup();
+        unitTypePanel = new JPanel();
+        listener = actionEvent -> selectedUnit = actionEvent.getActionCommand();
+        updateEntityTypes();
         this.add(unitTypePanel, BorderLayout.WEST);
         unitTypePanel.setPreferredSize(new Dimension(150, 500));
         unitTypePanel.setLayout(new BoxLayout(unitTypePanel, BoxLayout.Y_AXIS));
 
+        //Setting up the army selector
         JPanel armyPanel = new JPanel();
         armyPanel.setLayout(new BoxLayout(armyPanel, BoxLayout.Y_AXIS));
         armySelect = new JComboBox<>();
-        armySelect.addItem("Neutre");
+        updateArmies();
         for (int i = 0; i < model.getArmies().size(); i++) {
-            armySelect.addItem(BattleView.colorsNames.get(BattleWorldView.teamColors.get(i)));
+            armySelect.addItem(BattleView.COLORS_NAME.get(BattleWorldView.TEAM_COLORS.get(i)));
         }
         armyPanel.add(armySelect);
         armyPanel.setPreferredSize(new Dimension(150, 500));
         add(armyPanel, BorderLayout.EAST);
         armySelect.addActionListener(actionEvent -> updateUnitList());
 
-        unitList = new JScrollPane();
-        unitList.setLayout(new ScrollPaneLayout());
-        unitList.setPreferredSize(new Dimension(150, 480));
-        armyPanel.add(unitList);
+        //Setting up the army list
+        unitList = new JPanel();
+        unitList.setLayout(new BoxLayout(unitList, BoxLayout.Y_AXIS));
+        JScrollPane scrll = new JScrollPane(unitList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrll.setPreferredSize(new Dimension(150, 480));
+        armyPanel.add(scrll);
         model.addObserver(propertyChangeEvent -> updateUnitList(), Battle.PROPERTY_GAME_OBJECTS);
         updateUnitList();
     }
 
+    private void updateEntityTypes() {
+        unitTypePanel.removeAll();
+        for (String buttonText : EntityFactory.getEntityTypes().stream()
+                .sorted(String::compareTo)
+                .collect(Collectors.toList())) {
+            JRadioButton button = new JRadioButton(buttonText);
+            button.setActionCommand(buttonText);
+            button.addActionListener(listener);
+            group.add(button);
+            unitTypePanel.add(button);
+        }
+    }
+
+
+    /**
+     * Update the list of units
+     */
     private void updateUnitList() {
         unitList.removeAll();
         if (armySelect.getSelectedIndex() == 0) {
             model.getObjects().forEach(gameObject -> {
                 if (gameObject instanceof Entity) {
-                    unitList.add(new JLabel(((Entity) gameObject).getName()));
+                    unitList.add(new JLabel("- " + ((Entity) gameObject).getName()));
                 }
             });
         } else {
@@ -122,6 +137,20 @@ public class UnitPlacement extends JPanel {
             });
         }
         unitList.updateUI();
+    }
+
+    private void updateArmies() {
+        armySelect.removeAllItems();
+        armySelect.addItem("Neutre");
+        for (int i = 0; i < model.getArmies().size(); i++) {
+            armySelect.addItem(BattleView.COLORS_NAME.get(BattleWorldView.TEAM_COLORS.get(i)));
+        }
+    }
+
+    public void refresh() {
+        updateEntityTypes();
+        updateArmies();
+        updateUnitList();
     }
 
 

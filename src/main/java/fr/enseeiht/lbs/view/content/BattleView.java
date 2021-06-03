@@ -22,22 +22,22 @@ public class BattleView extends JPanel implements PropertyChangeListener {
 
     private List<GraphicalEntity> graphicalEntities;
 
-    private final static HashMap<Class<? extends Entity>, String> entitySprites = new HashMap<>();
-    public final static List<Color> teamColors = new ArrayList<>();
-    public final static Map<Color, String> colorsNames = new HashMap<>();
+    private final static HashMap<Class<? extends Entity>, String> ENTITY_SPRITE = new HashMap<>();
+    public final static List<Color> TEAM_COLORS = new ArrayList<>();
+    public final static Map<Color, String> COLORS_NAME = new HashMap<>(); //     :-/
 
     static {
-        entitySprites.put(Knight.class, "Knight.png");
-        entitySprites.put(Peasant.class, "Peasant.png");
+        ENTITY_SPRITE.put(Knight.class, "Knight.png");
+        ENTITY_SPRITE.put(Peasant.class, "Peasant.png");
 
-        teamColors.add(Color.BLUE);
-        colorsNames.put(teamColors.get(0), "bleue");
-        teamColors.add(Color.RED);
-        colorsNames.put(teamColors.get(1), "rouge");
-        teamColors.add(Color.GREEN);
-        colorsNames.put(teamColors.get(2), "verte");
-        teamColors.add(Color.YELLOW);
-        colorsNames.put(teamColors.get(3), "jaune");
+        TEAM_COLORS.add(Color.BLUE);
+        COLORS_NAME.put(TEAM_COLORS.get(0), "bleue");
+        TEAM_COLORS.add(Color.RED);
+        COLORS_NAME.put(TEAM_COLORS.get(1), "rouge");
+        TEAM_COLORS.add(Color.GREEN);
+        COLORS_NAME.put(TEAM_COLORS.get(2), "verte");
+        TEAM_COLORS.add(Color.YELLOW);
+        COLORS_NAME.put(TEAM_COLORS.get(3), "jaune");
     }
 
     public BattleView() {
@@ -75,8 +75,8 @@ public class BattleView extends JPanel implements PropertyChangeListener {
                 Color color = null;
                 if (entity instanceof Unit) {
                     Unit unit = (Unit) entity;
-                    if (unit.getTeam() != null && unit.getTeam().getArmyIndex() < teamColors.size()) {
-                        color = teamColors.get(unit.getTeam().getArmyIndex() % teamColors.size());
+                    if (unit.getTeam() != null && unit.getTeam().getArmyIndex() < TEAM_COLORS.size()) {
+                        color = TEAM_COLORS.get(unit.getTeam().getArmyIndex() % TEAM_COLORS.size());
                     }
                 }
                 if (sprite != null) {
@@ -91,8 +91,8 @@ public class BattleView extends JPanel implements PropertyChangeListener {
 
     protected void endGameTreatment(PropertyChangeEvent propertyChangeEvent) {
         Army winner = (Army) propertyChangeEvent.getNewValue();
-        Color color = BattleView.teamColors.get(winner.getArmyIndex());
-        String colorName = BattleView.colorsNames.get(color);
+        Color color = BattleView.TEAM_COLORS.get(winner.getArmyIndex());
+        String colorName = BattleView.COLORS_NAME.get(color);
         String result = "L'armée " + colorName + " a gagnée";
         JOptionPane.showMessageDialog(null, result);
     }
@@ -106,6 +106,6 @@ public class BattleView extends JPanel implements PropertyChangeListener {
     }
 
     public static String getCorrespondingSprite(Entity entity) {
-        return entitySprites.get(entity.getClass());
+        return ENTITY_SPRITE.get(entity.getClass());
     }
 }
