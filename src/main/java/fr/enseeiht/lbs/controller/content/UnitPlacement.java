@@ -33,13 +33,7 @@ public class UnitPlacement extends JPanel {
         battleView.addMouseListener(new MouseInputListener() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
-                if (selectedUnit == null) return;
-                Entity entity = EntityFactory.createEntity(selectedUnit, battleView.pixelToWorld(mouseEvent.getX(), mouseEvent.getY()));
-                entity.setReady();
-                model.addGameObject(entity);
-                if (entity instanceof Unit && armySelect.getSelectedIndex() != 0) {
-                    model.getArmies().get(armySelect.getSelectedIndex() - 1).addUnit((Unit) entity);
-                }
+
             }
 
             @Override
@@ -49,7 +43,12 @@ public class UnitPlacement extends JPanel {
 
             @Override
             public void mouseReleased(MouseEvent mouseEvent) {
-
+                if (selectedUnit == null) return;
+                Entity entity = EntityFactory.createEntity(selectedUnit, battleView.pixelToWorld(mouseEvent.getX(), mouseEvent.getY()));
+                entity.setReady();
+                if (entity instanceof Unit && armySelect.getSelectedIndex() != 0) {
+                    model.getArmies().get(armySelect.getSelectedIndex() - 1).addUnit((Unit) entity);
+                }
             }
 
             @Override
