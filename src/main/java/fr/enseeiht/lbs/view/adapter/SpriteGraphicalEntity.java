@@ -1,14 +1,13 @@
-package main.java.fr.enseeiht.lbs.view.content;
+package main.java.fr.enseeiht.lbs.view.adapter;
 
 import main.java.fr.enseeiht.lbs.utils.Vector2;
-import main.java.fr.enseeiht.lbs.view.adapter.GraphicalEntity;
 
 import java.awt.*;
 import java.io.IOException;
 
 public class SpriteGraphicalEntity extends GraphicalEntity {
 
-    private String spritePath;
+    private final String spritePath;
 
     public SpriteGraphicalEntity(Vector2 position, String spritePath, Color color) {
         super(position, color);
@@ -17,10 +16,9 @@ public class SpriteGraphicalEntity extends GraphicalEntity {
 
     @Override
     public void paint(Graphics graphics) {
-        Graphics2D g2d = (Graphics2D) graphics;
         try {
             Image image = SpriteBuffer.getSprite(this.spritePath);
-            graphics.drawImage(image, (int) position.x - 5, (int) position.y - 5, null);
+            graphics.drawImage(image, (int) position.x - (SUPER_PIXEL_SIZE/2), (int) position.y - (SUPER_PIXEL_SIZE/2), null);
             paintLabel(graphics);
         } catch (IOException e) {
             e.printStackTrace();

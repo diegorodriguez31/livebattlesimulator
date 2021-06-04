@@ -1,20 +1,18 @@
 package main.java.fr.enseeiht.lbs.view.gui;
 
-import java.awt.Dimension;
-
-import javax.swing.JFrame;
-import javax.swing.WindowConstants;
-
-import main.java.fr.enseeiht.lbs.model.battleSimulator.Battle;
+import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
 import main.java.fr.enseeiht.lbs.view.content.BattleView;
+
+import javax.swing.*;
+import java.awt.*;
 
 @SuppressWarnings("serial")
 public class BattleGUI extends JFrame {
 
-	public BattleGUI(Battle battle) {
-		
+	public BattleGUI() {
+		Battle battle = Battle.getInstance();
 		BattleView battleView = new BattleView();
-		battle.addGameObjectsObserver(battleView);
+		battle.addObserver(battleView, Battle.PROPERTY_GAME_OBJECTS);
 
 		this.add(battleView);
 		
