@@ -19,6 +19,8 @@ public class LiveBattleSimulatorGUI extends JFrame {
 
     static JPanel cards;
 
+    private BattleSimulationView battleSimulationView;
+
     /**
      * Identifiants des cards
      */
@@ -48,6 +50,10 @@ public class LiveBattleSimulatorGUI extends JFrame {
 
         cards.add(new HomePageController(), HOME_PAGE_CARD);
 
+        World world = World.getInstance();
+        world.generateWorld(10, 20, 5, 25, 40);
+        cards.add(new WorldChoiceView(), WORLD_CHOICE_CARD);
+
         showHomePage();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
@@ -62,6 +68,18 @@ public class LiveBattleSimulatorGUI extends JFrame {
     public void showHomePage() {
         CardLayout cl = (CardLayout) (cards.getLayout());
         cl.show(cards, HOME_PAGE_CARD);
+        setChangesReady();
+    }
+
+    /**
+     * Affiche le menu de selection
+     * du nom de bataille
+     * du nombre d'armées
+     */
+    public void showBattleArmiesChoice() {
+        cards.add(new BattleArmiesChoiceController(), ARMIES_NB_CHOICES_CARD);
+        CardLayout cl = (CardLayout) (cards.getLayout());
+        cl.show(cards, ARMIES_NB_CHOICES_CARD);
         setChangesReady();
     }
 

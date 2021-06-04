@@ -1,14 +1,11 @@
 package main.java.fr.enseeiht.lbs.controller;
 
-import main.java.fr.enseeiht.lbs.model.battle_simulator.Army;
 import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
 import main.java.fr.enseeiht.lbs.model.battle_simulator.Extermination;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
 
 import javax.swing.*;
 import java.awt.*;
 
-import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.createArmies;
 import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.mainFrame;
 
 /**
