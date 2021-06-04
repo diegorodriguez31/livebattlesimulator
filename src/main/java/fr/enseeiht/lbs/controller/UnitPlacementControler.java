@@ -115,6 +115,16 @@ public class UnitPlacementControler extends JPanel {
         });
 
         armyPanel.add(okButton);
+
+        JButton cancelButton = new JButton("Annuler");
+        cancelButton.setFont(new Font("Sans Serif", Font.PLAIN, 12));
+
+        cancelButton.addActionListener(actionEvent -> {
+            mainFrame().showHomePage();
+        });
+
+        armyPanel.add(cancelButton);
+
     }
 
     private void updateEntityTypes() {

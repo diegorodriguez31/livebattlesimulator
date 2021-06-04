@@ -37,6 +37,15 @@ public class WorldChoiceView extends JPanel {
             //new Thread(() -> Battle.getInstance().run()).start();
         });
 
+
+        JButton cancelButton = new JButton("Annuler");
+        cancelButton.setFont(new Font("Sans Serif", Font.PLAIN, 12));
+
+        cancelButton.addActionListener(actionEvent -> {
+            mainFrame().showHomePage();
+        });
+
+        southPanel.add(cancelButton);
         this.setLayout(new BorderLayout());
         this.add(northPanel, BorderLayout.NORTH);
         this.add(mapView, BorderLayout.CENTER);
