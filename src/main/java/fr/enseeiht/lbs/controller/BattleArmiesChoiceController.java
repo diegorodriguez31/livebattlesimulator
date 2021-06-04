@@ -35,7 +35,6 @@ public class BattleArmiesChoiceController extends JPanel {
         cancelButton.setFont(new Font("Sans Serif", Font.PLAIN, 30));
 
         cancelButton.addActionListener(actionEvent -> {
-            Battle.reset();
             mainFrame().showHomePage();
         });
 

@@ -2,14 +2,10 @@ package main.java.fr.enseeiht.lbs.view.content;
 
 import main.java.fr.enseeiht.lbs.controller.BtnReloadMapGUI;
 import main.java.fr.enseeiht.lbs.controller.CbboxElemGUI;
-import main.java.fr.enseeiht.lbs.model.battle_simulator.Army;
-import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
 
 import javax.swing.*;
 import java.awt.*;
 
-import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.createArmies;
 import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.mainFrame;
 
 public class WorldChoiceView extends JPanel {
@@ -37,19 +33,19 @@ public class WorldChoiceView extends JPanel {
         okButton.setFont(new Font("Sans Serif", Font.PLAIN, 30));
 
         okButton.addActionListener(actionEvent -> {
-            mainFrame().showBattleSimulation();
-
-            createArmies();
-            for (Army army : Battle.getInstance().getArmies()) {
-                for (Unit u :
-                        army.getUnits()) {
-                    u.setReady();
-                }
-            }
-
-            new Thread(() -> Battle.getInstance().run()).start();
+            mainFrame().showUnitPlacement();
+            //new Thread(() -> Battle.getInstance().run()).start();
         });
 
+
+        JButton cancelButton = new JButton("Annuler");
+        cancelButton.setFont(new Font("Sans Serif", Font.PLAIN, 12));
+
+        cancelButton.addActionListener(actionEvent -> {
+            mainFrame().showHomePage();
+        });
+
+        southPanel.add(cancelButton);
         this.setLayout(new BorderLayout());
         this.add(northPanel, BorderLayout.NORTH);
         this.add(mapView, BorderLayout.CENTER);

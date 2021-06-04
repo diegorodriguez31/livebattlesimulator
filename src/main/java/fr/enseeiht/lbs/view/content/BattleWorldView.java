@@ -1,48 +1,32 @@
 package main.java.fr.enseeiht.lbs.view.content;
 
-import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
 import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.model.world.WorldElement;
-import main.java.fr.enseeiht.lbs.view.adapter.GraphicalEntity;
 
 import javax.swing.*;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.LinkedList;
-import java.util.List;
 
 @SuppressWarnings("serial")
 public class BattleWorldView extends BattleView implements PropertyChangeListener {
 
-    private List<GraphicalEntity> graphicalEntities;
-
     public BattleWorldView() {
+        super();
         World world = World.getInstance();
-        this.graphicalEntities = new LinkedList<>();
-        this.setLayout(new GridLayout(world.getSizeX(), world.getSizeY()));// construit une grille de la même taille que le tableau de char
+        this.setLayout(new GridLayout(world.getSizeX(), world.getSizeY()));//construit une grille de la même taille que le tableau de char
         this.setVisible(true);
-
-
-        Battle.getInstance().addObserver(this, Battle.PROPERTY_GAME_OBJECTS);
-        Battle.getInstance().addObserver(this, Battle.PROPERTY_RESULTS);
 
         World.getInstance().addObserver(this, World.PROPERTY_RELOAD_MAP);
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
-        if (propertyChangeEvent.getPropertyName().equals(Battle.PROPERTY_GAME_OBJECTS)) {
-            modifiedGameObjectTreatment(propertyChangeEvent);
-        }
-        if (propertyChangeEvent.getPropertyName().equals(Battle.PROPERTY_RESULTS)) {
-            endGameTreatment(propertyChangeEvent);
-        }
         if (propertyChangeEvent.getPropertyName().equals(World.PROPERTY_RELOAD_MAP)) {
             updateWorld();
+            return;
         }
-        this.repaint();
-        Toolkit.getDefaultToolkit().sync();
+        super.propertyChange(propertyChangeEvent);
     }
 
     public void updateWorld() {
@@ -58,14 +42,5 @@ public class BattleWorldView extends BattleView implements PropertyChangeListene
             }
         }
         updateUI();
-    }
-
-    @Override
-    public void paint(Graphics graphics) {
-        super.paint(graphics);
-
-        for (GraphicalEntity entityGraphic : this.graphicalEntities) {
-            entityGraphic.paint(graphics);
-        }
     }
 }

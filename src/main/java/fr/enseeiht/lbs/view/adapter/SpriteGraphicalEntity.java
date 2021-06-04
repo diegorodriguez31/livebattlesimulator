@@ -1,6 +1,6 @@
 package main.java.fr.enseeiht.lbs.view.adapter;
 
-import main.java.fr.enseeiht.lbs.model.game_object.Vector2;
+import main.java.fr.enseeiht.lbs.utils.Vector2;
 
 import java.awt.*;
 import java.io.IOException;

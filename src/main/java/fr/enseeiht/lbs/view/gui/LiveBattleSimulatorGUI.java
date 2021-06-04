@@ -2,6 +2,7 @@ package main.java.fr.enseeiht.lbs.view.gui;
 
 import main.java.fr.enseeiht.lbs.controller.BattleArmiesChoiceController;
 import main.java.fr.enseeiht.lbs.controller.HomePageController;
+import main.java.fr.enseeiht.lbs.controller.UnitPlacementControler;
 import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.view.content.BattleSimulationView;
 import main.java.fr.enseeiht.lbs.view.content.WorldChoiceView;
@@ -20,6 +21,8 @@ public class LiveBattleSimulatorGUI extends JFrame {
     static JPanel cards;
 
     private BattleSimulationView battleSimulationView;
+    private UnitPlacementControler unitPlacementControler;
+
 
     /**
      * Identifiants des cards
@@ -28,6 +31,8 @@ public class LiveBattleSimulatorGUI extends JFrame {
     static final String ARMIES_NB_CHOICES_CARD = "ARMIES_NB_CHOICES_CARD";
     static final String BATTLE_SIMULATION_CARD = "BATTLE_SIMULATION_CARD";
     static final String WORLD_CHOICE_CARD = "WORLD_CHOICE_CARD";
+    public static final String UNIT_PLACEMENT_CARD = "UNIT_PLACEMENT_CARD";
+
 
     /**
      * Singleton pour n'avoir qu'une seule instance de la fenêtre.
@@ -53,6 +58,7 @@ public class LiveBattleSimulatorGUI extends JFrame {
         World world = World.getInstance();
         world.generateWorld(10, 20, 5, 25, 40);
         cards.add(new WorldChoiceView(), WORLD_CHOICE_CARD);
+        unitPlacementControler = new UnitPlacementControler();
 
         showHomePage();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -83,6 +89,9 @@ public class LiveBattleSimulatorGUI extends JFrame {
         setChangesReady();
     }
 
+    /**
+     * Afficher le menu de selection du terrain
+     */
     public void showWorldSelection() {
         // Crée une nouvelle BattleSimulationView à chaque passage
         // Necessaire pour afficher les éléments swings avant que la bataille ne run (Thread concurrence).
@@ -91,6 +100,21 @@ public class LiveBattleSimulatorGUI extends JFrame {
 
         CardLayout cl = (CardLayout) (cards.getLayout());
         cl.show(cards, WORLD_CHOICE_CARD);
+        setChangesReady();
+    }
+
+    /**
+     * Afficher le menu de selection du terrain
+     */
+    public void showUnitPlacement() {
+        // Crée une nouvelle BattleSimulationView à chaque passage
+        // Necessaire pour afficher les éléments swings avant que la bataille ne run (Thread concurrence).
+
+        cards.add(unitPlacementControler, UNIT_PLACEMENT_CARD);
+        unitPlacementControler.refresh();
+
+        CardLayout cl = (CardLayout) (cards.getLayout());
+        cl.show(cards, UNIT_PLACEMENT_CARD);
         setChangesReady();
     }
 
