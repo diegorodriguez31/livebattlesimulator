@@ -1,26 +1,25 @@
 package main.java.fr.enseeiht.lbs.view.gui;
 
-import javax.swing.JFrame;
-
-import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.view.content.WorldView;
 
+import javax.swing.*;
+
 @SuppressWarnings("serial")
-public class WorldGUI extends JFrame{
+public class WorldGUI extends JFrame {
 
 
-    public WorldGUI(World world){
-    	
-        WorldView mapView = new WorldView(world);
+    public WorldGUI() {
+
+        WorldView mapView = new WorldView();
         this.add(mapView);
-        
-        this.setLocation(100,200);
-        this.setSize(600,600);
-        
+
+        this.setLocation(100, 200);
+        this.setSize(600, 600);
+
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+
         this.setVisible(true);
-}
+    }
 
 
 }

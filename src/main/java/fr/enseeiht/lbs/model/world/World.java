@@ -1,5 +1,10 @@
 package main.java.fr.enseeiht.lbs.model.world;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -15,111 +20,84 @@ public class World {
     /**
      * Size X of the game
      */
-    private final int sizeX;
+    private static final int SIZE_X = 20;
 
     /**
      * Size Y of the game
      */
-    private final int sizeY;
+    private static final int SIZE_Y = 20;
 
     private static final Random random = new Random();
 
     private WorldElement mainElement;
 
-    public World(int sizeX, int sizeY, int percentDesert, int percentWater, int percentRocks, int percentForest) {
-        this.sizeX = sizeX;
-        this.sizeY = sizeY;
-        worldElements = new WorldElement[sizeX][sizeY];
-        generateWorld(percentDesert, percentWater, percentRocks, percentForest);
+    private final PropertyChangeSupport propertyChangeSupport;
+    public static final String PROPERTY_RELOAD_MAP = "Reload";
+
+    private static World instance;
+
+    private World() {
+        worldElements = new WorldElement[SIZE_X][SIZE_Y];
+        this.propertyChangeSupport = new PropertyChangeSupport(this);
     }
 
-    private void generateWorld(final int percentDesert, final int percentWater, int percentRocks, int percentForest) {
+    public static World getInstance() {
+        if (instance == null) {
+            instance = new World();
+        }
+        return instance;
+    }
 
-        final int nbTiles = sizeX * sizeY;
-        mainElement = WorldElement.FOREST; //idealement un calcul du plus gros pourcentage
+    public void generateWorld(final int percentDesert, final int percentWater, int percentRocks, int percentForest, int percentPlain) {
 
-        // Error detections. If percentages are too bigs, we limit them !!
-        if (percentRocks > 33) percentRocks = 33;
+        final int totalTiles = SIZE_X * SIZE_Y;
 
-        int sumPercent = percentForest + percentDesert + percentWater + percentRocks;
-        final int nbDesert = (percentDesert * nbTiles) / sumPercent;
-        final int nbWater = (percentWater * nbTiles) / sumPercent;
-        final int nbRocks = (percentRocks * nbTiles) / sumPercent;
+        mainElement = getMainElement(percentDesert, percentWater, percentRocks, percentForest, percentPlain);
+        //percentWater and percentRocks can't be bigger than 25% else the world might be very trick to play with some units
 
+        int sumPercent = percentForest + percentDesert + percentWater + percentRocks + percentPlain;
+        final int nbDesert = (percentDesert * totalTiles) / sumPercent;
+        final int nbWater = (percentWater * totalTiles) / sumPercent;
+        final int nbRocks = (percentRocks * totalTiles) / sumPercent;
+        final int nbPlain = (percentPlain * totalTiles) / sumPercent;
+        final int nbForest = (percentForest * totalTiles) / sumPercent;
         // We fill with this element
-        for (int x = 0; x < sizeX; x++) {
-            for (int y = 0; y < sizeY; y++) {
+
+        for (int x = 0; x < SIZE_X; x++) {
+            for (int y = 0; y < SIZE_Y; y++) {
                 this.worldElements[x][y] = mainElement;
             }
         }
 
+
         //Create the shapes over the world
         createShapes(WorldElement.DESERT, nbDesert);
         createShapes(WorldElement.WATER, nbWater);
+        createShapes(WorldElement.PLAIN, nbPlain);
         createShapes(WorldElement.ROCK, nbRocks);
+        createShapes(WorldElement.FOREST, nbForest);
+
+        propertyChangeSupport.firePropertyChange(PROPERTY_RELOAD_MAP, null, this.worldElements);
     }
 
     private void createShapes(final WorldElement value, int nbTiles) {
-        int curentNbTiles = 0;
-        int nextShapeSize = 0;
-        while (nbTiles > curentNbTiles) {
-            nextShapeSize = 1 + random.nextInt(nbTiles - curentNbTiles);
-            curentNbTiles = curentNbTiles + (createRandomShape(value, nextShapeSize));
-        }
-        boolean[][] cellmap;
-        cellmap = initialiseMap(worldElements, value);
-//		affichcells(cellmap);  Pour debug
-        int numberOfSteps = 3;
-        int deathLimit = 3;
-        int birthLimit = 3;
-        for (int i = 0; i < numberOfSteps; i++) {
-            cellmap = doSimulationStep(cellmap, deathLimit, birthLimit);
-        }
-//		affichcells(cellmap); Pour debug
-        finaliseMap(worldElements, cellmap, value);
-    }
 
-    private int createRandomShape(final WorldElement backElem, final int maxTiles) {
-        // We don't create shape if there is no need
-        if (maxTiles <= 0)
-            return 0;
+        if (value != mainElement) {
+            boolean[][] cellmap;
+            cellmap = initialiseMap(worldElements, value, nbTiles);
+            //affichcells(cellmap);
+            int numberOfSteps = 7;
+            int deathLimit = 2;
+            int birthLimit = 4;
 
-        // Initialization
-        int nbTiles = 0;
-        int ratio = Double.valueOf(Math.sqrt(maxTiles)).intValue();
-        int width = random.nextInt(ratio * 2);
-        if (width <= 1) width = 4;
-        int height = maxTiles / width;
-        if (height <= 1) height = 4;
-
-        final int minX = random.nextInt(sizeX);
-        final int minY = random.nextInt(sizeY);
-        int maxX = minX + width;
-        if (maxX >= sizeX) maxX = sizeX - 1;
-        int maxY = minY + height;
-        if (maxY >= sizeY) maxY = sizeY - 1;
-
-
-        // We create the shape
-        boolean end = false;
-        int y = minY;
-        int x = minX;
-        while (y <= maxY && !end) {
-            while (x <= maxX && !end) {
-                if (nbTiles >= maxTiles) {
-                    end = true;
-                }
-                // We add the new element only if there isn't already the same
-                if (x >= 0 && x < sizeX || y >= 0 && y < sizeY) {
-                    this.worldElements[x][y] = backElem;
-                    x++;
-                    nbTiles++;
-                }
+            for (int i = 0; i < numberOfSteps; i++) {
+                cellmap = doSimulationStep(cellmap, deathLimit, birthLimit);
             }
-            y++;
+            //affichcells(cellmap);
+            finaliseMap(worldElements, cellmap, value);
         }
-        return nbTiles;
     }
+
 
     public int countAliveNeighbours(boolean[][] map, int x, int y) {
         int count = 0;
@@ -131,7 +109,7 @@ public class World {
                 if (i == 0 && j == 0) {
                     //Do nothing, we don't want to add ourselves in!
                 }
-                //UnitCreator case the index we're looking at it off the edge of the map
+                //In case the index we're looking at it off the edge of the map
 
                 else if (neighbour_x < 0 || neighbour_y < 0 || neighbour_x >= map.length || neighbour_y >= map[0].length) {
 
@@ -145,17 +123,25 @@ public class World {
         return count;
     }
 
-    public boolean[][] initialiseMap(WorldElement[][] map, WorldElement elem) {
+    public boolean[][] initialiseMap(WorldElement[][] map, WorldElement elem, float Nbtiles) {
 
         int ny = 0;
-        boolean[][] newmap = new boolean[sizeX][sizeY];
-        for (int y = 0; y < sizeY; y++) {
+        boolean[][] newmap = new boolean[SIZE_X][SIZE_Y];
+        for (int y = 0; y < SIZE_Y; y++) {
             int nx = 0;
-            for (int x = 0; x < sizeX; x++) {
-                if (elem == map[x][y]) {
+            for (int x = 0; x < SIZE_X; x++) {
+                newmap[nx][ny] = elem == map[x][y];
+                nx++;
+            }
+            ny++;
+        }
+        ny = 0;
+        for (int y = 0; y < SIZE_Y; y++) {
+            int nx = 0;
+            for (int x = 0; x < SIZE_X; x++) {
+                double n = Math.random();
+                if (n < Nbtiles / (SIZE_Y * SIZE_X)) {
                     newmap[nx][ny] = true;
-                } else {
-                    newmap[nx][ny] = false;
                 }
                 nx++;
             }
@@ -166,7 +152,7 @@ public class World {
     }
 
     public boolean[][] doSimulationStep(boolean[][] oldMap, double deathLimit, double birthLimit) {
-        boolean[][] newMap = new boolean[sizeX][sizeY];
+        boolean[][] newMap = new boolean[SIZE_X][SIZE_Y];
         //Loop over each row and column of the map
         for (int x = 0; x < oldMap.length; x++) {
             for (int y = 0; y < oldMap[0].length; y++) {
@@ -174,18 +160,10 @@ public class World {
                 //The new value is based on our simulation rules
                 //First, if a cell is alive but has too few neighbours, kill it.
                 if (oldMap[x][y]) {
-                    if (nbs < deathLimit) {
-                        newMap[x][y] = false;
-                    } else {
-                        newMap[x][y] = true;
-                    }
+                    newMap[x][y] = !(nbs < deathLimit);
                 } //Otherwise, if the cell is dead now, check if it has the right number of neighbours to be 'born'
                 else {
-                    if (nbs > birthLimit) {
-                        newMap[x][y] = true;
-                    } else {
-                        newMap[x][y] = false;
-                    }
+                    newMap[x][y] = nbs > birthLimit;
                 }
             }
         }
@@ -194,9 +172,9 @@ public class World {
 
     public void finaliseMap(WorldElement[][] map, boolean[][] oldmap, WorldElement elem) {
         int y = 0;
-        for (int oy = 0; oy < sizeY; oy++) {
+        for (int oy = 0; oy < SIZE_Y; oy++) {
             int x = 0;
-            for (int ox = 0; ox < sizeX; ox++) {
+            for (int ox = 0; ox < SIZE_X; ox++) {
                 if (oldmap[ox][oy]) {
                     map[x][y] = elem;
                 } else {
@@ -210,6 +188,25 @@ public class World {
         }
     }
 
+    public WorldElement getMainElement(int percentDesert, int percentWater, int percentRocks, int percentForest, int percentPlain) {
+        HashMap<WorldElement, Integer> WHmap = new HashMap<>();
+        WHmap.put(WorldElement.PLAIN, percentPlain);
+        WHmap.put(WorldElement.DESERT, percentDesert);
+        WHmap.put(WorldElement.WATER, percentWater);
+        WHmap.put(WorldElement.FOREST, percentForest);
+        WHmap.put(WorldElement.ROCK, percentRocks);
+        WorldElement maxElement = null;
+        int max = 0;
+        for (Map.Entry<WorldElement, Integer> entry : WHmap.entrySet()) {
+            if (entry.getValue() > max) {
+                max = entry.getValue();
+                maxElement = entry.getKey();
+            }
+        }
+        System.out.println(maxElement);
+        return maxElement;
+    }
+
     public void affichcells(boolean[][] tab) {
         for (boolean[] characters : tab) {
             for (boolean character : characters) {
@@ -220,12 +217,20 @@ public class World {
         System.out.println();
     }
 
+    public void addObserver(PropertyChangeListener propertyChangeListener, String propertyName) {
+        //Only adds the listener once
+        if (!Arrays.asList(propertyChangeSupport.getPropertyChangeListeners(propertyName)).contains(propertyChangeListener)) {
+            propertyChangeSupport.addPropertyChangeListener(propertyName, propertyChangeListener);
+            System.out.println("observed");
+        }
+    }
+
     public int getSizeX() {
-        return sizeX;
+        return SIZE_X;
     }
 
     public int getSizeY() {
-        return sizeY;
+        return SIZE_Y;
     }
 
     public WorldElement[][] getWorldElements() {
@@ -237,3 +242,4 @@ public class World {
     }
 
 }
+

@@ -14,12 +14,33 @@ public class BattleWorldView extends BattleView implements PropertyChangeListene
 
     private static final int WORLD_TO_PIXEL = 11;
 
-    public BattleWorldView(World world) {
+    public BattleWorldView() {
         super();
+        World world = World.getInstance();
         this.setLayout(new GridLayout(world.getSizeX(), world.getSizeY()));//construit une grille de la même taille que le tableau de char
         this.setVisible(true);
-        for (int x = 0; x < world.getSizeX(); x++) {
-            for (int y = 0; y < world.getSizeY(); y++) {
+
+
+        Battle.getInstance().addObserver(this, Battle.PROPERTY_GAME_OBJECTS);
+        Battle.getInstance().addObserver(this, Battle.PROPERTY_RESULTS);
+
+        World.getInstance().addObserver(this, World.PROPERTY_RELOAD_MAP);
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
+        if (propertyChangeEvent.getPropertyName().equals(World.PROPERTY_RELOAD_MAP)) {
+            updateWorld();
+            return;
+        }
+        super.propertyChange(propertyChangeEvent);
+    }
+
+    public void updateWorld() {
+        World world = World.getInstance();
+        removeAll();
+        for (int y = 0; y < world.getSizeY(); y++) {
+            for (int x = 0; x < world.getSizeX(); x++) {
                 JLabel worldCase = new JLabel();
                 WorldElement worldElement = world.getTile(x, y); // prend le character du tableau qui est à sa place
                 worldCase.setBackground(WorldView.getCorrespondingColor(worldElement)); // la case est remplie de la couleur correspondante
@@ -27,6 +48,6 @@ public class BattleWorldView extends BattleView implements PropertyChangeListene
                 this.add(worldCase);
             }
         }
+        updateUI();
     }
-
 }

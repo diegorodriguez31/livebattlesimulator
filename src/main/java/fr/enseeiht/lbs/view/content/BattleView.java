@@ -17,8 +17,6 @@ import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.*;
 
-import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.mainFrame;
-
 @SuppressWarnings("serial")
 public class BattleView extends JPanel implements PropertyChangeListener {
 
@@ -98,7 +96,8 @@ public class BattleView extends JPanel implements PropertyChangeListener {
         Army winner = (Army) propertyChangeEvent.getNewValue();
         Color color = BattleView.TEAM_COLORS.get(winner.getArmyIndex());
         String colorName = BattleView.COLORS_NAME.get(color);
-        String result = Battle.getInstance().getName() + "\nL'armée " + colorName + " a gagné";
+        String result = Battle.getInstance().getName() +
+                "\nL'armée " + colorName + " a gagné";
         JOptionPane.showMessageDialog(null, result);
     }
 
