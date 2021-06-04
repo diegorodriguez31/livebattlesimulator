@@ -1,7 +1,7 @@
 package main.java.fr.enseeiht.lbs.view.content;
 
 import main.java.fr.enseeiht.lbs.controller.BtnReloadMapGUI;
-import main.java.fr.enseeiht.lbs.controller.CbboxElemGUI;
+import main.java.fr.enseeiht.lbs.controller.ChoixMapButtonGUI;
 import main.java.fr.enseeiht.lbs.model.battle_simulator.Army;
 import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
@@ -60,7 +60,7 @@ public class WorldChoiceView extends JPanel {
         this.add(southPanel, BorderLayout.SOUTH);
         southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
         choices.setLayout((new BorderLayout()));
-        choices.add(new CbboxElemGUI(), BorderLayout.CENTER);
+        choices.add(new ChoixMapButtonGUI(), BorderLayout.CENTER);
         southPanel.add(new BtnReloadMapGUI());
         southPanel.add(okButton);
         this.setVisible(true);

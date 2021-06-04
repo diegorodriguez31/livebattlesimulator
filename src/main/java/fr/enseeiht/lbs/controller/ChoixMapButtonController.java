@@ -53,7 +53,7 @@ public class ChoixMapButtonController extends JPanel {
         group.add(wetButton);
 
         JCheckBox rockButton;
-        rockButton = new JCheckBox("terrain + rocheux");
+        rockButton = new JCheckBox("plus grand nombre de roches");
         rockButton.setMnemonic(KeyEvent.VK_C);
         rockButton.setSelected(false);
         this.add(rockButton);
