@@ -3,10 +3,10 @@ package main.java.fr.enseeiht.lbs.view.content;
 import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
 import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.model.world.WorldElement;
-import main.java.fr.enseeiht.lbs.view.adapter.GraphicalEntity;
 
 import javax.swing.*;
 import java.awt.*;
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 @SuppressWarnings("serial")

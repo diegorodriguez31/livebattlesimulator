@@ -1,6 +1,6 @@
 package main.java.fr.enseeiht.lbs.view.content;
 
-import main.java.fr.enseeiht.lbs.model.game_object.Vector2;
+import main.java.fr.enseeiht.lbs.utils.Vector2;
 import main.java.fr.enseeiht.lbs.view.adapter.GraphicalEntity;
 
 import java.awt.*;

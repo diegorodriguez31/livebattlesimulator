@@ -4,7 +4,6 @@ import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
 import main.java.fr.enseeiht.lbs.model.game_object.Entity;
 import main.java.fr.enseeiht.lbs.model.game_object.EntityFactory;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
-import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.view.content.BattleView;
 import main.java.fr.enseeiht.lbs.view.content.BattleWorldView;
 
@@ -23,12 +22,12 @@ public class UnitPlacement extends JPanel {
     private final ButtonGroup group;
     private final ActionListener listener;
 
-    public UnitPlacement(World world) {// TODO : take world from model
+    public UnitPlacement() {
         this.model = Battle.getInstance();
         setLayout(new BorderLayout());
 
         // Creates the view of the game
-        BattleView battleView = new BattleWorldView(world);
+        BattleView battleView = new BattleWorldView();
         model.addObserver(battleView, Battle.PROPERTY_GAME_OBJECTS);
         battleView.addMouseListener(new MouseInputListener() {
             @Override
