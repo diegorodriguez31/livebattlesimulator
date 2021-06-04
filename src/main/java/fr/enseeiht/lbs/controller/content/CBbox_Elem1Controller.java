@@ -6,16 +6,15 @@ import main.java.fr.enseeiht.lbs.view.content.WorldView;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-public class CBbox_Elem1Controller extends JPanel implements ActionListener {
+public class CBbox_Elem1Controller extends JPanel {
     World model;
     WorldElement[] ElementList = WorldElement.values();
-    static String dryString = "terrain sec (désert et roches)";
-    static String wetString = "terrain humide (forêt et eau)";
-    static String mainString = "terrain classique";
+    public String dryString = "terrain sec (désert et roches)";
+    public String wetString = "terrain humide (forêt et eau)";
+    public String mainString = "terrain classique";
+    static int act = 0;
     private Component propertyChangeSupport;
 
     public CBbox_Elem1Controller(World model) {
@@ -53,31 +52,43 @@ public class CBbox_Elem1Controller extends JPanel implements ActionListener {
         rockButton.addActionListener(actionEvent -> {
 
         });
-        mainButton.addActionListener(this);
-        mainButton.addPropertyChangeListener(mainString,new WorldView(model));
-        wetButton.addActionListener(this);
-        wetButton.addPropertyChangeListener(wetString,new WorldView(model));
-        dryButton.addActionListener(this);
-        dryButton.addPropertyChangeListener(dryString,new WorldView(model));
+
+        mainButton.addActionListener(actionEvent -> {
+            updateElements(this.mainString);
+        });
+        mainButton.addPropertyChangeListener(mainString, new WorldView(model));
+
+        wetButton.addActionListener(actionEvent -> {
+            updateElements(this.wetString);
+        });
+        wetButton.addPropertyChangeListener(wetString, new WorldView(model));
+
+
+        dryButton.addActionListener(actionEvent -> {
+            updateElements(this.dryString);
+        });
+        dryButton.addPropertyChangeListener(dryString, new WorldView(model));
+
     }
 
-    @Override
-    public void actionPerformed(ActionEvent actionEvent) {
-        updateElements(actionEvent);
 
-
-    }
-
-    public String updateElements(ActionEvent actionEvent) {
-        String action = actionEvent.getActionCommand();
-        if (action == dryString) {
+    public int updateElements(String actionEvent) {
+        String action = actionEvent;
+        if (action.equals(dryString)) {
             new WorldView(model);
-            model.notify();
-            return dryString;
-        } else if (action == wetString) {
-            return wetString;
+            act = 1;
+            System.out.println(act);
+
+        } else if (action.equals(wetString)) {
+            act = 2;
+            System.out.println(act);
+
+        } else {
+            act = 0;
+            System.out.println(act);
+
         }
-        return mainString;
+        return act;
     }
 
     public void writetext(String text) {
@@ -90,5 +101,9 @@ public class CBbox_Elem1Controller extends JPanel implements ActionListener {
         texte.setRows(3);
         texte.setWrapStyleWord(true);
         this.add(texte);
+    }
+
+    public static int getAct() {
+        return act;
     }
 }

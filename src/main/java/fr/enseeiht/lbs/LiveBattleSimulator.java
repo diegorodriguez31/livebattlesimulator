@@ -31,7 +31,8 @@ public class LiveBattleSimulator {
         }
 
 
-        World world = new World(20, 20, 35, 10, 5, 0, 50);
+        World world = World.getInstance();
+        world.generateWorld(10, 20, 5, 25, 40);
 
 //		new BattleGUI(battle);
 //		new SpeedGUI(battle);

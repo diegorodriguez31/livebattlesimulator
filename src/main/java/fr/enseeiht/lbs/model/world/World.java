@@ -20,32 +20,37 @@ public class World {
 	/**
 	 * Size X of the game
 	 */
-	private final int sizeX;
+	private static final int SIZE_X = 20;
 
 	/**
 	 * Size Y of the game
 	 */
-	private final int sizeY;
+	private static final int SIZE_Y = 20;
 
 	private static final Random random = new Random();
 
 	private WorldElement mainElement;
 
-	private PropertyChangeSupport propertyChangeSupport;
-	public static final String PROPERTY_RELOAD_MAP = "terrain sec (désert et roches)";
+	private final PropertyChangeSupport propertyChangeSupport;
+	public static final String PROPERTY_RELOAD_MAP = "Reload";
 
-	public World(int sizeX, int sizeY, int percentDesert, int percentWater, int percentRocks, int percentForest, int percentPlain) {
-		this.sizeX = sizeX;
-		this.sizeY = sizeY;
-		worldElements = new WorldElement[sizeX][sizeY];
+	private static World instance;
+
+	private World(){
+		worldElements = new WorldElement[SIZE_X][SIZE_Y];
 		this.propertyChangeSupport = new PropertyChangeSupport(this);
-		generateWorld(percentDesert, percentWater, percentRocks, percentForest, percentPlain);
-
 	}
 
-	private void generateWorld(final int percentDesert, final int percentWater, int percentRocks, int percentForest, int percentPlain) {
+	public static World getInstance(){
+		if (instance == null){
+			instance = new World();
+		}
+		return instance;
+	}
 
-		final int totalTiles = sizeX * sizeY;
+	public void generateWorld(final int percentDesert, final int percentWater, int percentRocks, int percentForest, int percentPlain) {
+
+		final int totalTiles = SIZE_X * SIZE_Y;
 
 		mainElement = getMainElement(percentDesert, percentWater, percentRocks, percentForest, percentPlain);
 		//percentWater and percentRocks can't be bigger than 25% else the world might be very trick to play with some units
@@ -58,8 +63,8 @@ public class World {
 		final int nbForest = (percentForest * totalTiles) / sumPercent;
 		// We fill with this element
 
-		for (int x = 0; x < sizeX; x++) {
-			for (int y = 0; y < sizeY; y++) {
+		for (int x = 0; x < SIZE_X; x++) {
+			for (int y = 0; y < SIZE_Y; y++) {
 				this.worldElements[x][y] = mainElement;
 			}
 		}
@@ -71,6 +76,8 @@ public class World {
 		createShapes(WorldElement.PLAIN, nbPlain);
 		createShapes(WorldElement.ROCK, nbRocks);
 		createShapes(WorldElement.FOREST, nbForest);
+
+		propertyChangeSupport.firePropertyChange(PROPERTY_RELOAD_MAP, null, this.worldElements);
 	}
 
 	private void createShapes(final WorldElement value, int nbTiles) {
@@ -119,25 +126,21 @@ public class World {
 	public boolean[][] initialiseMap(WorldElement[][] map, WorldElement elem, float Nbtiles) {
 
 		int ny = 0;
-		boolean[][] newmap = new boolean[sizeX][sizeY];
-		for (int y = 0; y < sizeY; y++) {
+		boolean[][] newmap = new boolean[SIZE_X][SIZE_Y];
+		for (int y = 0; y < SIZE_Y; y++) {
 			int nx = 0;
-			for (int x = 0; x < sizeX; x++) {
-				if (elem == map[x][y]) {
-					newmap[nx][ny] = true;
-				} else {
-					newmap[nx][ny] = false;
-				}
+			for (int x = 0; x < SIZE_X; x++) {
+				newmap[nx][ny] = elem == map[x][y];
 				nx++;
 			}
 			ny++;
 		}
 		ny = 0;
-		for (int y = 0; y < sizeY; y++) {
+		for (int y = 0; y < SIZE_Y; y++) {
 			int nx = 0;
-			for (int x = 0; x < sizeX; x++) {
+			for (int x = 0; x < SIZE_X; x++) {
 				double n = Math.random();
-				if (n < Nbtiles / (sizeY * sizeX)) {
+				if (n < Nbtiles / (SIZE_Y * SIZE_X)) {
 					newmap[nx][ny] = true;
 				}
 				nx++;
@@ -149,7 +152,7 @@ public class World {
 	}
 
 	public boolean[][] doSimulationStep(boolean[][] oldMap, double deathLimit, double birthLimit) {
-		boolean[][] newMap = new boolean[sizeX][sizeY];
+		boolean[][] newMap = new boolean[SIZE_X][SIZE_Y];
 		//Loop over each row and column of the map
 		for (int x = 0; x < oldMap.length; x++) {
 			for (int y = 0; y < oldMap[0].length; y++) {
@@ -157,18 +160,10 @@ public class World {
 				//The new value is based on our simulation rules
 				//First, if a cell is alive but has too few neighbours, kill it.
 				if (oldMap[x][y]) {
-					if (nbs < deathLimit) {
-						newMap[x][y] = false;
-					} else {
-						newMap[x][y] = true;
-					}
+					newMap[x][y] = !(nbs < deathLimit);
 				} //Otherwise, if the cell is dead now, check if it has the right number of neighbours to be 'born'
 				else {
-					if (nbs > birthLimit) {
-						newMap[x][y] = true;
-					} else {
-						newMap[x][y] = false;
-					}
+					newMap[x][y] = nbs > birthLimit;
 				}
 			}
 		}
@@ -177,9 +172,9 @@ public class World {
 
 	public void finaliseMap(WorldElement[][] map, boolean[][] oldmap, WorldElement elem) {
 		int y = 0;
-		for (int oy = 0; oy < sizeY; oy++) {
+		for (int oy = 0; oy < SIZE_Y; oy++) {
 			int x = 0;
-			for (int ox = 0; ox < sizeX; ox++) {
+			for (int ox = 0; ox < SIZE_X; ox++) {
 				if (oldmap[ox][oy]) {
 					map[x][y] = elem;
 				} else {
@@ -226,15 +221,16 @@ public class World {
 		//Only adds the listener once
 		if (!Arrays.asList(propertyChangeSupport.getPropertyChangeListeners(propertyName)).contains(propertyChangeListener)) {
 			propertyChangeSupport.addPropertyChangeListener(propertyName, propertyChangeListener);
+			System.out.println("observed");
 		}
 	}
 
-	public int getSizeX() {
-		return sizeX;
+	public int getSIZE_X() {
+		return SIZE_X;
 	}
 
-	public int getSizeY() {
-		return sizeY;
+	public int getSIZE_Y() {
+		return SIZE_Y;
 	}
 
 	public WorldElement[][] getWorldElements() {

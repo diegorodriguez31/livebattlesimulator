@@ -1,7 +1,6 @@
 package main.java.fr.enseeiht.lbs.view.content;
 
-import java.awt.Color;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -16,9 +15,9 @@ import main.java.fr.enseeiht.lbs.view.gui.WorldGUI;
 public class WorldView extends JPanel implements PropertyChangeListener {
 
 	public WorldView(World world) {
-		this.setLayout(new GridLayout(world.getSizeX(), world.getSizeY()));//construit une grille de la même taille que le tableau de char
-        for (int y = 0; y < world.getSizeY(); y++) {
-            for (int x = 0; x < world.getSizeX(); x++) {
+		this.setLayout(new GridLayout(world.getSIZE_X(), world.getSIZE_Y()));//construit une grille de la même taille que le tableau de char
+        for (int y = 0; y < world.getSIZE_Y(); y++) {
+            for (int x = 0; x < world.getSIZE_X(); x++) {
                 JLabel worldCase = new JLabel();
                 WorldElement worldElement = world.getTile(x,y); //c prend le character du tableau qui est à sa place 
                 worldCase.setBackground(getCorrespondingColor(worldElement)); // la case est remplie de la couleur correspondante
@@ -26,6 +25,7 @@ public class WorldView extends JPanel implements PropertyChangeListener {
                 this.add(worldCase);
             }
         }
+        world.addObserver(this, World.PROPERTY_RELOAD_MAP);
 	}
 	
 	public static Color getCorrespondingColor(WorldElement worldElement) {
@@ -55,12 +55,23 @@ public class WorldView extends JPanel implements PropertyChangeListener {
 	    Object source = propertyChangeEvent.getSource();
         if (source==World.PROPERTY_RELOAD_MAP)
             System.out.println(World.PROPERTY_RELOAD_MAP);
-            modifymap(propertyChangeEvent);
-        this.repaint();
-    }
-    public void modifymap(PropertyChangeEvent propertyChangeEvent){
+        this.removeAll();
+        World world = World.getInstance();
+        for (int y = 0; y < world.getSIZE_Y(); y++) {
+            for (int x = 0; x < world.getSIZE_X(); x++) {
+                JLabel worldCase = new JLabel();
+                WorldElement worldElement = world.getTile(x,y); //c prend le character du tableau qui est à sa place
+                worldCase.setBackground(getCorrespondingColor(worldElement)); // la case est remplie de la couleur correspondante
+                worldCase.setOpaque(true);
+                this.add(worldCase);
+            }
+        }
+        //this.revalidate();
+        //this.repaint();
+        this.updateUI();
 
-        World world = new World(20, 20, 35, 10, 5, 0, 50);
-        new WorldGUI(world);
     }
+
+
+
 }

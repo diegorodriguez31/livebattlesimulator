@@ -20,12 +20,12 @@ public class BattleWorldView extends BattleView implements PropertyChangeListene
 
     public BattleWorldView(World world) {
         this.graphicalEntities = new LinkedList<>();
-        this.setLayout(new GridLayout(world.getSizeX(), world.getSizeY()));//construit une grille de la même taille que le tableau de char
+        this.setLayout(new GridLayout(world.getSIZE_X(), world.getSIZE_Y()));//construit une grille de la même taille que le tableau de char
         this.setVisible(true);
 
 
-        for (int x = 0; x < world.getSizeX(); x++) {
-            for (int y = 0; y < world.getSizeY(); y++) {
+        for (int x = 0; x < world.getSIZE_X(); x++) {
+            for (int y = 0; y < world.getSIZE_Y(); y++) {
                 JLabel worldCase = new JLabel();
                 WorldElement worldElement = world.getTile(x, y); //c prend le character du tableau qui est à sa place
                 worldCase.setBackground(WorldView.getCorrespondingColor(worldElement)); // la case est remplie de la couleur correspondante
