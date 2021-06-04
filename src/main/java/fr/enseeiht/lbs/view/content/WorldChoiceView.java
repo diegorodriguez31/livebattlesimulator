@@ -15,7 +15,7 @@ import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.mainFrame;
 public class WorldChoiceView extends JPanel {
 
     public WorldChoiceView() {
-
+        //panel principal
         this.setLocation(100, 200);
         this.setSize(1200, 800);
         JFrame.setDefaultLookAndFeelDecorated(true);
@@ -24,8 +24,9 @@ public class WorldChoiceView extends JPanel {
         GroupLayout layout = new GroupLayout(southPanel);
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
-        southPanel.setLayout(layout);
 
+        //panels secondaire, gestions des tailles
+        southPanel.setLayout(layout);
         WorldView mapView = new WorldView();
         ChoiceWorldView choices = new ChoiceWorldView();
         northPanel.setPreferredSize(new Dimension(1200, 50));
@@ -33,9 +34,10 @@ public class WorldChoiceView extends JPanel {
         southPanel.setPreferredSize(new Dimension(1200, 50));
         mapView.setPreferredSize(new Dimension(700, 700));
         mapView.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        //gestion du button ok
         JButton okButton = new JButton("OK");
         okButton.setFont(new Font("Sans Serif", Font.PLAIN, 30));
-
         okButton.addActionListener(actionEvent -> {
             mainFrame().showBattleSimulation();
 
@@ -50,6 +52,7 @@ public class WorldChoiceView extends JPanel {
             new Thread(() -> Battle.getInstance().run()).start();
         });
 
+        //gestion des layouts des panels secondaires et du placement des boutons
         this.setLayout(new BorderLayout());
         this.add(northPanel, BorderLayout.NORTH);
         this.add(mapView, BorderLayout.CENTER);
