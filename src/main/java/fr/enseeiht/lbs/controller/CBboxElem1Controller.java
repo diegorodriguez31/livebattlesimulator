@@ -1,4 +1,4 @@
-package main.java.fr.enseeiht.lbs.controller.content;
+package main.java.fr.enseeiht.lbs.controller;
 
 import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.model.world.WorldElement;
@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class CBbox_Elem1Controller extends JPanel {
+public class CBboxElem1Controller extends JPanel {
     World model;
     WorldElement[] ElementList = WorldElement.values();
     public String dryString = "terrain sec (désert et roches)";
@@ -17,7 +17,7 @@ public class CBbox_Elem1Controller extends JPanel {
     static int act = 0;
     private Component propertyChangeSupport;
 
-    public CBbox_Elem1Controller(World model) {
+    public CBboxElem1Controller(World model) {
         this.model = model;
         this.setLayout(new GridLayout(4, 1));
         JRadioButton mainButton = new JRadioButton(mainString);
@@ -56,18 +56,18 @@ public class CBbox_Elem1Controller extends JPanel {
         mainButton.addActionListener(actionEvent -> {
             updateElements(this.mainString);
         });
-        mainButton.addPropertyChangeListener(mainString, new WorldView(model));
+        mainButton.addPropertyChangeListener(mainString, new WorldView());
 
         wetButton.addActionListener(actionEvent -> {
             updateElements(this.wetString);
         });
-        wetButton.addPropertyChangeListener(wetString, new WorldView(model));
+        wetButton.addPropertyChangeListener(wetString, new WorldView());
 
 
         dryButton.addActionListener(actionEvent -> {
             updateElements(this.dryString);
         });
-        dryButton.addPropertyChangeListener(dryString, new WorldView(model));
+        dryButton.addPropertyChangeListener(dryString, new WorldView());
 
     }
 
@@ -75,7 +75,7 @@ public class CBbox_Elem1Controller extends JPanel {
     public int updateElements(String actionEvent) {
         String action = actionEvent;
         if (action.equals(dryString)) {
-            new WorldView(model);
+            new WorldView();
             act = 1;
             System.out.println(act);
 
