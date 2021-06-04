@@ -1,6 +1,5 @@
 package main.java.fr.enseeiht.lbs.view.content;
 
-import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
 import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.model.world.WorldElement;
 
@@ -12,17 +11,11 @@ import java.beans.PropertyChangeListener;
 @SuppressWarnings("serial")
 public class BattleWorldView extends BattleView implements PropertyChangeListener {
 
-    private static final int WORLD_TO_PIXEL = 11;
-
     public BattleWorldView() {
         super();
         World world = World.getInstance();
         this.setLayout(new GridLayout(world.getSizeX(), world.getSizeY()));//construit une grille de la même taille que le tableau de char
         this.setVisible(true);
-
-
-        Battle.getInstance().addObserver(this, Battle.PROPERTY_GAME_OBJECTS);
-        Battle.getInstance().addObserver(this, Battle.PROPERTY_RESULTS);
 
         World.getInstance().addObserver(this, World.PROPERTY_RELOAD_MAP);
     }

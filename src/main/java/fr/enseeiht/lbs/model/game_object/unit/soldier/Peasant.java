@@ -23,6 +23,7 @@ public class Peasant extends Unit {
 
     public Peasant(String name, Stats stats, Vector2 position) {
         super(name, stats, position);
+        ai = new ChargeAndHitAI(new AttackAction(this), new FlightMovementAction(this));
     }
 
     @Override

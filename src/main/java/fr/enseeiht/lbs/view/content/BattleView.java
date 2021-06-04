@@ -6,9 +6,9 @@ import main.java.fr.enseeiht.lbs.model.game_object.Entity;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.Knight;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.Peasant;
+import main.java.fr.enseeiht.lbs.utils.Vector2;
 import main.java.fr.enseeiht.lbs.view.adapter.GraphicalEntity;
 import main.java.fr.enseeiht.lbs.view.adapter.SpriteGraphicalEntity;
-import main.java.fr.enseeiht.lbs.utils.Vector2;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,12 +40,19 @@ public class BattleView extends JPanel implements PropertyChangeListener {
         COLORS_NAME.put(TEAM_COLORS.get(2), "verte");
         TEAM_COLORS.add(Color.YELLOW);
         COLORS_NAME.put(TEAM_COLORS.get(3), "jaune");
+        TEAM_COLORS.add(Color.PINK);
+        COLORS_NAME.put(TEAM_COLORS.get(4), "rose");
+        TEAM_COLORS.add(Color.BLACK);
+        COLORS_NAME.put(TEAM_COLORS.get(5), "dark");
     }
 
     public BattleView() {
         this.setVisible(true);
         this.setPreferredSize(new Dimension(500, 500));
         this.graphicalEntities = new LinkedList<>();
+
+        Battle.getInstance().addObserver(this, Battle.PROPERTY_GAME_OBJECTS);
+        Battle.getInstance().addObserver(this, Battle.PROPERTY_RESULTS);
     }
 
     protected Vector2 worldToPixel(Vector2 world) {
@@ -64,6 +71,8 @@ public class BattleView extends JPanel implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
         if (propertyChangeEvent.getPropertyName().equals(Battle.PROPERTY_GAME_OBJECTS)) {
             modifiedGameObjectTreatment(propertyChangeEvent);
+        } else if (propertyChangeEvent.getPropertyName().equals(Battle.PROPERTY_RESULTS)) {
+            endGameTreatment(propertyChangeEvent);
         }
         this.repaint();
         Toolkit.getDefaultToolkit().sync();

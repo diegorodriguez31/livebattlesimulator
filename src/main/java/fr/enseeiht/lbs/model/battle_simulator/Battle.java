@@ -34,12 +34,15 @@ public class Battle {
     public static final float STOPPED_DELTA_TIME_MULTIPLIER = 0.00f;
     public static final float MAX_DELTA_TIME_MULTIPLIER = 10.0f;
     public static final float MIN_DELTA_TIME_MULTIPLIER = 0.01f;
-    
+
     private float deltaTimeMultiplier = STOPPED_DELTA_TIME_MULTIPLIER;
-    
+
 
     private Battle() {
         this.propertyChangeSupport = new PropertyChangeSupport(this);
+        this.armies = new ArrayList<>();
+        this.objects = new ArrayList<>();
+        this.endObjects = new ArrayList<>();
     }
 
     static Battle instance;
@@ -53,6 +56,7 @@ public class Battle {
 
     /**
      * Init battle, does not create Units.
+     *
      * @param objectif the objectif of the game
      * @param nbArmies the number of armies to create
      */
@@ -64,10 +68,7 @@ public class Battle {
         }
         objects = new ArrayList<>();
         endObjects = new ArrayList<>();
-    }
-
-    public static void reset() {
-        instance = null;
+        propertyChangeSupport.firePropertyChange(Battle.PROPERTY_GAME_OBJECTS, null, objects);
     }
 
     public void run() {

@@ -1,4 +1,4 @@
-package main.java.fr.enseeiht.lbs.controller.content;
+package main.java.fr.enseeiht.lbs.controller;
 
 import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
 import main.java.fr.enseeiht.lbs.model.game_object.Entity;
@@ -14,20 +14,23 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.util.stream.Collectors;
 
-public class UnitPlacement extends JPanel {
+import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.mainFrame;
+
+public class UnitPlacementControler extends JPanel {
     private final Battle model;
+    private final BattleWorldView battleView;
     private String selectedUnit;
     private final JComboBox<String> armySelect;
     private final JPanel unitList, unitTypePanel;
     private final ButtonGroup group;
     private final ActionListener listener;
 
-    public UnitPlacement() {
+    public UnitPlacementControler() {
         this.model = Battle.getInstance();
         setLayout(new BorderLayout());
 
         // Creates the view of the game
-        BattleView battleView = new BattleWorldView();
+        this.battleView = new BattleWorldView();
         model.addObserver(battleView, Battle.PROPERTY_GAME_OBJECTS);
         battleView.addMouseListener(new MouseInputListener() {
             @Override
@@ -44,10 +47,10 @@ public class UnitPlacement extends JPanel {
             public void mouseReleased(MouseEvent mouseEvent) {
                 if (selectedUnit == null) return;
                 Entity entity = EntityFactory.createEntity(selectedUnit, battleView.pixelToWorld(mouseEvent.getX(), mouseEvent.getY()));
-                entity.setReady();
                 if (entity instanceof Unit && armySelect.getSelectedIndex() != 0) {
                     model.getArmies().get(armySelect.getSelectedIndex() - 1).addUnit((Unit) entity);
                 }
+                entity.setReady();
             }
 
             @Override
@@ -102,6 +105,16 @@ public class UnitPlacement extends JPanel {
         armyPanel.add(scrll);
         model.addObserver(propertyChangeEvent -> updateUnitList(), Battle.PROPERTY_GAME_OBJECTS);
         updateUnitList();
+
+        JButton okButton = new JButton("OK");
+        okButton.setFont(new Font("Sans Serif", Font.PLAIN, 30));
+
+        okButton.addActionListener(actionEvent -> {
+            mainFrame().showBattleSimulation();
+            new Thread(() -> Battle.getInstance().run()).start();
+        });
+
+        armyPanel.add(okButton);
     }
 
     private void updateEntityTypes() {
@@ -123,6 +136,7 @@ public class UnitPlacement extends JPanel {
      */
     private void updateUnitList() {
         unitList.removeAll();
+        if (armySelect.getSelectedIndex() == -1) return;
         if (armySelect.getSelectedIndex() == 0) {
             model.getObjects().forEach(gameObject -> {
                 if (gameObject instanceof Entity) {
@@ -131,7 +145,7 @@ public class UnitPlacement extends JPanel {
             });
         } else {
             model.getArmies().get(armySelect.getSelectedIndex() - 1).getUnits().forEach(gameObject -> {
-                unitList.add(new JLabel(gameObject.getName()));
+                unitList.add(new JLabel("- " + gameObject.getName()));
             });
         }
         unitList.updateUI();
@@ -143,12 +157,14 @@ public class UnitPlacement extends JPanel {
         for (int i = 0; i < model.getArmies().size(); i++) {
             armySelect.addItem(BattleView.COLORS_NAME.get(BattleWorldView.TEAM_COLORS.get(i)));
         }
+        armySelect.setSelectedIndex(0);
     }
 
     public void refresh() {
         updateEntityTypes();
         updateArmies();
         updateUnitList();
+        battleView.updateWorld();
     }
 
 

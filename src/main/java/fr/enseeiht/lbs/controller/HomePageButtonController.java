@@ -1,7 +1,5 @@
 package main.java.fr.enseeiht.lbs.controller;
 
-import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
-
 import javax.swing.*;
 
 import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.mainFrame;
@@ -15,7 +13,6 @@ public class HomePageButtonController extends JButton {
         super("Accueil");
 
         this.addActionListener(actionEvent -> {
-            Battle.reset();
             mainFrame().showHomePage();
         });
     }
