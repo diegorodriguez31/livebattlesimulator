@@ -12,7 +12,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.VERBOSE;
+
+
 public class Battle {
+
 
     private long lastTime;
     private String name;
@@ -30,12 +34,15 @@ public class Battle {
     public static final float STOPPED_DELTA_TIME_MULTIPLIER = 0.00f;
     public static final float MAX_DELTA_TIME_MULTIPLIER = 10.0f;
     public static final float MIN_DELTA_TIME_MULTIPLIER = 0.01f;
-    
+
     private float deltaTimeMultiplier = STOPPED_DELTA_TIME_MULTIPLIER;
-    
+
 
     private Battle() {
         this.propertyChangeSupport = new PropertyChangeSupport(this);
+        this.armies = new ArrayList<>();
+        this.objects = new ArrayList<>();
+        this.endObjects = new ArrayList<>();
     }
 
     static Battle instance;
@@ -49,6 +56,7 @@ public class Battle {
 
     /**
      * Init battle, does not create Units.
+     *
      * @param objectif the objectif of the game
      * @param nbArmies the number of armies to create
      */
@@ -60,10 +68,7 @@ public class Battle {
         }
         objects = new ArrayList<>();
         endObjects = new ArrayList<>();
-    }
-
-    public static void reset() {
-        instance = null;
+        propertyChangeSupport.firePropertyChange(Battle.PROPERTY_GAME_OBJECTS, null, objects);
     }
 
     public void run() {
@@ -77,8 +82,12 @@ public class Battle {
             long deltaTime = System.currentTimeMillis() - lastTime;
             lastTime = System.currentTimeMillis();
             tempTotal += deltaTime;
-            System.out.println("delta time" + deltaTime);
-            System.out.println("total time" + tempTotal);
+            if (VERBOSE >= 1) {
+                System.out.println("delta time" + deltaTime);
+                if (VERBOSE >= 2) {
+                    System.out.println("total time" + tempTotal);
+                }
+            }
             for (GameObject object : objects) {
                 object.update(this, (long) (deltaTime * deltaTimeMultiplier));
             }
@@ -151,9 +160,15 @@ public class Battle {
 
     public void addGameObject(GameObject gameObject) {
         objects.add(gameObject);
+        propertyChangeSupport.firePropertyChange(PROPERTY_GAME_OBJECTS, null, this.objects);
     }
 
     public void removeGameObject(GameObject gameObject) {
         endObjects.add(gameObject);
+        propertyChangeSupport.firePropertyChange(PROPERTY_GAME_OBJECTS, null, this.objects);
+    }
+
+    public List<GameObject> getObjects() {
+        return objects;
     }
 }

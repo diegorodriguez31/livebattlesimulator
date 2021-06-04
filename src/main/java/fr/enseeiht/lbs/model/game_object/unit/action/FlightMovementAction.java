@@ -1,8 +1,8 @@
 package main.java.fr.enseeiht.lbs.model.game_object.unit.action;
 
 import main.java.fr.enseeiht.lbs.model.game_object.Statistic;
-import main.java.fr.enseeiht.lbs.model.game_object.Vector2;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
+import main.java.fr.enseeiht.lbs.utils.Vector2;
 
 public class FlightMovementAction implements IMovementAction {
     private Unit self;
