@@ -1,14 +1,11 @@
 package main.java.fr.enseeiht.lbs.controller;
 
-import main.java.fr.enseeiht.lbs.model.battle_simulator.Army;
 import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
 import main.java.fr.enseeiht.lbs.model.battle_simulator.Extermination;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
 
 import javax.swing.*;
 import java.awt.*;
 
-import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.createArmies;
 import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.mainFrame;
 
 /**
@@ -47,22 +44,7 @@ public class BattleArmiesChoiceController extends JPanel {
 
         okButton.addActionListener(actionEvent -> {
             saveValues();
-
-            // APPELER LE CONTROLLEUR QUI PERMET DE CHOISIR LE TERRAIN /////////////////
-
-            // APPELER LE CONTROLLEUR QUI PERMET DE PLACER LES TROUPES /////////////////
-
-            mainFrame().showBattleSimulation();
-
-            createArmies();
-            for (Army army : Battle.getInstance().getArmies()) {
-                for (Unit u :
-                        army.getUnits()) {
-                    u.setReady();
-                }
-            }
-
-            new Thread(() -> Battle.getInstance().run()).start();
+            mainFrame().showWorldSelection();
         });
 
         // set the layout
@@ -74,25 +56,25 @@ public class BattleArmiesChoiceController extends JPanel {
 
         layoutConstraint.gridy = 1;
         layoutConstraint.anchor = GridBagConstraints.PAGE_START;
-        layoutConstraint.insets = new Insets(10,0,0,0);
+        layoutConstraint.insets = new Insets(10, 0, 0, 0);
         add(title, layoutConstraint);
 
         layoutConstraint.gridy = 2;
         layoutConstraint.ipady = 40;   // element height size
         layoutConstraint.ipadx = 200;    // element width size
-        layoutConstraint.insets = new Insets(100,0,0,0);
+        layoutConstraint.insets = new Insets(100, 0, 0, 0);
         add(battleName, layoutConstraint);
 
         layoutConstraint.gridy = 3;
         layoutConstraint.ipady = oldIpadY;
         layoutConstraint.ipadx = oldIpadx;
-        layoutConstraint.insets = new Insets(50,0,0,0);
+        layoutConstraint.insets = new Insets(50, 0, 0, 0);
         add(questionNbArmies, layoutConstraint);
 
         layoutConstraint.gridy = 4;
         layoutConstraint.ipady = 40;
         layoutConstraint.ipadx = 32;
-        layoutConstraint.insets = new Insets(50,0,0,0);
+        layoutConstraint.insets = new Insets(50, 0, 0, 0);
         add(nbArmiesSpinner, layoutConstraint);
 
         layoutConstraint.gridy = 6;
