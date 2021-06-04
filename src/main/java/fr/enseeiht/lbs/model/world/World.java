@@ -225,11 +225,11 @@ public class World {
 		}
 	}
 
-	public int getSIZE_X() {
+	public int getSizeX() {
 		return SIZE_X;
 	}
 
-	public int getSIZE_Y() {
+	public int getSizeY() {
 		return SIZE_Y;
 	}
 
