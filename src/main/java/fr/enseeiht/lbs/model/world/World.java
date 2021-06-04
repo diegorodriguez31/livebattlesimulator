@@ -27,7 +27,6 @@ public class World {
      */
     private static final int SIZE_Y = 20;
 
-    private static final Random random = new Random();
 
     private WorldElement mainElement;
 
@@ -52,23 +51,22 @@ public class World {
 
         final int totalTiles = SIZE_X * SIZE_Y;
 
-        mainElement = getMainElement(percentDesert, percentWater, percentRocks, percentForest, percentPlain);
-        //percentWater and percentRocks can't be bigger than 25% else the world might be very trick to play with some units
-
         int sumPercent = percentForest + percentDesert + percentWater + percentRocks + percentPlain;
         final int nbDesert = (percentDesert * totalTiles) / sumPercent;
         final int nbWater = (percentWater * totalTiles) / sumPercent;
         final int nbRocks = (percentRocks * totalTiles) / sumPercent;
         final int nbPlain = (percentPlain * totalTiles) / sumPercent;
         final int nbForest = (percentForest * totalTiles) / sumPercent;
-        // We fill with this element
 
+        //récupère l'élément qui a le plus gros pourcentage
+        mainElement = getMainElement(percentDesert, percentWater, percentRocks, percentForest, percentPlain);
+
+        //on remplit le tableau avec le mainElement
         for (int x = 0; x < SIZE_X; x++) {
             for (int y = 0; y < SIZE_Y; y++) {
                 this.worldElements[x][y] = mainElement;
             }
         }
-
 
         //Create the shapes over the world
         createShapes(WorldElement.DESERT, nbDesert);
@@ -86,9 +84,9 @@ public class World {
             boolean[][] cellmap;
             cellmap = initialiseMap(worldElements, value, nbTiles);
             //affichcells(cellmap);
-            int numberOfSteps = 7;
-            int deathLimit = 2;
-            int birthLimit = 4;
+            int numberOfSteps = 7;//nombre de fois que l'algo "game of life" est run
+            int deathLimit = 2; //si moins de 2 true adjacents, la cellule devient false
+            int birthLimit = 4; //si plus de 4 true à côté, la cellule devient true
 
             for (int i = 0; i < numberOfSteps; i++) {
                 cellmap = doSimulationStep(cellmap, deathLimit, birthLimit);
@@ -123,7 +121,7 @@ public class World {
         return count;
     }
 
-    public boolean[][] initialiseMap(WorldElement[][] map, WorldElement elem, float Nbtiles) {
+    public boolean[][] initialiseMap(WorldElement[][] map, WorldElement elem, float nbtiles) {
 
         int ny = 0;
         boolean[][] newmap = new boolean[SIZE_X][SIZE_Y];
@@ -135,12 +133,13 @@ public class World {
             }
             ny++;
         }
+
         ny = 0;
         for (int y = 0; y < SIZE_Y; y++) {
             int nx = 0;
             for (int x = 0; x < SIZE_X; x++) {
                 double n = Math.random();
-                if (n < Nbtiles / (SIZE_Y * SIZE_X)) {
+                if (n < nbtiles / (SIZE_Y * SIZE_X)) {
                     newmap[nx][ny] = true;
                 }
                 nx++;

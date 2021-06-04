@@ -9,8 +9,6 @@ import java.beans.PropertyChangeSupport;
 public class ReloadMapButtonController extends JPanel {
     World model;
     private final PropertyChangeSupport propertyChangeSupport;
-    //public static final String PROPERTY_RELOAD_MAP = "Reload";
-
 
     public ReloadMapButtonController(World model) {
         this.propertyChangeSupport = new PropertyChangeSupport(this);
@@ -19,37 +17,37 @@ public class ReloadMapButtonController extends JPanel {
         this.add(reloadButton);
         reloadButton.addActionListener(actionEvent -> {
             addPropertyChangeListener(World.PROPERTY_RELOAD_MAP, new WorldView());
-            System.out.println("reload");
             int choix = 0;
             int percentdesert, percentwater, percentrock, percentplain, percentforest;
             this.propertyChangeSupport.firePropertyChange(World.PROPERTY_RELOAD_MAP, null, this.propertyChangeSupport);
-            //CBbox_Elem1Controller btn = new CBbox_Elem1Controller(model);
-            choix = CBboxElem1Controller.getAct();
-            switch (choix) {
-                case 1:
-                    System.out.println(choix + "1");
-                    percentdesert = 0;
-                    percentwater = 30;
-                    percentforest = 30;
-                    percentplain = 35;
-                    percentrock = 5;
-                case 2:
-                    System.out.println(choix + "2");
-                    percentdesert = 39;
-                    percentwater = 5;
-                    percentforest = 5;
-                    percentrock = 5;
-                    percentplain = 46;
-                case 0:
-                    System.out.println(choix + "0");
+            choix = ChoixMapButtonController.getAct();
+            if(choix ==2) {
+                percentdesert = 0;
+                percentwater = 30;
+                percentforest = 30;
+                percentplain = 35;
+                percentrock = 5;
+            }else if(choix ==1){
+                        percentdesert = 44;
+                        percentwater = 5;
+                        percentforest = 5;
+                        percentrock = 10;
+                        percentplain = 36;
+                }else{
                     percentdesert = 10;
                     percentwater = 20;
                     percentforest = 25;
                     percentplain = 40;
                     percentrock = 5;
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + choix);
+
+            }
+            //si rock est appuyé
+            if (ChoixMapButtonController.rock){
+                percentdesert = percentdesert -3;
+                percentwater = percentwater -3;
+                percentforest = percentforest - 3;
+                percentplain =percentplain -3;
+                percentrock = percentrock + 12;
             }
 
 

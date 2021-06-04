@@ -171,6 +171,7 @@ public class UnitPlacementControler extends JPanel {
     }
 
     public void refresh() {
+        armySelect.setSelectedIndex(-1);
         updateEntityTypes();
         updateArmies();
         updateUnitList();
