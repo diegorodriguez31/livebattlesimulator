@@ -5,6 +5,7 @@ import main.java.fr.enseeiht.lbs.model.game_object.Stats;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.FireDebuff;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.FreezeDebuff;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.SlowDebuff;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.SpeedBuff;
 
 public class BasicStatModifierBuffVisitor implements BuffVisitor {
     Stats stats;
@@ -26,6 +27,11 @@ public class BasicStatModifierBuffVisitor implements BuffVisitor {
     @Override
     public void visit(SlowDebuff buff) {
         stats.addStat(Statistic.SPEED, buff.getSlow() * getStats().getStatisticValue(Statistic.SPEED));
+    }
+
+    @Override
+    public void visit(SpeedBuff buff) {
+        stats.addStat(Statistic.SPEED, buff.getSpeed() * getStats().getStatisticValue(Statistic.SPEED));
     }
 
     public Stats getStats() {

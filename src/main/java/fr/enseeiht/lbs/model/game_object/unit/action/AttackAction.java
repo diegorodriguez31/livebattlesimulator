@@ -19,7 +19,7 @@ public class AttackAction implements IAttackAction {
             return;
         }
 
-        if (attaquant.attackSucess()) {
+        if (attaquant.attackSuccess()) {
             target.receiveDamage(attaquant.getStats().getStatisticValue(Statistic.DAMAGE));
         }
     }

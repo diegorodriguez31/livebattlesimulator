@@ -19,7 +19,7 @@ public class EntityFactory {
     }
 
     private static final EntitySerializer SERIALIZER = null;
-    private static final Set<String> INITIAL_UNIT = new HashSet<String>(Arrays.asList("Farmer", "Knight"));
+    private static final Set<String> INITIAL_UNIT = new HashSet<String>(Arrays.asList("Peasant", "Knight"));
 
     private static final Stats PEASANT_STATS = new Stats();
     private static final Stats OLD_PEASANT_STATS = new Stats();
@@ -71,7 +71,7 @@ public class EntityFactory {
         BRUTE_STATS.addStat(Statistic.AGILITY, 0);
         BRUTE_STATS.addStat(Statistic.ARMOR, 50);
 
-        entityTypes.put("Farmer", new Pair<>(PEASANT_CREATOR, PEASANT_STATS));
+        entityTypes.put("Peasant", new Pair<>(PEASANT_CREATOR, PEASANT_STATS));
         entityTypes.put("Grandpa", new Pair<>(PEASANT_CREATOR, OLD_PEASANT_STATS));
         entityTypes.put("Knight", new Pair<>(KNIGHT_CREATOR, KNIGHT_STATS));
         entityTypes.put("Brute", new Pair<>(KNIGHT_CREATOR, BRUTE_STATS));

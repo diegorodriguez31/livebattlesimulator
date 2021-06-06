@@ -22,7 +22,7 @@ import static main.java.fr.enseeiht.lbs.model.game_object.Statistic.AGILITY;
 
 public abstract class Unit extends Entity {
     protected AI ai;
-    List<Buff> buffs = new ArrayList<>();
+    protected List<Buff> buffs = new ArrayList<>();
     protected double cooldown;
     private Army team;
 
@@ -110,7 +110,7 @@ public abstract class Unit extends Entity {
         return stats;
     }
 
-    public boolean attackSucess() {
+    public boolean attackSuccess() {
         Random random = new Random();
         return (random.nextInt(100) + 1) < getStats().getStatisticValue(ACCURACY);
     }

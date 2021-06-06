@@ -4,6 +4,7 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.FireDebuff;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.FreezeDebuff;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.SlowDebuff;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.SpeedBuff;
 
 public class BasicDotVisitor implements BuffVisitor {
 
@@ -30,6 +31,11 @@ public class BasicDotVisitor implements BuffVisitor {
 
     @Override
     public void visit(SlowDebuff buff) {
+        // do nothing
+    }
+
+    @Override
+    public void visit(SpeedBuff buff) {
         // do nothing
     }
 }

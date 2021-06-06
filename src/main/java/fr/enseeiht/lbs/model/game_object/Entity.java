@@ -33,6 +33,10 @@ public abstract class Entity extends GameObject {
         return position;
     }
 
+    public float getFloatPosition() {
+        return getPosition().sqrSize();
+    }
+
     public boolean isDead() {
         return getHealth() <= 0;
     }
