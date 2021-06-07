@@ -4,6 +4,7 @@ import main.java.fr.enseeiht.lbs.model.game_object.Statistic;
 import main.java.fr.enseeiht.lbs.model.game_object.Stats;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.action.BuffAction;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.action.FlightMovementAction;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.action.GroundMovementAction;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.ai.ChargeAndHitAI;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.FireDebuff;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.BasicStatModifierBuffVisitor;
@@ -15,12 +16,12 @@ public class Shieldman extends Infantryman {
     public Shieldman(String name, Vector2 position, double health, double speed, double damage, double armor, long cooldown, double reach) {
         super(name, position, health, speed, damage, cooldown, reach);
         stats.addStat(Statistic.ARMOR, armor);
-        ai = new ChargeAndHitAI(new BuffAction(new FireDebuff()), new FlightMovementAction(this));
+        ai = new ChargeAndHitAI(new BuffAction(new FireDebuff()), new GroundMovementAction(this));
     }
 
     public Shieldman(String name, Stats stats, Vector2 position) {
         super(name, stats, position);
-        ai = new ChargeAndHitAI(new BuffAction(new FireDebuff()), new FlightMovementAction(this));
+        ai = new ChargeAndHitAI(new BuffAction(new FireDebuff()), new GroundMovementAction(this));
     }
 
     @Override

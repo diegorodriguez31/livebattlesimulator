@@ -5,6 +5,7 @@ import main.java.fr.enseeiht.lbs.model.game_object.Stats;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.action.AttackAction;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.action.FlightMovementAction;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.action.GroundMovementAction;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.ai.ChargeAndHitAI;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.BasicDotVisitor;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.dotVisitor.KnightDotVisitor;
@@ -18,7 +19,7 @@ public class Knight extends Unit {
     public Knight(Vector2 vector, String name, double health, double damage, double cooldown, double speed, double range, double accuracy, double agility, double armor) {
         super(vector, name, health, damage, cooldown, speed, range, accuracy, agility);
         stats.addStat(ARMOR, armor);
-        ai = new ChargeAndHitAI(new AttackAction(this), new FlightMovementAction(this));
+        ai = new ChargeAndHitAI(new AttackAction(this), new GroundMovementAction(this));
     }
 
     public Knight(Vector2 vector) {
@@ -27,7 +28,7 @@ public class Knight extends Unit {
 
     public Knight(String name, Stats stats, Vector2 position) {
         super(name, stats, position);
-        ai = new ChargeAndHitAI(new AttackAction(this), new FlightMovementAction(this));
+        ai = new ChargeAndHitAI(new AttackAction(this), new GroundMovementAction(this));
     }
 
     @Override

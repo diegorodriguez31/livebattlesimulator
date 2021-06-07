@@ -5,7 +5,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
+
 
 /**
  * Class that generate a world to use with World
@@ -18,12 +18,12 @@ public class World {
     private final WorldElement[][] worldElements;
 
     /**
-     * Size X of the game
+     * Size X of the map
      */
     private static final int SIZE_X = 20;
 
     /**
-     * Size Y of the game
+     * Size Y of the map
      */
     private static final int SIZE_Y = 20;
 
@@ -59,7 +59,7 @@ public class World {
         final int nbForest = (percentForest * totalTiles) / sumPercent;
 
         //récupère l'élément qui a le plus gros pourcentage
-        mainElement = getMainElement(percentDesert, percentWater, percentRocks, percentForest, percentPlain);
+        mainElement = findMainElement(percentDesert, percentWater, percentRocks, percentForest, percentPlain);
 
         //on remplit le tableau avec le mainElement
         for (int x = 0; x < SIZE_X; x++) {
@@ -74,6 +74,7 @@ public class World {
         createShapes(WorldElement.PLAIN, nbPlain);
         createShapes(WorldElement.ROCK, nbRocks);
         createShapes(WorldElement.FOREST, nbForest);
+        affichWorldElements();
 
         propertyChangeSupport.firePropertyChange(PROPERTY_RELOAD_MAP, null, this.worldElements);
     }
@@ -122,7 +123,7 @@ public class World {
     }
 
     public boolean[][] initialiseMap(WorldElement[][] map, WorldElement elem, float nbtiles) {
-
+        //remplit la map de boolean correctement en fonction des elements deja presents sur le terrain
         int ny = 0;
         boolean[][] newmap = new boolean[SIZE_X][SIZE_Y];
         for (int y = 0; y < SIZE_Y; y++) {
@@ -133,12 +134,12 @@ public class World {
             }
             ny++;
         }
-
+        //met des true à des endroits random en fonction de la proportion donnée de cases
         ny = 0;
         for (int y = 0; y < SIZE_Y; y++) {
             int nx = 0;
             for (int x = 0; x < SIZE_X; x++) {
-                double n = Math.random();
+                double n = Math.random();//entre 0 et 1
                 if (n < nbtiles / (SIZE_Y * SIZE_X)) {
                     newmap[nx][ny] = true;
                 }
@@ -169,6 +170,7 @@ public class World {
         return newMap;
     }
 
+//fonction qui place l'élément en cours de shaping dans la map de worldelements
     public void finaliseMap(WorldElement[][] map, boolean[][] oldmap, WorldElement elem) {
         int y = 0;
         for (int oy = 0; oy < SIZE_Y; oy++) {
@@ -187,7 +189,8 @@ public class World {
         }
     }
 
-    public WorldElement getMainElement(int percentDesert, int percentWater, int percentRocks, int percentForest, int percentPlain) {
+    //calcul le mainElement pour qu'il ne soit pas shaped dans la map vu que la map est déja remplie de cet element initialement
+    public WorldElement findMainElement(int percentDesert, int percentWater, int percentRocks, int percentForest, int percentPlain) {
         HashMap<WorldElement, Integer> WHmap = new HashMap<>();
         WHmap.put(WorldElement.PLAIN, percentPlain);
         WHmap.put(WorldElement.DESERT, percentDesert);
@@ -202,7 +205,7 @@ public class World {
                 maxElement = entry.getKey();
             }
         }
-        System.out.println(maxElement);
+        //System.out.println(maxElement);
         return maxElement;
     }
 
@@ -210,6 +213,16 @@ public class World {
         for (boolean[] characters : tab) {
             for (boolean character : characters) {
                 System.out.print(character + "  ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+    public void affichWorldElements(){
+        for(int y=0; y<SIZE_Y;y++){
+            for(int x=0; x<SIZE_X;x++){
+                System.out.print(worldElements[x][y]+" ");
             }
             System.out.println();
         }
@@ -238,6 +251,10 @@ public class World {
 
     public WorldElement getTile(int xx, int yy) {
         return this.worldElements[xx][yy];
+    }
+
+    public WorldElement getMainElement(){
+        return this.mainElement;
     }
 
 }

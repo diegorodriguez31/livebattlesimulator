@@ -13,6 +13,7 @@ public class WorldView extends JPanel implements PropertyChangeListener {
 
     public WorldView() {
         World world = World.getInstance();
+        //this.setPreferredSize(new Dimension(700,700));
         this.setLayout(new GridLayout(world.getSizeX(), world.getSizeY()));//construit une grille de la même taille que le tableau de char
         for (int y = 0; y < world.getSizeY(); y++) {
             for (int x = 0; x < world.getSizeX(); x++) {
@@ -64,8 +65,6 @@ public class WorldView extends JPanel implements PropertyChangeListener {
                 this.add(worldCase);
             }
         }
-        //this.revalidate();
-        //this.repaint();
         this.updateUI();
 
     }

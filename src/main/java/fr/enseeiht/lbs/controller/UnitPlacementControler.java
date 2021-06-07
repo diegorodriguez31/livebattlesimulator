@@ -31,6 +31,7 @@ public class UnitPlacementControler extends JPanel {
 
         // Creates the view of the game
         this.battleView = new BattleWorldView();
+        //this.battleView.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         model.addObserver(battleView, Battle.PROPERTY_GAME_OBJECTS);
         battleView.addMouseListener(new MouseInputListener() {
             @Override

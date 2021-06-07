@@ -14,11 +14,12 @@ public class WorldChoiceView extends JPanel {
 
     public WorldChoiceView() {
         //panel principal
-        this.setLocation(100, 200);
-        this.setSize(1200, 800);
+        //this.setLocation(100, 200);
+        //this.setSize(1200, 800);
         JFrame.setDefaultLookAndFeelDecorated(true);
         JPanel northPanel = new JPanel();
         JPanel southPanel = new JPanel();
+        JPanel eastpanel = new JPanel();
         GroupLayout layout = new GroupLayout(southPanel);
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
@@ -26,12 +27,16 @@ public class WorldChoiceView extends JPanel {
         //panels secondaire, gestions des tailles
         southPanel.setLayout(layout);
         WorldView mapView = new WorldView();
-        ChoiceWorldView choices = new ChoiceWorldView();
-        northPanel.setPreferredSize(new Dimension(1200, 50));
+        JPanel choices = new JPanel();
+        northPanel.setPreferredSize(new Dimension(1200, 20));
         choices.setPreferredSize(new Dimension(300, 700));
+        eastpanel.setPreferredSize(new Dimension(200, 700));
         southPanel.setPreferredSize(new Dimension(1200, 50));
-        mapView.setPreferredSize(new Dimension(700, 700));
+
+        mapView.setPreferredSize(new Dimension(1000, 800));
         mapView.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        mapView.setMinimumSize(new Dimension(900,800));
+        mapView.setMaximumSize(new Dimension(1000,800));
 
         //gestion du button ok
         JButton okButton = new JButton("OK");
@@ -58,6 +63,7 @@ public class WorldChoiceView extends JPanel {
         this.add(mapView, BorderLayout.CENTER);
         this.add(choices, BorderLayout.WEST);
         this.add(southPanel, BorderLayout.SOUTH);
+        this.add(eastpanel,BorderLayout.EAST);
         southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
         choices.setLayout((new BorderLayout()));
         choices.add(new ChoixMapButtonGUI(), BorderLayout.CENTER);

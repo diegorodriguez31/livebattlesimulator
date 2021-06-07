@@ -58,23 +58,26 @@ public class ChoixMapButtonController extends JPanel {
         rockButton.setSelected(false);
         this.add(rockButton);
         rockButton.addActionListener(actionEvent -> {
-            rock =true;
+            if(rockButton.isSelected()) {
+                rock = true;
+            }
+            else {
+                rock = false;
+            }
         });
     }
 
 
     public int updateElements(String actionEvent) {
         String action = actionEvent;
+
         if (action.equals(dryString)) {
             new WorldView();
             act = 1;
-
         } else if (action.equals(wetString)) {
             act = 2;
-
         } else {
             act = 0;
-
         }
         return act;
     }

@@ -58,6 +58,7 @@ public class LiveBattleSimulatorGUI extends JFrame {
         World world = World.getInstance();
         world.generateWorld(10, 20, 5, 25, 40);
         cards.add(new WorldChoiceView(), WORLD_CHOICE_CARD);
+
         unitPlacementControler = new UnitPlacementControler();
 
         showHomePage();
@@ -103,9 +104,7 @@ public class LiveBattleSimulatorGUI extends JFrame {
         setChangesReady();
     }
 
-    /**
-     * Afficher le menu de selection du terrain
-     */
+
     public void showUnitPlacement() {
         // Crée une nouvelle BattleSimulationView à chaque passage
         // Necessaire pour afficher les éléments swings avant que la bataille ne run (Thread concurrence).

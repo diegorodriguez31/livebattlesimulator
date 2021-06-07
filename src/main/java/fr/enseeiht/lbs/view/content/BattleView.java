@@ -48,7 +48,8 @@ public class BattleView extends JPanel implements PropertyChangeListener {
 
     public BattleView() {
         this.setVisible(true);
-        this.setPreferredSize(new Dimension(500, 500));
+        //this.setPreferredSize(new Dimension(500, 500));
+        //this.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         this.graphicalEntities = new LinkedList<>();
 
         Battle.getInstance().addObserver(this, Battle.PROPERTY_GAME_OBJECTS);
@@ -122,3 +123,5 @@ public class BattleView extends JPanel implements PropertyChangeListener {
         return ENTITY_SPRITE.get(entity.getClass());
     }
 }
+
+

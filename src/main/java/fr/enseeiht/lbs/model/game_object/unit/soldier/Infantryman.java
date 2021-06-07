@@ -6,6 +6,7 @@ import main.java.fr.enseeiht.lbs.model.game_object.Stats;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.action.AttackAction;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.action.FlightMovementAction;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.action.GroundMovementAction;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.ai.ChargeAndHitAI;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
@@ -19,12 +20,12 @@ public class Infantryman extends Unit {
         stats.addStat(Statistic.DAMAGE, damage);
         stats.addStat(Statistic.COOLDOWN, cooldown);
         stats.addStat(Statistic.RANGE, reach);
-        ai = new ChargeAndHitAI(new AttackAction(this), new FlightMovementAction(this));
+        ai = new ChargeAndHitAI(new AttackAction(this), new GroundMovementAction(this));
     }
 
     public Infantryman(String name, Stats stats, Vector2 position) {
         super(name, stats, position);
-        ai = new ChargeAndHitAI(new AttackAction(this), new FlightMovementAction(this));
+        ai = new ChargeAndHitAI(new AttackAction(this), new GroundMovementAction(this));
     }
 
     public void status() {
