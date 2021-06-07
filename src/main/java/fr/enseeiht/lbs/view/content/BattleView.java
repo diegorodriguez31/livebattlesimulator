@@ -4,6 +4,7 @@ import main.java.fr.enseeiht.lbs.model.battle_simulator.Army;
 import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
 import main.java.fr.enseeiht.lbs.model.game_object.Entity;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.Archer;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.Knight;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.Peasant;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
@@ -31,6 +32,7 @@ public class BattleView extends JPanel implements PropertyChangeListener {
     static {
         ENTITY_SPRITE.put(Knight.class, "Knight.png");
         ENTITY_SPRITE.put(Peasant.class, "Peasant.png");
+        ENTITY_SPRITE.put(Archer.class, "Archer.png");
 
         TEAM_COLORS.add(Color.BLUE);
         COLORS_NAME.put(TEAM_COLORS.get(0), "bleue");

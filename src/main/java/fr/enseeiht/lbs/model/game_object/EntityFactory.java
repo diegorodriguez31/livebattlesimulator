@@ -1,5 +1,6 @@
 package main.java.fr.enseeiht.lbs.model.game_object;
 
+import main.java.fr.enseeiht.lbs.model.game_object.creators.ArcherCreator;
 import main.java.fr.enseeiht.lbs.model.game_object.creators.KnightCreator;
 import main.java.fr.enseeiht.lbs.model.game_object.creators.PeasantCreator;
 import main.java.fr.enseeiht.lbs.utils.Pair;
@@ -22,7 +23,7 @@ public class EntityFactory {
     private static final Set<String> INITIAL_UNIT = new HashSet<String>(Arrays.asList("Peasant", "Knight"));
 
     private static final Stats PEASANT_STATS = new Stats();
-    private static final Stats OLD_PEASANT_STATS = new Stats();
+    private static final Stats ARCHER_STATS = new Stats();
     private static final Stats KNIGHT_STATS = new Stats();
     private static final Stats BRUTE_STATS = new Stats();
 
@@ -32,6 +33,7 @@ public class EntityFactory {
         //Creators
         EntityCreator PEASANT_CREATOR = new PeasantCreator();
         EntityCreator KNIGHT_CREATOR = new KnightCreator();
+        EntityCreator ARCHER_CREATOR = new ArcherCreator();
 
         //Peasant
         PEASANT_STATS.addStat(Statistic.HEALTH, 50);
@@ -42,14 +44,14 @@ public class EntityFactory {
         PEASANT_STATS.addStat(Statistic.ACCURACY, 50);
         PEASANT_STATS.addStat(Statistic.AGILITY, 10);
 
-        //Grandpa
-        OLD_PEASANT_STATS.addStat(Statistic.HEALTH, 10);
-        OLD_PEASANT_STATS.addStat(Statistic.DAMAGE, 10);
-        OLD_PEASANT_STATS.addStat(Statistic.COOLDOWN, 0.5);
-        OLD_PEASANT_STATS.addStat(Statistic.SPEED, 0.5);
-        OLD_PEASANT_STATS.addStat(Statistic.RANGE, 1);
-        OLD_PEASANT_STATS.addStat(Statistic.ACCURACY, 70);
-        OLD_PEASANT_STATS.addStat(Statistic.AGILITY, 5);
+        // Archer
+        ARCHER_STATS.addStat(Statistic.HEALTH, 50);
+        ARCHER_STATS.addStat(Statistic.DAMAGE, 40);
+        ARCHER_STATS.addStat(Statistic.COOLDOWN, 3);
+        ARCHER_STATS.addStat(Statistic.SPEED, 2);
+        ARCHER_STATS.addStat(Statistic.RANGE, 100);
+        ARCHER_STATS.addStat(Statistic.ACCURACY, 70);
+        ARCHER_STATS.addStat(Statistic.AGILITY, 50);
 
         //Knight
         KNIGHT_STATS.addStat(Statistic.HEALTH, 100);
@@ -72,9 +74,8 @@ public class EntityFactory {
         BRUTE_STATS.addStat(Statistic.ARMOR, 50);
 
         entityTypes.put("Peasant", new Pair<>(PEASANT_CREATOR, PEASANT_STATS));
-        entityTypes.put("Grandpa", new Pair<>(PEASANT_CREATOR, OLD_PEASANT_STATS));
         entityTypes.put("Knight", new Pair<>(KNIGHT_CREATOR, KNIGHT_STATS));
-        entityTypes.put("Brute", new Pair<>(KNIGHT_CREATOR, BRUTE_STATS));
+        entityTypes.put("Archer", new Pair<>(ARCHER_CREATOR, ARCHER_STATS));
     }
 
     /**

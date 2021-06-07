@@ -46,7 +46,7 @@ public class Peasant extends Unit {
      * Vérifie si le paysant se situe dans un groupe d'au moins 3 unités
      * @return vrai si le paysant se situe dans un groupe d'au moins 3 unités et faux sinon
      */
-    public boolean isInAGroupOf3() {
+    public boolean isInAGroupOfThree() {
         // On cherche la troisième car la première est "this"
         List<Unit> allies = Battle.getInstance().findAllies(this);
         if (allies.size() > 2) {
@@ -60,11 +60,6 @@ public class Peasant extends Unit {
     public void status() {
         super.status();
         System.out.println("\n");
-    }
-
-    @Override
-    public void receiveDamage(double damage) {
-        super.receiveDamage(damage);
     }
 
     @Override

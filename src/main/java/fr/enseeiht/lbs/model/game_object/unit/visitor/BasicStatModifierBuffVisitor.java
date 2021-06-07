@@ -35,7 +35,7 @@ public class BasicStatModifierBuffVisitor implements BuffVisitor {
 
     @Override
     public void visit(PeasantGroupBuff buff) {
-        if (((Peasant) unit).isInAGroupOf3()) {
+        if (((Peasant) unit).isInAGroupOfThree()) {
             stats.addStat(Statistic.SPEED, buff.getSpeedMultiplier() * getStats().getStatisticValue(Statistic.SPEED));
             stats.addStat(Statistic.COOLDOWN, buff.getCooldownReducer() * getStats().getStatisticValue(Statistic.COOLDOWN));
         }

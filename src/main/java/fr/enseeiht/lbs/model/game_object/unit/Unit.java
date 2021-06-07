@@ -88,6 +88,7 @@ public abstract class Unit extends Entity {
     public void receiveDamage(double damage) {
         if (!dodge()) {
             health -= damage;
+            this.status();
             if (isDead()) {
                 removeFromBattle();
             }

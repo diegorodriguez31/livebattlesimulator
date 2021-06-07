@@ -10,5 +10,4 @@ public class FreezeDebuff implements Buff {
     public void accept(BuffVisitor visitor) {
         visitor.visit(this);
     }
-
 }

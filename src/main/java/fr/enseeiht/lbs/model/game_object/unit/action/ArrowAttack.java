@@ -2,16 +2,13 @@ package main.java.fr.enseeiht.lbs.model.game_object.unit.action;
 
 import main.java.fr.enseeiht.lbs.model.game_object.Statistic;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.FireDebuff;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.Archer;
 
-public class AttackAction implements IAttackAction {
+public class ArrowAttack extends AttackAction {
 
-    Unit attaquant;
-    Unit target;
-
-    public AttackAction(Unit attaquant) {
-        this.attaquant = attaquant;
-        this.target = null;
+    public ArrowAttack(Unit attaquant) {
+        super(attaquant);
     }
 
     @Override
@@ -22,11 +19,12 @@ public class AttackAction implements IAttackAction {
 
         if (attaquant.attackSuccess()) {
             target.receiveDamage(attaquant.getStats().getStatisticValue(Statistic.DAMAGE));
-        }
-    }
 
-    @Override
-    public void setTarget(Unit unit) {
-        target = unit;
+            if (((Archer) attaquant).getNbArrowsShot() == 3) {
+                target.addBuffs(new FireDebuff());
+            }
+
+            ((Archer) attaquant).updateNbArrowsShot();
+        }
     }
 }
