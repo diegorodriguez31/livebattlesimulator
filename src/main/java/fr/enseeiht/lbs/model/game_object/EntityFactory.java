@@ -3,6 +3,9 @@ package main.java.fr.enseeiht.lbs.model.game_object;
 import main.java.fr.enseeiht.lbs.utils.Pair;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,12 +22,11 @@ public class EntityFactory {
     }
 
     private static final EntitySerializer SERIALIZER = new JSONEntitySerializer();
-    private static final Set<String> INITIAL_UNIT = new HashSet<String>(Arrays.asList("Farmer", "Knight"));
+    private static final Set<String> INITIAL_UNITS = new HashSet<String>(Arrays.asList("Farmer", "Knight"));
+    private static final String SAVE_PATH = "save/units.json";
 
     private static final Stats PEASANT_STATS = new Stats();
-    private static final Stats OLD_PEASANT_STATS = new Stats();
     private static final Stats KNIGHT_STATS = new Stats();
-    private static final Stats BRUTE_STATS = new Stats();
 
     static final HashMap<String, Pair<EntityPrimitiveTypes, Stats>> entityTypes = new HashMap<>();
 
@@ -40,15 +42,6 @@ public class EntityFactory {
         PEASANT_STATS.addStat(Statistic.ACCURACY, 50);
         PEASANT_STATS.addStat(Statistic.AGILITY, 10);
 
-        //Grandpa
-        OLD_PEASANT_STATS.addStat(Statistic.HEALTH, 10);
-        OLD_PEASANT_STATS.addStat(Statistic.DAMAGE, 10);
-        OLD_PEASANT_STATS.addStat(Statistic.COOLDOWN, 0.5);
-        OLD_PEASANT_STATS.addStat(Statistic.SPEED, 0.5);
-        OLD_PEASANT_STATS.addStat(Statistic.RANGE, 1);
-        OLD_PEASANT_STATS.addStat(Statistic.ACCURACY, 70);
-        OLD_PEASANT_STATS.addStat(Statistic.AGILITY, 5);
-
         //Knight
         KNIGHT_STATS.addStat(Statistic.HEALTH, 100);
         KNIGHT_STATS.addStat(Statistic.DAMAGE, 30);
@@ -59,20 +52,13 @@ public class EntityFactory {
         KNIGHT_STATS.addStat(Statistic.AGILITY, 50);
         KNIGHT_STATS.addStat(Statistic.ARMOR, 50);
 
-        //Brute
-        BRUTE_STATS.addStat(Statistic.HEALTH, 500);
-        BRUTE_STATS.addStat(Statistic.DAMAGE, 400);
-        BRUTE_STATS.addStat(Statistic.COOLDOWN, 4);
-        BRUTE_STATS.addStat(Statistic.SPEED, 0.5);
-        BRUTE_STATS.addStat(Statistic.RANGE, 2);
-        BRUTE_STATS.addStat(Statistic.ACCURACY, 40);
-        BRUTE_STATS.addStat(Statistic.AGILITY, 0);
-        BRUTE_STATS.addStat(Statistic.ARMOR, 50);
-
         entityTypes.put("Farmer", new Pair<>(EntityPrimitiveTypes.PEASANT, PEASANT_STATS));
-        entityTypes.put("Grandpa", new Pair<>(EntityPrimitiveTypes.PEASANT, OLD_PEASANT_STATS));
         entityTypes.put("Knight", new Pair<>(EntityPrimitiveTypes.KNIGHT, KNIGHT_STATS));
-        entityTypes.put("Brute", new Pair<>(EntityPrimitiveTypes.KNIGHT, BRUTE_STATS));
+        try {
+            load();
+        } catch (IOException e) {
+            System.err.println("Could not load the entities correctly");
+        }
     }
 
     /**
@@ -116,7 +102,7 @@ public class EntityFactory {
      * @throws UnmodifiableTypeException if caller tries to delete an initial type
      */
     public static boolean dropEntityType(String type) throws UnmodifiableTypeException {
-        if (INITIAL_UNIT.contains(type)) throw new UnmodifiableTypeException(type);
+        if (INITIAL_UNITS.contains(type)) throw new UnmodifiableTypeException(type);
         var entityType = entityTypes.remove(type);
         save();
         return entityType != null;
@@ -144,7 +130,7 @@ public class EntityFactory {
      * @throws UnmodifiableTypeException if caller tries to override an initial type
      */
     public static boolean setEntityType(String type, EntityPrimitiveTypes primitive, Stats stats) throws UnmodifiableTypeException {
-        if (INITIAL_UNIT.contains(type)) throw new UnmodifiableTypeException(type);
+        if (INITIAL_UNITS.contains(type)) throw new UnmodifiableTypeException(type);
         boolean r = entityTypes.put(type, new Pair<>(primitive, stats)) != null;
         save();
         return r;
@@ -154,14 +140,18 @@ public class EntityFactory {
      * Saves the types of entities
      */
     public static void save() {
-        System.out.println(SERIALIZER.write(entityTypes));
+        try {
+            Files.writeString(Path.of(SAVE_PATH), SERIALIZER.write(entityTypes, INITIAL_UNITS));
+        } catch (IOException e) {
+            System.err.println("Failed to write the entities");
+        }
     }
 
     /**
      * Loads the types of entities
      */
-    private static void load() {
-        //TODO
+    private static void load() throws IOException {
+        entityTypes.putAll(SERIALIZER.parse(Files.readString(Path.of(SAVE_PATH))));
     }
 
 }
