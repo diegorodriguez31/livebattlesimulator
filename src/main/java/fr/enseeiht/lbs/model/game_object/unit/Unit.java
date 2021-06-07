@@ -99,7 +99,7 @@ public abstract class Unit extends Entity {
     }
 
     protected BasicStatModifierBuffVisitor getStatVisitor() {
-        return new BasicStatModifierBuffVisitor(stats);
+        return new BasicStatModifierBuffVisitor(stats, this);
     }
 
     protected BasicDotVisitor getUpdateVisitor(long deltaTime) {

@@ -2,16 +2,20 @@ package main.java.fr.enseeiht.lbs.model.game_object.unit.visitor;
 
 import main.java.fr.enseeiht.lbs.model.game_object.Statistic;
 import main.java.fr.enseeiht.lbs.model.game_object.Stats;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.FireDebuff;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.FreezeDebuff;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.SlowDebuff;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.SpeedBuff;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.PeasantGroupBuff;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.Peasant;
 
 public class BasicStatModifierBuffVisitor implements BuffVisitor {
-    Stats stats;
+    private Stats stats;
+    private Unit unit;
 
-    public BasicStatModifierBuffVisitor(Stats stats){
+    public BasicStatModifierBuffVisitor(Stats stats, Unit unit){
         this.stats = new Stats(stats);
+        this.unit = unit;
     }
 
     @Override
@@ -30,8 +34,11 @@ public class BasicStatModifierBuffVisitor implements BuffVisitor {
     }
 
     @Override
-    public void visit(SpeedBuff buff) {
-        stats.addStat(Statistic.SPEED, buff.getSpeed() * getStats().getStatisticValue(Statistic.SPEED));
+    public void visit(PeasantGroupBuff buff) {
+        if (((Peasant) unit).isInAGroupOf3()) {
+            stats.addStat(Statistic.SPEED, buff.getSpeedMultiplier() * getStats().getStatisticValue(Statistic.SPEED));
+            stats.addStat(Statistic.COOLDOWN, buff.getCooldownReducer() * getStats().getStatisticValue(Statistic.COOLDOWN));
+        }
     }
 
     public Stats getStats() {

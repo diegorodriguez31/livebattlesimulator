@@ -42,6 +42,6 @@ public class Shieldman extends Infantryman {
 
     @Override
     protected BasicStatModifierBuffVisitor getStatVisitor() {
-        return new ShieldManBuffVisitor(stats);
+        return new ShieldManBuffVisitor(stats, this);
     }
 }

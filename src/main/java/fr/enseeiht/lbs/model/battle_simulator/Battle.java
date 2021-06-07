@@ -8,6 +8,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.VERBOSE;
 
@@ -167,22 +168,18 @@ public class Battle {
         return sortAlliesByDistance(allies, unit);
     }
 
+    /**
+     * Trie la liste d'alliés par rapport à leur position respective qui les sépare de l'unité donnée en paramètre
+     * @param units la liste d'alliés
+     * @param unit l'unité qui cherche ses alliés
+     * @return la liste d'alliés triés par rapport à leur position respective qui les sépare de l'unité donnée en paramètre
+     */
     public List<Unit> sortAlliesByDistance(List<Unit> units, Unit unit) {
-
-       // float distance = units.get(0).getPosition().sub(unit.getPosition()).sqrSize() < units.get(1).getPosition().sub(unit.getPosition()).sqrSize();
-      //  Comparator<Unit> unitDistanceComparator = Comparator.comparing(Unit::getFloatPosition);
-    //    return units.stream().sorted(Comparator.comparing(unitDistanceComparator);
-
-       // return units.stream().sorted(Comparator.comparing(unit.getPosition().sqrSize()));
-       // return Streams.mapWithIndex()
-       // units.stream().collect()
-        return null;
+        Stream<Unit> unitDistanceCompare = units.stream()
+                .sorted((unit1, unit2)
+                        -> Float.compare(unit1.getPosition().sub(unit.getPosition()).sqrSize(), unit2.getPosition().sub(unit.getPosition()).sqrSize()));
+        return unitDistanceCompare.collect(Collectors.toList());
     }
-
-
-    //renvoyer une liste de tous les alliés dans la distance par rapport à une unité
-    // float.compare()
-    // calculer distance sqrt((x1-x2)² - (y1-y2)²)
 
     public void addGameObject(GameObject gameObject) {
         objects.add(gameObject);
