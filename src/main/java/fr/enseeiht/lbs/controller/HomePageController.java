@@ -1,7 +1,8 @@
 package main.java.fr.enseeiht.lbs.controller;
 
-import javax.swing.*;
+import main.java.fr.enseeiht.lbs.view.gui.GuiComponent;
 
+import javax.swing.*;
 import java.awt.*;
 
 import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.mainFrame;
@@ -9,7 +10,7 @@ import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.mainFrame;
 /**
  * Controleur qui gère la page d'accueil.
  */
-public class HomePageController extends JPanel {
+public class HomePageController extends JPanel implements GuiComponent {
 
     public HomePageController() {
         JLabel title = new JLabel("Live Battle Simulator");
@@ -18,9 +19,7 @@ public class HomePageController extends JPanel {
         JButton battleButton = new JButton("Simuler une bataille");
         battleButton.setFont(new Font("Sans Serif", Font.PLAIN, 30));
 
-        battleButton.addActionListener(actionEvent -> {
-            mainFrame().showBattleArmiesChoice();
-        });
+        battleButton.addActionListener(actionEvent -> mainFrame().showBattleArmiesChoice());
 
         setLayout(new GridBagLayout());
         GridBagConstraints layoutConstraint = new GridBagConstraints();
@@ -33,5 +32,17 @@ public class HomePageController extends JPanel {
         layoutConstraint.ipadx = 50;    // element width size
         layoutConstraint.insets = new Insets(100,0,0,0);  // padding
         add(battleButton, layoutConstraint);
+
+        this.reset();
+    }
+
+    @Override
+    public void reset() {
+        //do nothing
+    }
+
+    @Override
+    public void init() {
+        //do nothing
     }
 }

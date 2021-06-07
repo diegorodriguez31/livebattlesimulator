@@ -17,10 +17,7 @@ import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.*;
 
-@SuppressWarnings("serial")
-public class BattleView extends JPanel implements PropertyChangeListener {
-
-    private static final int WORLD_TO_PIXEL = 11;
+public abstract class BattleView extends JPanel implements PropertyChangeListener {
 
     private List<GraphicalEntity> graphicalEntities;
 
@@ -46,25 +43,23 @@ public class BattleView extends JPanel implements PropertyChangeListener {
         COLORS_NAME.put(TEAM_COLORS.get(5), "dark");
     }
 
-    public BattleView() {
+    protected BattleView() {
         this.setVisible(true);
         this.setPreferredSize(new Dimension(500, 500));
         this.graphicalEntities = new LinkedList<>();
-
-        Battle.getInstance().addObserver(this, Battle.PROPERTY_GAME_OBJECTS);
-        Battle.getInstance().addObserver(this, Battle.PROPERTY_RESULTS);
+        //this.startObserving();
     }
 
     protected Vector2 worldToPixel(Vector2 world) {
-        return world.scale(WORLD_TO_PIXEL);
+        return world.scale(GraphicalEntity.SUPER_PIXEL_SIZE);
     }
 
     protected Vector2 pixelToWorld(Vector2 pixel) {
-        return pixel.scale(1f / WORLD_TO_PIXEL);
+        return pixel.scale(1f / GraphicalEntity.SUPER_PIXEL_SIZE);
     }
 
     public Vector2 pixelToWorld(int x, int y) {
-        return new Vector2(x, y).scale(1f / WORLD_TO_PIXEL);
+        return new Vector2(x, y).scale(1f / GraphicalEntity.SUPER_PIXEL_SIZE);
     }
 
     @Override
@@ -121,4 +116,17 @@ public class BattleView extends JPanel implements PropertyChangeListener {
     public static String getCorrespondingSprite(Entity entity) {
         return ENTITY_SPRITE.get(entity.getClass());
     }
+
+    protected void startObserving(){
+        Battle.addObserver(this, Battle.PROPERTY_GAME_OBJECTS);
+        this.modifiedGameObjectTreatment(new PropertyChangeEvent(this, Battle.PROPERTY_GAME_OBJECTS, null, Battle.getInstance().getObjects()));
+
+        Battle.addObserver(this, Battle.PROPERTY_RESULTS);
+    }
+
+    protected void stopObserving(){
+        Battle.removeObserver(this, Battle.PROPERTY_GAME_OBJECTS);
+        Battle.removeObserver(this, Battle.PROPERTY_RESULTS);
+    }
+
 }

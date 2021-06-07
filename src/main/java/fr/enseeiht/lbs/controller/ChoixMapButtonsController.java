@@ -9,13 +9,15 @@ import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.mainFrame;
 
 public class ChoixMapButtonsController extends JPanel {
 
+    private static JButton reloadMapButton;
+
     public ChoixMapButtonsController(){
         //gestion du button ok
         JButton okButton = new JButton("OK");
         okButton.setFont(new Font("Sans Serif", Font.PLAIN, 30));
         okButton.addActionListener(actionEvent -> mainFrame().showUnitPlacement());
 
-        JButton reloadMapButton = new JButton("Recharger");
+        reloadMapButton = new JButton("Recharger");
         reloadMapButton.addActionListener(actionEvent -> reloadMapButtonTreatment());
 
         this.setLayout(new GridLayout(1, 3));
@@ -25,7 +27,7 @@ public class ChoixMapButtonsController extends JPanel {
         this.add(okButton);
 
         //Initiate a first world
-        reloadMapButton.doClick();
+        init();
     }
 
     private void reloadMapButtonTreatment() {
@@ -59,5 +61,9 @@ public class ChoixMapButtonsController extends JPanel {
             percentrock += 12;
         }
         World.getInstance().generateWorld(percentdesert, percentwater, percentrock, percentforest, percentplain);
+    }
+
+    public static void init(){
+        reloadMapButton.doClick();
     }
 }

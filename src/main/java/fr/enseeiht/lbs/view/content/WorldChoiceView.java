@@ -2,13 +2,18 @@ package main.java.fr.enseeiht.lbs.view.content;
 
 import main.java.fr.enseeiht.lbs.controller.ChoixMapButtonsController;
 import main.java.fr.enseeiht.lbs.controller.ChoixMapPresetController;
+import main.java.fr.enseeiht.lbs.view.gui.GuiComponent;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class WorldChoiceView extends JPanel {
+public class WorldChoiceView extends JPanel implements GuiComponent {
 
-    public WorldChoiceView() {
+    private static WorldView worldView;
+
+    private static WorldChoiceView instance;
+
+    private WorldChoiceView() {
         this.setLocation(100, 200);
         this.setSize(1200, 800);
         this.setBorder(BorderFactory.createEmptyBorder(50, 10, 10, 10));
@@ -26,15 +31,35 @@ public class WorldChoiceView extends JPanel {
 
         //Panneau central (la carte)
         //Doit être créé après l'initialisation du world
-        WorldView mapView = new WorldView();
-        mapView.setPreferredSize(new Dimension(700, 700));
-        mapView.setBorder(BorderFactory.createEmptyBorder(0, 20, 20, 20));
+        worldView = new WorldView();
+        worldView.setPreferredSize(new Dimension(700, 700));
+        worldView.setBorder(BorderFactory.createEmptyBorder(0, 20, 20, 20));
 
         this.setLayout(new BorderLayout());
-        this.add(mapView, BorderLayout.CENTER);
+        this.add(worldView, BorderLayout.CENTER);
         this.add(choixMapPresetController, BorderLayout.WEST);
         this.add(navigation, BorderLayout.SOUTH);
 
+        this.reset();
         this.setVisible(true);
+    }
+
+    public static WorldChoiceView getInstance(){
+        if (instance == null){
+            instance = new WorldChoiceView();
+        }
+        return instance;
+    }
+
+    @Override
+    public void reset(){
+        worldView.stopObserving();
+    }
+
+    @Override
+    public void init() {
+        worldView.startObserving();
+        ChoixMapPresetController.getInstance().init();
+        ChoixMapButtonsController.init();
     }
 }

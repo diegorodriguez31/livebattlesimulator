@@ -8,28 +8,26 @@ import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-@SuppressWarnings("serial")
 public class BattleWorldView extends BattleView implements PropertyChangeListener {
 
     public BattleWorldView() {
         super();
         World world = World.getInstance();
         this.setLayout(new GridLayout(world.getSizeX(), world.getSizeY()));//construit une grille de la même taille que le tableau de char
+        this.startObserving();
+        this.updateWorldRepresentation();
         this.setVisible(true);
-
-        World.getInstance().addObserver(this, World.PROPERTY_RELOAD_MAP);
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
-        if (propertyChangeEvent.getPropertyName().equals(World.PROPERTY_RELOAD_MAP)) {
-            updateWorld();
-            return;
-        }
         super.propertyChange(propertyChangeEvent);
+        if (propertyChangeEvent.getPropertyName().equals(World.PROPERTY_RELOAD_MAP)) {
+            updateWorldRepresentation();
+        }
     }
 
-    public void updateWorld() {
+    private void updateWorldRepresentation() {
         World world = World.getInstance();
         removeAll();
         for (int y = 0; y < world.getSizeY(); y++) {
@@ -41,6 +39,17 @@ public class BattleWorldView extends BattleView implements PropertyChangeListene
                 this.add(worldCase);
             }
         }
-        updateUI();
     }
+
+    public void startObserving(){
+        super.startObserving();
+        World.addObserver(this, World.PROPERTY_RELOAD_MAP);
+        updateWorldRepresentation();
+    }
+
+    public void stopObserving(){
+        super.stopObserving();
+        World.removeObserver(this, World.PROPERTY_RELOAD_MAP);
+    }
+
 }
