@@ -47,16 +47,16 @@ public class World {
         return instance;
     }
 
-    public void generateWorld(final int percentDesert, final int percentWater, int percentRocks, int percentForest, int percentPlain) {
+    public void generateWorld(int percentDesert, int percentWater, int percentRocks, int percentForest, int percentPlain) {//int percentLava, int percentSnow
 
         final int totalTiles = SIZE_X * SIZE_Y;
 
         int sumPercent = percentForest + percentDesert + percentWater + percentRocks + percentPlain;
-        final int nbDesert = (percentDesert * totalTiles) / sumPercent;
-        final int nbWater = (percentWater * totalTiles) / sumPercent;
-        final int nbRocks = (percentRocks * totalTiles) / sumPercent;
-        final int nbPlain = (percentPlain * totalTiles) / sumPercent;
-        final int nbForest = (percentForest * totalTiles) / sumPercent;
+        int nbDesert = (percentDesert * totalTiles) / sumPercent;
+        int nbWater = (percentWater * totalTiles) / sumPercent;
+        int nbRocks = (percentRocks * totalTiles) / sumPercent;
+        int nbPlain = (percentPlain * totalTiles) / sumPercent;
+        int nbForest = (percentForest * totalTiles) / sumPercent;
 
         //récupère l'élément qui a le plus gros pourcentage
         mainElement = findMainElement(percentDesert, percentWater, percentRocks, percentForest, percentPlain);
