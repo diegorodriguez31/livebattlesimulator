@@ -1,4 +1,4 @@
-package main.java.fr.enseeiht.lbs.model.game_object.unit.soldier;
+package main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.standard_unit;
 
 import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
 import main.java.fr.enseeiht.lbs.model.game_object.Stats;

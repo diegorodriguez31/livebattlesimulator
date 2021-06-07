@@ -3,7 +3,7 @@ package main.java.fr.enseeiht.lbs.model.game_object.unit.action;
 import main.java.fr.enseeiht.lbs.model.game_object.Statistic;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.FireDebuff;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.Archer;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.standard_unit.Archer;
 
 public class ArrowAttack extends AttackAction {
 

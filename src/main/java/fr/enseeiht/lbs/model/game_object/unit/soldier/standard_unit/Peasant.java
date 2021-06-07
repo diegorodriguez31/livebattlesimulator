@@ -1,4 +1,4 @@
-package main.java.fr.enseeiht.lbs.model.game_object.unit.soldier;
+package main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.standard_unit;
 
 import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
 import main.java.fr.enseeiht.lbs.model.game_object.Stats;
@@ -54,12 +54,6 @@ public class Peasant extends Unit {
             return secondNearestUnit.getPosition().sub(this.getPosition()).sqrSize() <= GROUP_RADIUS;
         }
         return false;
-    }
-
-    @Override
-    public void status() {
-        super.status();
-        System.out.println("\n");
     }
 
     @Override

@@ -76,7 +76,7 @@ public class EntityFactory {
         ARCHER_STATS.addStat(Statistic.DAMAGE, 40);
         ARCHER_STATS.addStat(Statistic.COOLDOWN, 3);
         ARCHER_STATS.addStat(Statistic.SPEED, 2);
-        ARCHER_STATS.addStat(Statistic.RANGE, 100);
+        ARCHER_STATS.addStat(Statistic.RANGE, 10);
         ARCHER_STATS.addStat(Statistic.ACCURACY, 70);
         ARCHER_STATS.addStat(Statistic.AGILITY, 50);
 
@@ -167,7 +167,6 @@ public class EntityFactory {
         VIKING_STATS.addStat(Statistic.ACCURACY, 80);
         VIKING_STATS.addStat(Statistic.AGILITY, 20);
         VIKING_STATS.addStat(Statistic.ARMOR, 30);
-        VIKING_STATS.addStat(Statistic.SHIELD, 100);
 
         entityTypes.put("Peasant", new Pair<>(PEASANT_CREATOR, PEASANT_STATS));
         entityTypes.put("Knight", new Pair<>(KNIGHT_CREATOR, KNIGHT_STATS));

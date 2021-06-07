@@ -7,7 +7,7 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.FireDebuff;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.FreezeDebuff;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.SlowDebuff;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.PeasantGroupBuff;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.Peasant;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.standard_unit.Peasant;
 
 public class BasicStatModifierBuffVisitor implements BuffVisitor {
     private Stats stats;
