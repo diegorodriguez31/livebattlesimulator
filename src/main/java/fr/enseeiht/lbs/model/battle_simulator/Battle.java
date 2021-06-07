@@ -26,6 +26,7 @@ public class Battle {
     Objectif objectif;
     List<Army> armies;
     List<GameObject> objects;
+    List<GameObject> startObjects;
     List<GameObject> endObjects;
 
     public static final float DEFAULT_DELTA_TIME_MULTIPLIER = 1.0f;
@@ -39,6 +40,7 @@ public class Battle {
     private Battle() {
         this.propertyChangeSupport = new PropertyChangeSupport(this);
         this.armies = new ArrayList<>();
+        this.startObjects = new ArrayList<>();
         this.objects = new ArrayList<>();
         this.endObjects = new ArrayList<>();
     }
@@ -64,6 +66,7 @@ public class Battle {
         for (int armyIndex = 0; armyIndex < nbArmies; armyIndex++) {
             this.armies.add(new Army(armyIndex));
         }
+        startObjects = new ArrayList<>();
         objects = new ArrayList<>();
         endObjects = new ArrayList<>();
         propertyChangeSupport.firePropertyChange(Battle.PROPERTY_GAME_OBJECTS, null, objects);
@@ -85,6 +88,12 @@ public class Battle {
                 if (VERBOSE >= 2) {
                     System.out.println("total time" + tempTotal);
                 }
+            }
+            for (Iterator<GameObject> it = startObjects.iterator(); it.hasNext(); ) {
+                GameObject o = it.next();
+                o.start(this);
+                objects.add(o);
+                it.remove();
             }
             for (GameObject object : objects) {
                 object.update(this, (long) (deltaTime * deltaTimeMultiplier));
@@ -182,16 +191,19 @@ public class Battle {
     }
 
     public void addGameObject(GameObject gameObject) {
-        objects.add(gameObject);
-        propertyChangeSupport.firePropertyChange(PROPERTY_GAME_OBJECTS, null, this.objects);
+        startObjects.add(gameObject);
+        propertyChangeSupport.firePropertyChange(PROPERTY_GAME_OBJECTS, null, getObjects());
     }
 
     public void removeGameObject(GameObject gameObject) {
         endObjects.add(gameObject);
-        propertyChangeSupport.firePropertyChange(PROPERTY_GAME_OBJECTS, null, this.objects);
+        propertyChangeSupport.firePropertyChange(PROPERTY_GAME_OBJECTS, null, getObjects());
     }
 
     public List<GameObject> getObjects() {
-        return objects;
+        List<GameObject> listObjects = new ArrayList<>();
+        listObjects.addAll(objects);
+        listObjects.addAll(startObjects);
+        return listObjects;
     }
 }
