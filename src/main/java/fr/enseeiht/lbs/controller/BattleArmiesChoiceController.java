@@ -3,8 +3,11 @@ package main.java.fr.enseeiht.lbs.controller;
 import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
 import main.java.fr.enseeiht.lbs.model.battle_simulator.Extermination;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.util.Objects;
 
 import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.mainFrame;
 
@@ -96,5 +99,20 @@ public class BattleArmiesChoiceController extends JPanel {
         }
 
         Battle.getInstance().init(new Extermination(), (Integer) nbArmiesSpinner.getValue());
+    }
+
+    /**
+     * Met le "Wallpaper.png" en fond d'écran de la page
+     * @param graphics graphiques de la page
+     */
+    @Override
+    public void paintComponent(Graphics graphics) {
+        try {
+            Image image = ImageIO.read(Objects.requireNonNull(HomePageController.class.getClassLoader().getResource("Wallpaper.png")));
+            graphics.drawImage(image, 0,0, this.getWidth(), this.getHeight(), null);
+        } catch (IOException e) {
+            e.printStackTrace();
+            super.paint(graphics);
+        }
     }
 }
