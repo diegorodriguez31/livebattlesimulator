@@ -9,22 +9,25 @@ import java.awt.*;
 
 public class UnitEditorView extends JPanel {
     public UnitEditorView() {
-        setLayout(new BorderLayout());
+        // Components
         UnitListController list = new UnitListController();
         UnitEditor editor = new UnitEditor();
 
-        list.setPreferredSize(new Dimension(200, 500));
+        // Linking components
         list.addSelectActionListener(actionEvent -> editor.setEditedUnit(actionEvent.getActionCommand()));
 
+        // Home button
         JButton homeButton = new JButton("Accueil");
         homeButton.addActionListener(actionEvent -> {
             LiveBattleSimulatorGUI.getInstance().showHomePage();
         });
 
+        // Layout
+        list.setPreferredSize(new Dimension(200, 500));
+        setLayout(new BorderLayout());
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS));
         topPanel.add(homeButton);
-
         add(list, BorderLayout.WEST);
         add(editor, BorderLayout.CENTER);
         add(topPanel, BorderLayout.NORTH);
