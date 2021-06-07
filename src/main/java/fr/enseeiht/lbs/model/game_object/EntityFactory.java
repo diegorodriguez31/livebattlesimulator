@@ -1,7 +1,5 @@
 package main.java.fr.enseeiht.lbs.model.game_object;
 
-import main.java.fr.enseeiht.lbs.model.game_object.creators.KnightCreator;
-import main.java.fr.enseeiht.lbs.model.game_object.creators.PeasantCreator;
 import main.java.fr.enseeiht.lbs.utils.Pair;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
@@ -20,7 +18,7 @@ public class EntityFactory {
         }
     }
 
-    private static final EntitySerializer SERIALIZER = null;
+    private static final EntitySerializer SERIALIZER = new JSONEntitySerializer();
     private static final Set<String> INITIAL_UNIT = new HashSet<String>(Arrays.asList("Farmer", "Knight"));
 
     private static final Stats PEASANT_STATS = new Stats();
@@ -28,14 +26,10 @@ public class EntityFactory {
     private static final Stats KNIGHT_STATS = new Stats();
     private static final Stats BRUTE_STATS = new Stats();
 
-    static final HashMap<String, Pair<EntityCreator, Stats>> entityTypes = new HashMap<>();
+    static final HashMap<String, Pair<EntityPrimitiveTypes, Stats>> entityTypes = new HashMap<>();
 
     static {
         //Initialisation of the units type
-
-        //Creators
-        EntityCreator PEASANT_CREATOR = new PeasantCreator();
-        EntityCreator KNIGHT_CREATOR = new KnightCreator();
 
         //Peasant
         PEASANT_STATS.addStat(Statistic.HEALTH, 50);
@@ -75,10 +69,10 @@ public class EntityFactory {
         BRUTE_STATS.addStat(Statistic.AGILITY, 0);
         BRUTE_STATS.addStat(Statistic.ARMOR, 50);
 
-        entityTypes.put("Farmer", new Pair<>(PEASANT_CREATOR, PEASANT_STATS));
-        entityTypes.put("Grandpa", new Pair<>(PEASANT_CREATOR, OLD_PEASANT_STATS));
-        entityTypes.put("Knight", new Pair<>(KNIGHT_CREATOR, KNIGHT_STATS));
-        entityTypes.put("Brute", new Pair<>(KNIGHT_CREATOR, BRUTE_STATS));
+        entityTypes.put("Farmer", new Pair<>(EntityPrimitiveTypes.PEASANT, PEASANT_STATS));
+        entityTypes.put("Grandpa", new Pair<>(EntityPrimitiveTypes.PEASANT, OLD_PEASANT_STATS));
+        entityTypes.put("Knight", new Pair<>(EntityPrimitiveTypes.KNIGHT, KNIGHT_STATS));
+        entityTypes.put("Brute", new Pair<>(EntityPrimitiveTypes.KNIGHT, BRUTE_STATS));
     }
 
     /**
@@ -108,7 +102,7 @@ public class EntityFactory {
      * @param entity name of the entity type
      * @return the creator of the entity type (null if the unit doesnt exists)
      */
-    public static EntityCreator getEntityTypeCreator(String entity) {
+    public static EntityPrimitiveTypes getEntityPrimitiveType(String entity) {
         var entityType = entityTypes.get(entity);
         if (entityType == null) return null;
         return entityType.first;
@@ -136,22 +130,22 @@ public class EntityFactory {
      * @return Instance of the entity
      */
     public static Entity createEntity(String type, Vector2 position) {
-        Pair<EntityCreator, Stats> pair = entityTypes.get(type);
-        return pair.first.createEntity(type, position, pair.second);
+        Pair<EntityPrimitiveTypes, Stats> pair = entityTypes.get(type);
+        return pair.first.getCreator().createEntity(type, position, pair.second);
     }
 
     /**
      * Creates or edits a new entity type
      *
-     * @param type    name of the type
-     * @param creator the creator of the entity type
-     * @param stats   the stats of the entity type
+     * @param type      name of the type
+     * @param primitive the creator of the entity type
+     * @param stats     the stats of the entity type
      * @return true if replaced an existing entity type
      * @throws UnmodifiableTypeException if caller tries to override an initial type
      */
-    public static boolean setEntityType(String type, EntityCreator creator, Stats stats) throws UnmodifiableTypeException {
+    public static boolean setEntityType(String type, EntityPrimitiveTypes primitive, Stats stats) throws UnmodifiableTypeException {
         if (INITIAL_UNIT.contains(type)) throw new UnmodifiableTypeException(type);
-        boolean r = entityTypes.put(type, new Pair<>(creator, stats)) != null;
+        boolean r = entityTypes.put(type, new Pair<>(primitive, stats)) != null;
         save();
         return r;
     }
@@ -159,8 +153,8 @@ public class EntityFactory {
     /**
      * Saves the types of entities
      */
-    private static void save() {
-        //TODO
+    public static void save() {
+        System.out.println(SERIALIZER.write(entityTypes));
     }
 
     /**
