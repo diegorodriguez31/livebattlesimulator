@@ -4,23 +4,18 @@ import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.view.content.WorldView;
 
 import javax.swing.*;
-import java.beans.PropertyChangeSupport;
 
 public class ReloadMapButtonController extends JPanel {
-    World model;
-    private final PropertyChangeSupport propertyChangeSupport;
 
-    public ReloadMapButtonController(World model) {
-        this.propertyChangeSupport = new PropertyChangeSupport(this);
-        this.model = model;
+    public ReloadMapButtonController() {
+        World model = World.getInstance();
         var reloadButton = new JButton("Reload");
         this.add(reloadButton);
         reloadButton.addActionListener(actionEvent -> {
             addPropertyChangeListener(World.PROPERTY_RELOAD_MAP, new WorldView());
             int choix = 0;
             int percentdesert, percentwater, percentrock, percentplain, percentforest;
-            this.propertyChangeSupport.firePropertyChange(World.PROPERTY_RELOAD_MAP, null, this.propertyChangeSupport);
-            choix = ChoixMapButtonController.getAct();
+            choix = ChoixMapPresetController.getInstance().getActiveChoice();
             if(choix ==2) {
                 percentdesert = 0;
                 percentwater = 30;
@@ -42,12 +37,15 @@ public class ReloadMapButtonController extends JPanel {
 
             }
             //si rock est appuyé
-            if (ChoixMapButtonController.rock){
+            if (ChoixMapPresetController.getInstance().hasRock()){
                 percentdesert = percentdesert -3;
                 percentwater = percentwater -3;
                 percentforest = percentforest - 3;
                 percentplain =percentplain -3;
                 percentrock = percentrock + 12;
+                System.out.println("plus de roches");
+            }else{
+                System.out.println("pas plus de roches");
             }
 
 

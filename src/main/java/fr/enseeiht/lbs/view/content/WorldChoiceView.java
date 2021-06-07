@@ -1,9 +1,8 @@
 package main.java.fr.enseeiht.lbs.view.content;
 
 import main.java.fr.enseeiht.lbs.controller.BtnReloadMapGUI;
-
 import main.java.fr.enseeiht.lbs.controller.ChoixMapButtonGUI;
-
+import main.java.fr.enseeiht.lbs.controller.HomePageButtonController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,17 +15,19 @@ public class WorldChoiceView extends JPanel {
         //panel principal
         this.setLocation(100, 200);
         this.setSize(1200, 800);
-        JFrame.setDefaultLookAndFeelDecorated(true);
+
         JPanel northPanel = new JPanel();
         JPanel southPanel = new JPanel();
+
         GroupLayout layout = new GroupLayout(southPanel);
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
+        southPanel.setLayout(layout);
 
         //panels secondaire, gestions des tailles
-        southPanel.setLayout(layout);
         WorldView mapView = new WorldView();
-        ChoiceWorldView choices = new ChoiceWorldView();
+        JPanel choices = new JPanel();
+        choices.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         northPanel.setPreferredSize(new Dimension(1200, 50));
         choices.setPreferredSize(new Dimension(300, 700));
         southPanel.setPreferredSize(new Dimension(1200, 50));
@@ -41,17 +42,9 @@ public class WorldChoiceView extends JPanel {
             //new Thread(() -> Battle.getInstance().run()).start();
         });
 
-
-        JButton cancelButton = new JButton("Annuler");
-        cancelButton.setFont(new Font("Sans Serif", Font.PLAIN, 12));
-
-        cancelButton.addActionListener(actionEvent -> {
-            mainFrame().showHomePage();
-        });
-
         //gestion des layouts des panels secondaires et du placement des boutons
 
-        southPanel.add(cancelButton);
+        southPanel.add(new HomePageButtonController());
 
         this.setLayout(new BorderLayout());
         this.add(northPanel, BorderLayout.NORTH);

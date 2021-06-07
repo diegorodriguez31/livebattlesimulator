@@ -21,7 +21,6 @@ import java.util.*;
 public class BattleView extends JPanel implements PropertyChangeListener {
 
     private static final int WORLD_TO_PIXEL = 11;
-    public static int resultCount = 0;
 
     private List<GraphicalEntity> graphicalEntities;
 
@@ -72,9 +71,8 @@ public class BattleView extends JPanel implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
         if (propertyChangeEvent.getPropertyName().equals(Battle.PROPERTY_GAME_OBJECTS)) {
             modifiedGameObjectTreatment(propertyChangeEvent);
-        } else if (propertyChangeEvent.getPropertyName().equals(Battle.PROPERTY_RESULTS) && resultCount == 0) {
+        } else if (propertyChangeEvent.getPropertyName().equals(Battle.PROPERTY_RESULTS)) {
             endGameTreatment(propertyChangeEvent);
-            resultCount++;
         }
         this.repaint();
         Toolkit.getDefaultToolkit().sync();

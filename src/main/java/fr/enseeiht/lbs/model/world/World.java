@@ -5,7 +5,6 @@ import java.beans.PropertyChangeSupport;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 /**
  * Class that generate a world to use with World
@@ -31,6 +30,7 @@ public class World {
     private WorldElement mainElement;
 
     private final PropertyChangeSupport propertyChangeSupport;
+
     public static final String PROPERTY_RELOAD_MAP = "Reload";
 
     private static World instance;
@@ -220,7 +220,6 @@ public class World {
         //Only adds the listener once
         if (!Arrays.asList(propertyChangeSupport.getPropertyChangeListeners(propertyName)).contains(propertyChangeListener)) {
             propertyChangeSupport.addPropertyChangeListener(propertyName, propertyChangeListener);
-            System.out.println("observed");
         }
     }
 
