@@ -10,11 +10,20 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Allows an entity to be parsed into JSON with the GSON library
+ */
 public class JSONEntitySerializer implements EntitySerializer {
 
     public static final String PRIMITIVE_TYPE = "primitive_type";
     public static final String STATS = "stats";
 
+    /**
+     * Given a string this function will parse it into a list of entity types
+     *
+     * @param parse the string to be parsed
+     * @return the map containing the entities types
+     */
     @Override
     public Map<? extends String, ? extends Pair<EntityPrimitiveTypes, Stats>> parse(String parse) {
         JsonElement root = JsonParser.parseString(parse);
@@ -25,6 +34,13 @@ public class JSONEntitySerializer implements EntitySerializer {
         return entityTypes;
     }
 
+    /**
+     * Given a map of all the entities this function generates a string that represent all entities types
+     *
+     * @param entityTypes map of all the entities to be written to a string
+     * @param excluded    list of entities to avoid writing
+     * @return string that represent all entities types
+     */
     @Override
     public String write(HashMap<String, Pair<EntityPrimitiveTypes, Stats>> entityTypes, Set<String> excluded) {
         JsonObject jsonObject = new JsonObject();
@@ -35,6 +51,12 @@ public class JSONEntitySerializer implements EntitySerializer {
         return jsonObject.toString();
     }
 
+    /**
+     * Create a json object for the content of an entity type
+     *
+     * @param content of an entity type
+     * @return corresponding json object
+     */
     private JsonElement serializeEntityType(Pair<EntityPrimitiveTypes, Stats> content) {
         JsonObject entityObject = new JsonObject();
         JsonObject statObject = new JsonObject();
@@ -47,6 +69,12 @@ public class JSONEntitySerializer implements EntitySerializer {
         return entityObject;
     }
 
+    /**
+     * Given a json object return the content of an unit type
+     *
+     * @param content object to be parsed
+     * @return entity type content
+     */
     private Pair<EntityPrimitiveTypes, Stats> deserializeEntityType(JsonObject content) {
         Stats stats = new Stats();
         for (Map.Entry<String, JsonElement> entry : content.get(STATS).getAsJsonObject().entrySet()) {
