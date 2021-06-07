@@ -2,12 +2,14 @@ package main.java.fr.enseeiht.lbs.model.game_object.unit.action;
 
 import main.java.fr.enseeiht.lbs.model.game_object.Statistic;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.FireDebuff;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.standard_unit.Archer;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.BreakArmorDebuff;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.StunDebuff;
 
-public class ArrowAttack extends AttackAction {
+public class GiantAttack extends AttackAction {
 
-    public ArrowAttack(Unit attaquant) {
+    private static final double STUN_DURATION = 1.0;
+
+    public GiantAttack(Unit attaquant) {
         super(attaquant);
     }
 
@@ -19,12 +21,13 @@ public class ArrowAttack extends AttackAction {
 
         if (attaquant.attackSuccess()) {
             target.receiveDamage(attaquant.getStats().getStatisticValue(Statistic.DAMAGE));
-
-            if (((Archer) attaquant).getNbArrowsShot() == 3) {
-                target.addBuffs(new FireDebuff());
-            }
-
-            ((Archer) attaquant).updateNbArrowsShot();
+            target.addBuffs(new BreakArmorDebuff());
+            target.addBuffs(new StunDebuff(STUN_DURATION));
         }
+    }
+
+    @Override
+    public void setTarget(Unit unit) {
+        target = unit;
     }
 }

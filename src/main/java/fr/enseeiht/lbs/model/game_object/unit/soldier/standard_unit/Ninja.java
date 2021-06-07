@@ -3,7 +3,6 @@ package main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.standard_unit;
 import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
 import main.java.fr.enseeiht.lbs.model.game_object.Stats;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.action.ArrowAttack;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.action.AttackAction;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.action.FlightMovementAction;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.ai.ChargeAndHitAI;

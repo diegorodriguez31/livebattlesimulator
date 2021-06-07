@@ -2,12 +2,12 @@ package main.java.fr.enseeiht.lbs.model.game_object.unit.buff;
 
 import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.BuffVisitor;
 
-public class FireDebuff implements Buff {
+public class StunDebuff implements Buff {
 
-    private double ticDamage;
+    private double seconds;
 
-    public FireDebuff(double ticDamage) {
-        this.ticDamage = ticDamage;
+    public StunDebuff(double seconds) {
+        this.seconds = seconds;
     }
 
     @Override
@@ -15,7 +15,7 @@ public class FireDebuff implements Buff {
         visitor.visit(this);
     }
 
-    public double getTicDamage() {
-        return ticDamage;
+    public double getDuration() {
+        return seconds;
     }
 }

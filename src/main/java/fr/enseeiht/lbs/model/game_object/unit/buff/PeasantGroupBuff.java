@@ -7,28 +7,24 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.BuffVisitor;
  */
 public class PeasantGroupBuff implements Buff {
 
-    /**
-     * Le buff multiplié par 2
-     */
-    private static final double MULTIPLIER = 2;
+    private double speedMultiplier;
+    private double cooldownReducer;
 
-    /**
-     * Le buff divisé par 2
-     */
-    private static final double REDUCER = 0.5;
-
+    public PeasantGroupBuff(double speedMultiplier, double cooldownReducer) {
+        this.speedMultiplier = speedMultiplier;
+        this.cooldownReducer = cooldownReducer;
+    }
 
     @Override
     public void accept(BuffVisitor visitor) {
         visitor.visit(this);
     }
 
-    /**
-     * Récupère l'accélération du buff de vitesse
-     * @return le multiplicateur de vitesse
-     */
     public double getSpeedMultiplier() {
-        return MULTIPLIER; }
+        return speedMultiplier;
+    }
 
-    public double getCooldownReducer() { return REDUCER; }
+    public double getCooldownReducer() {
+        return cooldownReducer;
+    }
 }

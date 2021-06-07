@@ -5,11 +5,10 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.FreezeDebuff;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.SlowDebuff;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.armored_unit.ArmoredUnit;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.armored_unit.Knight;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.BasicDotVisitor;
 
-public class KnightDotVisitor extends BasicDotVisitor {
+public class KnightTicVisitor extends BasicTicVisitor {
 
-    public KnightDotVisitor(long deltaTime, Knight unit) {
+    public KnightTicVisitor(long deltaTime, Knight unit) {
         super(deltaTime, unit);
     }
 
@@ -33,5 +32,4 @@ public class KnightDotVisitor extends BasicDotVisitor {
             super.visit(buff);
         }
     }
-
 }

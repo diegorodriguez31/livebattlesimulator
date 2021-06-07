@@ -5,9 +5,9 @@ import main.java.fr.enseeiht.lbs.model.game_object.Stats;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.action.AttackAction;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.action.FlightMovementAction;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.ai.ChargeAndHitAI;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.dotVisitor.BasicTicVisitor;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.dotVisitor.VikingTicVisitor;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
-
-import static main.java.fr.enseeiht.lbs.model.game_object.Statistic.ARMOR;
 
 public class Viking extends ArmoredUnit {
 
@@ -23,6 +23,7 @@ public class Viking extends ArmoredUnit {
     public void receiveDamage(double damage) {
         if (hasShield()) {
             shield -= damage;
+            status();
         } else {
             super.receiveDamage(damage);
         }
@@ -30,6 +31,11 @@ public class Viking extends ArmoredUnit {
 
     public boolean hasShield() {
         return shield > 0;
+    }
+
+    @Override
+    protected BasicTicVisitor getTicVisitor(long deltaTime) {
+        return new VikingTicVisitor(deltaTime, this);
     }
 
     @Override

@@ -76,7 +76,7 @@ public class EntityFactory {
         ARCHER_STATS.addStat(Statistic.DAMAGE, 40);
         ARCHER_STATS.addStat(Statistic.COOLDOWN, 3);
         ARCHER_STATS.addStat(Statistic.SPEED, 2);
-        ARCHER_STATS.addStat(Statistic.RANGE, 10);
+        ARCHER_STATS.addStat(Statistic.RANGE, 50);
         ARCHER_STATS.addStat(Statistic.ACCURACY, 70);
         ARCHER_STATS.addStat(Statistic.AGILITY, 50);
 

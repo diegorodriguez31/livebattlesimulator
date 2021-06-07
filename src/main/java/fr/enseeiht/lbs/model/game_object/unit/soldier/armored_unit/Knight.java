@@ -5,8 +5,8 @@ import main.java.fr.enseeiht.lbs.model.game_object.Stats;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.action.AttackAction;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.action.FlightMovementAction;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.ai.ChargeAndHitAI;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.BasicDotVisitor;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.dotVisitor.KnightDotVisitor;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.dotVisitor.BasicTicVisitor;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.dotVisitor.KnightTicVisitor;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
 public class Knight extends ArmoredUnit {
@@ -16,8 +16,8 @@ public class Knight extends ArmoredUnit {
         ai = new ChargeAndHitAI(new AttackAction(this), new FlightMovementAction(this));
     }
 
-    protected BasicDotVisitor getUpdateVisitor(long deltaTime) {
-        return new KnightDotVisitor(deltaTime, this);
+    protected BasicTicVisitor getTicVisitor(long deltaTime) {
+        return new KnightTicVisitor(deltaTime, this);
     }
 
     @Override

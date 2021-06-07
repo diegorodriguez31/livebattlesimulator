@@ -5,6 +5,10 @@ import main.java.fr.enseeiht.lbs.model.game_object.Stats;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.action.AttackAction;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.action.FlightMovementAction;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.ai.ChargeAndHitAI;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.dotVisitor.BasicTicVisitor;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.dotVisitor.ImmuneTicVisitor;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.statModifierVisitor.BasicStatModifierBuffVisitor;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.statModifierVisitor.ImmuneStatModifierVisitor;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
 public class Golem extends ArmoredUnit {
@@ -12,6 +16,16 @@ public class Golem extends ArmoredUnit {
     public Golem(String name, Stats stats, Vector2 position) {
         super(name, stats, position);
         ai = new ChargeAndHitAI(new AttackAction(this), new FlightMovementAction(this));
+    }
+
+    @Override
+    protected BasicStatModifierBuffVisitor getStatModifierVisitor() {
+        return new ImmuneStatModifierVisitor(stats, this);
+    }
+
+    @Override
+    protected BasicTicVisitor getTicVisitor(long deltaTime) {
+        return new ImmuneTicVisitor(deltaTime, this);
     }
 
     @Override

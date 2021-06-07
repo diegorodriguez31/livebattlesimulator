@@ -8,8 +8,8 @@ import main.java.fr.enseeiht.lbs.model.game_object.Stats;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.action.Action;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.ai.AI;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.Buff;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.BasicDotVisitor;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.BasicStatModifierBuffVisitor;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.dotVisitor.BasicTicVisitor;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.statModifierVisitor.BasicStatModifierBuffVisitor;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
 import java.util.ArrayList;
@@ -49,7 +49,7 @@ public abstract class Unit extends Entity {
 
     @Override
     public Stats getStats() {
-        BasicStatModifierBuffVisitor visitor = getStatVisitor();
+        BasicStatModifierBuffVisitor visitor = getStatModifierVisitor();
         for (Buff buff : buffs) {
             buff.accept(visitor);
         }
@@ -79,7 +79,7 @@ public abstract class Unit extends Entity {
             status();
         }
         // update buffs
-        BasicDotVisitor visitor = getUpdateVisitor(deltaTime);
+        BasicTicVisitor visitor = getTicVisitor(deltaTime);
         for (Buff buff : buffs) {
             buff.accept(visitor);
         }
@@ -99,12 +99,12 @@ public abstract class Unit extends Entity {
         buffs.add(buff);
     }
 
-    protected BasicStatModifierBuffVisitor getStatVisitor() {
+    protected BasicStatModifierBuffVisitor getStatModifierVisitor() {
         return new BasicStatModifierBuffVisitor(stats, this);
     }
 
-    protected BasicDotVisitor getUpdateVisitor(long deltaTime) {
-        return new BasicDotVisitor(deltaTime, this);
+    protected BasicTicVisitor getTicVisitor(long deltaTime) {
+        return new BasicTicVisitor(deltaTime, this);
     }
 
     public Stats getRawStats() {
