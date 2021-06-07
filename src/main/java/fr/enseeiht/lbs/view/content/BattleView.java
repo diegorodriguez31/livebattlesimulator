@@ -4,9 +4,7 @@ import main.java.fr.enseeiht.lbs.model.battle_simulator.Army;
 import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
 import main.java.fr.enseeiht.lbs.model.game_object.Entity;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.Archer;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.Knight;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.Peasant;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.*;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 import main.java.fr.enseeiht.lbs.view.adapter.GraphicalEntity;
 import main.java.fr.enseeiht.lbs.view.adapter.SpriteGraphicalEntity;
@@ -33,6 +31,15 @@ public class BattleView extends JPanel implements PropertyChangeListener {
         ENTITY_SPRITE.put(Knight.class, "Knight.png");
         ENTITY_SPRITE.put(Peasant.class, "Peasant.png");
         ENTITY_SPRITE.put(Archer.class, "Archer.png");
+        ENTITY_SPRITE.put(Mage.class, "Mage.png");
+        ENTITY_SPRITE.put(Giant.class, "Giant.png");
+        ENTITY_SPRITE.put(Alien.class, "Alien.png");
+        ENTITY_SPRITE.put(Ninja.class, "Ninja.png");
+        ENTITY_SPRITE.put(Horseman.class, "Horseman.png");
+        ENTITY_SPRITE.put(Golem.class, "Golem.png");
+        ENTITY_SPRITE.put(Troll.class, "Troll.png");
+        ENTITY_SPRITE.put(Samurai.class, "Samurai.png");
+        ENTITY_SPRITE.put(Viking.class, "Viking.png");
 
         TEAM_COLORS.add(Color.BLUE);
         COLORS_NAME.put(TEAM_COLORS.get(0), "bleue");

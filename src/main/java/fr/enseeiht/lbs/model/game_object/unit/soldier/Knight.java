@@ -11,7 +11,6 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.dotVisitor.Knigh
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
 import static main.java.fr.enseeiht.lbs.model.game_object.Statistic.ARMOR;
-import static main.java.fr.enseeiht.lbs.model.game_object.unit.RawStatsManager.*;
 
 public class Knight extends Unit {
 

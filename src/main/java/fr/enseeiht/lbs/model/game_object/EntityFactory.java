@@ -1,8 +1,6 @@
 package main.java.fr.enseeiht.lbs.model.game_object;
 
-import main.java.fr.enseeiht.lbs.model.game_object.creators.ArcherCreator;
-import main.java.fr.enseeiht.lbs.model.game_object.creators.KnightCreator;
-import main.java.fr.enseeiht.lbs.model.game_object.creators.PeasantCreator;
+import main.java.fr.enseeiht.lbs.model.game_object.creators.*;
 import main.java.fr.enseeiht.lbs.utils.Pair;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
@@ -20,12 +18,22 @@ public class EntityFactory {
     }
 
     private static final EntitySerializer SERIALIZER = null;
-    private static final Set<String> INITIAL_UNIT = new HashSet<String>(Arrays.asList("Peasant", "Knight"));
+    private static final Set<String> INITIAL_UNIT = new HashSet<String>(
+            Arrays.asList("Peasant", "Knight", "Archer", "Mage", "Giant", "Alien", "Ninja", "Horseman", "Golem", "Troll", "Samurai", "Viking")
+    );
 
     private static final Stats PEASANT_STATS = new Stats();
     private static final Stats ARCHER_STATS = new Stats();
     private static final Stats KNIGHT_STATS = new Stats();
-    private static final Stats BRUTE_STATS = new Stats();
+    private static final Stats MAGE_STATS = new Stats();
+    private static final Stats GIANT_STATS = new Stats();
+    private static final Stats ALIEN_STATS = new Stats();
+    private static final Stats NINJA_STATS = new Stats();
+    private static final Stats HORSEMAN_STATS = new Stats();
+    private static final Stats GOLEM_STATS = new Stats();
+    private static final Stats TROLL_STATS = new Stats();
+    private static final Stats SAMURAI_STATS = new Stats();
+    private static final Stats VIKING_STATS = new Stats();
 
     static final HashMap<String, Pair<EntityCreator, Stats>> entityTypes = new HashMap<>();
 
@@ -34,6 +42,15 @@ public class EntityFactory {
         EntityCreator PEASANT_CREATOR = new PeasantCreator();
         EntityCreator KNIGHT_CREATOR = new KnightCreator();
         EntityCreator ARCHER_CREATOR = new ArcherCreator();
+        EntityCreator MAGE_CREATOR = new MageCreator();
+        EntityCreator GIANT_CREATOR = new GiantCreator();
+        EntityCreator ALIEN_CREATOR = new AlienCreator();
+        EntityCreator NINJA_CREATOR = new NinjaCreator();
+        EntityCreator HORSEMAN_CREATOR = new HorsemanCreator();
+        EntityCreator GOLEM_CREATOR = new GolemCreator();
+        EntityCreator TROLL_CREATOR = new TrollCreator();
+        EntityCreator SAMURAI_CREATOR = new SamuraiCreator();
+        EntityCreator VIKING_CREATOR = new VikingCreator();
 
         //Peasant
         PEASANT_STATS.addStat(Statistic.HEALTH, 50);
@@ -43,15 +60,6 @@ public class EntityFactory {
         PEASANT_STATS.addStat(Statistic.RANGE, 1);
         PEASANT_STATS.addStat(Statistic.ACCURACY, 50);
         PEASANT_STATS.addStat(Statistic.AGILITY, 10);
-
-        // Archer
-        ARCHER_STATS.addStat(Statistic.HEALTH, 50);
-        ARCHER_STATS.addStat(Statistic.DAMAGE, 40);
-        ARCHER_STATS.addStat(Statistic.COOLDOWN, 3);
-        ARCHER_STATS.addStat(Statistic.SPEED, 2);
-        ARCHER_STATS.addStat(Statistic.RANGE, 100);
-        ARCHER_STATS.addStat(Statistic.ACCURACY, 70);
-        ARCHER_STATS.addStat(Statistic.AGILITY, 50);
 
         //Knight
         KNIGHT_STATS.addStat(Statistic.HEALTH, 100);
@@ -63,19 +71,116 @@ public class EntityFactory {
         KNIGHT_STATS.addStat(Statistic.AGILITY, 50);
         KNIGHT_STATS.addStat(Statistic.ARMOR, 50);
 
-        //Brute
-        BRUTE_STATS.addStat(Statistic.HEALTH, 500);
-        BRUTE_STATS.addStat(Statistic.DAMAGE, 400);
-        BRUTE_STATS.addStat(Statistic.COOLDOWN, 4);
-        BRUTE_STATS.addStat(Statistic.SPEED, 0.5);
-        BRUTE_STATS.addStat(Statistic.RANGE, 2);
-        BRUTE_STATS.addStat(Statistic.ACCURACY, 40);
-        BRUTE_STATS.addStat(Statistic.AGILITY, 0);
-        BRUTE_STATS.addStat(Statistic.ARMOR, 50);
+        // Archer
+        ARCHER_STATS.addStat(Statistic.HEALTH, 50);
+        ARCHER_STATS.addStat(Statistic.DAMAGE, 40);
+        ARCHER_STATS.addStat(Statistic.COOLDOWN, 3);
+        ARCHER_STATS.addStat(Statistic.SPEED, 2);
+        ARCHER_STATS.addStat(Statistic.RANGE, 100);
+        ARCHER_STATS.addStat(Statistic.ACCURACY, 70);
+        ARCHER_STATS.addStat(Statistic.AGILITY, 50);
+
+        // Mage
+        MAGE_STATS.addStat(Statistic.HEALTH, 50);
+        MAGE_STATS.addStat(Statistic.DAMAGE, 50);
+        MAGE_STATS.addStat(Statistic.COOLDOWN, 5);
+        MAGE_STATS.addStat(Statistic.SPEED, 1);
+        MAGE_STATS.addStat(Statistic.RANGE, 5);
+        MAGE_STATS.addStat(Statistic.ACCURACY, 90);
+        MAGE_STATS.addStat(Statistic.AGILITY, 20);
+        MAGE_STATS.addStat(Statistic.AREA_OF_EFFECT, 5);
+
+        // Giant
+        GIANT_STATS.addStat(Statistic.HEALTH, 1000);
+        GIANT_STATS.addStat(Statistic.DAMAGE, 100);
+        GIANT_STATS.addStat(Statistic.COOLDOWN, 5);
+        GIANT_STATS.addStat(Statistic.SPEED, 1);
+        GIANT_STATS.addStat(Statistic.RANGE, 2);
+        GIANT_STATS.addStat(Statistic.ACCURACY, 100);
+        GIANT_STATS.addStat(Statistic.AGILITY, 0);
+        GIANT_STATS.addStat(Statistic.AREA_OF_EFFECT, 3);
+
+        // Alien
+        ALIEN_STATS.addStat(Statistic.HEALTH, 1);
+        ALIEN_STATS.addStat(Statistic.DAMAGE, 100);
+        ALIEN_STATS.addStat(Statistic.COOLDOWN, 3);
+        ALIEN_STATS.addStat(Statistic.SPEED, 0.5);
+        ALIEN_STATS.addStat(Statistic.RANGE, 8);
+        ALIEN_STATS.addStat(Statistic.ACCURACY, 100);
+        ALIEN_STATS.addStat(Statistic.AGILITY, 10);
+
+        // Ninja
+        NINJA_STATS.addStat(Statistic.HEALTH, 10);
+        NINJA_STATS.addStat(Statistic.DAMAGE, 150);
+        NINJA_STATS.addStat(Statistic.COOLDOWN, 0.5);
+        NINJA_STATS.addStat(Statistic.SPEED, 5);
+        NINJA_STATS.addStat(Statistic.RANGE, 1);
+        NINJA_STATS.addStat(Statistic.ACCURACY, 100);
+        NINJA_STATS.addStat(Statistic.AGILITY, 90);
+
+        // Horseman
+        HORSEMAN_STATS.addStat(Statistic.HEALTH, 200);
+        HORSEMAN_STATS.addStat(Statistic.DAMAGE, 100);
+        HORSEMAN_STATS.addStat(Statistic.COOLDOWN, 2);
+        HORSEMAN_STATS.addStat(Statistic.SPEED, 5);
+        HORSEMAN_STATS.addStat(Statistic.RANGE, 5);
+        HORSEMAN_STATS.addStat(Statistic.ACCURACY, 80);
+        HORSEMAN_STATS.addStat(Statistic.AGILITY, 10);
+        HORSEMAN_STATS.addStat(Statistic.ARMOR, 30);
+
+        // Golem
+        GOLEM_STATS.addStat(Statistic.HEALTH, 400);
+        GOLEM_STATS.addStat(Statistic.DAMAGE, 500);
+        GOLEM_STATS.addStat(Statistic.COOLDOWN, 8);
+        GOLEM_STATS.addStat(Statistic.SPEED, 1);
+        GOLEM_STATS.addStat(Statistic.RANGE, 1);
+        GOLEM_STATS.addStat(Statistic.ACCURACY, 100);
+        GOLEM_STATS.addStat(Statistic.AGILITY, 0);
+        GOLEM_STATS.addStat(Statistic.ARMOR, 80);
+
+        // Troll
+        TROLL_STATS.addStat(Statistic.HEALTH, 100);
+        TROLL_STATS.addStat(Statistic.DAMAGE, 30);
+        TROLL_STATS.addStat(Statistic.COOLDOWN, 1);
+        TROLL_STATS.addStat(Statistic.SPEED, 2);
+        TROLL_STATS.addStat(Statistic.RANGE, 1);
+        TROLL_STATS.addStat(Statistic.ACCURACY, 80);
+        TROLL_STATS.addStat(Statistic.AGILITY, 60);
+        TROLL_STATS.addStat(Statistic.ARMOR, 20);
+
+        // Samurai
+        SAMURAI_STATS.addStat(Statistic.HEALTH, 100);
+        SAMURAI_STATS.addStat(Statistic.DAMAGE, 200);
+        SAMURAI_STATS.addStat(Statistic.COOLDOWN, 3);
+        SAMURAI_STATS.addStat(Statistic.SPEED, 1);
+        SAMURAI_STATS.addStat(Statistic.RANGE, 5);
+        SAMURAI_STATS.addStat(Statistic.ACCURACY, 95);
+        SAMURAI_STATS.addStat(Statistic.AGILITY, 50);
+        SAMURAI_STATS.addStat(Statistic.AREA_OF_EFFECT, 3);
+
+        // Viking
+        VIKING_STATS.addStat(Statistic.HEALTH, 300);
+        VIKING_STATS.addStat(Statistic.DAMAGE, 100);
+        VIKING_STATS.addStat(Statistic.COOLDOWN, 2);
+        VIKING_STATS.addStat(Statistic.SPEED, 1);
+        VIKING_STATS.addStat(Statistic.RANGE, 1);
+        VIKING_STATS.addStat(Statistic.ACCURACY, 80);
+        VIKING_STATS.addStat(Statistic.AGILITY, 20);
+        VIKING_STATS.addStat(Statistic.ARMOR, 30);
+        VIKING_STATS.addStat(Statistic.SHIELD, 100);
 
         entityTypes.put("Peasant", new Pair<>(PEASANT_CREATOR, PEASANT_STATS));
         entityTypes.put("Knight", new Pair<>(KNIGHT_CREATOR, KNIGHT_STATS));
         entityTypes.put("Archer", new Pair<>(ARCHER_CREATOR, ARCHER_STATS));
+        entityTypes.put("Mage", new Pair<>(MAGE_CREATOR, MAGE_STATS));
+        entityTypes.put("Giant", new Pair<>(GIANT_CREATOR, GIANT_STATS));
+        entityTypes.put("Alien", new Pair<>(ALIEN_CREATOR, ALIEN_STATS));
+        entityTypes.put("Ninja", new Pair<>(NINJA_CREATOR, NINJA_STATS));
+        entityTypes.put("Horseman", new Pair<>(HORSEMAN_CREATOR, HORSEMAN_STATS));
+        entityTypes.put("Golem", new Pair<>(GOLEM_CREATOR, GOLEM_STATS));
+        entityTypes.put("Troll", new Pair<>(TROLL_CREATOR, TROLL_STATS));
+        entityTypes.put("Samurai", new Pair<>(SAMURAI_CREATOR, SAMURAI_STATS));
+        entityTypes.put("Viking", new Pair<>(VIKING_CREATOR, VIKING_STATS));
     }
 
     /**

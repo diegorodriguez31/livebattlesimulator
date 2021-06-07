@@ -2,7 +2,6 @@ package main.java.fr.enseeiht.lbs.model.game_object.unit.action;
 
 import main.java.fr.enseeiht.lbs.model.game_object.Statistic;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.Archer;
 
 public class AttackAction implements IAttackAction {
 
