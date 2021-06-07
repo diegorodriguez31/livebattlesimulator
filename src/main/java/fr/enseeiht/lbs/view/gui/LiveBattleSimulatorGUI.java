@@ -2,7 +2,7 @@ package main.java.fr.enseeiht.lbs.view.gui;
 
 import main.java.fr.enseeiht.lbs.controller.BattleArmiesChoiceController;
 import main.java.fr.enseeiht.lbs.controller.HomePageController;
-import main.java.fr.enseeiht.lbs.controller.UnitPlacementControler;
+import main.java.fr.enseeiht.lbs.controller.UnitPlacementController;
 import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.view.content.BattleSimulationView;
 import main.java.fr.enseeiht.lbs.view.content.WorldChoiceView;
@@ -21,7 +21,7 @@ public class LiveBattleSimulatorGUI extends JFrame {
     static JPanel cards;
 
     private BattleSimulationView battleSimulationView;
-    private UnitPlacementControler unitPlacementControler;
+    private UnitPlacementController unitPlacementController;
 
 
     /**
@@ -58,7 +58,7 @@ public class LiveBattleSimulatorGUI extends JFrame {
         World world = World.getInstance();
         world.generateWorld(10, 20, 5, 25, 40);
         cards.add(new WorldChoiceView(), WORLD_CHOICE_CARD);
-        unitPlacementControler = new UnitPlacementControler();
+        unitPlacementController = new UnitPlacementController();
 
         showHomePage();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -110,8 +110,8 @@ public class LiveBattleSimulatorGUI extends JFrame {
         // Crée une nouvelle BattleSimulationView à chaque passage
         // Necessaire pour afficher les éléments swings avant que la bataille ne run (Thread concurrence).
 
-        cards.add(unitPlacementControler, UNIT_PLACEMENT_CARD);
-        unitPlacementControler.refresh();
+        cards.add(unitPlacementController, UNIT_PLACEMENT_CARD);
+        unitPlacementController.refresh();
 
         CardLayout cl = (CardLayout) (cards.getLayout());
         cl.show(cards, UNIT_PLACEMENT_CARD);
