@@ -8,8 +8,9 @@ import java.awt.*;
 public class UnitTypeListGUI extends JFrame {
     public UnitTypeListGUI() throws HeadlessException {
         super("test");
+
         var list = new UnitListController();
-        list.setPreferredSize(new Dimension(100, 300));
+        list.setPreferredSize(new Dimension(300, 300));
         add(list);
         pack();
         setVisible(true);

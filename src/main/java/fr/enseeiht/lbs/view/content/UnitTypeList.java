@@ -22,6 +22,7 @@ public class UnitTypeList extends JPanel implements PropertyChangeListener {
         BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(layout);
         updateButtons();
+        EntityFactory.addPropertyChangeListener(EntityFactory.EVENT_LIST_CHANGE, this);
     }
 
     private void updateButtons() {
@@ -35,27 +36,28 @@ public class UnitTypeList extends JPanel implements PropertyChangeListener {
             add(button);
 
             //Logic
-            button.addActionListener(actionEvent -> {
-                if (selectedUnitType != null) {
-                    buttons.get(selectedUnitType).setSelected(false);
-                    buttons.get(selectedUnitType).setEnabled(true);
-                }
-                selectedUnitType = actionEvent.getActionCommand();
-                buttons.get(selectedUnitType).setSelected(true);
-                buttons.get(selectedUnitType).setEnabled(false);
-
-                actionNotifyAll();
-            });
+            button.addActionListener(actionEvent -> setSelectedUnitType(actionEvent.getActionCommand()));
         }
         if (selectedUnitType != null && !buttons.containsKey(selectedUnitType)) {
-            selectedUnitType = null;
-            actionNotifyAll();
+            setSelectedUnitType(null);
         }
+        updateUI();
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
         updateButtons();
+    }
+
+    public void setSelectedUnitType(String selectedUnitType) {
+        if (this.selectedUnitType != null && buttons.get(this.selectedUnitType) != null) {
+            buttons.get(this.selectedUnitType).setEnabled(true);
+        }
+        this.selectedUnitType = selectedUnitType;
+        if (this.selectedUnitType != null && buttons.get(this.selectedUnitType) != null) {
+            buttons.get(this.selectedUnitType).setEnabled(false);
+        }
+        actionNotifyAll();
     }
 
     public String getSelectedUnitType() {

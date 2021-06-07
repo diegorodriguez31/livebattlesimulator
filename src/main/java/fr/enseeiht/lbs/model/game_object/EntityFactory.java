@@ -3,6 +3,8 @@ package main.java.fr.enseeiht.lbs.model.game_object;
 import main.java.fr.enseeiht.lbs.utils.Pair;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,6 +14,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class EntityFactory {
+
+
     /**
      * Exception triggered in the case someone tries to modified the base unit of the game
      */
@@ -28,7 +32,12 @@ public class EntityFactory {
     private static final Stats PEASANT_STATS = new Stats();
     private static final Stats KNIGHT_STATS = new Stats();
 
-    static final HashMap<String, Pair<EntityPrimitiveTypes, Stats>> entityTypes = new HashMap<>();
+    private static final HashMap<String, Pair<EntityPrimitiveTypes, Stats>> entityTypes = new HashMap<>();
+
+
+    private static final PropertyChangeSupport eventSuport = new PropertyChangeSupport(entityTypes);
+    public static final String EVENT_LIST_CHANGE = "EVENT_LIST_CHANGE";
+
 
     static {
         //Initialisation of the units type
@@ -105,6 +114,7 @@ public class EntityFactory {
         if (INITIAL_UNITS.contains(type)) throw new UnmodifiableTypeException(type);
         var entityType = entityTypes.remove(type);
         save();
+        eventSuport.firePropertyChange(EVENT_LIST_CHANGE, null, entityTypes);
         return entityType != null;
     }
 
@@ -133,6 +143,7 @@ public class EntityFactory {
         if (INITIAL_UNITS.contains(type)) throw new UnmodifiableTypeException(type);
         boolean r = entityTypes.put(type, new Pair<>(primitive, stats)) != null;
         save();
+        eventSuport.firePropertyChange(EVENT_LIST_CHANGE, null, entityTypes);
         return r;
     }
 
@@ -155,6 +166,11 @@ public class EntityFactory {
     }
 
     public static Set<String> getInitialUnit() {
-        return INITIAL_UNIT;
+        return INITIAL_UNITS;
     }
+
+    public static void addPropertyChangeListener(String type, PropertyChangeListener listener) {
+        eventSuport.addPropertyChangeListener(type, listener);
+    }
+
 }
