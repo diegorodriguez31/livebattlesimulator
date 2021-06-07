@@ -11,7 +11,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class EntityFactory {
-
+    /**
+     * Exception triggered in the case someone tries to modified the base unit of the game
+     */
     static class UnmodifiableTypeException extends Exception {
         public UnmodifiableTypeException(String types) {
             super("Cant modify entity type : " + types);
@@ -29,6 +31,8 @@ public class EntityFactory {
     static final HashMap<String, Pair<EntityCreator, Stats>> entityTypes = new HashMap<>();
 
     static {
+        //Initialisation of the units type
+
         //Creators
         EntityCreator PEASANT_CREATOR = new PeasantCreator();
         EntityCreator KNIGHT_CREATOR = new KnightCreator();
