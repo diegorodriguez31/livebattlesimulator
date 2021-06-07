@@ -6,10 +6,7 @@ import main.java.fr.enseeiht.lbs.utils.Vector2;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class EntityFactory {
     /**
@@ -24,36 +21,10 @@ public class EntityFactory {
     private static final EntitySerializer SERIALIZER = new JSONEntitySerializer();
     private static final Set<String> INITIAL_UNITS = new HashSet<String>(Arrays.asList("Farmer", "Knight"));
     private static final String SAVE_PATH = "save/units.json";
-
-    private static final Stats PEASANT_STATS = new Stats();
-    private static final Stats KNIGHT_STATS = new Stats();
-
-    static final HashMap<String, Pair<EntityPrimitiveTypes, Stats>> entityTypes = new HashMap<>();
+    private static final HashMap<String, Pair<EntityPrimitiveTypes, Stats>> entityTypes = new HashMap<>();
 
     static {
         //Initialisation of the units type
-
-        //Peasant
-        PEASANT_STATS.addStat(Statistic.HEALTH, 50);
-        PEASANT_STATS.addStat(Statistic.DAMAGE, 10);
-        PEASANT_STATS.addStat(Statistic.COOLDOWN, 1);
-        PEASANT_STATS.addStat(Statistic.SPEED, 1);
-        PEASANT_STATS.addStat(Statistic.RANGE, 1);
-        PEASANT_STATS.addStat(Statistic.ACCURACY, 50);
-        PEASANT_STATS.addStat(Statistic.AGILITY, 10);
-
-        //Knight
-        KNIGHT_STATS.addStat(Statistic.HEALTH, 100);
-        KNIGHT_STATS.addStat(Statistic.DAMAGE, 30);
-        KNIGHT_STATS.addStat(Statistic.COOLDOWN, 1);
-        KNIGHT_STATS.addStat(Statistic.SPEED, 1);
-        KNIGHT_STATS.addStat(Statistic.RANGE, 1);
-        KNIGHT_STATS.addStat(Statistic.ACCURACY, 80);
-        KNIGHT_STATS.addStat(Statistic.AGILITY, 50);
-        KNIGHT_STATS.addStat(Statistic.ARMOR, 50);
-
-        entityTypes.put("Farmer", new Pair<>(EntityPrimitiveTypes.PEASANT, PEASANT_STATS));
-        entityTypes.put("Knight", new Pair<>(EntityPrimitiveTypes.KNIGHT, KNIGHT_STATS));
         try {
             load();
         } catch (IOException e) {
@@ -151,6 +122,9 @@ public class EntityFactory {
      * Loads the types of entities
      */
     private static void load() throws IOException {
+        Scanner s = new Scanner(EntityFactory.class.getClassLoader().getResourceAsStream("Entities.json")).useDelimiter("\\A");
+        String result = s.hasNext() ? s.next() : "";
+        entityTypes.putAll(SERIALIZER.parse(result));
         entityTypes.putAll(SERIALIZER.parse(Files.readString(Path.of(SAVE_PATH))));
     }
 
