@@ -3,7 +3,6 @@ package main.java.fr.enseeiht.lbs.view.gui;
 import main.java.fr.enseeiht.lbs.controller.BattleArmiesChoiceController;
 import main.java.fr.enseeiht.lbs.controller.HomePageController;
 import main.java.fr.enseeiht.lbs.controller.UnitPlacementControler;
-import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.view.content.BattleSimulationView;
 import main.java.fr.enseeiht.lbs.view.content.WorldChoiceView;
 
@@ -55,8 +54,6 @@ public class LiveBattleSimulatorGUI extends JFrame {
 
         cards.add(new HomePageController(), HOME_PAGE_CARD);
 
-        World world = World.getInstance();
-        world.generateWorld(10, 20, 5, 25, 40);
         cards.add(new WorldChoiceView(), WORLD_CHOICE_CARD);
         unitPlacementControler = new UnitPlacementControler();
 

@@ -1,7 +1,5 @@
 package main.java.fr.enseeiht.lbs.controller;
 
-import main.java.fr.enseeiht.lbs.view.content.WorldView;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -24,26 +22,22 @@ public class ChoixMapPresetController extends JPanel {
 
     private static ChoixMapPresetController instance;
 
-    public static ChoixMapPresetController getInstance(){
-        if (instance == null){
-            instance = new ChoixMapPresetController();
-        }
-        return instance;
-    }
+    private ChoixMapPresetController() {
+        //le main panel permet d'afficher les boutons radio en groupe au lieu de les espacer sur la page
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new GridLayout(4, 1));
+        this.add(mainPanel);
 
-    public ChoixMapPresetController() {
-
-        this.setLayout(new GridLayout(4, 1));
 
         defaultButton = new JRadioButton(DEFAULT_WORLD);
         wetButton = new JRadioButton(WET_WORLD);
         dryButton = new JRadioButton(DRY_WORLD);
         rockButton = new JCheckBox("plus grand nombre de roches");
 
-        this.add(defaultButton);
-        this.add(wetButton);
-        this.add(dryButton);
-        this.add(rockButton);
+        mainPanel.add(defaultButton);
+        mainPanel.add(wetButton);
+        mainPanel.add(dryButton);
+        mainPanel.add(rockButton);
 
         ButtonGroup group = new ButtonGroup();
         group.add(defaultButton);
@@ -53,35 +47,29 @@ public class ChoixMapPresetController extends JPanel {
         init();
 
         defaultButton.setActionCommand(DEFAULT_WORLD);
-        defaultButton.addActionListener(actionEvent -> {
-            updateActiveChoice(defaultButton.getActionCommand());
-        });
-        defaultButton.addPropertyChangeListener(DEFAULT_WORLD, new WorldView());
-
+        defaultButton.addActionListener(actionEvent -> updateActiveChoice(defaultButton.getActionCommand()));
 
         wetButton.setActionCommand(WET_WORLD);
-        wetButton.addActionListener(actionEvent -> {
-            updateActiveChoice(wetButton.getActionCommand());
-        });
-        wetButton.addPropertyChangeListener(WET_WORLD, new WorldView());
+        wetButton.addActionListener(actionEvent -> updateActiveChoice(wetButton.getActionCommand()));
 
         dryButton.setActionCommand(DRY_WORLD);
-        dryButton.addActionListener(actionEvent -> {
-            updateActiveChoice(dryButton.getActionCommand());
-        });
-        dryButton.addPropertyChangeListener(DRY_WORLD, new WorldView());
-
+        dryButton.addActionListener(actionEvent -> updateActiveChoice(dryButton.getActionCommand()));
 
         rockButton.setMnemonic(KeyEvent.VK_C);
-        rockButton.addActionListener(actionEvent -> {
-            rocks = rocks == false;
-        });
+        rockButton.addActionListener(actionEvent -> rocks = !rocks);
 
+    }
+
+    public static ChoixMapPresetController getInstance(){
+        if (instance == null){
+            instance = new ChoixMapPresetController();
+        }
+        return instance;
     }
 
     public void init(){
         this.updateActiveChoice(DEFAULT_WORLD);
-        this.rocks = false;
+        rocks = false;
 
         defaultButton.setSelected(true);
         wetButton.setSelected(false);
@@ -109,7 +97,6 @@ public class ChoixMapPresetController extends JPanel {
     }
 
     public boolean hasRock() {
-        System.out.println("rocks " +rocks);
         return rocks;
     }
 }
