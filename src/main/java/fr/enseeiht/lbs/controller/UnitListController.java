@@ -7,6 +7,7 @@ import main.java.fr.enseeiht.lbs.view.content.UnitTypeList;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class UnitListController extends JPanel {
 
@@ -97,5 +98,9 @@ public class UnitListController extends JPanel {
                 newButton.setEnabled(false);
             }
         });
+    }
+
+    public void addSelectActionListener(ActionListener listener) {
+        unitTypeList.addActionListener(listener);
     }
 }
