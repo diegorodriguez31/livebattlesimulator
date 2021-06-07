@@ -17,7 +17,7 @@ public class BattleSimulationView extends JPanel {
         this.battleWorldView = new BattleWorldView();
         JPanel westpanel = new JPanel();
         JPanel eastpanel = new JPanel();
-        this.battleWorldView.setPreferredSize(new Dimension(700, 700));
+        this.battleWorldView.setPreferredSize(new Dimension(500, 500));
         westpanel.setPreferredSize(new Dimension(200,700));
         eastpanel.setPreferredSize(new Dimension(200,700));
         setLayout(new BorderLayout());

@@ -110,6 +110,7 @@ public class UnitPlacementControler extends JPanel {
         JButton okButton = new JButton("OK");
         okButton.setFont(new Font("Sans Serif", Font.PLAIN, 30));
 
+
         okButton.addActionListener(actionEvent -> {
             mainFrame().showBattleSimulation();
             new Thread(() -> Battle.getInstance().run()).start();

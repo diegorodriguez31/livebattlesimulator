@@ -45,10 +45,11 @@ public abstract class Entity extends GameObject {
 
     public WorldElement getFieldElement(){
         Vector2 position = this.getPosition();
-        int EntityY = (int) (position.y/3);
-        int EntityX = (int)(position.x/5);
+        int EntityY = (int) (position.y/3.2);
+        int EntityX = (int)(position.x/4.7);
         if(EntityY >= World.getInstance().getSizeY()){ EntityY = World.getInstance().getSizeY();}
         if(EntityX >= World.getInstance().getSizeX()){ EntityX = World.getInstance().getSizeX();}
+        getSqrSize();
         for( int y=0;y<World.getInstance().getSizeY();y++){
             if(y == EntityY) {
                 for (int x = 0; x < World.getInstance().getSizeX(); x++) {
@@ -59,5 +60,9 @@ public abstract class Entity extends GameObject {
             }
         }
         return null;
+    }
+    public void getSqrSize(){
+        System.out.println(getPosition().size());//max is around  with 93.5*60.15
+        //max array is 400.
     }
 }

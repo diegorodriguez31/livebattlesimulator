@@ -14,13 +14,15 @@ public class ChoixMapButtonController extends JPanel {
     public String dryString = "terrain sec (désert et roches)";
     public String wetString = "terrain humide (forêt et eau)";
     public String mainString = "terrain classique";
+    public String lavaString = "terrain volcanique(lave, rock)";
+    public String coldString = "terrain froid (forêt, neige)";
     static int act = 0;
     static boolean rock = false;
 
 
     public ChoixMapButtonController(World world) {
 
-        this.setLayout(new GridLayout(4, 1));
+        this.setLayout(new GridLayout(6, 1));
         JRadioButton mainButton = new JRadioButton(mainString);
         mainButton.setActionCommand(mainString);
         mainButton.setSelected(true);
@@ -29,7 +31,6 @@ public class ChoixMapButtonController extends JPanel {
             updateElements(this.mainString);
         });
         mainButton.addPropertyChangeListener(mainString, new WorldView());
-
 
         JRadioButton wetButton = new JRadioButton(wetString);
         wetButton.setActionCommand(wetString);
@@ -47,10 +48,30 @@ public class ChoixMapButtonController extends JPanel {
         });
         dryButton.addPropertyChangeListener(dryString, new WorldView());
 
+        JRadioButton lavaButton = new JRadioButton(lavaString);
+        lavaButton.setActionCommand(lavaString);
+        lavaButton.setSelected(true);
+        this.add(lavaButton);
+        lavaButton.addActionListener(actionEvent -> {
+            updateElements(this.lavaString);
+        });
+        lavaButton.addPropertyChangeListener(lavaString, new WorldView());
+
+        JRadioButton snowButton = new JRadioButton(coldString);
+        snowButton.setActionCommand(coldString);
+        snowButton.setSelected(true);
+        this.add(snowButton);
+        snowButton.addActionListener(actionEvent -> {
+            updateElements(this.coldString);
+        });
+        snowButton.addPropertyChangeListener(coldString, new WorldView());
+
         ButtonGroup group = new ButtonGroup();
         group.add(mainButton);
         group.add(dryButton);
         group.add(wetButton);
+        group.add(lavaButton);
+        group.add(snowButton);
 
         JCheckBox rockButton;
         rockButton = new JCheckBox("plus grand nombre de roches");
@@ -76,7 +97,12 @@ public class ChoixMapButtonController extends JPanel {
             act = 1;
         } else if (action.equals(wetString)) {
             act = 2;
-        } else {
+        } else if (action.equals(lavaString)) {
+            act = 3;
+        }
+        else if (action.equals(coldString)) {
+            act = 4;
+        }else {
             act = 0;
         }
         return act;

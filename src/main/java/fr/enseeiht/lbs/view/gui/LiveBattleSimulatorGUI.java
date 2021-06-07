@@ -56,7 +56,7 @@ public class LiveBattleSimulatorGUI extends JFrame {
         cards.add(new HomePageController(), HOME_PAGE_CARD);
 
         World world = World.getInstance();
-        world.generateWorld(10, 20, 5, 25, 40);
+        world.generateWorld(10, 20, 5, 25, 40,0,0);
         cards.add(new WorldChoiceView(), WORLD_CHOICE_CARD);
 
         unitPlacementControler = new UnitPlacementControler();

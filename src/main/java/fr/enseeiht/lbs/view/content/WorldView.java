@@ -42,6 +42,12 @@ public class WorldView extends JPanel implements PropertyChangeListener {
             case ROCK:
                 color = new Color(111, 111, 106);
                 break;
+            case LAVA:
+                color = new Color(245,85,74);
+                break;
+            case SNOW:
+                color = new Color(209,198,197);
+                break;
             default:
                 color = new Color(93, 250, 53);
                 break;

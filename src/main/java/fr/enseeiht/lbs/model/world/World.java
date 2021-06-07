@@ -20,12 +20,12 @@ public class World {
     /**
      * Size X of the map
      */
-    private static final int SIZE_X = 20;
+    private static final int SIZE_X = 50;
 
     /**
      * Size Y of the map
      */
-    private static final int SIZE_Y = 20;
+    private static final int SIZE_Y = 50;
 
 
     private WorldElement mainElement;
@@ -47,19 +47,21 @@ public class World {
         return instance;
     }
 
-    public void generateWorld(int percentDesert, int percentWater, int percentRocks, int percentForest, int percentPlain) {//int percentLava, int percentSnow
+    public void generateWorld(int percentDesert, int percentWater, int percentRocks, int percentForest, int percentPlain, int percentLava, int percentSnow) {
 
         final int totalTiles = SIZE_X * SIZE_Y;
 
-        int sumPercent = percentForest + percentDesert + percentWater + percentRocks + percentPlain;
+        int sumPercent = percentForest + percentDesert + percentWater + percentRocks + percentPlain + percentLava + percentSnow;
         int nbDesert = (percentDesert * totalTiles) / sumPercent;
         int nbWater = (percentWater * totalTiles) / sumPercent;
         int nbRocks = (percentRocks * totalTiles) / sumPercent;
         int nbPlain = (percentPlain * totalTiles) / sumPercent;
         int nbForest = (percentForest * totalTiles) / sumPercent;
+        int nbLava = (percentLava * totalTiles) / sumPercent;
+        int nbSnow = (percentSnow * totalTiles) / sumPercent;
 
         //récupère l'élément qui a le plus gros pourcentage
-        mainElement = findMainElement(percentDesert, percentWater, percentRocks, percentForest, percentPlain);
+        mainElement = findMainElement(percentDesert, percentWater, percentRocks, percentForest, percentPlain, percentLava, percentSnow);
 
         //on remplit le tableau avec le mainElement
         for (int x = 0; x < SIZE_X; x++) {
@@ -74,6 +76,8 @@ public class World {
         createShapes(WorldElement.PLAIN, nbPlain);
         createShapes(WorldElement.ROCK, nbRocks);
         createShapes(WorldElement.FOREST, nbForest);
+        createShapes(WorldElement.LAVA, nbLava);
+        createShapes(WorldElement.SNOW, nbSnow);
         affichWorldElements();
 
         propertyChangeSupport.firePropertyChange(PROPERTY_RELOAD_MAP, null, this.worldElements);
@@ -87,7 +91,7 @@ public class World {
             //affichcells(cellmap);
             int numberOfSteps = 7;//nombre de fois que l'algo "game of life" est run
             int deathLimit = 2; //si moins de 2 true adjacents, la cellule devient false
-            int birthLimit = 4; //si plus de 4 true à côté, la cellule devient true
+            int birthLimit = 3; //si plus de 4 true à côté, la cellule devient true
 
             for (int i = 0; i < numberOfSteps; i++) {
                 cellmap = doSimulationStep(cellmap, deathLimit, birthLimit);
@@ -190,13 +194,15 @@ public class World {
     }
 
     //calcul le mainElement pour qu'il ne soit pas shaped dans la map vu que la map est déja remplie de cet element initialement
-    public WorldElement findMainElement(int percentDesert, int percentWater, int percentRocks, int percentForest, int percentPlain) {
+    public WorldElement findMainElement(int percentDesert, int percentWater, int percentRocks, int percentForest, int percentPlain, int percentLava, int percentSnow) {
         HashMap<WorldElement, Integer> WHmap = new HashMap<>();
         WHmap.put(WorldElement.PLAIN, percentPlain);
         WHmap.put(WorldElement.DESERT, percentDesert);
         WHmap.put(WorldElement.WATER, percentWater);
         WHmap.put(WorldElement.FOREST, percentForest);
         WHmap.put(WorldElement.ROCK, percentRocks);
+        WHmap.put(WorldElement.LAVA, percentLava);
+        WHmap.put(WorldElement.SNOW, percentSnow);
         WorldElement maxElement = null;
         int max = 0;
         for (Map.Entry<WorldElement, Integer> entry : WHmap.entrySet()) {
