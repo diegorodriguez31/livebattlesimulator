@@ -19,8 +19,6 @@ public class LiveBattleSimulatorGUI extends JFrame {
 
     private static JPanel cards;
 
-    private final HomePageController homePageController;
-
     /**
      * Identifiants des cards
      */
@@ -52,9 +50,8 @@ public class LiveBattleSimulatorGUI extends JFrame {
         cards = new JPanel(new CardLayout());
         getContentPane().add(cards);
 
-        homePageController = new HomePageController();
+        HomePageController homePageController = HomePageController.getInstance();
         cards.add(homePageController, HOME_PAGE_CARD);
-
         cards.add(BattleArmiesChoiceController.getInstance(), ARMIES_NB_CHOICES_CARD);
         cards.add(WorldChoiceView.getInstance(), WORLD_CHOICE_CARD);
         cards.add(UnitPlacementController.getInstance(), UNIT_PLACEMENT_CARD);
@@ -70,7 +67,7 @@ public class LiveBattleSimulatorGUI extends JFrame {
      */
     public void showHomePage() {
         acutalComponent.reset();
-        acutalComponent = homePageController;
+        acutalComponent = HomePageController.getInstance();
         setChangesReady(HOME_PAGE_CARD);
     }
 

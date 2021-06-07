@@ -12,7 +12,15 @@ import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.mainFrame;
  */
 public class HomePageController extends JPanel implements GuiComponent {
 
-    public HomePageController() {
+    private static HomePageController instance;
+
+    public static HomePageController getInstance(){
+        if (instance == null){
+            instance = new HomePageController();
+        }
+        return instance;
+    }
+    private HomePageController() {
         JLabel title = new JLabel("Live Battle Simulator");
         title.setFont(new Font("Sans Serif", Font.PLAIN, 50));
 
