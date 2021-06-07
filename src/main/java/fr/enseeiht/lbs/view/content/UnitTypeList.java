@@ -3,6 +3,7 @@ package main.java.fr.enseeiht.lbs.view.content;
 import main.java.fr.enseeiht.lbs.model.game_object.EntityFactory;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -18,7 +19,8 @@ public class UnitTypeList extends JPanel implements PropertyChangeListener {
 
     public UnitTypeList() {
         super();
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
+        setLayout(layout);
         updateButtons();
     }
 
@@ -29,13 +31,19 @@ public class UnitTypeList extends JPanel implements PropertyChangeListener {
             //Button
             JButton button = new JButton(entityType);
             buttons.put(entityType, button);
+            button.setMaximumSize(new Dimension(4000, 30));
             add(button);
 
             //Logic
             button.addActionListener(actionEvent -> {
-                buttons.get(selectedUnitType).setSelected(false);
+                if (selectedUnitType != null) {
+                    buttons.get(selectedUnitType).setSelected(false);
+                    buttons.get(selectedUnitType).setEnabled(true);
+                }
                 selectedUnitType = actionEvent.getActionCommand();
                 buttons.get(selectedUnitType).setSelected(true);
+                buttons.get(selectedUnitType).setEnabled(false);
+
                 actionNotifyAll();
             });
         }

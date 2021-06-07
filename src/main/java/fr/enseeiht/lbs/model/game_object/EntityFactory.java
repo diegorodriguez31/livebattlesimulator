@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class EntityFactory {
 
-    static class UnmodifiableTypeException extends Exception {
+    public static class UnmodifiableTypeException extends Exception {
         public UnmodifiableTypeException(String types) {
             super("Cant modify entity type : " + types);
         }
@@ -166,4 +166,7 @@ public class EntityFactory {
         //TODO
     }
 
+    public static Set<String> getInitialUnit() {
+        return INITIAL_UNIT;
+    }
 }
