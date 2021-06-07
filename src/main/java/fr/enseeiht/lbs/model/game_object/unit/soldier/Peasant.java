@@ -12,6 +12,8 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.PeasantGroupBuff;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.BasicDotVisitor;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
+import java.util.List;
+
 import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.VERBOSE;
 import static main.java.fr.enseeiht.lbs.model.game_object.unit.RawStatsManager.*;
 
@@ -32,6 +34,7 @@ public class Peasant extends Unit {
     public Peasant(String name, Stats stats, Vector2 position) {
         super(name, stats, position);
         ai = new ChargeAndHitAI(new AttackAction(this), new FlightMovementAction(this));
+        this.addBuffs(new PeasantGroupBuff());
     }
 
     @Override
@@ -56,8 +59,12 @@ public class Peasant extends Unit {
      */
     public boolean isInAGroupOf3() {
         // On cherche la troisième car la première est "this"
-        Unit secondNearestUnit = Battle.getInstance().findAllies(this).get(2);
-        return secondNearestUnit.getPosition().sub(this.getPosition()).sqrSize() <= GROUP_RADIUS;
+        List<Unit> allies = Battle.getInstance().findAllies(this);
+        if (allies.size() > 2) {
+            Unit secondNearestUnit = allies.get(2);
+            return secondNearestUnit.getPosition().sub(this.getPosition()).sqrSize() <= GROUP_RADIUS;
+        }
+        return false;
     }
 
     @Override
