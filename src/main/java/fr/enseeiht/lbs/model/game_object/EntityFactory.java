@@ -19,7 +19,7 @@ public class EntityFactory {
     }
 
     private static final EntitySerializer SERIALIZER = null;
-    private static final Set<String> INITIAL_UNIT = new HashSet<String>(Arrays.asList("Farmer", "Knight"));
+    private static final Set<String> INITIAL_UNIT = new HashSet<>(Arrays.asList("Farmer", "Knight"));
 
     private static final Stats PEASANT_STATS = new Stats();
     private static final Stats OLD_PEASANT_STATS = new Stats();
@@ -95,7 +95,7 @@ public class EntityFactory {
     public static Stats getEntityTypeStats(String entity) {
         var entityType = entityTypes.get(entity);
         if (entityType == null) return null;
-        return new Stats(entityType.second);
+        return new Stats(entityType.getSecond());
     }
 
     /**
@@ -107,7 +107,7 @@ public class EntityFactory {
     public static EntityCreator getEntityTypeCreator(String entity) {
         var entityType = entityTypes.get(entity);
         if (entityType == null) return null;
-        return entityType.first;
+        return entityType.getFirst();
     }
 
     /**
@@ -133,7 +133,7 @@ public class EntityFactory {
      */
     public static Entity createEntity(String type, Vector2 position) {
         Pair<EntityCreator, Stats> pair = entityTypes.get(type);
-        return pair.first.createEntity(type, position, pair.second);
+        return pair.getFirst().createEntity(type, position, pair.getSecond());
     }
 
     /**

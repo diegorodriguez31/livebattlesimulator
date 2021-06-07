@@ -19,7 +19,7 @@ import java.util.*;
 
 public abstract class BattleView extends JPanel implements PropertyChangeListener {
 
-    private List<GraphicalEntity> graphicalEntities;
+    private final List<GraphicalEntity> graphicalEntities;
 
     private final static HashMap<Class<? extends Entity>, String> ENTITY_SPRITE = new HashMap<>();
     public final static List<Color> TEAM_COLORS = new ArrayList<>();

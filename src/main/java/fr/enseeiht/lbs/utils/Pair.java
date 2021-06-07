@@ -3,8 +3,8 @@ package main.java.fr.enseeiht.lbs.utils;
 import java.util.Objects;
 
 public class Pair<T, U> {
-    public T first;
-    public U second;
+    private T first;
+    private U second;
 
     public Pair(T first, U second) {
         this.first = first;
@@ -22,5 +22,13 @@ public class Pair<T, U> {
     @Override
     public int hashCode() {
         return Objects.hash(first, second);
+    }
+
+    public T getFirst() {
+        return first;
+    }
+
+    public U getSecond() {
+        return second;
     }
 }

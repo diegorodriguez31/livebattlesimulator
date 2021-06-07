@@ -14,8 +14,8 @@ import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.mainFrame;
  */
 public class BattleArmiesChoiceController extends JPanel implements GuiComponent {
 
-    JTextField battleName;
-    JSpinner nbArmiesSpinner;
+    private final JTextField battleName;
+    private final JSpinner nbArmiesSpinner;
 
     private static BattleArmiesChoiceController instance;
 
