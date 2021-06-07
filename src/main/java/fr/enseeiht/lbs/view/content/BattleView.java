@@ -21,7 +21,7 @@ import java.util.*;
 public class BattleView extends JPanel implements PropertyChangeListener {
 
     private static final int WORLD_TO_PIXEL = 11;
-    private static int resultCount = 0;
+    public static int resultCount = 0;
 
     private List<GraphicalEntity> graphicalEntities;
 
