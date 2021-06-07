@@ -220,7 +220,6 @@ public class World {
         //Only adds the listener once
         if (!Arrays.asList(propertyChangeSupport.getPropertyChangeListeners(propertyName)).contains(propertyChangeListener)) {
             propertyChangeSupport.addPropertyChangeListener(propertyName, propertyChangeListener);
-            System.out.println("observed");
         }
     }
 

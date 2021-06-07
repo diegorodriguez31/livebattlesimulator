@@ -15,21 +15,10 @@ import main.java.fr.enseeiht.lbs.utils.Vector2;
 import java.util.List;
 
 import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.VERBOSE;
-import static main.java.fr.enseeiht.lbs.model.game_object.unit.RawStatsManager.*;
 
 public class Peasant extends Unit {
 
     public static final int GROUP_RADIUS = 2;
-
-    public Peasant(Vector2 vector, String name, double health, double damage, double cooldown, double speed, double range, double accuracy, double agility) {
-        super(vector, name, health, damage, cooldown, speed, range, accuracy, agility);
-        ai = new ChargeAndHitAI(new AttackAction(this), new FlightMovementAction(this));
-        this.addBuffs(new PeasantGroupBuff());
-    }
-
-    public Peasant(Vector2 vector) {
-        this(vector, PEASANT_NAME, PEASANT_HEALTH, PEASANT_DAMAGE, PEASANT_COOLDOWN, PEASANT_SPEED, PEASANT_RANGE, PEASANT_ACCURACY, PEASANT_AGILITY);
-    }
 
     public Peasant(String name, Stats stats, Vector2 position) {
         super(name, stats, position);

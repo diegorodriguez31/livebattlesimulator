@@ -18,12 +18,4 @@ public class LiveBattleSimulator {
     public static LiveBattleSimulatorGUI mainFrame() {
         return LiveBattleSimulatorGUI.getInstance();
     }
-
-    public static void createArmies() {
-        List<Army> armies = Battle.getInstance().getArmies();
-
-        for (Army army : armies) {
-            army.addUnit(new Knight(new Vector2(10 * (army.getArmyIndex() + 1), 10 * (army.getArmyIndex() + 1))));
-        }
-    }
 }
