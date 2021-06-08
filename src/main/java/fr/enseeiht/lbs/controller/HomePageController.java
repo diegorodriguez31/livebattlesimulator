@@ -1,5 +1,7 @@
 package main.java.fr.enseeiht.lbs.controller;
 
+import main.java.fr.enseeiht.lbs.view.gui.GuiComponent;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -11,9 +13,19 @@ import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.mainFrame;
 /**
  * Controleur qui gère la page d'accueil.
  */
-public class HomePageController extends JPanel {
+public class HomePageController extends JPanel implements GuiComponent {
 
-    public HomePageController() {
+    private static HomePageController instance;
+    private GridBagConstraints layoutConstraint;
+    private JButton editorButton;
+
+    public static HomePageController getInstance(){
+        if (instance == null){
+            instance = new HomePageController();
+        }
+        return instance;
+    }
+    private HomePageController() {
         JLabel title = new JLabel("Live Battle Simulator");
         title.setFont(new Font("Sans Serif", Font.BOLD, 75));
         title.setForeground(new Color(255, 134, 0, 255));
@@ -21,11 +33,9 @@ public class HomePageController extends JPanel {
         JButton battleButton = new JButton("Simuler une bataille");
         battleButton.setFont(new Font("Sans Serif", Font.PLAIN, 30));
 
-        battleButton.addActionListener(actionEvent -> {
-            mainFrame().showBattleArmiesChoice();
-        });
+        battleButton.addActionListener(actionEvent -> mainFrame().showBattleArmiesChoice());
 
-        JButton editorButton = new JButton("Customiser des unités");
+        editorButton = new JButton("Customiser des unités");
         editorButton.setFont(new Font("Sans Serif", Font.PLAIN, 30));
 
         editorButton.addActionListener(actionEvent -> {
@@ -33,7 +43,7 @@ public class HomePageController extends JPanel {
         });
 
         setLayout(new GridBagLayout());
-        GridBagConstraints layoutConstraint = new GridBagConstraints();
+        layoutConstraint = new GridBagConstraints();
 
         layoutConstraint.gridx = 0;
         layoutConstraint.gridy = 0;
@@ -46,6 +56,18 @@ public class HomePageController extends JPanel {
         layoutConstraint.ipadx = 50;    // element width size
         layoutConstraint.insets = new Insets(100, 0, 0, 0);  // padding
         add(battleButton, layoutConstraint);
+
+        this.reset();
+    }
+
+    @Override
+    public void reset() {
+        //do nothing
+    }
+
+    @Override
+    public void init() {
+        //do nothing
         layoutConstraint.gridx = 1;
         add(editorButton, layoutConstraint);
     }

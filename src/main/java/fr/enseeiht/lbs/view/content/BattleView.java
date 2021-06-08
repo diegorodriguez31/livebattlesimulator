@@ -1,6 +1,5 @@
 package main.java.fr.enseeiht.lbs.view.content;
 
-import main.java.fr.enseeiht.lbs.model.battle_simulator.Army;
 import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
 import main.java.fr.enseeiht.lbs.model.game_object.Entity;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
@@ -17,12 +16,9 @@ import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.*;
 
-@SuppressWarnings("serial")
-public class BattleView extends JPanel implements PropertyChangeListener {
+public abstract class BattleView extends JPanel implements PropertyChangeListener {
 
-    private static final int WORLD_TO_PIXEL = 11;
-
-    private List<GraphicalEntity> graphicalEntities;
+    private final List<GraphicalEntity> graphicalEntities;
 
     private final static HashMap<Class<? extends Entity>, String> ENTITY_SPRITE = new HashMap<>();
     public final static List<Color> TEAM_COLORS = new ArrayList<>();
@@ -46,34 +42,30 @@ public class BattleView extends JPanel implements PropertyChangeListener {
         COLORS_NAME.put(TEAM_COLORS.get(5), "dark");
     }
 
-    public BattleView() {
+    protected BattleView() {
         this.setVisible(true);
         //this.setPreferredSize(new Dimension(500, 500));
         //this.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         this.graphicalEntities = new LinkedList<>();
-
-        Battle.getInstance().addObserver(this, Battle.PROPERTY_GAME_OBJECTS);
-        Battle.getInstance().addObserver(this, Battle.PROPERTY_RESULTS);
+        //this.startObserving();
     }
 
     protected Vector2 worldToPixel(Vector2 world) {
-        return world.scale(WORLD_TO_PIXEL);
+        return world.scale(GraphicalEntity.SUPER_PIXEL_SIZE);
     }
 
     protected Vector2 pixelToWorld(Vector2 pixel) {
-        return pixel.scale(1f / WORLD_TO_PIXEL);
+        return pixel.scale(1f / GraphicalEntity.SUPER_PIXEL_SIZE);
     }
 
     public Vector2 pixelToWorld(int x, int y) {
-        return new Vector2(x, y).scale(1f / WORLD_TO_PIXEL);
+        return new Vector2(x, y).scale(1f / GraphicalEntity.SUPER_PIXEL_SIZE);
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
         if (propertyChangeEvent.getPropertyName().equals(Battle.PROPERTY_GAME_OBJECTS)) {
             modifiedGameObjectTreatment(propertyChangeEvent);
-        } else if (propertyChangeEvent.getPropertyName().equals(Battle.PROPERTY_RESULTS)) {
-            endGameTreatment(propertyChangeEvent);
         }
         this.repaint();
         Toolkit.getDefaultToolkit().sync();
@@ -102,15 +94,6 @@ public class BattleView extends JPanel implements PropertyChangeListener {
         }
     }
 
-    protected void endGameTreatment(PropertyChangeEvent propertyChangeEvent) {
-        Army winner = (Army) propertyChangeEvent.getNewValue();
-        Color color = BattleView.TEAM_COLORS.get(winner.getArmyIndex());
-        String colorName = BattleView.COLORS_NAME.get(color);
-        String result = Battle.getInstance().getName() +
-                "\nL'armée " + colorName + " a gagné";
-        JOptionPane.showMessageDialog(null, result);
-    }
-
     @Override
     public void paint(Graphics graphics) {
         super.paint(graphics);
@@ -122,6 +105,16 @@ public class BattleView extends JPanel implements PropertyChangeListener {
     public static String getCorrespondingSprite(Entity entity) {
         return ENTITY_SPRITE.get(entity.getClass());
     }
+
+    protected void startObserving(){
+        Battle.addObserver(this, Battle.PROPERTY_GAME_OBJECTS);
+        this.modifiedGameObjectTreatment(new PropertyChangeEvent(this, Battle.PROPERTY_GAME_OBJECTS, null, Battle.getInstance().getObjects()));
+    }
+
+    protected void stopObserving(){
+        Battle.removeObserver(this, Battle.PROPERTY_GAME_OBJECTS);
+    }
+
 }
 
 

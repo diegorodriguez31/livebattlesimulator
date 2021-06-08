@@ -58,7 +58,7 @@ public class EntityFactory {
     public static Stats getEntityTypeStats(String entity) {
         var entityType = entityTypes.get(entity);
         if (entityType == null) return null;
-        return new Stats(entityType.second);
+        return new Stats(entityType.getSecond());
     }
 
     /**
@@ -70,7 +70,7 @@ public class EntityFactory {
     public static EntityPrimitiveTypes getEntityPrimitiveType(String entity) {
         var entityType = entityTypes.get(entity);
         if (entityType == null) return null;
-        return entityType.first;
+        return entityType.getFirst();
     }
 
     /**
@@ -97,7 +97,7 @@ public class EntityFactory {
      */
     public static Entity createEntity(String type, Vector2 position) {
         Pair<EntityPrimitiveTypes, Stats> pair = entityTypes.get(type);
-        return pair.first.getCreator().createEntity(type, position, pair.second);
+        return pair.getFirst().getCreator().createEntity(type, position, pair.getSecond());
     }
 
     /**
