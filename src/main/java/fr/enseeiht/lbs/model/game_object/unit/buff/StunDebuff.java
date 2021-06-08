@@ -2,8 +2,15 @@ package main.java.fr.enseeiht.lbs.model.game_object.unit.buff;
 
 import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.BuffVisitor;
 
+/**
+ * Débuff de ralentissement entre chaque attaque
+ * pouvant être appliqué à une unité via un visiteur
+ */
 public class StunDebuff implements Buff {
 
+    /**
+     * Durée en seconde ajoutée entre chaque attaque
+     */
     private double seconds;
 
     public StunDebuff(double seconds) {

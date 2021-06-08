@@ -7,7 +7,6 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.standard_unit.Ma
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
 public class MageCreator implements EntityCreator {
-
     /**
      * Creates the entity of a certain primitive type given its position name and stats
      *

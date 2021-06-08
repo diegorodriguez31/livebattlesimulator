@@ -24,7 +24,7 @@ public class BasicStatModifierBuffVisitor implements BuffVisitor {
     @Override
     public void visit(PoisonDebuff buff) {
         stats.addStat(Statistic.SPEED, getStats().getStatisticValue(Statistic.SPEED) / 2);
-        stats.addStat(Statistic.COOLDOWN, buff.getCooldownReducer() * getStats().getStatisticValue(Statistic.COOLDOWN));
+        stats.addStat(Statistic.COOLDOWN, buff.getCooldownIncreaseMulitplier() * getStats().getStatisticValue(Statistic.COOLDOWN));
     }
 
     @Override

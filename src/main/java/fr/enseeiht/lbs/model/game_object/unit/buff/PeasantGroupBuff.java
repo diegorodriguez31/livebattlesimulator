@@ -3,11 +3,18 @@ package main.java.fr.enseeiht.lbs.model.game_object.unit.buff;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.BuffVisitor;
 
 /**
- * Buff de rapidité de déplacement
+ * Buff de rapidité de déplacement et d'attaque
  */
 public class PeasantGroupBuff implements Buff {
 
+    /**
+     * Mulitplicateur de vitesse de déplacement
+     */
     private double speedMultiplier;
+
+    /**
+     * Mulitplicateur de réduction du temps entre chaque attaque
+     */
     private double cooldownReducer;
 
     public PeasantGroupBuff(double speedMultiplier, double cooldownReducer) {

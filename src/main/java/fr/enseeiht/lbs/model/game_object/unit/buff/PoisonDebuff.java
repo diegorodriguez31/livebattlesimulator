@@ -2,14 +2,24 @@ package main.java.fr.enseeiht.lbs.model.game_object.unit.buff;
 
 import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.BuffVisitor;
 
+/**
+ * Débuff de poison pouvant être appliqué à une unité via un visiteur
+ */
 public class PoisonDebuff implements Buff {
 
+    /**
+     * Montant des dégâts de poison par secondes
+     */
     private double ticDamage;
-    private double cooldownReducer;
 
-    public PoisonDebuff(double ticDamage, double cooldownReducer) {
+    /**
+     * Mulitplicateur d'augmentation du temps entre chaque attaque
+     */
+    private double cooldownIncreaseMulitplier;
+
+    public PoisonDebuff(double ticDamage, double cooldownIncreaseMulitplier) {
         this.ticDamage = ticDamage;
-        this.cooldownReducer = cooldownReducer;
+        this.cooldownIncreaseMulitplier = cooldownIncreaseMulitplier;
     }
 
     @Override
@@ -21,12 +31,7 @@ public class PoisonDebuff implements Buff {
         return ticDamage;
     }
 
-    public double getCooldownReducer() {
-        return cooldownReducer;
-    }
-
-    @Override
-    public boolean equals(Object buff) {
-        return buff instanceof PoisonDebuff;
+    public double getCooldownIncreaseMulitplier() {
+        return cooldownIncreaseMulitplier;
     }
 }
