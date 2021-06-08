@@ -72,6 +72,11 @@ public class Battle {
         propertyChangeSupport.firePropertyChange(Battle.PROPERTY_GAME_OBJECTS, null, objects);
     }
 
+    /**
+     * Starts the battle in a new thread and check if the battle state is valid
+     *
+     * @throws InvalidBattleStateException thrown if no unit is present
+     */
     public void runAsync() throws InvalidBattleStateException {
         if (armies.stream().mapToLong(army -> army.getUnits().size()).sum() == 0) {
             throw new InvalidBattleStateException("Cant start a battle without any unit in it");
@@ -79,6 +84,9 @@ public class Battle {
         new Thread(this::run).start();
     }
 
+    /**
+     * Contains the main game loop
+     */
     private void run() {
         long lastTime = System.currentTimeMillis();
         long tempTotal = 0;
