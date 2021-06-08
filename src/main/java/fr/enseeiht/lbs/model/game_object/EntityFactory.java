@@ -3,16 +3,20 @@ package main.java.fr.enseeiht.lbs.model.game_object;
 import main.java.fr.enseeiht.lbs.utils.Pair;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
 public class EntityFactory {
+
+
     /**
      * Exception triggered in the case someone tries to modified the base unit of the game
      */
-    static class UnmodifiableTypeException extends Exception {
+    public static class UnmodifiableTypeException extends Exception {
         public UnmodifiableTypeException(String types) {
             super("Cant modify entity type : " + types);
         }
@@ -22,6 +26,10 @@ public class EntityFactory {
     private static final Set<String> INITIAL_UNITS = new HashSet<String>(Arrays.asList("Farmer", "Knight"));
     private static final String SAVE_PATH = "save/units.json";
     private static final HashMap<String, Pair<EntityPrimitiveTypes, Stats>> entityTypes = new HashMap<>();
+
+    private static final PropertyChangeSupport eventSuport = new PropertyChangeSupport(entityTypes);
+    public static final String EVENT_LIST_CHANGE = "EVENT_LIST_CHANGE";
+
 
     static {
         //Initialisation of the units type
@@ -76,6 +84,7 @@ public class EntityFactory {
         if (INITIAL_UNITS.contains(type)) throw new UnmodifiableTypeException(type);
         var entityType = entityTypes.remove(type);
         save();
+        eventSuport.firePropertyChange(EVENT_LIST_CHANGE, null, entityTypes);
         return entityType != null;
     }
 
@@ -104,6 +113,7 @@ public class EntityFactory {
         if (INITIAL_UNITS.contains(type)) throw new UnmodifiableTypeException(type);
         boolean r = entityTypes.put(type, new Pair<>(primitive, stats)) != null;
         save();
+        eventSuport.firePropertyChange(EVENT_LIST_CHANGE, null, entityTypes);
         return r;
     }
 
@@ -126,6 +136,14 @@ public class EntityFactory {
         String result = s.hasNext() ? s.next() : "";
         entityTypes.putAll(SERIALIZER.parse(result));
         entityTypes.putAll(SERIALIZER.parse(Files.readString(Path.of(SAVE_PATH))));
+    }
+
+    public static Set<String> getInitialUnit() {
+        return INITIAL_UNITS;
+    }
+
+    public static void addPropertyChangeListener(String type, PropertyChangeListener listener) {
+        eventSuport.addPropertyChangeListener(type, listener);
     }
 
 }
