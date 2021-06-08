@@ -68,8 +68,8 @@ public abstract class Unit extends Entity {
         System.out.println("\tAgility : " + getStats().getStatisticValue(Statistic.AGILITY));
         System.out.println("\tElement : "+getFieldElement());
         //tests
-        System.out.println("\t X :"+getPosition().x);
-        System.out.println("\t Y :"+getPosition().y);
+        System.out.println("\t X :"+getPosition().getX());
+        System.out.println("\t Y :"+getPosition().getY());
     }
 
     // method inspired by Unity Game Motor

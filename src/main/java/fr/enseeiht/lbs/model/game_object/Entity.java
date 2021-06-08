@@ -45,8 +45,8 @@ public abstract class Entity extends GameObject {
 
     public WorldElement getFieldElement(){
         Vector2 position = this.getPosition();
-        int EntityY = (int) (position.y/3.2);
-        int EntityX = (int)(position.x/4.7);
+        int EntityY = (int) (position.getY()*1.08);
+        int EntityX = (int)(position.getX()*1.85);
         if(EntityY >= World.getInstance().getSizeY()){ EntityY = World.getInstance().getSizeY();}
         if(EntityX >= World.getInstance().getSizeX()){ EntityX = World.getInstance().getSizeX();}
         getSqrSize();

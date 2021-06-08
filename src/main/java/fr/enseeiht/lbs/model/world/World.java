@@ -88,8 +88,8 @@ public class World {
             boolean[][] cellmap;
             cellmap = initialiseMap(worldElements, value, nbTiles);
             //affichcells(cellmap);
-            int numberOfSteps = 7;//nombre de fois que l'algo "game of life" est run
-            int deathLimit = 2; //si moins de 2 true adjacents, la cellule devient false
+            int numberOfSteps = 10;//nombre de fois que l'algo "game of life" est run
+            int deathLimit = 3; //si moins de 2 true adjacents, la cellule devient false
             int birthLimit = 3; //si plus de 4 true à côté, la cellule devient true
 
             for (int i = 0; i < numberOfSteps; i++) {

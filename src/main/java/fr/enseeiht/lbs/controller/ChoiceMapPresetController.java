@@ -10,10 +10,14 @@ public class ChoiceMapPresetController extends JPanel {
     private final static String DEFAULT_WORLD = "terrain classique";
     private final static String DRY_WORLD = "terrain sec (désert et roches)";
     private final static String WET_WORLD = "terrain humide (forêt et eau)";
+    private final static String LAVA_WORLD = "terrain volcanique (lave, rock)";
+    private final static String COLD_WORLD = "terrain froid (forêt, neige)";
 
     private final JRadioButton defaultButton;
     private final JRadioButton wetButton;
     private final JRadioButton dryButton;
+    private final JRadioButton lavaButton;
+    private final JRadioButton coldButton;
     private final JCheckBox rockButton;
 
     private static int activeChoice;
@@ -25,24 +29,30 @@ public class ChoiceMapPresetController extends JPanel {
     private ChoiceMapPresetController() {
         //le main panel permet d'afficher les boutons radio en groupe au lieu de les espacer sur la page
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new GridLayout(4, 1));
+        mainPanel.setLayout(new GridLayout(6, 1));
         this.add(mainPanel);
 
 
         defaultButton = new JRadioButton(DEFAULT_WORLD);
         wetButton = new JRadioButton(WET_WORLD);
         dryButton = new JRadioButton(DRY_WORLD);
+        lavaButton = new JRadioButton(LAVA_WORLD);
+        coldButton = new JRadioButton(COLD_WORLD);
         rockButton = new JCheckBox("plus grand nombre de roches");
 
         mainPanel.add(defaultButton);
         mainPanel.add(wetButton);
         mainPanel.add(dryButton);
+        mainPanel.add(lavaButton);
+        mainPanel.add(coldButton);
         mainPanel.add(rockButton);
 
         ButtonGroup group = new ButtonGroup();
         group.add(defaultButton);
         group.add(dryButton);
         group.add(wetButton);
+        group.add(lavaButton);
+        group.add(coldButton);
 
         init();
 
@@ -54,6 +64,12 @@ public class ChoiceMapPresetController extends JPanel {
 
         dryButton.setActionCommand(DRY_WORLD);
         dryButton.addActionListener(actionEvent -> updateActiveChoice(dryButton.getActionCommand()));
+
+        lavaButton.setActionCommand(LAVA_WORLD);
+        lavaButton.addActionListener(actionEvent -> updateActiveChoice(lavaButton.getActionCommand()));
+
+        coldButton.setActionCommand(COLD_WORLD);
+        coldButton.addActionListener(actionEvent -> updateActiveChoice(coldButton.getActionCommand()));
 
         rockButton.setMnemonic(KeyEvent.VK_C);
         rockButton.addActionListener(actionEvent -> rocks = !rocks);
@@ -74,6 +90,8 @@ public class ChoiceMapPresetController extends JPanel {
         defaultButton.setSelected(true);
         wetButton.setSelected(false);
         dryButton.setSelected(false);
+        lavaButton.setSelected(false);
+        coldButton.setSelected(false);
         rockButton.setSelected(false);
 
     }
@@ -83,11 +101,17 @@ public class ChoiceMapPresetController extends JPanel {
             case DEFAULT_WORLD:
                 activeChoice = 0;
                 break;
-            case DRY_WORLD:
+            case WET_WORLD:
                 activeChoice = 1;
                 break;
-            case WET_WORLD:
+            case DRY_WORLD:
                 activeChoice = 2;
+                break;
+            case LAVA_WORLD:
+                activeChoice = 3;
+                break;
+            case COLD_WORLD:
+                activeChoice = 4;
                 break;
         }
     }

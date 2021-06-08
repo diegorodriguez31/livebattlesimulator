@@ -21,8 +21,8 @@ public class WorldChoiceView extends JPanel implements GuiComponent {
     }
 
     private WorldChoiceView() {
-        this.setLocation(100, 200);
-        this.setSize(1200, 800);
+        //this.setLocation(100, 200);
+        //this.setSize(1200, 800);
         this.setBorder(BorderFactory.createEmptyBorder(50, 10, 10, 10));
 
         //Panneaux de choix à gauche
@@ -34,13 +34,13 @@ public class WorldChoiceView extends JPanel implements GuiComponent {
         //Le bouton reload est cliqué afin d'initialiser un nouveau World !
         ChoiceMapButtonsController navigation = new ChoiceMapButtonsController();
         choixMapPresetController.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 20));
-        navigation.setPreferredSize(new Dimension(1200, 50));
+        //navigation.setPreferredSize(new Dimension(1200, 50));
 
         //Panneau central (la carte)
         //Doit être créé après l'initialisation du world
         worldView = new WorldView();
-        worldView.setPreferredSize(new Dimension(700, 700));
-        worldView.setBorder(BorderFactory.createEmptyBorder(0, 20, 20, 20));
+        worldView.setPreferredSize(new Dimension(900, 600));
+        worldView.setBorder(BorderFactory.createEmptyBorder(0, 40, 20, 40));
 
         this.setLayout(new BorderLayout());
         this.add(worldView, BorderLayout.CENTER);

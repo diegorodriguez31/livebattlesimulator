@@ -42,6 +42,11 @@ public class UnitPlacementController extends JPanel implements GuiComponent {
 
         // Creates the view of the game
         battleWorldView = new BattleWorldView();
+        battleWorldView.setPreferredSize(new Dimension(950,620));
+        JPanel mainpanel = new JPanel();
+        //mainpanel.setPreferredSize(new Dimension(900,700));
+        mainpanel.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
+        mainpanel.add(battleWorldView);
         battleWorldView.addMouseListener(new MouseInputListener() {
             @Override
             public void mouseReleased(MouseEvent mouseEvent) {
@@ -64,13 +69,13 @@ public class UnitPlacementController extends JPanel implements GuiComponent {
         this.group = new ButtonGroup();
 
         this.unitTypePanel = new JPanel();
-        this.unitTypePanel.setPreferredSize(new Dimension(150, 500));
+        this.unitTypePanel.setPreferredSize(new Dimension(100, 700));
         this.unitTypePanel.setLayout(new BoxLayout(unitTypePanel, BoxLayout.Y_AXIS));
 
         //Setting up the army list
         this.unitListView = new UnitListView();
         JScrollPane scrll = new JScrollPane(this.unitListView, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrll.setPreferredSize(new Dimension(150, 480));
+        scrll.setPreferredSize(new Dimension(10, 480));
 
         //Setting up the army selector
         this.armySelect = new JComboBox<>();
@@ -84,9 +89,10 @@ public class UnitPlacementController extends JPanel implements GuiComponent {
         });
 
         JButton cancelButton = new HomePageButtonController();
+        cancelButton.setFont(new Font("Sans Serif", Font.PLAIN, 20));
 
         JPanel armyPanel = new JPanel();
-        armyPanel.setPreferredSize(new Dimension(150, 500));
+        armyPanel.setPreferredSize(new Dimension(200, 500));
         armyPanel.setLayout(new BoxLayout(armyPanel, BoxLayout.Y_AXIS));
         armyPanel.add(this.armySelect);
         armyPanel.add(scrll);
@@ -94,7 +100,7 @@ public class UnitPlacementController extends JPanel implements GuiComponent {
         armyPanel.add(cancelButton);
 
         this.setLayout(new BorderLayout());
-        this.add(battleWorldView, BorderLayout.CENTER);
+        this.add(mainpanel, BorderLayout.CENTER);
         this.add(this.unitTypePanel, BorderLayout.WEST);
         this.add(armyPanel, BorderLayout.EAST);
 

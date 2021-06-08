@@ -14,7 +14,7 @@ public class BattleWorldView extends BattleView implements PropertyChangeListene
         super();
         World world = World.getInstance();
         this.setLayout(new GridLayout(world.getSizeX(), world.getSizeY()));//construit une grille de la même taille que le tableau de char
-        //this.setPreferredSize(new Dimension(800, 800));
+        this.setPreferredSize(new Dimension(700, 700));
         this.startObserving();
         this.updateWorldRepresentation();
         this.setVisible(true);
