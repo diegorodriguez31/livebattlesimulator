@@ -20,7 +20,6 @@ public class TrollAttack extends AttackAction {
             target.receiveDamage(attaquant.getStats().getStatisticValue(Statistic.DAMAGE));
 
             PoisonDebuff poisonDebuff = new PoisonDebuff(10, 0.5);
-
             if (!target.hasBuff(poisonDebuff)) {
                 target.addBuffs(poisonDebuff);
             }

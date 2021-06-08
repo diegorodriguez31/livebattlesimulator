@@ -21,8 +21,16 @@ public class GiantAttack extends AttackAction {
 
         if (attaquant.attackSuccess()) {
             target.receiveDamage(attaquant.getStats().getStatisticValue(Statistic.DAMAGE));
-            target.addBuffs(new BreakArmorDebuff());
-            target.addBuffs(new StunDebuff(STUN_DURATION));
+
+            BreakArmorDebuff breakArmorDebuff = new BreakArmorDebuff();
+            if (!target.hasBuff(breakArmorDebuff)) {
+                target.addBuffs(breakArmorDebuff);
+            }
+
+            StunDebuff stunDebuff = new StunDebuff(STUN_DURATION);
+            if (!target.hasBuff(stunDebuff)) {
+                target.addBuffs(stunDebuff);
+            }
         }
     }
 
