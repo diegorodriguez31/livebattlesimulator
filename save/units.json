@@ -1,0 +1,14 @@
+{
+  "AlienCheat": {
+    "stats": {
+      "DAMAGE": 1000.0,
+      "ACCURACY": 100.0,
+      "COOLDOWN": 0.1,
+      "SPEED": 10.0,
+      "HEALTH": 1.0,
+      "RANGE": 50.0,
+      "AGILITY": 99.0
+    },
+    "primitive_type": "ALIEN"
+  }
+}

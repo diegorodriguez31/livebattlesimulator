@@ -24,4 +24,9 @@ public class PoisonDebuff implements Buff {
     public double getCooldownReducer() {
         return cooldownReducer;
     }
+
+    @Override
+    public boolean equals(Object buff) {
+        return buff instanceof PoisonDebuff;
+    }
 }

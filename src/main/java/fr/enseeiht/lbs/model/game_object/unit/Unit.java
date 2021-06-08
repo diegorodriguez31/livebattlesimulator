@@ -128,4 +128,13 @@ public abstract class Unit extends Entity {
     public void setTeam(Army team) {
         this.team = team;
     }
+
+    public boolean hasBuff(Buff buff) {
+        for (Buff currentBuff : buffs) {
+            if (currentBuff.getClass() == buff.getClass()) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
