@@ -1,9 +1,9 @@
 package main.java.fr.enseeiht.lbs.view.content;
 
+import main.java.fr.enseeiht.lbs.controller.HomePageButtonController;
 import main.java.fr.enseeiht.lbs.controller.UnitEditor;
 import main.java.fr.enseeiht.lbs.controller.UnitListController;
 import main.java.fr.enseeiht.lbs.view.gui.GuiComponent;
-import main.java.fr.enseeiht.lbs.view.gui.LiveBattleSimulatorGUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,10 +27,7 @@ public class UnitEditorView extends JPanel implements GuiComponent {
         list.addSelectActionListener(actionEvent -> editor.setEditedUnit(actionEvent.getActionCommand()));
 
         // Home button
-        JButton homeButton = new JButton("Accueil");
-        homeButton.addActionListener(actionEvent -> {
-            LiveBattleSimulatorGUI.getInstance().showHomePage();
-        });
+        JButton homeButton = new HomePageButtonController();
 
         // Layout
         list.setPreferredSize(new Dimension(200, 500));

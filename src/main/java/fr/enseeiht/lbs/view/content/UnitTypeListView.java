@@ -12,12 +12,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class UnitTypeList extends JPanel implements PropertyChangeListener {
+public class UnitTypeListView extends JPanel implements PropertyChangeListener {
     private String selectedUnitType;
     private final HashMap<String, JButton> buttons = new HashMap<>();
     private final List<ActionListener> listeners = new ArrayList<>();
 
-    public UnitTypeList() {
+    public UnitTypeListView() {
         super();
         BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(layout);
