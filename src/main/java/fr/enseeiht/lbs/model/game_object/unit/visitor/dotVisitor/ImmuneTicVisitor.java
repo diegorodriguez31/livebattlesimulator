@@ -15,7 +15,7 @@ public class ImmuneTicVisitor extends BasicTicVisitor {
     }
 
     @Override
-    public void visit(FreezeDebuff buff) {
+    public void visit(PoisonDebuff buff) {
         // do nothing
     }
 

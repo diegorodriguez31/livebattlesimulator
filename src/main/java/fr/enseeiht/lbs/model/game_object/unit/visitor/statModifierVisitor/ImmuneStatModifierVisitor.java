@@ -16,7 +16,7 @@ public class ImmuneStatModifierVisitor extends BasicStatModifierBuffVisitor {
     }
 
     @Override
-    public void visit(FreezeDebuff buff) {
+    public void visit(PoisonDebuff buff) {
         // do nothing
     }
 

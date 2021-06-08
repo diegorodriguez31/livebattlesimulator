@@ -20,7 +20,7 @@ public class BasicTicVisitor implements BuffVisitor {
     }
 
     @Override
-    public void visit(FreezeDebuff buff) {
+    public void visit(PoisonDebuff buff) {
         unit.receiveDamage(buff.getTicDamage() * deltaTime/1000);
     }
 

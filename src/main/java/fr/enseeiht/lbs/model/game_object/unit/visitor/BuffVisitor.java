@@ -5,7 +5,7 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.*;
 public interface BuffVisitor {
     void visit(FireDebuff buff);
 
-    void visit(FreezeDebuff buff);
+    void visit(PoisonDebuff buff);
 
     void visit(SlowDebuff buff);
 

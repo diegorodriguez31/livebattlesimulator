@@ -2,12 +2,14 @@ package main.java.fr.enseeiht.lbs.model.game_object.unit.buff;
 
 import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.BuffVisitor;
 
-public class FreezeDebuff implements Buff {
+public class PoisonDebuff implements Buff {
 
     private double ticDamage;
+    private double cooldownReducer;
 
-    public FreezeDebuff(double ticDamage) {
+    public PoisonDebuff(double ticDamage, double cooldownReducer) {
         this.ticDamage = ticDamage;
+        this.cooldownReducer = cooldownReducer;
     }
 
     @Override
@@ -17,5 +19,9 @@ public class FreezeDebuff implements Buff {
 
     public double getTicDamage() {
         return ticDamage;
+    }
+
+    public double getCooldownReducer() {
+        return cooldownReducer;
     }
 }
