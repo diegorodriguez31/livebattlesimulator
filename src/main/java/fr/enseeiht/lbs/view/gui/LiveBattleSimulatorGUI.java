@@ -3,8 +3,6 @@ package main.java.fr.enseeiht.lbs.view.gui;
 import main.java.fr.enseeiht.lbs.controller.BattleArmiesChoiceController;
 import main.java.fr.enseeiht.lbs.controller.HomePageController;
 import main.java.fr.enseeiht.lbs.controller.UnitPlacementController;
-import main.java.fr.enseeiht.lbs.controller.UnitPlacementController;
-import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.view.content.BattleSimulationView;
 import main.java.fr.enseeiht.lbs.view.content.WorldChoiceView;
 
@@ -17,26 +15,21 @@ import java.awt.*;
  */
 public class LiveBattleSimulatorGUI extends JFrame {
 
-    public static final String UNIT_EDITOR_CARD = "UNIT_EDITOR_CARD";
-    static LiveBattleSimulatorGUI instance;
+    private static LiveBattleSimulatorGUI instance;
 
-    static JPanel cards;
-    private final UnitEditorView unitEditorView;
-
-    private BattleSimulationView battleSimulationView;
-    private UnitPlacementController unitPlacementController;
-
+    private static JPanel cards;
 
     /**
      * Identifiants des cards
      */
-    static final String HOME_PAGE_CARD = "HOME_PAGE_CARD";
-    static final String ARMIES_NB_CHOICES_CARD = "ARMIES_NB_CHOICES_CARD";
-    static final String BATTLE_SIMULATION_CARD = "BATTLE_SIMULATION_CARD";
-    static final String WORLD_CHOICE_CARD = "WORLD_CHOICE_CARD";
-    static final String UNIT_PLACEMENT_CARD = "UNIT_PLACEMENT_CARD";
+    private static final String HOME_PAGE_CARD = "HOME_PAGE_CARD";
+    private static final String ARMIES_NB_CHOICES_CARD = "ARMIES_NB_CHOICES_CARD";
+    private static final String BATTLE_SIMULATION_CARD = "BATTLE_SIMULATION_CARD";
+    private static final String WORLD_CHOICE_CARD = "WORLD_CHOICE_CARD";
+    private static final String UNIT_PLACEMENT_CARD = "UNIT_PLACEMENT_CARD";
 
     private GuiComponent acutalComponent;
+
 
     /**
      * Singleton pour n'avoir qu'une seule instance de la fenêtre.
@@ -64,13 +57,7 @@ public class LiveBattleSimulatorGUI extends JFrame {
         cards.add(UnitPlacementController.getInstance(), UNIT_PLACEMENT_CARD);
         cards.add(BattleSimulationView.getInstance(), BATTLE_SIMULATION_CARD);
 
-        World world = World.getInstance();
-        world.generateWorld(10, 20, 5, 25, 40);
-        cards.add(new WorldChoiceView(), WORLD_CHOICE_CARD);
-        unitPlacementController = new UnitPlacementController();
-        unitEditorView = new UnitEditorView();
-        cards.add(unitEditorView, UNIT_EDITOR_CARD);
-
+        acutalComponent = homePageController;
         showHomePage();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
@@ -136,26 +123,5 @@ public class LiveBattleSimulatorGUI extends JFrame {
         this.pack();
         this.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
         this.setVisible(true);
-        setChangesReady();
-    }
-
-    /**
-     * Affiche la vue d'edition.
-     */
-    public void showUnitEditor() {
-        CardLayout cl = (CardLayout) (cards.getLayout());
-        cl.show(cards, UNIT_EDITOR_CARD);
-
-        setChangesReady();
-    }
-
-
-    /**
-     * Rend les panels prêts à l'affichage.
-     */
-    private void setChangesReady() {
-        pack();
-        setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
-        setVisible(true);
     }
 }

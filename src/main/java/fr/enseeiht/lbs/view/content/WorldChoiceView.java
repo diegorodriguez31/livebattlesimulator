@@ -13,6 +13,13 @@ public class WorldChoiceView extends JPanel implements GuiComponent {
 
     private static WorldChoiceView instance;
 
+    public static WorldChoiceView getInstance(){
+        if (instance == null){
+            instance = new WorldChoiceView();
+        }
+        return instance;
+    }
+
     private WorldChoiceView() {
         this.setLocation(100, 200);
         this.setSize(1200, 800);
@@ -42,13 +49,6 @@ public class WorldChoiceView extends JPanel implements GuiComponent {
 
         this.reset();
         this.setVisible(true);
-    }
-
-    public static WorldChoiceView getInstance(){
-        if (instance == null){
-            instance = new WorldChoiceView();
-        }
-        return instance;
     }
 
     @Override

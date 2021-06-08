@@ -1,8 +1,8 @@
 package main.java.fr.enseeiht.lbs.controller;
 
-import javax.imageio.ImageIO;
 import main.java.fr.enseeiht.lbs.view.gui.GuiComponent;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -16,6 +16,8 @@ import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.mainFrame;
 public class HomePageController extends JPanel implements GuiComponent {
 
     private static HomePageController instance;
+    private GridBagConstraints layoutConstraint;
+    private JButton editorButton;
 
     public static HomePageController getInstance(){
         if (instance == null){
@@ -33,7 +35,7 @@ public class HomePageController extends JPanel implements GuiComponent {
 
         battleButton.addActionListener(actionEvent -> mainFrame().showBattleArmiesChoice());
 
-        JButton editorButton = new JButton("Customiser des unités");
+        editorButton = new JButton("Customiser des unités");
         editorButton.setFont(new Font("Sans Serif", Font.PLAIN, 30));
 
         editorButton.addActionListener(actionEvent -> {
@@ -41,7 +43,7 @@ public class HomePageController extends JPanel implements GuiComponent {
         });
 
         setLayout(new GridBagLayout());
-        GridBagConstraints layoutConstraint = new GridBagConstraints();
+        layoutConstraint = new GridBagConstraints();
 
         layoutConstraint.gridx = 0;
         layoutConstraint.gridy = 0;

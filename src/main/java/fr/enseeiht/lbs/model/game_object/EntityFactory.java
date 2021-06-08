@@ -97,7 +97,7 @@ public class EntityFactory {
      */
     public static Entity createEntity(String type, Vector2 position) {
         Pair<EntityPrimitiveTypes, Stats> pair = entityTypes.get(type);
-        return pair.first.getCreator().createEntity(type, position, pair.second);
+        return pair.getFirst().getCreator().createEntity(type, position, pair.getSecond());
     }
 
     /**

@@ -17,7 +17,6 @@ import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.VERBOSE;
 
 public class Battle {
 
-
     private String name;
 
     private final static PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(Battle.class);

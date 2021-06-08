@@ -61,11 +61,11 @@ public class JSONEntitySerializer implements EntitySerializer {
         JsonObject entityObject = new JsonObject();
         JsonObject statObject = new JsonObject();
         for (Map.Entry<Statistic, Double> entry :
-                content.second.getStatistics().entrySet()) {
+                content.getSecond().getStatistics().entrySet()) {
             statObject.add(entry.getKey().name(), new JsonPrimitive(entry.getValue()));
         }
         entityObject.add(STATS, statObject);
-        entityObject.add(JSONEntitySerializer.PRIMITIVE_TYPE, new JsonPrimitive(content.first.name()));
+        entityObject.add(JSONEntitySerializer.PRIMITIVE_TYPE, new JsonPrimitive(content.getFirst().name()));
         return entityObject;
     }
 
