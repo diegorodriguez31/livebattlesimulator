@@ -16,6 +16,10 @@ public class Knight extends ArmoredUnit {
         ai = new ChargeAndHitAI(new AttackAction(this), new FlightMovementAction(this));
     }
 
+    /**
+     * Le Knight régait de manière unique aux tics de dégâts
+     * (voir KnightTicVisitor)
+     */
     protected BasicTicVisitor getTicVisitor(long deltaTime) {
         return new KnightTicVisitor(deltaTime, this);
     }

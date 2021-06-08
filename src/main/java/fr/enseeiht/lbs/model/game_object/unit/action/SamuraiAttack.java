@@ -5,12 +5,12 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.FireDebuff;
 
 /**
- * Actions made when an Samurai attacks
+ * Actions effectuées lors d'une attaque d'un samourai
  */
 public class SamuraiAttack extends AttackAction {
 
     /**
-     * Fire debuff amout of damage per seconds (tic)
+     * Montant des dégâts de tics de feu
      */
     private static final double FIRE_TIC_DAMAGE = 10.0;
 
@@ -19,9 +19,9 @@ public class SamuraiAttack extends AttackAction {
     }
 
     /**
-     * During the Samurai attack
-     * the target receive damages depending on the attacking unit damage stat
-     * the Samurai apply fire to the target
+     * Pendant l'attaque du samourai
+     * le samourai fait des dégâts à la cible
+     * le samourai applique du feu à la cible
      */
     @Override
     public void execute(long deltaTime) {

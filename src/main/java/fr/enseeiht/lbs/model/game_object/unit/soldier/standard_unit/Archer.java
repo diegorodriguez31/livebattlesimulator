@@ -10,6 +10,9 @@ import main.java.fr.enseeiht.lbs.utils.Vector2;
 
 public class Archer extends Unit {
 
+    /**
+     * Compteur de flèches tirées
+     */
     private int nbArrowsShot;
 
     public Archer(String name, Stats stats, Vector2 position) {
@@ -18,6 +21,9 @@ public class Archer extends Unit {
         ai = new ChargeAndHitAI(new ArcherAttack(this), new FlightMovementAction(this));
     }
 
+    /**
+     * Incrémente modulo 3 le compteur de flèches tirées
+     */
     public void updateNbArrowsShot(){
         nbArrowsShot = nbArrowsShot == 3 ? 1 : nbArrowsShot + 1;
     }

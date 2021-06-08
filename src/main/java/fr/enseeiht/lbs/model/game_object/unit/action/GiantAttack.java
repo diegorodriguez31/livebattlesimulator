@@ -6,12 +6,12 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.BreakArmorDebuff;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.StunDebuff;
 
 /**
- * Actions made when an Giant attacks
+ * Actions effectuées lors d'une attaque d'un géant
  */
 public class GiantAttack extends AttackAction {
 
     /**
-     * Stun debuff duration in seconds
+     * Durée de l'étourdissement en secondes
      */
     private static final double STUN_DURATION = 1.0;
 
@@ -20,10 +20,10 @@ public class GiantAttack extends AttackAction {
     }
 
     /**
-     * During the Giant attack
-     * the target receive damages depending on the attacking unit damage stat
-     * the giant break the target armor
-     * the giant increase the target cooldown (time beetween each attack)
+     * Pendant l'attaque du géant
+     * la cible reçoit des dégâts
+     * le géant brise l'armure de la cible
+     * le géant étourdit la cible (elle met plus de temps avant de frapper à nouveau)
      */
     @Override
     public void execute(long deltaTime) {

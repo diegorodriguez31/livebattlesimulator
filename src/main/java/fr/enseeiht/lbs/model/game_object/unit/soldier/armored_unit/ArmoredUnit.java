@@ -10,6 +10,9 @@ import main.java.fr.enseeiht.lbs.utils.Vector2;
 
 import static main.java.fr.enseeiht.lbs.model.game_object.Statistic.ARMOR;
 
+/**
+ * Factorise les comportements d'Unités liées à l'armure
+ */
 public abstract class ArmoredUnit extends Unit {
 
     public ArmoredUnit(String name, Stats stats, Vector2 position) {
@@ -24,6 +27,10 @@ public abstract class ArmoredUnit extends Unit {
         System.out.println("\n");
     }
 
+    /**
+     * Réduit les dégâts sur la santé en fonction de l'armure
+     * (armure = pourcentage de réduction de dégâts)
+     */
     @Override
     public void receiveDamage(double damage) {
         double reducedDamage = damage - (damage * (getStats().getStatisticValue(ARMOR) / 100));

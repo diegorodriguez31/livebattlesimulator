@@ -4,7 +4,6 @@ import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
 import main.java.fr.enseeiht.lbs.model.game_object.Stats;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.action.AlienAttack;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.action.AttackAction;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.action.FlightMovementAction;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.ai.ChargeAndHitAI;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.dotVisitor.BasicTicVisitor;
@@ -31,11 +30,17 @@ public class Alien extends Unit {
         return nbShotDone;
     }
 
+    /**
+     * L'alien est immunisé débuffs qui modifient les statistiques
+     */
     @Override
     protected BasicStatModifierBuffVisitor getStatModifierVisitor() {
         return new ImmuneStatModifierVisitor(stats, this);
     }
 
+    /**
+     * L'alien est immunisé aux tics de dégâts
+     */
     @Override
     protected BasicTicVisitor getTicVisitor(long deltaTime) {
         return new ImmuneTicVisitor(deltaTime, this);

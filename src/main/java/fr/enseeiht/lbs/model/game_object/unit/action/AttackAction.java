@@ -4,7 +4,7 @@ import main.java.fr.enseeiht.lbs.model.game_object.Statistic;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
 
 /**
- * Actions made during a basic attack
+ * Actions effectuées lors d'une attaque de base
  */
 public class AttackAction implements IAttackAction {
 
@@ -17,8 +17,8 @@ public class AttackAction implements IAttackAction {
     }
 
     /**
-     * During the basic attack
-     * target receive damages depending on the attacking unit damage stat
+     * Pendant l'attaque de base
+     * la cible reçoit des dégâts du montant de ceux de l'attaquant
      */
     @Override
     public void execute(long deltaTime) {

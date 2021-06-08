@@ -5,17 +5,17 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.PoisonDebuff;
 
 /**
- * Actions made when an Troll attacks
+ * Actions effectuées lors d'une attaque d'un troll
  */
 public class TrollAttack extends AttackAction {
 
     /**
-     * Poison debuff amout of damage per seconds (tic)
+     * Montant des dégâts de tics de poison
      */
     private static final double POISON_TIC_DAMAGE = 10.0;
 
     /**
-     * Cooldown increase multiplier
+     * Multiplicateur de temps entre chaque action de la cible
      */
     private static final double COOLDOWN_INCREASE_MULTIPLIER = 1.5;
 
@@ -24,9 +24,9 @@ public class TrollAttack extends AttackAction {
     }
 
     /**
-     * During the Troll attack
-     * the target receive damages depending on the attacking unit damage stat
-     * the Troll apply poison to the target
+     * Pendant l'attaque du troll
+     * la cible reçoit des dégâts
+     * le troll applique du poison à la cible
      */
     @Override
     public void execute(long deltaTime) {

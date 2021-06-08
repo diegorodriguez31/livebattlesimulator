@@ -8,12 +8,12 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.standard_unit.Alien;
 
 /**
- * Actions made when an Alien attacks
+ * Actions effectuées lors d'une attaque d'alien
  */
 public class AlienAttack extends AttackAction {
 
     /**
-     * Special shot indice (1 special shot over 3)
+     * Indice de tir spécial (1 tir sur 3)
      */
     private static final int SHOTS_BEFORE_SPECIAL_SHOT = 3;
 
@@ -22,9 +22,9 @@ public class AlienAttack extends AttackAction {
     }
 
     /**
-     * During the alien attack
-     * normal shots apply damages to the target
-     * 1 shot over 3, the special shot changes an ennemy into an allie alien
+     * Pendant l'attaque de l'alien
+     * 1 tir normal fait des dégâts à la cible
+     * 1 tir sur 3, la cible est transformée en alien allié
      */
     @Override
     public void execute(long deltaTime) {

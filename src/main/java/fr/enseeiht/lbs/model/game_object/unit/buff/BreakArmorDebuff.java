@@ -3,7 +3,7 @@ package main.java.fr.enseeiht.lbs.model.game_object.unit.buff;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.BuffVisitor;
 
 /**
- * A debuff that can be applied to a unit via a visitor
+ * Débuff de brissage d'armure pouvant être appliqué à une unité via un visiteur
  */
 public class BreakArmorDebuff implements Buff {
 

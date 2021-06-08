@@ -19,6 +19,9 @@ public class Viking extends ArmoredUnit {
         shield = 100;
     }
 
+    /**
+     * Le Viking reçoit des dégâts sur son bouclier avant d'en recevoir sur la vie
+     */
     @Override
     public void receiveDamage(double damage) {
         if (hasShield()) {
@@ -33,6 +36,10 @@ public class Viking extends ArmoredUnit {
         return shield > 0;
     }
 
+    /**
+     * Le Viking régait de manière unique aux tics de dégâts
+     * (voir VikingTicVisitor)
+     */
     @Override
     protected BasicTicVisitor getTicVisitor(long deltaTime) {
         return new VikingTicVisitor(deltaTime, this);

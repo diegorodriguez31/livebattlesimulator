@@ -6,17 +6,17 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.FireDebuff;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.standard_unit.Archer;
 
 /**
- * Actions made when an Archer attacks
+ * Actions effectuées lors d'une attaque d'un archer
  */
 public class ArcherAttack extends AttackAction {
 
     /**
-     * Fire debuff amout of damage per seconds (tic)
+     * Montant des dégâts de tics de feu
      */
     private static final double FIRE_TIC_DAMAGE = 20.0;
 
     /**
-     * Special shot indice (1 special shot over 3)
+     * Indice de tir spécial (1 tir sur 3)
      */
     private static final int ARROWS_BEFORE_SPECIAL_SHOT = 3;
 
@@ -25,9 +25,9 @@ public class ArcherAttack extends AttackAction {
     }
 
     /**
-     * During the alien attack
-     * each shots apply damages to the target
-     * 1 shot over 3, the special shot apply fire to the target
+     * Pendant l'attaque de l'archer
+     * chaque tir fait des dégâts à la cible
+     * 1 tir sur 3, l'archer envoit une flèche de feu
      */
     @Override
     public void execute(long deltaTime) {

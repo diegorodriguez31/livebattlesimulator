@@ -11,6 +11,9 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.statModifierVisi
 import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.statModifierVisitor.ImmuneStatModifierVisitor;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
+/**
+ * L'unité Golem
+ */
 public class Golem extends ArmoredUnit {
 
     public Golem(String name, Stats stats, Vector2 position) {
@@ -18,11 +21,17 @@ public class Golem extends ArmoredUnit {
         ai = new ChargeAndHitAI(new AttackAction(this), new FlightMovementAction(this));
     }
 
+    /**
+     * Le golem est immunisé débuffs qui modifient les statistiques
+     */
     @Override
     protected BasicStatModifierBuffVisitor getStatModifierVisitor() {
         return new ImmuneStatModifierVisitor(stats, this);
     }
 
+    /**
+     * Le golem est immunisé aux tics de dégâts
+     */
     @Override
     protected BasicTicVisitor getTicVisitor(long deltaTime) {
         return new ImmuneTicVisitor(deltaTime, this);

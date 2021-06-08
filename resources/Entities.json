@@ -133,7 +133,7 @@
       "ACCURACY": 80.0,
       "SPEED": 5.0,
       "ARMOR": 30.0,
-      "RANGE": 5.0,
+      "RANGE": 1.0,
       "AGILITY": 10.0
     },
     "primitive_type": "HORSEMAN"

@@ -18,11 +18,19 @@ public class Troll extends ArmoredUnit {
         ai = new ChargeAndHitAI(new TrollAttack(this), new FlightMovementAction(this));
     }
 
+    /**
+     * Le Troll régait de manière unique aux débuffs qui modifient les statistiques
+     * (voir TrollStatModifierVisitor)
+     */
     @Override
     protected BasicStatModifierBuffVisitor getStatModifierVisitor() {
         return new TrollStatModifierVisitor(stats, this);
     }
 
+    /**
+     * Le Troll régait de manière unique aux tics de dégâts
+     * (voir TrollTicVisitor)
+     */
     @Override
     protected BasicTicVisitor getTicVisitor(long deltaTime) {
         return new TrollTicVisitor(deltaTime, this);
