@@ -7,7 +7,7 @@ import java.awt.event.KeyEvent;
 public class ChoixMapPresetController extends JPanel {
 
 
-    private final static String DEFAULT_WORLD = "terrain classiqchoixMapPresetControllerue";
+    private final static String DEFAULT_WORLD = "terrain classique";
     private final static String DRY_WORLD = "terrain sec (désert et roches)";
     private final static String WET_WORLD = "terrain humide (forêt et eau)";
 
