@@ -29,8 +29,19 @@ public abstract class Entity extends GameObject {
         return health;
     }
 
+    public void kill() {
+        health = 0.0;
+        if (isDead()) {
+            removeFromBattle();
+        }
+    }
+
     public Vector2 getPosition() {
         return position;
+    }
+
+    public float getFloatPosition() {
+        return getPosition().sqrSize();
     }
 
     public boolean isDead() {

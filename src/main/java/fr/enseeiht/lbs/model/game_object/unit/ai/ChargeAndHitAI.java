@@ -35,7 +35,7 @@ public class ChargeAndHitAI implements AI {
         if (target == null) {
             return new ArrayList<>();
         }
-        if (target.getPosition().sub(self.getPosition()).sqrSize() < self.getStats().getStatisticValue(Statistic.RANGE)) {
+        if (target.getPosition().sub(self.getPosition()).size() < self.getStats().getStatisticValue(Statistic.RANGE)) {
             if (cooldown < 0) {
                 cooldown = (long) self.getStats().getStatisticValue(Statistic.COOLDOWN) * 1000;
                 return Arrays.asList(attack);

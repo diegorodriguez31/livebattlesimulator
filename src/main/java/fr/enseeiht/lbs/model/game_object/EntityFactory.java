@@ -1,5 +1,6 @@
 package main.java.fr.enseeiht.lbs.model.game_object;
 
+import main.java.fr.enseeiht.lbs.model.game_object.creators.*;
 import main.java.fr.enseeiht.lbs.utils.Pair;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
@@ -23,13 +24,14 @@ public class EntityFactory {
     }
 
     private static final EntitySerializer SERIALIZER = new JSONEntitySerializer();
-    private static final Set<String> INITIAL_UNITS = new HashSet<String>(Arrays.asList("Farmer", "Knight"));
+    private static final Set<String> INITIAL_UNITS = new HashSet<String>(
+            Arrays.asList("Peasant", "Knight", "Archer", "Mage", "Giant", "Alien", "Ninja", "Horseman", "Golem", "Troll", "Samurai", "Viking")
+    );
     private static final String SAVE_PATH = "save/units.json";
     private static final HashMap<String, Pair<EntityPrimitiveTypes, Stats>> entityTypes = new HashMap<>();
 
     private static final PropertyChangeSupport eventSuport = new PropertyChangeSupport(entityTypes);
     public static final String EVENT_LIST_CHANGE = "EVENT_LIST_CHANGE";
-
 
     static {
         //Initialisation of the units type

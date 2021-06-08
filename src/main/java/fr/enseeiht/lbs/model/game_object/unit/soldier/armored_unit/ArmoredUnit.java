@@ -1,4 +1,4 @@
-package main.java.fr.enseeiht.lbs.model.game_object.unit.soldier;
+package main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.armored_unit;
 
 import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
 import main.java.fr.enseeiht.lbs.model.game_object.Stats;
@@ -8,20 +8,14 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.action.FlightMovementAct
 import main.java.fr.enseeiht.lbs.model.game_object.unit.ai.ChargeAndHitAI;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
-import static main.java.fr.enseeiht.lbs.model.game_object.unit.RawStatsManager.*;
+import static main.java.fr.enseeiht.lbs.model.game_object.Statistic.ARMOR;
 
-public class Peasant extends Unit {
+/**
+ * Factorise les comportements d'Unités liées à l'armure
+ */
+public abstract class ArmoredUnit extends Unit {
 
-    public Peasant(Vector2 vector, String name, double health, double damage, double cooldown, double speed, double range, double accuracy, double agility) {
-        super(vector, name, health, damage, cooldown, speed, range, accuracy, agility);
-        ai = new ChargeAndHitAI(new AttackAction(this), new FlightMovementAction(this));
-    }
-
-    public Peasant(Vector2 vector) {
-        this(vector, PEASANT_NAME, PEASANT_HEALTH, PEASANT_DAMAGE, PEASANT_COOLDOWN, PEASANT_SPEED, PEASANT_RANGE, PEASANT_ACCURACY, PEASANT_AGILITY);
-    }
-
-    public Peasant(String name, Stats stats, Vector2 position) {
+    public ArmoredUnit(String name, Stats stats, Vector2 position) {
         super(name, stats, position);
         ai = new ChargeAndHitAI(new AttackAction(this), new FlightMovementAction(this));
     }
@@ -29,12 +23,22 @@ public class Peasant extends Unit {
     @Override
     public void status() {
         super.status();
+        System.out.println("\tArmor : " + getStats().getStatisticValue(ARMOR));
         System.out.println("\n");
     }
 
+    /**
+     * Réduit les dégâts sur la santé en fonction de l'armure
+     * (armure = pourcentage de réduction de dégâts)
+     */
     @Override
     public void receiveDamage(double damage) {
-        super.receiveDamage(damage);
+        double reducedDamage = damage - (damage * (getStats().getStatisticValue(ARMOR) / 100));
+        super.receiveDamage(reducedDamage);
+    }
+
+    public boolean hasArmor() {
+        return getStats().getStatisticValue(ARMOR) > 0;
     }
 
     @Override

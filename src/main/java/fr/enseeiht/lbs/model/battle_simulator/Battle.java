@@ -6,11 +6,9 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.VERBOSE;
 
@@ -26,6 +24,7 @@ public class Battle {
     Objectif objectif;
     List<Army> armies;
     List<GameObject> objects;
+    List<GameObject> startObjects;
     List<GameObject> endObjects;
 
     public static final float DEFAULT_DELTA_TIME_MULTIPLIER = 1.0f;
@@ -38,6 +37,7 @@ public class Battle {
 
     private Battle() {
         this.armies = new ArrayList<>();
+        this.startObjects = new ArrayList<>();
         this.objects = new ArrayList<>();
         this.endObjects = new ArrayList<>();
     }
@@ -63,6 +63,7 @@ public class Battle {
         for (int armyIndex = 0; armyIndex < nbArmies; armyIndex++) {
             this.armies.add(new Army(armyIndex));
         }
+        startObjects = new ArrayList<>();
         objects = new ArrayList<>();
         endObjects = new ArrayList<>();
         propertyChangeSupport.firePropertyChange(Battle.PROPERTY_GAME_OBJECTS, null, objects);
@@ -84,6 +85,12 @@ public class Battle {
                 if (VERBOSE >= 2) {
                     System.out.println("total time" + tempTotal);
                 }
+            }
+            for (Iterator<GameObject> it = startObjects.iterator(); it.hasNext(); ) {
+                GameObject o = it.next();
+                o.start(this);
+                objects.add(o);
+                it.remove();
             }
             for (GameObject object : objects) {
                 object.update(this, (long) (deltaTime * deltaTimeMultiplier));
@@ -159,17 +166,45 @@ public class Battle {
                 );
     }
 
+    /**
+     * Cherche tous les alliés de l'unité courante et la liste retournée est triée
+     * par rapport à la distance qui les sépare de l'unité courante
+     * @param unit l'unité qui cherche ses alliés
+     * @return la liste des alliés de l'unité
+     */
+    public List<Unit> findAllies(Unit unit) {
+        List<Unit> allies =  unit.getTeam().getUnits().stream()
+                .filter(itUnit -> !itUnit.isDead()).collect(Collectors.toList());
+        return sortAlliesByDistance(allies, unit);
+    }
+
+    /**
+     * Trie la liste d'alliés par rapport à leur position respective qui les sépare de l'unité donnée en paramètre
+     * @param units la liste d'alliés
+     * @param unit l'unité qui cherche ses alliés
+     * @return la liste d'alliés triés par rapport à leur position respective qui les sépare de l'unité donnée en paramètre
+     */
+    public List<Unit> sortAlliesByDistance(List<Unit> units, Unit unit) {
+        Stream<Unit> unitDistanceCompare = units.stream()
+                .sorted((unit1, unit2)
+                        -> Float.compare(unit1.getPosition().sub(unit.getPosition()).sqrSize(), unit2.getPosition().sub(unit.getPosition()).sqrSize()));
+        return unitDistanceCompare.collect(Collectors.toList());
+    }
+
     public void addGameObject(GameObject gameObject) {
-        objects.add(gameObject);
-        propertyChangeSupport.firePropertyChange(PROPERTY_GAME_OBJECTS, null, this.objects);
+        startObjects.add(gameObject);
+        propertyChangeSupport.firePropertyChange(PROPERTY_GAME_OBJECTS, null, getObjects());
     }
 
     public void removeGameObject(GameObject gameObject) {
         endObjects.add(gameObject);
-        propertyChangeSupport.firePropertyChange(PROPERTY_GAME_OBJECTS, null, this.objects);
+        propertyChangeSupport.firePropertyChange(PROPERTY_GAME_OBJECTS, null, getObjects());
     }
 
     public List<GameObject> getObjects() {
-        return objects;
+        List<GameObject> listObjects = new ArrayList<>();
+        listObjects.addAll(objects);
+        listObjects.addAll(startObjects);
+        return listObjects;
     }
 }
