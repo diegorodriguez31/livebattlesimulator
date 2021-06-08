@@ -1,4 +1,4 @@
-package main.java.fr.enseeiht.lbs.view.content;
+package main.java.fr.enseeiht.lbs.controller;
 
 import main.java.fr.enseeiht.lbs.model.game_object.EntityFactory;
 
@@ -12,12 +12,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class UnitTypeList extends JPanel implements PropertyChangeListener {
+public class UnitTypeListController extends JPanel implements PropertyChangeListener {
     private String selectedUnitType;
     private final HashMap<String, JButton> buttons = new HashMap<>();
     private final List<ActionListener> listeners = new ArrayList<>();
 
-    public UnitTypeList() {
+    public UnitTypeListController() {
         super();
         BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(layout);

@@ -10,13 +10,13 @@ import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UnitEditor extends JPanel {
+public class UnitEditorController extends JPanel{
     String editedUnit;
     JPanel centerPanel;
     Map<Statistic, JFormattedTextField> fields = new HashMap<>();
     private NumberFormat amountFormat;
 
-    public UnitEditor() {
+    public UnitEditorController() {
         setLayout(new BorderLayout());
         JButton saveButton = new JButton("save");
         centerPanel = new JPanel();

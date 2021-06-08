@@ -17,11 +17,9 @@ import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.VERBOSE;
 
 public class Battle {
 
-
-    private long lastTime;
     private String name;
 
-    private PropertyChangeSupport propertyChangeSupport;
+    private final static PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(Battle.class);
     public static final String PROPERTY_GAME_OBJECTS = "gameObjects";
     public static final String PROPERTY_RESULTS = "results";
 
@@ -39,7 +37,6 @@ public class Battle {
 
 
     private Battle() {
-        this.propertyChangeSupport = new PropertyChangeSupport(this);
         this.armies = new ArrayList<>();
         this.objects = new ArrayList<>();
         this.endObjects = new ArrayList<>();
@@ -72,11 +69,11 @@ public class Battle {
     }
 
     public void run() {
-        lastTime = System.currentTimeMillis();
+        long lastTime = System.currentTimeMillis();
         long tempTotal = 0;
 
         //notify Observers that battle is starting
-        this.propertyChangeSupport.firePropertyChange(PROPERTY_GAME_OBJECTS, null, this.objects);
+        propertyChangeSupport.firePropertyChange(PROPERTY_GAME_OBJECTS, null, this.objects);
 
         while (objectif.getWinner(this) == null) {
             long deltaTime = System.currentTimeMillis() - lastTime;
@@ -99,7 +96,7 @@ public class Battle {
             }
 
             //notify Observers
-            this.propertyChangeSupport.firePropertyChange(PROPERTY_GAME_OBJECTS, null, this.objects);
+            propertyChangeSupport.firePropertyChange(PROPERTY_GAME_OBJECTS, null, this.objects);
 
             try {
                 Thread.sleep(1000 / 60);
@@ -111,7 +108,7 @@ public class Battle {
         setDeltaTimeMultiplier(STOPPED_DELTA_TIME_MULTIPLIER);
 
         // Notify observers that the battle is finished
-        this.propertyChangeSupport.firePropertyChange(PROPERTY_RESULTS, null, winner);
+        propertyChangeSupport.firePropertyChange(PROPERTY_RESULTS, null, winner);
     }
 
     public void setDeltaTimeMultiplier(float deltaTimeMultiplier) {
@@ -122,11 +119,15 @@ public class Battle {
         return deltaTimeMultiplier;
     }
 
-    public void addObserver(PropertyChangeListener propertyChangeListener, String propertyName) {
+    public static void addObserver(PropertyChangeListener propertyChangeListener, String propertyName) {
         //Only adds the listener once
         if (!Arrays.asList(propertyChangeSupport.getPropertyChangeListeners(propertyName)).contains(propertyChangeListener)) {
             propertyChangeSupport.addPropertyChangeListener(propertyName, propertyChangeListener);
         }
+    }
+
+    public static void removeObserver(PropertyChangeListener propertyChangeListener, String propertyName) {
+        propertyChangeSupport.removePropertyChangeListener(propertyName, propertyChangeListener);
     }
 
     public String getName() {

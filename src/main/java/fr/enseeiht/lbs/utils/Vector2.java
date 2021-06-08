@@ -1,7 +1,7 @@
 package main.java.fr.enseeiht.lbs.utils;
 
 public class Vector2 {
-    public float x, y;
+    private float x, y;
 
     /**
      * Copy constructor for vector2
@@ -118,5 +118,13 @@ public class Vector2 {
     @Override
     public String toString() {
         return "(" + x + ", " + y + ")";
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
     }
 }

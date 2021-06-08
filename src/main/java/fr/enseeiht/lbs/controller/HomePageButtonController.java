@@ -11,7 +11,6 @@ public class HomePageButtonController extends JButton {
 
     public HomePageButtonController() {
         super("Accueil");
-
         this.addActionListener(actionEvent -> {
             mainFrame().showHomePage();
         });

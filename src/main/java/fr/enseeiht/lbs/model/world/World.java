@@ -5,7 +5,6 @@ import java.beans.PropertyChangeSupport;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 /**
  * Class that generate a world to use with World
@@ -30,14 +29,14 @@ public class World {
 
     private WorldElement mainElement;
 
-    private final PropertyChangeSupport propertyChangeSupport;
+    private static final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(World.class);
+
     public static final String PROPERTY_RELOAD_MAP = "Reload";
 
     private static World instance;
 
     private World() {
         worldElements = new WorldElement[SIZE_X][SIZE_Y];
-        this.propertyChangeSupport = new PropertyChangeSupport(this);
     }
 
     public static World getInstance() {
@@ -202,7 +201,6 @@ public class World {
                 maxElement = entry.getKey();
             }
         }
-        System.out.println(maxElement);
         return maxElement;
     }
 
@@ -216,12 +214,15 @@ public class World {
         System.out.println();
     }
 
-    public void addObserver(PropertyChangeListener propertyChangeListener, String propertyName) {
+    public static void addObserver(PropertyChangeListener propertyChangeListener, String propertyName) {
         //Only adds the listener once
         if (!Arrays.asList(propertyChangeSupport.getPropertyChangeListeners(propertyName)).contains(propertyChangeListener)) {
             propertyChangeSupport.addPropertyChangeListener(propertyName, propertyChangeListener);
-            System.out.println("observed");
         }
+    }
+
+    public static void removeObserver(PropertyChangeListener propertyChangeListener, String propertyName) {
+        propertyChangeSupport.removePropertyChangeListener(propertyName, propertyChangeListener);
     }
 
     public int getSizeX() {
