@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.mainFrame;
 
-public class UnitPlacementControler extends JPanel {
+public class UnitPlacementController extends JPanel {
     private final Battle model;
     private final BattleWorldView battleView;
     private String selectedUnit;
@@ -25,7 +25,7 @@ public class UnitPlacementControler extends JPanel {
     private final ButtonGroup group;
     private final ActionListener listener;
 
-    public UnitPlacementControler() {
+    public UnitPlacementController() {
         this.model = Battle.getInstance();
         setLayout(new BorderLayout());
 

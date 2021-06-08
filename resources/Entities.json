@@ -1,0 +1,27 @@
+{
+  "Knight": {
+    "stats": {
+      "AGILITY": 50.0,
+      "ARMOR": 50.0,
+      "HEALTH": 100.0,
+      "SPEED": 1.0,
+      "DAMAGE": 30.0,
+      "COOLDOWN": 1.0,
+      "RANGE": 1.0,
+      "ACCURACY": 80.0
+    },
+    "primitive_type": "KNIGHT"
+  },
+  "Farmer": {
+    "stats": {
+      "AGILITY": 10.0,
+      "HEALTH": 50.0,
+      "SPEED": 1.0,
+      "DAMAGE": 10.0,
+      "COOLDOWN": 1.0,
+      "RANGE": 1.0,
+      "ACCURACY": 50.0
+    },
+    "primitive_type": "PEASANT"
+  }
+}
