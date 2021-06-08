@@ -3,7 +3,6 @@ package main.java.fr.enseeiht.lbs.controller;
 import main.java.fr.enseeiht.lbs.model.game_object.EntityFactory;
 import main.java.fr.enseeiht.lbs.model.game_object.EntityPrimitiveTypes;
 import main.java.fr.enseeiht.lbs.model.game_object.Stats;
-import main.java.fr.enseeiht.lbs.view.content.UnitTypeList;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +10,7 @@ import java.awt.event.ActionListener;
 
 public class UnitListController extends JPanel {
 
-    private final UnitTypeList unitTypeList;
+    private final UnitTypeListController unitTypeListController;
     private final JButton newButton;
     private final JTextField newField;
     private final JButton delButton;
@@ -22,7 +21,7 @@ public class UnitListController extends JPanel {
         setLayout(layout);
 
         // init
-        unitTypeList = new UnitTypeList();
+        unitTypeListController = new UnitTypeListController();
         newButton = new JButton("+");
         newField = new JTextField();
         delButton = new JButton("x");
@@ -55,7 +54,7 @@ public class UnitListController extends JPanel {
         newTConstraints.fill = GridBagConstraints.HORIZONTAL;
         newTConstraints.gridwidth = 1;
         newTConstraints.gridheight = 1;
-        add(unitTypeList, listConstraints);
+        add(unitTypeListController, listConstraints);
         add(newButton, newBConstraints);
         add(delButton, delConstraints);
         add(newField, newTConstraints);
@@ -63,7 +62,7 @@ public class UnitListController extends JPanel {
         // Logic
         newButton.setEnabled(false);
         newButton.addActionListener(actionEvent -> {
-            String selected = unitTypeList.getSelectedUnitType();
+            String selected = unitTypeListController.getSelectedUnitType();
             String name = newField.getText();
             if (selected == null && name.length() > 0) return;
             EntityPrimitiveTypes entityPrimitiveType = EntityFactory.getEntityPrimitiveType(selected);
@@ -77,7 +76,7 @@ public class UnitListController extends JPanel {
         });
         delButton.setEnabled(false);
         delButton.addActionListener(actionEvent -> {
-            String selected = unitTypeList.getSelectedUnitType();
+            String selected = unitTypeListController.getSelectedUnitType();
             if (selected == null || EntityFactory.getInitialUnit().contains(selected)) return;
             try {
                 EntityFactory.dropEntityType(selected);
@@ -86,7 +85,7 @@ public class UnitListController extends JPanel {
             }
         });
 
-        unitTypeList.addActionListener(actionEvent -> {
+        unitTypeListController.addActionListener(actionEvent -> {
             if (actionEvent.getActionCommand() != null && EntityFactory.getInitialUnit().contains(actionEvent.getActionCommand())) {
                 newButton.setEnabled(true);
                 delButton.setEnabled(false);
@@ -101,6 +100,6 @@ public class UnitListController extends JPanel {
     }
 
     public void addSelectActionListener(ActionListener listener) {
-        unitTypeList.addActionListener(listener);
+        unitTypeListController.addActionListener(listener);
     }
 }
