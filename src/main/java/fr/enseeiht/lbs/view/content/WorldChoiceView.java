@@ -1,7 +1,7 @@
 package main.java.fr.enseeiht.lbs.view.content;
 
-import main.java.fr.enseeiht.lbs.controller.ChoixMapButtonsController;
-import main.java.fr.enseeiht.lbs.controller.ChoixMapPresetController;
+import main.java.fr.enseeiht.lbs.controller.ChoiceMapButtonsController;
+import main.java.fr.enseeiht.lbs.controller.ChoiceMapPresetController;
 import main.java.fr.enseeiht.lbs.view.gui.GuiComponent;
 
 import javax.swing.*;
@@ -26,13 +26,13 @@ public class WorldChoiceView extends JPanel implements GuiComponent {
         this.setBorder(BorderFactory.createEmptyBorder(50, 10, 10, 10));
 
         //Panneaux de choix à gauche
-        ChoixMapPresetController choixMapPresetController = ChoixMapPresetController.getInstance();
+        ChoiceMapPresetController choixMapPresetController = ChoiceMapPresetController.getInstance();
         choixMapPresetController.init();
         choixMapPresetController.setBorder(BorderFactory.createEmptyBorder(0, 20, 20, 20));
 
         //Boutons en bas de page
         //Le bouton reload est cliqué afin d'initialiser un nouveau World !
-        ChoixMapButtonsController navigation = new ChoixMapButtonsController();
+        ChoiceMapButtonsController navigation = new ChoiceMapButtonsController();
         choixMapPresetController.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 20));
         navigation.setPreferredSize(new Dimension(1200, 50));
 
@@ -59,7 +59,7 @@ public class WorldChoiceView extends JPanel implements GuiComponent {
     @Override
     public void init() {
         worldView.startObserving();
-        ChoixMapPresetController.getInstance().init();
-        ChoixMapButtonsController.init();
+        ChoiceMapPresetController.getInstance().init();
+        ChoiceMapButtonsController.init();
     }
 }

@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class ChoixMapPresetController extends JPanel {
+public class ChoiceMapPresetController extends JPanel {
 
 
     private final static String DEFAULT_WORLD = "terrain classique";
@@ -20,9 +20,9 @@ public class ChoixMapPresetController extends JPanel {
 
     private static boolean rocks;
 
-    private static ChoixMapPresetController instance;
+    private static ChoiceMapPresetController instance;
 
-    private ChoixMapPresetController() {
+    private ChoiceMapPresetController() {
         //le main panel permet d'afficher les boutons radio en groupe au lieu de les espacer sur la page
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new GridLayout(4, 1));
@@ -60,9 +60,9 @@ public class ChoixMapPresetController extends JPanel {
 
     }
 
-    public static ChoixMapPresetController getInstance(){
+    public static ChoiceMapPresetController getInstance(){
         if (instance == null){
-            instance = new ChoixMapPresetController();
+            instance = new ChoiceMapPresetController();
         }
         return instance;
     }

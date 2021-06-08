@@ -1,7 +1,7 @@
 package main.java.fr.enseeiht.lbs.view.content;
 
 import main.java.fr.enseeiht.lbs.controller.HomePageButtonController;
-import main.java.fr.enseeiht.lbs.controller.UnitEditor;
+import main.java.fr.enseeiht.lbs.controller.UnitEditorController;
 import main.java.fr.enseeiht.lbs.controller.UnitListController;
 import main.java.fr.enseeiht.lbs.view.gui.GuiComponent;
 
@@ -21,7 +21,7 @@ public class UnitEditorView extends JPanel implements GuiComponent {
     public UnitEditorView() {
         // Components
         UnitListController list = new UnitListController();
-        UnitEditor editor = new UnitEditor();
+        UnitEditorController editor = new UnitEditorController();
 
         // Linking components
         list.addSelectActionListener(actionEvent -> editor.setEditedUnit(actionEvent.getActionCommand()));

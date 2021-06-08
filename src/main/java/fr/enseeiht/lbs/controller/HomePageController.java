@@ -60,8 +60,6 @@ public class HomePageController extends JPanel implements GuiComponent {
         this.reset();
     }
 
-
-
     @Override
     public void reset() {
         //do nothing

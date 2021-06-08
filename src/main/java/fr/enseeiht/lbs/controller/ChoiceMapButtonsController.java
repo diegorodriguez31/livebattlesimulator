@@ -7,11 +7,11 @@ import java.awt.*;
 
 import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.mainFrame;
 
-public class ChoixMapButtonsController extends JPanel {
+public class ChoiceMapButtonsController extends JPanel {
 
     private static JButton reloadMapButton;
 
-    public ChoixMapButtonsController(){
+    public ChoiceMapButtonsController(){
         //gestion du button ok
         JButton okButton = new JButton("OK");
         okButton.setFont(new Font("Sans Serif", Font.PLAIN, 30));
@@ -32,7 +32,7 @@ public class ChoixMapButtonsController extends JPanel {
 
     private void reloadMapButtonTreatment() {
         int percentdesert, percentwater, percentrock, percentplain, percentforest;
-        int choix = ChoixMapPresetController.getInstance().getActiveChoice();
+        int choix = ChoiceMapPresetController.getInstance().getActiveChoice();
         if(choix ==2) {
             percentdesert = 0;
             percentwater = 30;
@@ -53,7 +53,7 @@ public class ChoixMapButtonsController extends JPanel {
             percentrock = 5;
         }
         //si rock est appuyé
-        if (ChoixMapPresetController.getInstance().hasRock()){
+        if (ChoiceMapPresetController.getInstance().hasRock()){
             percentdesert -= 3;
             percentwater -= 3;
             percentforest -= 3;
