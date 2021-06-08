@@ -1,6 +1,5 @@
 package main.java.fr.enseeiht.lbs.view.content;
 
-import main.java.fr.enseeiht.lbs.model.battle_simulator.Army;
 import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
 import main.java.fr.enseeiht.lbs.model.game_object.Entity;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
@@ -66,8 +65,6 @@ public abstract class BattleView extends JPanel implements PropertyChangeListene
     public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
         if (propertyChangeEvent.getPropertyName().equals(Battle.PROPERTY_GAME_OBJECTS)) {
             modifiedGameObjectTreatment(propertyChangeEvent);
-        } else if (propertyChangeEvent.getPropertyName().equals(Battle.PROPERTY_RESULTS)) {
-            endGameTreatment(propertyChangeEvent);
         }
         this.repaint();
         Toolkit.getDefaultToolkit().sync();
@@ -96,15 +93,6 @@ public abstract class BattleView extends JPanel implements PropertyChangeListene
         }
     }
 
-    protected void endGameTreatment(PropertyChangeEvent propertyChangeEvent) {
-        Army winner = (Army) propertyChangeEvent.getNewValue();
-        Color color = BattleView.TEAM_COLORS.get(winner.getArmyIndex());
-        String colorName = BattleView.COLORS_NAME.get(color);
-        String result = Battle.getInstance().getName() +
-                "\nL'armée " + colorName + " a gagné";
-        JOptionPane.showMessageDialog(null, result);
-    }
-
     @Override
     public void paint(Graphics graphics) {
         super.paint(graphics);
@@ -120,13 +108,10 @@ public abstract class BattleView extends JPanel implements PropertyChangeListene
     protected void startObserving(){
         Battle.addObserver(this, Battle.PROPERTY_GAME_OBJECTS);
         this.modifiedGameObjectTreatment(new PropertyChangeEvent(this, Battle.PROPERTY_GAME_OBJECTS, null, Battle.getInstance().getObjects()));
-
-        Battle.addObserver(this, Battle.PROPERTY_RESULTS);
     }
 
     protected void stopObserving(){
         Battle.removeObserver(this, Battle.PROPERTY_GAME_OBJECTS);
-        Battle.removeObserver(this, Battle.PROPERTY_RESULTS);
     }
 
 }
