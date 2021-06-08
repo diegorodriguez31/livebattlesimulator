@@ -2,12 +2,22 @@ package main.java.fr.enseeiht.lbs.view.content;
 
 import main.java.fr.enseeiht.lbs.controller.UnitEditor;
 import main.java.fr.enseeiht.lbs.controller.UnitListController;
+import main.java.fr.enseeiht.lbs.view.gui.GuiComponent;
 import main.java.fr.enseeiht.lbs.view.gui.LiveBattleSimulatorGUI;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class UnitEditorView extends JPanel {
+public class UnitEditorView extends JPanel implements GuiComponent {
+
+    private static UnitEditorView instance;
+
+    public static UnitEditorView getInstance() {
+        if (instance == null) {
+            instance = new UnitEditorView();
+        }
+        return instance;
+    }
     public UnitEditorView() {
         // Components
         UnitListController list = new UnitListController();
@@ -31,5 +41,15 @@ public class UnitEditorView extends JPanel {
         add(list, BorderLayout.WEST);
         add(editor, BorderLayout.CENTER);
         add(topPanel, BorderLayout.NORTH);
+    }
+
+    @Override
+    public void reset() {
+
+    }
+
+    @Override
+    public void init() {
+
     }
 }

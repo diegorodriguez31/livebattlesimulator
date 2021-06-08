@@ -4,6 +4,7 @@ import main.java.fr.enseeiht.lbs.controller.BattleArmiesChoiceController;
 import main.java.fr.enseeiht.lbs.controller.HomePageController;
 import main.java.fr.enseeiht.lbs.controller.UnitPlacementController;
 import main.java.fr.enseeiht.lbs.view.content.BattleSimulationView;
+import main.java.fr.enseeiht.lbs.view.content.UnitEditorView;
 import main.java.fr.enseeiht.lbs.view.content.WorldChoiceView;
 
 import javax.swing.*;
@@ -27,6 +28,7 @@ public class LiveBattleSimulatorGUI extends JFrame {
     private static final String BATTLE_SIMULATION_CARD = "BATTLE_SIMULATION_CARD";
     private static final String WORLD_CHOICE_CARD = "WORLD_CHOICE_CARD";
     private static final String UNIT_PLACEMENT_CARD = "UNIT_PLACEMENT_CARD";
+    public static final String UNIT_EDITOR_CARD = "UNIT_EDITOR_CARD";
 
     private GuiComponent acutalComponent;
 
@@ -56,6 +58,7 @@ public class LiveBattleSimulatorGUI extends JFrame {
         cards.add(WorldChoiceView.getInstance(), WORLD_CHOICE_CARD);
         cards.add(UnitPlacementController.getInstance(), UNIT_PLACEMENT_CARD);
         cards.add(BattleSimulationView.getInstance(), BATTLE_SIMULATION_CARD);
+        cards.add(UnitEditorView.getInstance(), UNIT_EDITOR_CARD);
 
         acutalComponent = homePageController;
         showHomePage();
@@ -111,6 +114,16 @@ public class LiveBattleSimulatorGUI extends JFrame {
         acutalComponent = BattleSimulationView.getInstance();
         setChangesReady(BATTLE_SIMULATION_CARD);
     }
+
+    /**
+     * Affiche la vue d'edition.
+     */
+    public void showUnitEditor() {
+        acutalComponent.reset();
+        acutalComponent = UnitEditorView.getInstance();
+        setChangesReady(UNIT_EDITOR_CARD);
+    }
+
 
     /**
      * Rend les panels prêts à l'affichage.

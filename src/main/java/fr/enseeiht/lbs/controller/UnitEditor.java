@@ -10,7 +10,7 @@ import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UnitEditor extends JPanel {
+public class UnitEditor extends JPanel{
     String editedUnit;
     JPanel centerPanel;
     Map<Statistic, JFormattedTextField> fields = new HashMap<>();
