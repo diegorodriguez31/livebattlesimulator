@@ -211,7 +211,6 @@ public class World {
                 maxElement = entry.getKey();
             }
         }
-        //System.out.println(maxElement);
         return maxElement;
     }
 

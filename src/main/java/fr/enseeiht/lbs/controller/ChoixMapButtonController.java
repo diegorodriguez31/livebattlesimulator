@@ -14,7 +14,7 @@ public class ChoixMapButtonController extends JPanel {
     public String dryString = "terrain sec (désert et roches)";
     public String wetString = "terrain humide (forêt et eau)";
     public String mainString = "terrain classique";
-    public String lavaString = "terrain volcanique(lave, rock)";
+    public String lavaString = "terrain volcanique (lave, rock)";
     public String coldString = "terrain froid (forêt, neige)";
     static int act = 0;
     static boolean rock = false;
