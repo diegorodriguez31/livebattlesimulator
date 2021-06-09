@@ -113,11 +113,26 @@ public class UnitPlacementController extends JPanel implements GuiComponent {
 
         JPanel armyPanel = new JPanel();
         armyPanel.setPreferredSize(new Dimension(200, 500));
-        armyPanel.setLayout(new BoxLayout(armyPanel, BoxLayout.Y_AXIS));
-        armyPanel.add(this.armySelect);
-        armyPanel.add(scrll);
-        armyPanel.add(okButton);
-        armyPanel.add(cancelButton);
+        armyPanel.setLayout(new GridBagLayout());
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 1;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        armyPanel.add(this.armySelect, gridBagConstraints);
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.weighty = 1;
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        armyPanel.add(scrll, gridBagConstraints);
+        gridBagConstraints.weighty = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 1;
+        gridBagConstraints.weightx = 0.5;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        armyPanel.add(okButton, gridBagConstraints);
+        gridBagConstraints.gridx = 1;
+        armyPanel.add(cancelButton, gridBagConstraints);
 
         this.setLayout(new BorderLayout());
         this.add(mainpanel, BorderLayout.CENTER);
