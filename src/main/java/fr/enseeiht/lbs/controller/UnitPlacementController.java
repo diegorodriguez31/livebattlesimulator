@@ -1,6 +1,7 @@
 package main.java.fr.enseeiht.lbs.controller;
 
 import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
+import main.java.fr.enseeiht.lbs.model.battle_simulator.InvalidBattleStateException;
 import main.java.fr.enseeiht.lbs.model.game_object.Entity;
 import main.java.fr.enseeiht.lbs.model.game_object.EntityFactory;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
@@ -30,8 +31,8 @@ public class UnitPlacementController extends JPanel implements GuiComponent {
 
     private static UnitPlacementController instance;
 
-    public static UnitPlacementController getInstance(){
-        if (instance == null){
+    public static UnitPlacementController getInstance() {
+        if (instance == null) {
             instance = new UnitPlacementController();
         }
         return instance;
@@ -57,12 +58,30 @@ public class UnitPlacementController extends JPanel implements GuiComponent {
                 }
                 entity.setReady();
             }
-            @Override public void mouseClicked(MouseEvent mouseEvent) {}
-            @Override public void mousePressed(MouseEvent mouseEvent) {}
-            @Override public void mouseEntered(MouseEvent mouseEvent) {}
-            @Override public void mouseExited(MouseEvent mouseEvent) {}
-            @Override public void mouseDragged(MouseEvent mouseEvent) {}
-            @Override public void mouseMoved(MouseEvent mouseEvent) {}
+
+            @Override
+            public void mouseClicked(MouseEvent mouseEvent) {
+            }
+
+            @Override
+            public void mousePressed(MouseEvent mouseEvent) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent mouseEvent) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent mouseEvent) {
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent mouseEvent) {
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent mouseEvent) {
+            }
         });
 
         // Creates the list of entities
@@ -84,8 +103,12 @@ public class UnitPlacementController extends JPanel implements GuiComponent {
         JButton okButton = new JButton("OK");
         okButton.setFont(new Font("Sans Serif", Font.PLAIN, 30));
         okButton.addActionListener(actionEvent -> {
-            mainFrame().showBattleSimulation();
-            new Thread(() -> Battle.getInstance().run()).start();
+            try {
+                Battle.getInstance().runAsync();
+                mainFrame().showBattleSimulation();
+            } catch (InvalidBattleStateException e) {
+                System.err.println(e.getMessage());
+            }
         });
 
         JButton cancelButton = new HomePageButtonController();
@@ -147,23 +170,23 @@ public class UnitPlacementController extends JPanel implements GuiComponent {
     }
 
     private class UnitListView extends JPanel implements PropertyChangeListener {
-        public UnitListView(){
+        public UnitListView() {
             this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         }
 
         @Override
         public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
-            if (propertyChangeEvent.getPropertyName().equals(Battle.PROPERTY_GAME_OBJECTS)){
+            if (propertyChangeEvent.getPropertyName().equals(Battle.PROPERTY_GAME_OBJECTS)) {
                 updateUnitList();
             }
         }
 
-        public void startObserving(){
+        public void startObserving() {
             updateUnitList();
             Battle.addObserver(this, Battle.PROPERTY_GAME_OBJECTS);
         }
 
-        public void stopObserving(){
+        public void stopObserving() {
             Battle.removeObserver(this, Battle.PROPERTY_GAME_OBJECTS);
         }
 

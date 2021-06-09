@@ -6,7 +6,10 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -69,7 +72,22 @@ public class Battle {
         propertyChangeSupport.firePropertyChange(Battle.PROPERTY_GAME_OBJECTS, null, objects);
     }
 
-    public void run() {
+    /**
+     * Starts the battle in a new thread and check if the battle state is valid
+     *
+     * @throws InvalidBattleStateException thrown if no unit is present
+     */
+    public void runAsync() throws InvalidBattleStateException {
+        if (armies.stream().mapToLong(army -> army.getUnits().size()).sum() == 0) {
+            throw new InvalidBattleStateException("Cant start a battle without any unit in it");
+        }
+        new Thread(this::run).start();
+    }
+
+    /**
+     * Contains the main game loop
+     */
+    private void run() {
         long lastTime = System.currentTimeMillis();
         long tempTotal = 0;
 
@@ -169,19 +187,21 @@ public class Battle {
     /**
      * Cherche tous les alliés de l'unité courante et la liste retournée est triée
      * par rapport à la distance qui les sépare de l'unité courante
+     *
      * @param unit l'unité qui cherche ses alliés
      * @return la liste des alliés de l'unité
      */
     public List<Unit> findAllies(Unit unit) {
-        List<Unit> allies =  unit.getTeam().getUnits().stream()
+        List<Unit> allies = unit.getTeam().getUnits().stream()
                 .filter(itUnit -> !itUnit.isDead()).collect(Collectors.toList());
         return sortAlliesByDistance(allies, unit);
     }
 
     /**
      * Trie la liste d'alliés par rapport à leur position respective qui les sépare de l'unité donnée en paramètre
+     *
      * @param units la liste d'alliés
-     * @param unit l'unité qui cherche ses alliés
+     * @param unit  l'unité qui cherche ses alliés
      * @return la liste d'alliés triés par rapport à leur position respective qui les sépare de l'unité donnée en paramètre
      */
     public List<Unit> sortAlliesByDistance(List<Unit> units, Unit unit) {
