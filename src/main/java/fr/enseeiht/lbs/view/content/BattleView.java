@@ -40,17 +40,17 @@ public abstract class BattleView extends JPanel implements PropertyChangeListene
         ENTITY_SPRITE.put(Viking.class, "Viking.png");
 
         TEAM_COLORS.add(Color.BLUE);
-        COLORS_NAME.put(TEAM_COLORS.get(0), "bleue");
+        COLORS_NAME.put(TEAM_COLORS.get(0), "Bleue");
         TEAM_COLORS.add(Color.RED);
-        COLORS_NAME.put(TEAM_COLORS.get(1), "rouge");
+        COLORS_NAME.put(TEAM_COLORS.get(1), "Rouge");
         TEAM_COLORS.add(Color.GREEN);
-        COLORS_NAME.put(TEAM_COLORS.get(2), "verte");
+        COLORS_NAME.put(TEAM_COLORS.get(2), "Verte");
         TEAM_COLORS.add(Color.YELLOW);
-        COLORS_NAME.put(TEAM_COLORS.get(3), "jaune");
+        COLORS_NAME.put(TEAM_COLORS.get(3), "Jaune");
         TEAM_COLORS.add(Color.PINK);
-        COLORS_NAME.put(TEAM_COLORS.get(4), "rose");
+        COLORS_NAME.put(TEAM_COLORS.get(4), "Rose");
         TEAM_COLORS.add(Color.BLACK);
-        COLORS_NAME.put(TEAM_COLORS.get(5), "dark");
+        COLORS_NAME.put(TEAM_COLORS.get(5), "Dark");
     }
 
     protected BattleView() {
