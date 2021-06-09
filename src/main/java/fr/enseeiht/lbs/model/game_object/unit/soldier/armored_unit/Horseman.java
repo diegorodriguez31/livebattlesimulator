@@ -17,7 +17,7 @@ public class Horseman extends ArmoredUnit {
     }
 
     /**
-     * Le horseman régait de manière unique aux débuffs qui modifient les statistiques
+     * Le horseman réagit de manière unique aux débuffs qui modifient les statistiques
      * (voir HorsemanStatModifierVisitor)
      */
     @Override
