@@ -28,7 +28,7 @@ public class HomePageController extends JPanel implements GuiComponent {
     private HomePageController() {
         JLabel title = new JLabel("Live Battle Simulator");
         title.setFont(new Font("Sans Serif", Font.BOLD, 75));
-        title.setForeground(new Color(255, 134, 0, 255));
+        title.setForeground(new Color(246, 112, 9, 255));
 
         JButton battleButton = new JButton("Simuler une bataille");
         battleButton.setFont(new Font("Sans Serif", Font.PLAIN, 30));

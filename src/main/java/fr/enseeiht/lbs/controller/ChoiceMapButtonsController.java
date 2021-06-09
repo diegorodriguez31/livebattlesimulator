@@ -63,14 +63,14 @@ public class ChoiceMapButtonsController extends JPanel {
             percentlava = 3;
             percentsnow = 3;
         }  else if (choix == 3) {//volcanique
-            percentdesert = 20;
+            percentdesert = 30;
             percentwater = 10;
             percentforest = 0;
-            percentrock = 20;
-            percentplain = 32;
-            percentlava = 36;
+            percentrock = 30;
+            percentplain = 20;
+            percentlava = 28;
             percentsnow = 0;
-        } else if (choix == 4) {//enneigné
+        } else if (choix == 4) {//enneigé
             percentdesert = 0;
             percentwater = 6;
             percentforest = 30;

@@ -103,7 +103,9 @@ public abstract class Unit extends Entity {
     }
 
     public void addBuffs(Buff buff) {
-        buffs.add(buff);
+        if (!hasBuff(buff)) {
+            buffs.add(buff);
+        }
     }
 
     protected BasicStatModifierBuffVisitor getStatModifierVisitor() {
