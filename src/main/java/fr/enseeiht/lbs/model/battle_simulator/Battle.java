@@ -18,6 +18,7 @@ import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.VERBOSE;
 
 public class Battle {
 
+    public static final int DELTA_TIME_MIN = 1000 / 60;
     private String name;
 
     private final static PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(Battle.class);
@@ -123,10 +124,12 @@ public class Battle {
             //notify Observers
             propertyChangeSupport.firePropertyChange(PROPERTY_GAME_OBJECTS, null, this.objects);
 
-            try {
-                Thread.sleep(1000 / 60);
-            } catch (InterruptedException e) {
-                System.err.println(e.getMessage());
+            if (System.currentTimeMillis() - lastTime < DELTA_TIME_MIN) {
+                try {
+                    Thread.sleep(-System.currentTimeMillis() + lastTime + DELTA_TIME_MIN);
+                } catch (InterruptedException e) {
+                    System.err.println(e.getMessage());
+                }
             }
         }
         Army winner = objectif.getWinner(this);

@@ -112,7 +112,6 @@ public class World {
                     //Do nothing, we don't want to add ourselves in!
                 }
                 //In case the index we're looking at it off the edge of the map
-
                 else if (neighbour_x < 0 || neighbour_y < 0 || neighbour_x >= map.length || neighbour_y >= map[0].length) {
 
                 }
@@ -173,7 +172,7 @@ public class World {
         return newMap;
     }
 
-//fonction qui place l'élément en cours de shaping dans la map de worldelements
+    //fonction qui place l'élément en cours de shaping dans la map de worldelements
     public void finaliseMap(WorldElement[][] map, boolean[][] oldmap, WorldElement elem) {
         int y = 0;
         for (int oy = 0; oy < SIZE_Y; oy++) {
@@ -223,10 +222,10 @@ public class World {
         System.out.println();
     }
 
-    public void affichWorldElements(){
-        for(int y=0; y<SIZE_Y;y++){
-            for(int x=0; x<SIZE_X;x++){
-                System.out.print(worldElements[x][y]+" ");
+    public void affichWorldElements() {
+        for (int y = 0; y < SIZE_Y; y++) {
+            for (int x = 0; x < SIZE_X; x++) {
+                System.out.print(worldElements[x][y] + " ");
             }
             System.out.println();
         }
@@ -260,7 +259,7 @@ public class World {
         return this.worldElements[xx][yy];
     }
 
-    public WorldElement getMainElement(){
+    public WorldElement getMainElement() {
         return this.mainElement;
     }
 
