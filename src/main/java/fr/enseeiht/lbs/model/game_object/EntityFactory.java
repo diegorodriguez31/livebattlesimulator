@@ -1,6 +1,5 @@
 package main.java.fr.enseeiht.lbs.model.game_object;
 
-import main.java.fr.enseeiht.lbs.model.game_object.creators.*;
 import main.java.fr.enseeiht.lbs.utils.Pair;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
@@ -124,6 +123,9 @@ public class EntityFactory {
      */
     public static void save() {
         try {
+            if (!Files.exists(Path.of(SAVE_PATH))) {
+                Files.createDirectories(Path.of(SAVE_PATH).getParent());
+            }
             Files.writeString(Path.of(SAVE_PATH), SERIALIZER.write(entityTypes, INITIAL_UNITS));
         } catch (IOException e) {
             System.err.println("Failed to write the entities");
@@ -137,7 +139,9 @@ public class EntityFactory {
         Scanner s = new Scanner(EntityFactory.class.getClassLoader().getResourceAsStream("Entities.json")).useDelimiter("\\A");
         String result = s.hasNext() ? s.next() : "";
         entityTypes.putAll(SERIALIZER.parse(result));
-        entityTypes.putAll(SERIALIZER.parse(Files.readString(Path.of(SAVE_PATH))));
+        if (Files.exists(Path.of(SAVE_PATH))) {
+            entityTypes.putAll(SERIALIZER.parse(Files.readString(Path.of(SAVE_PATH))));
+        }
     }
 
     public static Set<String> getInitialUnit() {
