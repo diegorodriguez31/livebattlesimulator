@@ -82,7 +82,9 @@ public abstract class BattleView extends JPanel implements PropertyChangeListene
     }
 
     protected void modifiedGameObjectTreatment(PropertyChangeEvent propertyChangeEvent) {
-        graphicalEntities.clear();
+        synchronized (graphicalEntities){
+            graphicalEntities.clear();
+        }
         for (Object gameObject : (List<?>) propertyChangeEvent.getNewValue()) {
             if (gameObject instanceof Entity) {
                 Entity entity = (Entity) gameObject;
@@ -107,8 +109,10 @@ public abstract class BattleView extends JPanel implements PropertyChangeListene
     @Override
     public void paint(Graphics graphics) {
         super.paint(graphics);
-        for (GraphicalEntity entityGraphic : this.graphicalEntities) {
-            entityGraphic.paint(graphics);
+        synchronized (this.graphicalEntities){
+            for (GraphicalEntity entityGraphic : this.graphicalEntities) {
+                entityGraphic.paint(graphics);
+            }
         }
     }
 
