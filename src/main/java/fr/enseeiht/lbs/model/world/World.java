@@ -263,12 +263,11 @@ public class World {
     }
 
     public WorldElement getWorldElementFromPosition(Vector2 position){
-        int positionX = Math.min(Math.round(position.getX()), MAX_POSITION_X);
-        int elementIndexX = (positionX * NB_TILES_X ) / MAX_POSITION_X;
+        float positionX = Math.min(position.getX(), MAX_POSITION_X);
+        int elementIndexX = Math.round((positionX * NB_TILES_X ) / MAX_POSITION_X);
 
-        int positionY = Math.min(Math.round(position.getY()), MAX_POSITION_Y);
-        int elementIndexY = (positionY * NB_TILES_Y) / MAX_POSITION_Y;
-        System.out.println("In world " + positionX + " is " + elementIndexX+ ",  " + positionY + " is " + elementIndexY);
+        float positionY = Math.min(position.getY(), MAX_POSITION_Y);
+        int elementIndexY = Math.round((positionY * NB_TILES_Y) / MAX_POSITION_Y);
         return worldElements[elementIndexX][elementIndexY];
     }
 
