@@ -43,19 +43,16 @@ public class UnitPlacementController extends JPanel implements GuiComponent {
 
         // Creates the view of the game
         battleWorldView = new BattleWorldView();
-        battleWorldView.setPreferredSize(new Dimension(950,620));
+        battleWorldView.setPreferredSize(new Dimension(950, 620));
         JPanel mainpanel = new JPanel();
-        //mainpanel.setPreferredSize(new Dimension(900,700));
         mainpanel.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
         mainpanel.add(battleWorldView);
         battleWorldView.addMouseListener(new MouseInputListener() {
             @Override
             public void mouseReleased(MouseEvent mouseEvent) {
-                if (selectedUnit == null) return;
+                if (selectedUnit == null || armySelect.getSelectedIndex() < 0) return;
                 Entity entity = EntityFactory.createEntity(selectedUnit, battleWorldView.pixelToWorld(mouseEvent.getX(), mouseEvent.getY()));
-                if (entity instanceof Unit && armySelect.getSelectedIndex() != 0) {
-                    model.getArmies().get(armySelect.getSelectedIndex() - 1).addUnit((Unit) entity);
-                }
+                model.getArmies().get(armySelect.getSelectedIndex()).addUnit((Unit) entity);
                 entity.setReady();
             }
 
@@ -145,7 +142,6 @@ public class UnitPlacementController extends JPanel implements GuiComponent {
 
     private void updateArmies() {
         armySelect.removeAllItems();
-        armySelect.addItem("Neutre");
         for (int i = 0; i < model.getArmies().size(); i++) {
             armySelect.addItem(BattleView.COLORS_NAME.get(BattleWorldView.TEAM_COLORS.get(i)));
         }
