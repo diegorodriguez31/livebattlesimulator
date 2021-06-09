@@ -4,7 +4,6 @@ import main.java.fr.enseeiht.lbs.model.game_object.Statistic;
 import main.java.fr.enseeiht.lbs.model.game_object.Stats;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.*;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.standard_unit.Peasant;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.BuffVisitor;
 
 /**
@@ -12,8 +11,8 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.BuffVisitor;
  * et applique les modifications de base des statistiques en fonction des différents Buffs existants
  */
 public class BasicStatModifierBuffVisitor implements BuffVisitor {
-    private Stats stats;
-    private Unit unit;
+    protected Stats stats;
+    protected Unit unit;
 
     public BasicStatModifierBuffVisitor(Stats stats, Unit unit){
         this.stats = new Stats(stats);
@@ -47,15 +46,11 @@ public class BasicStatModifierBuffVisitor implements BuffVisitor {
     }
 
     /**
-     * Être dans un groupe de paysants augmente la vitesse de déplacement
-     * et réduit le temps d'attente entre chaque attaque
+     * Les unités non destinées à recevoir ce buff ne doivent rien faire
      */
     @Override
     public void visit(PeasantGroupBuff buff) {
-        if (((Peasant) unit).isInAGroupOfThree()) {
-            stats.addStat(Statistic.SPEED, buff.getSpeedMultiplier() * getStats().getStatisticValue(Statistic.SPEED));
-            stats.addStat(Statistic.COOLDOWN, buff.getCooldownReducer() * getStats().getStatisticValue(Statistic.COOLDOWN));
-        }
+        // do nothing
     }
 
     /**

@@ -7,6 +7,7 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.action.AttackAction;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.action.FlightMovementAction;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.ai.ChargeAndHitAI;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.PeasantGroupBuff;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.statModifierVisitor.PeasantStatModifierVisitor;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
 import java.util.List;
@@ -48,6 +49,15 @@ public class Peasant extends Unit {
         }
         return false;
     }
+
+    /**
+     * En groupe de 3, le paysant marche plus vite et attaque plus souvent
+     */
+    @Override
+    protected PeasantStatModifierVisitor getStatModifierVisitor() {
+        return new PeasantStatModifierVisitor(stats, this);
+    }
+
 
     @Override
     public void start(Battle context) {
