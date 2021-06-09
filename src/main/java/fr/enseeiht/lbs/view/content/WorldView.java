@@ -12,6 +12,7 @@ public class WorldView extends JPanel implements PropertyChangeListener {
 
     public WorldView() {
         World world = World.getInstance();
+        //this.setPreferredSize(new Dimension(700,700));
         this.setLayout(new GridLayout(world.getSizeX(), world.getSizeY()));//construit une grille de la même taille que le tableau de char
         startObserving();
     }
@@ -30,6 +31,12 @@ public class WorldView extends JPanel implements PropertyChangeListener {
                 break;
             case ROCK:
                 color = new Color(111, 111, 106);
+                break;
+            case LAVA:
+                color = new Color(245,85,74);
+                break;
+            case SNOW:
+                color = new Color(209,198,197);
                 break;
             default:
                 color = new Color(93, 250, 53);
@@ -68,5 +75,7 @@ public class WorldView extends JPanel implements PropertyChangeListener {
                 this.add(worldCase);
             }
         }
+        this.updateUI();
+
     }
 }

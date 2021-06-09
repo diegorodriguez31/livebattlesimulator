@@ -54,7 +54,8 @@ public abstract class BattleView extends JPanel implements PropertyChangeListene
 
     protected BattleView() {
         this.setVisible(true);
-        this.setPreferredSize(new Dimension(500, 500));
+        this.setPreferredSize(new Dimension(700, 700));
+        //this.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         this.graphicalEntities = new LinkedList<>();
         //this.startObserving();
     }
@@ -125,3 +126,5 @@ public abstract class BattleView extends JPanel implements PropertyChangeListene
     }
 
 }
+
+
