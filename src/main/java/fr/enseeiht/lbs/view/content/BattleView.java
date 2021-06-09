@@ -5,6 +5,7 @@ import main.java.fr.enseeiht.lbs.model.game_object.Entity;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.armored_unit.*;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.standard_unit.*;
+import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 import main.java.fr.enseeiht.lbs.view.adapter.GraphicalEntity;
 import main.java.fr.enseeiht.lbs.view.adapter.SpriteGraphicalEntity;
@@ -20,8 +21,8 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public abstract class BattleView extends JPanel implements PropertyChangeListener {
 
-    private final ReadWriteLock lock;
-    private final List<GraphicalEntity> graphicalEntities;
+    protected final List<GraphicalEntity> graphicalEntities;
+    protected final ReadWriteLock lock;
 
     private final static HashMap<Class<? extends Entity>, String> ENTITY_SPRITE = new HashMap<>();
     public final static List<Color> TEAM_COLORS = new ArrayList<>();
@@ -42,38 +43,38 @@ public abstract class BattleView extends JPanel implements PropertyChangeListene
         ENTITY_SPRITE.put(Viking.class, "Viking.png");
 
         TEAM_COLORS.add(Color.BLUE);
-        COLORS_NAME.put(TEAM_COLORS.get(0), "bleue");
+        COLORS_NAME.put(TEAM_COLORS.get(0), "Bleue");
         TEAM_COLORS.add(Color.RED);
-        COLORS_NAME.put(TEAM_COLORS.get(1), "rouge");
+        COLORS_NAME.put(TEAM_COLORS.get(1), "Rouge");
         TEAM_COLORS.add(Color.GREEN);
-        COLORS_NAME.put(TEAM_COLORS.get(2), "verte");
+        COLORS_NAME.put(TEAM_COLORS.get(2), "Verte");
         TEAM_COLORS.add(Color.YELLOW);
-        COLORS_NAME.put(TEAM_COLORS.get(3), "jaune");
+        COLORS_NAME.put(TEAM_COLORS.get(3), "Jaune");
         TEAM_COLORS.add(Color.PINK);
-        COLORS_NAME.put(TEAM_COLORS.get(4), "rose");
+        COLORS_NAME.put(TEAM_COLORS.get(4), "Rose");
         TEAM_COLORS.add(Color.BLACK);
-        COLORS_NAME.put(TEAM_COLORS.get(5), "dark");
+        COLORS_NAME.put(TEAM_COLORS.get(5), "Dark");
     }
 
     protected BattleView() {
         this.setVisible(true);
-        this.setPreferredSize(new Dimension(700, 700));
-        //this.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         this.graphicalEntities = new LinkedList<>();
-        //this.startObserving();
         lock = new ReentrantReadWriteLock();
     }
 
-    protected Vector2 worldToPixel(Vector2 world) {
+  /*  protected Vector2 worldToPixel(Vector2 world) {
         return world.scale(GraphicalEntity.SUPER_PIXEL_SIZE);
-    }
+    }*/
 
     protected Vector2 pixelToWorld(Vector2 pixel) {
         return pixel.scale(1f / GraphicalEntity.SUPER_PIXEL_SIZE);
     }
 
-    public Vector2 pixelToWorld(int x, int y) {
-        return new Vector2(x, y).scale(1f / GraphicalEntity.SUPER_PIXEL_SIZE);
+    public Vector2 pixelCoordinatesToWorld(float x, float y) {
+        Dimension viewDimension = this.getSize();
+        float positionX = (x * World.MAX_POSITION_X) / viewDimension.width;
+        float positionY = (y * World.MAX_POSITION_Y) / viewDimension.height;
+        return new Vector2(positionX, positionY);
     }
 
     @Override
@@ -100,9 +101,9 @@ public abstract class BattleView extends JPanel implements PropertyChangeListene
                     }
                 }
                 if (sprite != null) {
-                    this.graphicalEntities.add(new SpriteGraphicalEntity(worldToPixel(entity.getPosition()), sprite, color));
+                    this.graphicalEntities.add(new SpriteGraphicalEntity(entity.getPosition(), sprite, color));
                 } else {
-                    this.graphicalEntities.add(new GraphicalEntity(worldToPixel(entity.getPosition()), color));
+                    this.graphicalEntities.add(new GraphicalEntity(entity.getPosition(), color));
                 }
 
             }

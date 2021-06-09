@@ -11,9 +11,8 @@ import java.beans.PropertyChangeListener;
 public class WorldView extends JPanel implements PropertyChangeListener {
 
     public WorldView() {
-        World world = World.getInstance();
         //this.setPreferredSize(new Dimension(700,700));
-        this.setLayout(new GridLayout(world.getSizeX(), world.getSizeY()));//construit une grille de la même taille que le tableau de char
+        this.setLayout(new GridLayout(World.NB_TILES_X, World.NB_TILES_Y));//construit une grille de la même taille que le tableau de char
         startObserving();
     }
 
@@ -66,8 +65,8 @@ public class WorldView extends JPanel implements PropertyChangeListener {
     public void repaintWorld(){
         this.removeAll();
         World world = World.getInstance();
-        for (int y = 0; y < world.getSizeY(); y++) {
-            for (int x = 0; x < world.getSizeX(); x++) {
+        for (int y = 0; y < World.NB_TILES_Y; y++) {
+            for (int x = 0; x < World.NB_TILES_X; x++) {
                 JLabel worldCase = new JLabel();
                 WorldElement worldElement = world.getTile(x, y); //c prend le character du tableau qui est à sa place
                 worldCase.setBackground(getCorrespondingColor(worldElement)); // la case est remplie de la couleur correspondante

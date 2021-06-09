@@ -1,9 +1,10 @@
 package main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.armored_unit;
 
+import main.java.fr.enseeiht.lbs.LiveBattleSimulator;
 import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
 import main.java.fr.enseeiht.lbs.model.game_object.Stats;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.action.AttackAction;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.action.GroundMovementAction;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.action.GroundHeavyMovementAction;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.ai.ChargeAndHitAI;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.dotVisitor.BasicTicVisitor;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.dotVisitor.VikingTicVisitor;
@@ -15,7 +16,7 @@ public class Viking extends ArmoredUnit {
 
     public Viking(String name, Stats stats, Vector2 position) {
         super(name, stats, position);
-        ai = new ChargeAndHitAI(new AttackAction(this), new GroundMovementAction(this));
+        ai = new ChargeAndHitAI(new AttackAction(this), new GroundHeavyMovementAction(this));
         shield = 100;
     }
 
@@ -26,7 +27,9 @@ public class Viking extends ArmoredUnit {
     public void receiveDamage(double damage) {
         if (hasShield()) {
             shield -= damage;
-            status();
+            if (LiveBattleSimulator.VERBOSE >= 2) {
+                status();
+            }
         } else {
             super.receiveDamage(damage);
         }

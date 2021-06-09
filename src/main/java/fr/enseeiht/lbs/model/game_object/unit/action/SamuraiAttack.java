@@ -31,11 +31,7 @@ public class SamuraiAttack extends AttackAction {
 
         if (attaquant.attackSuccess()) {
             target.receiveDamage(attaquant.getStats().getStatisticValue(Statistic.DAMAGE));
-
-            FireDebuff fireDebuff = new FireDebuff(FIRE_TIC_DAMAGE);
-            if (!target.hasBuff(fireDebuff)) {
-                target.addBuffs(fireDebuff);
-            }
+            target.addBuffs(new FireDebuff(FIRE_TIC_DAMAGE));
         }
     }
 }

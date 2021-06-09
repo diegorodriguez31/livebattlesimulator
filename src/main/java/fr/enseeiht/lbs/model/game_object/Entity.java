@@ -42,10 +42,6 @@ public abstract class Entity extends GameObject {
         return position;
     }
 
-    public float getFloatPosition() {
-        return getPosition().sqrSize();
-    }
-
     public boolean isDead() {
         return getHealth() <= 0;
     }
@@ -55,24 +51,7 @@ public abstract class Entity extends GameObject {
     }
 
     public WorldElement getFieldElement() {
-        Vector2 position = this.getPosition();
-        int EntityY = (int) (position.getY() * 1.08);
-        int EntityX = (int) (position.getX() * 1.85);
-        if (EntityY >= World.getInstance().getSizeY()) {
-            EntityY = World.getInstance().getSizeY();
-        }
-        if (EntityX >= World.getInstance().getSizeX()) {
-            EntityX = World.getInstance().getSizeX();
-        }
-        for (int y = 0; y < World.getInstance().getSizeY(); y++) {
-            if (y == EntityY) {
-                for (int x = 0; x < World.getInstance().getSizeX(); x++) {
-                    if ((x == EntityX)) {
-                        return World.getInstance().getTile(x, y);
-                    }
-                }
-            }
-        }
-        return null;
+        Vector2 pos = getPosition();
+        return World.getInstance().getTile((int) (pos.getX() / World.MAX_POSITION_X * World.NB_TILES_X), (int) (pos.getY() / World.MAX_POSITION_Y * World.NB_TILES_Y));
     }
 }

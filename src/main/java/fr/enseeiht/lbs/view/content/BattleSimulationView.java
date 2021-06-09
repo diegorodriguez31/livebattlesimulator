@@ -16,6 +16,10 @@ import java.beans.PropertyChangeListener;
  */
 public class BattleSimulationView extends JPanel implements PropertyChangeListener, GuiComponent {
 
+    public BattleWorldView getBattleWorldView() {
+        return battleWorldView;
+    }
+
     private final BattleWorldView battleWorldView;
     private final SpeedController speedController;
 

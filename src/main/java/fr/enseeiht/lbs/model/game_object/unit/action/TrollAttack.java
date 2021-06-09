@@ -36,11 +36,7 @@ public class TrollAttack extends AttackAction {
 
         if (attaquant.attackSuccess()) {
             target.receiveDamage(attaquant.getStats().getStatisticValue(Statistic.DAMAGE));
-
-            PoisonDebuff poisonDebuff = new PoisonDebuff(POISON_TIC_DAMAGE, COOLDOWN_INCREASE_MULTIPLIER);
-            if (!target.hasBuff(poisonDebuff)) {
-                target.addBuffs(poisonDebuff);
-            }
+            target.addBuffs(new PoisonDebuff(POISON_TIC_DAMAGE, COOLDOWN_INCREASE_MULTIPLIER));
         }
     }
 }

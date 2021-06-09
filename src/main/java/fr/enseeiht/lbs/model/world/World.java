@@ -1,5 +1,7 @@
 package main.java.fr.enseeiht.lbs.model.world;
 
+import main.java.fr.enseeiht.lbs.utils.Vector2;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Arrays;
@@ -19,12 +21,24 @@ public class World {
     /**
      * Size X of the map
      */
-    private static final int SIZE_X = 50;
+    public static final int NB_TILES_X = 50;
 
     /**
      * Size Y of the map
      */
-    private static final int SIZE_Y = 50;
+    public static final int NB_TILES_Y = 50;
+
+    /**
+     * 96 postions in width
+     * Ratio of the page : 16/9
+     */
+    public static final int MAX_POSITION_X = 96;
+
+    /**
+     * 54 postions in height
+     * Ratio of the page : 16/9
+     */
+    public static final int MAX_POSITION_Y = 54;
 
 
     private WorldElement mainElement;
@@ -36,7 +50,7 @@ public class World {
     private static World instance;
 
     private World() {
-        worldElements = new WorldElement[SIZE_X][SIZE_Y];
+        worldElements = new WorldElement[NB_TILES_X][NB_TILES_Y];
     }
 
     public static World getInstance() {
@@ -48,7 +62,7 @@ public class World {
 
     public void generateWorld(int percentDesert, int percentWater, int percentRocks, int percentForest, int percentPlain, int percentLava, int percentSnow) {
 
-        final int totalTiles = SIZE_X * SIZE_Y;
+        final int totalTiles = NB_TILES_X * NB_TILES_Y;
 
         int sumPercent = percentForest + percentDesert + percentWater + percentRocks + percentPlain + percentLava + percentSnow;
         int nbDesert = (percentDesert * totalTiles) / sumPercent;
@@ -63,8 +77,8 @@ public class World {
         mainElement = findMainElement(percentDesert, percentWater, percentRocks, percentForest, percentPlain, percentLava, percentSnow);
 
         //on remplit le tableau avec le mainElement
-        for (int x = 0; x < SIZE_X; x++) {
-            for (int y = 0; y < SIZE_Y; y++) {
+        for (int x = 0; x < NB_TILES_X; x++) {
+            for (int y = 0; y < NB_TILES_Y; y++) {
                 this.worldElements[x][y] = mainElement;
             }
         }
@@ -77,7 +91,7 @@ public class World {
         createShapes(WorldElement.FOREST, nbForest);
         createShapes(WorldElement.LAVA, nbLava);
         createShapes(WorldElement.SNOW, nbSnow);
-        affichWorldElements();
+        //affichWorldElements();
 
         propertyChangeSupport.firePropertyChange(PROPERTY_RELOAD_MAP, null, this.worldElements);
     }
@@ -127,10 +141,10 @@ public class World {
     public boolean[][] initialiseMap(WorldElement[][] map, WorldElement elem, float nbtiles) {
         //remplit la map de boolean correctement en fonction des elements deja presents sur le terrain
         int ny = 0;
-        boolean[][] newmap = new boolean[SIZE_X][SIZE_Y];
-        for (int y = 0; y < SIZE_Y; y++) {
+        boolean[][] newmap = new boolean[NB_TILES_X][NB_TILES_Y];
+        for (int y = 0; y < NB_TILES_Y; y++) {
             int nx = 0;
-            for (int x = 0; x < SIZE_X; x++) {
+            for (int x = 0; x < NB_TILES_X; x++) {
                 newmap[nx][ny] = elem == map[x][y];
                 nx++;
             }
@@ -138,11 +152,11 @@ public class World {
         }
         //met des true à des endroits random en fonction de la proportion donnée de cases
         ny = 0;
-        for (int y = 0; y < SIZE_Y; y++) {
+        for (int y = 0; y < NB_TILES_Y; y++) {
             int nx = 0;
-            for (int x = 0; x < SIZE_X; x++) {
+            for (int x = 0; x < NB_TILES_X; x++) {
                 double n = Math.random();//entre 0 et 1
-                if (n < nbtiles / (SIZE_Y * SIZE_X)) {
+                if (n < nbtiles / (NB_TILES_Y * NB_TILES_X)) {
                     newmap[nx][ny] = true;
                 }
                 nx++;
@@ -154,7 +168,7 @@ public class World {
     }
 
     public boolean[][] doSimulationStep(boolean[][] oldMap, double deathLimit, double birthLimit) {
-        boolean[][] newMap = new boolean[SIZE_X][SIZE_Y];
+        boolean[][] newMap = new boolean[NB_TILES_X][NB_TILES_Y];
         //Loop over each row and column of the map
         for (int x = 0; x < oldMap.length; x++) {
             for (int y = 0; y < oldMap[0].length; y++) {
@@ -175,9 +189,9 @@ public class World {
     //fonction qui place l'élément en cours de shaping dans la map de worldelements
     public void finaliseMap(WorldElement[][] map, boolean[][] oldmap, WorldElement elem) {
         int y = 0;
-        for (int oy = 0; oy < SIZE_Y; oy++) {
+        for (int oy = 0; oy < NB_TILES_Y; oy++) {
             int x = 0;
-            for (int ox = 0; ox < SIZE_X; ox++) {
+            for (int ox = 0; ox < NB_TILES_X; ox++) {
                 if (oldmap[ox][oy]) {
                     map[x][y] = elem;
                 } else {
@@ -222,10 +236,10 @@ public class World {
         System.out.println();
     }
 
-    public void affichWorldElements() {
-        for (int y = 0; y < SIZE_Y; y++) {
-            for (int x = 0; x < SIZE_X; x++) {
-                System.out.print(worldElements[x][y] + " ");
+    public void affichWorldElements(){
+        for(int y = 0; y< NB_TILES_Y; y++){
+            for(int x = 0; x< NB_TILES_X; x++){
+                System.out.print(worldElements[x][y]+" ");
             }
             System.out.println();
         }
@@ -243,16 +257,17 @@ public class World {
         propertyChangeSupport.removePropertyChangeListener(propertyName, propertyChangeListener);
     }
 
-    public int getSizeX() {
-        return SIZE_X;
-    }
-
-    public int getSizeY() {
-        return SIZE_Y;
-    }
-
     public WorldElement[][] getWorldElements() {
         return worldElements;
+    }
+
+    public WorldElement getWorldElementFromPosition(Vector2 position){
+        float positionX = Math.min(position.getX(), MAX_POSITION_X);
+        int elementIndexX = Math.round((positionX * NB_TILES_X ) / MAX_POSITION_X);
+
+        float positionY = Math.min(position.getY(), MAX_POSITION_Y);
+        int elementIndexY = Math.round((positionY * NB_TILES_Y) / MAX_POSITION_Y);
+        return worldElements[elementIndexX][elementIndexY];
     }
 
     public WorldElement getTile(int xx, int yy) {
