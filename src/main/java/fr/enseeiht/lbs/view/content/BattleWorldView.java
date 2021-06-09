@@ -13,7 +13,7 @@ public class BattleWorldView extends BattleView implements PropertyChangeListene
     public BattleWorldView() {
         super();
         World world = World.getInstance();
-        this.setLayout(new GridLayout(world.getSizeX(), world.getSizeY()));//construit une grille de la même taille que le tableau de char
+        this.setLayout(new GridLayout(World.NB_TILES_X, World.NB_TILES_Y));//construit une grille de la même taille que le tableau de char
         this.setPreferredSize(new Dimension(700, 700));
         this.startObserving();
         this.updateWorldRepresentation();
@@ -31,8 +31,8 @@ public class BattleWorldView extends BattleView implements PropertyChangeListene
     private void updateWorldRepresentation() {
         World world = World.getInstance();
         removeAll();
-        for (int y = 0; y < world.getSizeY(); y++) {
-            for (int x = 0; x < world.getSizeX(); x++) {
+        for (int y = 0; y < World.NB_TILES_Y; y++) {
+            for (int x = 0; x < World.NB_TILES_X; x++) {
                 JLabel worldCase = new JLabel();
                 WorldElement worldElement = world.getTile(x, y); // prend le character du tableau qui est à sa place
                 worldCase.setBackground(WorldView.getCorrespondingColor(worldElement)); // la case est remplie de la couleur correspondante

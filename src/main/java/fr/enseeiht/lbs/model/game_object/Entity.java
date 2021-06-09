@@ -57,15 +57,15 @@ public abstract class Entity extends GameObject {
 
     public WorldElement getFieldElement(){
         Vector2 position = this.getPosition();
-        int EntityY = (int) (position.getY()*1.08);
-        int EntityX = (int)(position.getX()*1.85);
-        if(EntityY >= World.getInstance().getSizeY()){ EntityY = World.getInstance().getSizeY();}
-        if(EntityX >= World.getInstance().getSizeX()){ EntityX = World.getInstance().getSizeX();}
+        int entityY = (int) (position.getY());
+        int entityX = (int)(position.getX());
+        if(entityY >= World.MAX_POSITION_Y){ entityY = World.MAX_POSITION_Y;}
+        if(entityX >= World.MAX_POSITION_X){ entityX = World.MAX_POSITION_X;}
         getSqrSize();
-        for( int y=0;y<World.getInstance().getSizeY();y++){
-            if(y == EntityY) {
-                for (int x = 0; x < World.getInstance().getSizeX(); x++) {
-                    if ((x == EntityX)){
+        for( int y=0;y<World.NB_TILES_Y;y++){
+            if(y == entityY) {
+                for (int x = 0; x < World.NB_TILES_X; x++) {
+                    if ((x == entityX)){
                         return World.getInstance().getTile(x,y);
                     }
                 }
@@ -75,7 +75,7 @@ public abstract class Entity extends GameObject {
     }
     public void getSqrSize(){
         if (LiveBattleSimulator.VERBOSE >= 2){
-            System.out.println(getPosition().size());//max is around  with 93.5*60.15
+            System.out.println(getPosition().size());
         }
         //max array is 400.
     }

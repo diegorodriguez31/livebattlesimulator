@@ -51,7 +51,7 @@ public class UnitPlacementController extends JPanel implements GuiComponent {
             @Override
             public void mouseReleased(MouseEvent mouseEvent) {
                 if (selectedUnit == null) return;
-                Entity entity = EntityFactory.createEntity(selectedUnit, battleWorldView.pixelToWorld(mouseEvent.getX(), mouseEvent.getY()));
+                Entity entity = EntityFactory.createEntity(selectedUnit, battleWorldView.pixelCoordinatesToWorld(mouseEvent.getX(), mouseEvent.getY()));
                 if (entity instanceof Unit && armySelect.getSelectedIndex() != 0) {
                     model.getArmies().get(armySelect.getSelectedIndex() - 1).addUnit((Unit) entity);
                 }
@@ -184,5 +184,9 @@ public class UnitPlacementController extends JPanel implements GuiComponent {
             }
             this.updateUI();
         }
+    }
+
+    public BattleWorldView getBattleWorldView() {
+        return battleWorldView;
     }
 }

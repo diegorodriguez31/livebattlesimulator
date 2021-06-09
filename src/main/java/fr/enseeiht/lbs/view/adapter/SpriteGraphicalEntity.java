@@ -1,5 +1,6 @@
 package main.java.fr.enseeiht.lbs.view.adapter;
 
+import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
 import java.awt.*;
@@ -18,8 +19,11 @@ public class SpriteGraphicalEntity extends GraphicalEntity {
     public void paint(Graphics graphics) {
         try {
             Image image = SpriteBuffer.getSprite(this.spritePath);
-            graphics.drawImage(image, (int) position.getX() - (SUPER_PIXEL_SIZE/2), (int) position.getY() - (SUPER_PIXEL_SIZE/2), null);
-            paintLabel(graphics);
+            Dimension viewDimension = this.getViewSize();
+            int positionX = Math.round((position.getX() * viewDimension.width ) / World.MAX_POSITION_X);
+            int positionY = Math.round((position.getY() * viewDimension.height ) / World.MAX_POSITION_Y);
+            graphics.drawImage(image, positionX - (SUPER_PIXEL_SIZE/2), positionY - (SUPER_PIXEL_SIZE/2), null);
+            paintLabel(graphics, positionX, positionY);
         } catch (IOException e) {
             e.printStackTrace();
             super.paint(graphics);

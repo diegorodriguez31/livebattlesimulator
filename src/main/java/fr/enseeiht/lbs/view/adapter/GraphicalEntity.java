@@ -1,6 +1,10 @@
 package main.java.fr.enseeiht.lbs.view.adapter;
 
+import main.java.fr.enseeiht.lbs.controller.UnitPlacementController;
+import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
+import main.java.fr.enseeiht.lbs.view.content.BattleSimulationView;
+import main.java.fr.enseeiht.lbs.view.gui.LiveBattleSimulatorGUI;
 
 import java.awt.*;
 
@@ -18,18 +22,30 @@ public class GraphicalEntity extends Component {
     @Override
     public void paint(Graphics graphics) {
         super.paint(graphics);
-        graphics.drawRect(((int) position.getX()) - (SUPER_PIXEL_SIZE/2), ((int) position.getY()) - (SUPER_PIXEL_SIZE/2), SUPER_PIXEL_SIZE, SUPER_PIXEL_SIZE);
-        paintLabel(graphics);
+
+        Dimension viewDimension = this.getViewSize();
+        int positionX = Math.round((position.getX() * viewDimension.width ) / World.MAX_POSITION_X);
+        int positionY = Math.round((position.getY() * viewDimension.height ) / World.MAX_POSITION_Y);
+        graphics.drawRect(positionX - (SUPER_PIXEL_SIZE/2), positionY - (SUPER_PIXEL_SIZE/2), SUPER_PIXEL_SIZE, SUPER_PIXEL_SIZE);
+        paintLabel(graphics, positionX, positionY);
     }
 
-    protected void paintLabel(Graphics graphics) {
+    protected Dimension getViewSize() {
+        Dimension dimension = null;
+        if (LiveBattleSimulatorGUI.getInstance().isBattleSimulationViewActive()) {
+            dimension = BattleSimulationView.getInstance().getBattleWorldView().getSize();
+        }else if(LiveBattleSimulatorGUI.getInstance().isUnitPlacementControllerActive()){
+            dimension = UnitPlacementController.getInstance().getBattleWorldView().getSize();
+        }
+        return dimension;
+    }
+
+    protected void paintLabel(Graphics graphics, int positionX, int positionY) {
         if (labelColor == null) return;
-        int x = (int) position.getX();
-        int y = (int) position.getY();
         graphics.setColor(labelColor);
         graphics.fillPolygon(
-                new int[]{x - 3, x + 3, x},
-                new int[]{y - 10, y - 10, y - 7},
+                new int[]{positionX - 3, positionX + 3, positionX},
+                new int[]{positionY - 10, positionY - 10, positionY - 7},
                 3
         );
     }

@@ -137,4 +137,16 @@ public class LiveBattleSimulatorGUI extends JFrame {
         this.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
         this.setVisible(true);
     }
+
+    public GuiComponent getAcutalComponent() {
+        return acutalComponent;
+    }
+
+    public boolean isUnitPlacementControllerActive(){
+        return  acutalComponent == UnitPlacementController.getInstance();
+    }
+
+    public boolean isBattleSimulationViewActive(){
+        return  acutalComponent == BattleSimulationView.getInstance();
+    }
 }

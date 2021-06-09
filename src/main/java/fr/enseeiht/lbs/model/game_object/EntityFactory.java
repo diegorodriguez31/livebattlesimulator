@@ -1,6 +1,6 @@
 package main.java.fr.enseeiht.lbs.model.game_object;
 
-import main.java.fr.enseeiht.lbs.model.game_object.creators.*;
+import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.utils.Pair;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
@@ -99,6 +99,8 @@ public class EntityFactory {
      */
     public static Entity createEntity(String type, Vector2 position) {
         Pair<EntityPrimitiveTypes, Stats> pair = entityTypes.get(type);
+        System.out.println(position);
+        System.out.println(World.getInstance().getWorldElementFromPosition(position));
         return pair.getFirst().getCreator().createEntity(type, position, pair.getSecond());
     }
 
