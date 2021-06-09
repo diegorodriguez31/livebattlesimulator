@@ -43,19 +43,16 @@ public class UnitPlacementController extends JPanel implements GuiComponent {
 
         // Creates the view of the game
         battleWorldView = new BattleWorldView();
-        battleWorldView.setPreferredSize(new Dimension(950,620));
+        battleWorldView.setPreferredSize(new Dimension(950, 620));
         JPanel mainpanel = new JPanel();
-        //mainpanel.setPreferredSize(new Dimension(900,700));
         mainpanel.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
         mainpanel.add(battleWorldView);
         battleWorldView.addMouseListener(new MouseInputListener() {
             @Override
             public void mouseReleased(MouseEvent mouseEvent) {
-                if (selectedUnit == null) return;
+                if (selectedUnit == null || armySelect.getSelectedIndex() < 0) return;
                 Entity entity = EntityFactory.createEntity(selectedUnit, battleWorldView.pixelToWorld(mouseEvent.getX(), mouseEvent.getY()));
-                if (entity instanceof Unit && armySelect.getSelectedIndex() != 0) {
-                    model.getArmies().get(armySelect.getSelectedIndex() - 1).addUnit((Unit) entity);
-                }
+                model.getArmies().get(armySelect.getSelectedIndex()).addUnit((Unit) entity);
                 entity.setReady();
             }
 
@@ -116,11 +113,26 @@ public class UnitPlacementController extends JPanel implements GuiComponent {
 
         JPanel armyPanel = new JPanel();
         armyPanel.setPreferredSize(new Dimension(200, 500));
-        armyPanel.setLayout(new BoxLayout(armyPanel, BoxLayout.Y_AXIS));
-        armyPanel.add(this.armySelect);
-        armyPanel.add(scrll);
-        armyPanel.add(okButton);
-        armyPanel.add(cancelButton);
+        armyPanel.setLayout(new GridBagLayout());
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 1;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        armyPanel.add(this.armySelect, gridBagConstraints);
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.weighty = 1;
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        armyPanel.add(scrll, gridBagConstraints);
+        gridBagConstraints.weighty = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 1;
+        gridBagConstraints.weightx = 0.5;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        armyPanel.add(okButton, gridBagConstraints);
+        gridBagConstraints.gridx = 1;
+        armyPanel.add(cancelButton, gridBagConstraints);
 
         this.setLayout(new BorderLayout());
         this.add(mainpanel, BorderLayout.CENTER);
@@ -145,7 +157,6 @@ public class UnitPlacementController extends JPanel implements GuiComponent {
 
     private void updateArmies() {
         armySelect.removeAllItems();
-        armySelect.addItem("Neutre");
         for (int i = 0; i < model.getArmies().size(); i++) {
             armySelect.addItem(BattleView.COLORS_NAME.get(BattleWorldView.TEAM_COLORS.get(i)));
         }
@@ -196,15 +207,7 @@ public class UnitPlacementController extends JPanel implements GuiComponent {
         private void updateUnitList() {
             this.removeAll();
             if (armySelect.getSelectedIndex() == -1) return;
-            if (armySelect.getSelectedIndex() == 0) {
-                model.getObjects().forEach(gameObject -> {
-                    if (gameObject instanceof Entity) {
-                        this.add(new JLabel("- " + ((Entity) gameObject).getName()));
-                    }
-                });
-            } else {
-                model.getArmies().get(armySelect.getSelectedIndex() - 1).getUnits().forEach(gameObject -> this.add(new JLabel("- " + gameObject.getName())));
-            }
+            model.getArmies().get(armySelect.getSelectedIndex()).getUnits().forEach(gameObject -> this.add(new JLabel("- " + gameObject.getName())));
             this.updateUI();
         }
     }
