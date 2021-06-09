@@ -1,10 +1,6 @@
 package main.java.test.it.java.fr.enseeiht.lbs;
 
-import main.java.fr.enseeiht.lbs.model.game_object.Statistic;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.BreakArmorDebuff;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.Buff;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.PoisonDebuff;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.SlowDebuff;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.*;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.armored_unit.Knight;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.dotVisitor.BasicTicVisitor;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
@@ -18,32 +14,46 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
+/**
+ * Teste les comportements du chevalier (Knight) pour chaque buff qu'il reçoit
+ */
 public class KnightBuffBehaviourTest {
 
-    private Knight knight = spy((Knight) createEntity("Knight", new Vector2(0, 0)));
-    private static int DELTA_TIME_IN_MILLISECONDS = 1000;
-    private static double KNIGHT_RAW_HEALTH = 100.0;
-    private static double KNIGHT_RAW_DAMAGE = 30.0;
-    private static double KNIGHT_RAW_COOLDOWN = 1.0;
-    private static double KNIGHT_RAW_SPEED = 1.0;
-    private static double KNIGHT_RAW_RANGE = 1.0;
-    private static double KNIGHT_RAW_ACCURACY = 80.0;
-    private static double KNIGHT_RAW_AGILITY = 50.0;
-    private static double KNIGHT_RAW_ARMOR = 50.0;
+    /**
+     * Cible des buffs dont on vérifie les bons comportements
+     */
+    private Knight knight;
 
     /**
-     * Vérifie si les statistiques du chevalier correspondent à celle donner en paramètre. Cela permet surtout
-     * de vérifier que seulement la stat concernée a été modifiée
-     * @param target cible attendue
-     * @param damage dégâts attendus
-     * @param cooldown cooldown attendu
+     * Temps entre chaque tic de dégâts (en millisecondes)
+     */
+    private static final int DELTA_TIME_IN_MILLISECONDS = 1000;
+
+    /**
+     * Statistiques brutes du chevalier
+     */
+    private final double KNIGHT_RAW_HEALTH = 100.0;
+    private final double KNIGHT_RAW_DAMAGE = 30.0;
+    private final double KNIGHT_RAW_COOLDOWN = 1.0;
+    private final double KNIGHT_RAW_SPEED = 1.0;
+    private final double KNIGHT_RAW_RANGE = 1.0;
+    private final double KNIGHT_RAW_ACCURACY = 80.0;
+    private final double KNIGHT_RAW_AGILITY = 50.0;
+    private final double KNIGHT_RAW_ARMOR = 50.0;
+
+    /**
+     * Vérifie si les statistiques du chevalier correspondent à celles données en paramètre. Cela permet surtout
+     * de vérifier que seulement la ou les statistiques concernées ont été modifié
+     * @param target cible des buffs
+     * @param damage dégâts que la cible peut provoquer attendus
+     * @param cooldown temps entre chaque attaque attendu
      * @param speed vitesse attendue
      * @param range portée attendue
      * @param accuracy précision attendue
      * @param agility agilité attendue
      * @param armor armure attendue
      */
-    private static void checkStatsModifications(Knight target, double damage, double cooldown,
+    private void checkStatsModifications(Knight target, double damage, double cooldown,
                                                 double speed, double range, double accuracy, double agility, double armor) {
         assertEquals(damage, target.getStats().getStatisticValue(DAMAGE), 0.1);
         assertEquals(cooldown, target.getStats().getStatisticValue(COOLDOWN), 0.1);
@@ -56,9 +66,8 @@ public class KnightBuffBehaviourTest {
 
     /**
      * Applique les tics de dégâts en fonction des buffs présents sur la cible
-     * @param knight le chevalier
      */
-    private static void applyTicDamage(Knight knight) {
+    private void applyTicDamage() {
         BasicTicVisitor visitor = knight.getTicVisitor(DELTA_TIME_IN_MILLISECONDS);
         for (Buff buff : knight.getBuffs()) {
             buff.accept(visitor);
@@ -66,8 +75,8 @@ public class KnightBuffBehaviourTest {
     }
 
     /**
-     * Mock le chevalier afin de désactiver l'esquive.
-     * Le chevalier esquive aléatoirement la classe en ne reçoit pas de dégâts
+     * Mock le chevalier afin de désactiver l'esquive
+     * Le chevalier esquive aléatoirement les dégâts pour ne pas en recevoir
      */
     @Before
     public void setUp() {
@@ -86,24 +95,22 @@ public class KnightBuffBehaviourTest {
      */
     @Test
     public void testPoisonDebuffWithArmor() {
-        assertEquals(KNIGHT_RAW_HEALTH, knight.getHealth(), 0.1);
         knight.addBuffs(new PoisonDebuff(20, 2.0));
-        applyTicDamage(knight);
+        applyTicDamage();
 
         assertEquals(KNIGHT_RAW_HEALTH, knight.getHealth(), 0.1);
         checkStatsModifications(knight, KNIGHT_RAW_DAMAGE, 2.0, 0.5, KNIGHT_RAW_RANGE, KNIGHT_RAW_ACCURACY, KNIGHT_RAW_AGILITY, KNIGHT_RAW_ARMOR);
     }
 
     /**
-     * Vérifie que le chevalier subit les dégâts des tics de feu et de poison s'il n'a pas d'armure
+     * Vérifie que le chevalier subit les dégâts des tics de poison s'il n'a pas d'armure
      * Vérifie la bonne modification des statistiques que le poison applique (cooldown et speed) s'il n'a pas d'armure
      */
     @Test
     public void testPoisonDebuffWithoutArmor() {
-        assertEquals(KNIGHT_RAW_HEALTH, knight.getHealth(), 0.1);
         knight.addBuffs(new BreakArmorDebuff());
         knight.addBuffs(new PoisonDebuff(20, 2.0));
-        applyTicDamage(knight);
+        applyTicDamage();
 
         assertEquals(80.0, knight.getHealth(), 0.1);
         checkStatsModifications(knight, KNIGHT_RAW_DAMAGE, 2.0, 0.5, KNIGHT_RAW_RANGE, KNIGHT_RAW_ACCURACY, KNIGHT_RAW_AGILITY, 0.0);
@@ -111,40 +118,131 @@ public class KnightBuffBehaviourTest {
 
     /**
      * Vérifie que l'armure du chevalier le rend insensible aux tics de dégâts de feu
-     * Vérifie que les statistiques sont non modifiées
+     * Vérifie que les statistiques sont non modifiées (le feu ne modifie pas les statistiques)
      */
     @Test
     public void testFireDebuffWithArmor() {
-        assertEquals(KNIGHT_RAW_HEALTH, knight.getHealth(), 0.1);
-        applyTicDamage(knight);
+        knight.addBuffs(new FireDebuff(10));
+        applyTicDamage();
 
         assertEquals(KNIGHT_RAW_HEALTH, knight.getHealth(), 0.1);
-
-        assertEquals(KNIGHT_RAW_DAMAGE, knight.getStats().getStatisticValue(DAMAGE), 0.1);
+        checkStatsModifications(knight, KNIGHT_RAW_DAMAGE, KNIGHT_RAW_COOLDOWN, KNIGHT_RAW_SPEED, KNIGHT_RAW_RANGE, KNIGHT_RAW_ACCURACY, KNIGHT_RAW_AGILITY, KNIGHT_RAW_ARMOR);
     }
 
     /**
-     * Vérifie que le buff Breakarmor appliqué sur le chevalier lui met l'armure à 0
+     * Vérifie que le chevalier reçoit les tics de dégâts de feu s'il n'a pas d'armure
+     * Vérifie que les statistiques sont non modifiées (le feu ne modifie pas les statistiques) s'il na pas d'armure
+     */
+    @Test
+    public void testFireDebuffWithoutArmor() {
+        knight.addBuffs(new BreakArmorDebuff());
+        knight.addBuffs(new FireDebuff(10));
+        applyTicDamage();
+
+        assertEquals(90, knight.getHealth(), 0.1);
+        checkStatsModifications(knight, KNIGHT_RAW_DAMAGE, KNIGHT_RAW_COOLDOWN, KNIGHT_RAW_SPEED, KNIGHT_RAW_RANGE, KNIGHT_RAW_ACCURACY, KNIGHT_RAW_AGILITY, 0.0);
+    }
+
+    /**
+     * Vérifie que le buff BreakArmor appliqué sur le chevalier lui détruit l'armure
+     * Vérifie qu'il n'y a pas de tics de dégâts
+     * Vérifie que la santé et les statistiques non concernées ne sont pas affectées par le buff
      */
     @Test
     public void testBreakArmorDebuff() {
-        assertEquals(KNIGHT_RAW_ARMOR, knight.getStats().getStatisticValue(Statistic.ARMOR), 0.1);
         knight.addBuffs(new BreakArmorDebuff());
-        assertEquals(0.0, knight.getStats().getStatisticValue(Statistic.ARMOR), 0.1);
+        applyTicDamage();
+
+        assertEquals(KNIGHT_RAW_HEALTH, knight.getHealth(), 0.1);
+        checkStatsModifications(knight, KNIGHT_RAW_DAMAGE, KNIGHT_RAW_COOLDOWN, KNIGHT_RAW_SPEED, KNIGHT_RAW_RANGE, KNIGHT_RAW_ACCURACY, KNIGHT_RAW_AGILITY, 0.0);
     }
 
-
-    // slowdebuff
+    /**
+     * Vérifie que l'armure n'est pas encore réduite à nouveau si elle est déjà détruite
+     */
     @Test
-    public void testSlowDebuff() {
-        assertEquals(1.0, knight.getStats().getStatisticValue(Statistic.SPEED), 0.1);
-        knight.addBuffs(new SlowDebuff(0.5));
-        assertEquals(0.5, knight.getStats().getStatisticValue(Statistic.SPEED), 0.1);
+    public void testBreakArmorDebuffWithoutArmor() {
+        knight.addBuffs(new BreakArmorDebuff());
+        testBreakArmorDebuff();
     }
-    // speedbuff
 
-    // stun
+    /**
+     * Vérifie que le buff SlowDebuff appliqué sur le chevalier réduit sa vitesse de déplacement
+     * Vérifie qu'il n'y a pas de tics de dégâts
+     * Vérifie que la santé et les statistiques non concernées ne sont pas affectées par le buff
+     */
+    @Test
+    public void testSlowDebuffWithArmor() {
+        knight.addBuffs(new SlowDebuff(0.5));
+        applyTicDamage();
 
-    // peasant group buff
+        assertEquals(KNIGHT_RAW_HEALTH, knight.getHealth(), 0.1);
+        checkStatsModifications(knight, KNIGHT_RAW_DAMAGE, KNIGHT_RAW_COOLDOWN, 0.5, KNIGHT_RAW_RANGE, KNIGHT_RAW_ACCURACY, KNIGHT_RAW_AGILITY, KNIGHT_RAW_ARMOR);
+    }
 
+    /**
+     * Vérifie que sans armure, c'est le même comportement que testSlowDebuffWithArmor
+     */
+    @Test
+    public void testSlowDebuffWithoutArmor() {
+       knight.addBuffs(new BreakArmorDebuff());
+       knight.addBuffs(new SlowDebuff(0.5));
+       applyTicDamage();
+
+       assertEquals(KNIGHT_RAW_HEALTH, knight.getHealth(), 0.1);
+       checkStatsModifications(knight, KNIGHT_RAW_DAMAGE, KNIGHT_RAW_COOLDOWN, 0.5, KNIGHT_RAW_RANGE, KNIGHT_RAW_ACCURACY, KNIGHT_RAW_AGILITY, 0.0);
+    }
+
+    /**
+     * Vérifie que le buff Stun appliqué sur le chevalier augmente le temps entre chacune de ses attaques (cooldown)
+     * Vérifie qu'il n'y a pas de tics de dégâts
+     * Vérifie que la santé et les statistiques non concernées ne sont pas affectées par le buff
+     */
+    @Test
+    public void testStunDebuffWithArmor() {
+        knight.addBuffs(new StunDebuff(2.5));
+        applyTicDamage();
+
+        checkStatsModifications(knight, KNIGHT_RAW_DAMAGE, 3.5, KNIGHT_RAW_SPEED, KNIGHT_RAW_RANGE, KNIGHT_RAW_ACCURACY, KNIGHT_RAW_AGILITY, KNIGHT_RAW_ARMOR);
+        assertEquals(KNIGHT_RAW_HEALTH, knight.getHealth(), 0.1);
+    }
+
+    /**
+     * Vérifie que sans armure, c'est le même comportement que testStunDebuffWithArmor
+     */
+    @Test
+    public void testStunDebuffWithoutArmor() {
+        knight.addBuffs(new StunDebuff(2.5));
+        knight.addBuffs(new BreakArmorDebuff());
+        applyTicDamage();
+
+        checkStatsModifications(knight, KNIGHT_RAW_DAMAGE, 3.5, KNIGHT_RAW_SPEED, KNIGHT_RAW_RANGE, KNIGHT_RAW_ACCURACY, KNIGHT_RAW_AGILITY, 0.0);
+        assertEquals(KNIGHT_RAW_HEALTH, knight.getHealth(), 0.1);
+    }
+
+    /**
+     * Vérifie que le buff PeasantGroup appliqué sur le chevalier est ignoré car ce n'est pas un paysant
+     * On vérifie ici le comportement d'un cas d'erreur car où un buff lié aux paysants ne doit pas être appliqué à un chevalier
+     */
+    @Test
+    public void testPeasantGroupBuffWithArmor() {
+        knight.addBuffs(new PeasantGroupBuff(4.0,2.0));
+        applyTicDamage();
+
+        checkStatsModifications(knight, KNIGHT_RAW_DAMAGE, KNIGHT_RAW_COOLDOWN, KNIGHT_RAW_SPEED, KNIGHT_RAW_RANGE, KNIGHT_RAW_ACCURACY, KNIGHT_RAW_AGILITY, KNIGHT_RAW_ARMOR);
+        assertEquals(KNIGHT_RAW_HEALTH, knight.getHealth(), 0.1);
+    }
+
+    /**
+     * Vérifie que sans armure, c'est le même comportement que testPeasantGroupBuffWithArmor
+     */
+    @Test
+    public void testPeasantGroupBuffWithoutArmor() {
+        knight.addBuffs(new BreakArmorDebuff());
+        knight.addBuffs(new PeasantGroupBuff(4.0,2.0));
+        applyTicDamage();
+
+        checkStatsModifications(knight, KNIGHT_RAW_DAMAGE, KNIGHT_RAW_COOLDOWN, KNIGHT_RAW_SPEED, KNIGHT_RAW_RANGE, KNIGHT_RAW_ACCURACY, KNIGHT_RAW_AGILITY, 0.0);
+        assertEquals(KNIGHT_RAW_HEALTH, knight.getHealth(), 0.1);
+    }
 }

@@ -75,10 +75,8 @@ public class ArmyTest {
     @Test
     public void testGetAliveUnitCountAfterNonLethalAttack() {
         assertEquals(2, army.getAliveUnitCount());
-        knight.kill();
-        assertEquals(1, army.getAliveUnitCount());
-
         peasant.receiveDamage(10);
-        assertEquals(1, army.getAliveUnitCount());
+        
+        assertEquals(2, army.getAliveUnitCount());
     }
 }
