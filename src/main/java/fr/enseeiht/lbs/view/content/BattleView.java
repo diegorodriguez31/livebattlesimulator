@@ -19,7 +19,7 @@ import java.util.*;
 
 public abstract class BattleView extends JPanel implements PropertyChangeListener {
 
-    private final List<GraphicalEntity> graphicalEntities;
+    protected final List<GraphicalEntity> graphicalEntities;
 
     private final static HashMap<Class<? extends Entity>, String> ENTITY_SPRITE = new HashMap<>();
     public final static List<Color> TEAM_COLORS = new ArrayList<>();
@@ -55,10 +55,11 @@ public abstract class BattleView extends JPanel implements PropertyChangeListene
 
     protected BattleView() {
         this.setVisible(true);
-        this.setPreferredSize(new Dimension(700, 700));
+        //this.setPreferredSize(new Dimension(700, 700));
         //this.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         this.graphicalEntities = new LinkedList<>();
         //this.startObserving();
+        //setBackground(Color.RED);
     }
 
   /*  protected Vector2 worldToPixel(Vector2 world) {
@@ -86,7 +87,7 @@ public abstract class BattleView extends JPanel implements PropertyChangeListene
     }
 
     protected void modifiedGameObjectTreatment(PropertyChangeEvent propertyChangeEvent) {
-        synchronized (graphicalEntities){
+        synchronized (graphicalEntities) {
             graphicalEntities.clear();
         }
         for (Object gameObject : (List<?>) propertyChangeEvent.getNewValue()) {
@@ -113,7 +114,7 @@ public abstract class BattleView extends JPanel implements PropertyChangeListene
     @Override
     public void paint(Graphics graphics) {
         super.paint(graphics);
-        synchronized (this.graphicalEntities){
+        synchronized (this.graphicalEntities) {
             for (GraphicalEntity entityGraphic : this.graphicalEntities) {
                 entityGraphic.paint(graphics);
             }
@@ -124,12 +125,12 @@ public abstract class BattleView extends JPanel implements PropertyChangeListene
         return ENTITY_SPRITE.get(entity.getClass());
     }
 
-    protected void startObserving(){
+    protected void startObserving() {
         Battle.addObserver(this, Battle.PROPERTY_GAME_OBJECTS);
         this.modifiedGameObjectTreatment(new PropertyChangeEvent(this, Battle.PROPERTY_GAME_OBJECTS, null, Battle.getInstance().getObjects()));
     }
 
-    protected void stopObserving(){
+    protected void stopObserving() {
         Battle.removeObserver(this, Battle.PROPERTY_GAME_OBJECTS);
     }
 
