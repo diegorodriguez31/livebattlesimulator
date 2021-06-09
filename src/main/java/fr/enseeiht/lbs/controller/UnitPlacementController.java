@@ -207,15 +207,7 @@ public class UnitPlacementController extends JPanel implements GuiComponent {
         private void updateUnitList() {
             this.removeAll();
             if (armySelect.getSelectedIndex() == -1) return;
-            if (armySelect.getSelectedIndex() == 0) {
-                model.getObjects().forEach(gameObject -> {
-                    if (gameObject instanceof Entity) {
-                        this.add(new JLabel("- " + ((Entity) gameObject).getName()));
-                    }
-                });
-            } else {
-                model.getArmies().get(armySelect.getSelectedIndex() - 1).getUnits().forEach(gameObject -> this.add(new JLabel("- " + gameObject.getName())));
-            }
+            model.getArmies().get(armySelect.getSelectedIndex()).getUnits().forEach(gameObject -> this.add(new JLabel("- " + gameObject.getName())));
             this.updateUI();
         }
     }
