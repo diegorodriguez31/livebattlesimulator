@@ -3,18 +3,18 @@ package main.java.fr.enseeiht.lbs.model.game_object.unit.buff;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.BuffVisitor;
 
 /**
- * Débuff de ralentissement de mouvement
+ * Débuff de ralentissement entre chaque attaque
  * pouvant être appliqué à une unité via un visiteur
  */
-public class SlowDebuff implements Buff {
+public class StunDebuff implements Buff {
 
     /**
-     * Multiplicateur de réduction de vitesse de déplacement
+     * Durée en seconde ajoutée entre chaque attaque
      */
-    private double slowAmount;
+    private double seconds;
 
-    public SlowDebuff(double slowAmount) {
-        this.slowAmount = slowAmount;
+    public StunDebuff(double seconds) {
+        this.seconds = seconds;
     }
 
     @Override
@@ -22,7 +22,7 @@ public class SlowDebuff implements Buff {
         visitor.visit(this);
     }
 
-    public double getSlowAmount() {
-        return slowAmount;
+    public double getDuration() {
+        return seconds;
     }
 }

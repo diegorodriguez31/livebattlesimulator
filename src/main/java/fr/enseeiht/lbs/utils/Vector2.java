@@ -79,7 +79,7 @@ public class Vector2 {
 
     /**
      * Returns the square of the size of the vector
-     * Faster than plain size can be used for size comparaison
+     * Faster than plain size can be used for size comparison
      *
      * @return the size
      */
@@ -98,7 +98,7 @@ public class Vector2 {
     }
 
     /**
-     * Scales the vector to be of lenght 1
+     * Scales the vector to be of length 1
      *
      * @return The normalized vector
      */

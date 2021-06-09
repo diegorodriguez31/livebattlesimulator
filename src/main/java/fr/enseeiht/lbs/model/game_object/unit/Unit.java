@@ -8,8 +8,8 @@ import main.java.fr.enseeiht.lbs.model.game_object.Stats;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.action.Action;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.ai.AI;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.Buff;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.BasicDotVisitor;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.BasicStatModifierBuffVisitor;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.dotVisitor.BasicTicVisitor;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.statModifierVisitor.BasicStatModifierBuffVisitor;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
 
@@ -23,7 +23,7 @@ import static main.java.fr.enseeiht.lbs.model.game_object.Statistic.AGILITY;
 
 public abstract class Unit extends Entity {
     protected AI ai;
-    List<Buff> buffs = new ArrayList<>();
+    protected List<Buff> buffs = new ArrayList<>();
     protected double cooldown;
     private Army team;
 
@@ -50,7 +50,7 @@ public abstract class Unit extends Entity {
 
     @Override
     public Stats getStats() {
-        BasicStatModifierBuffVisitor visitor = getStatVisitor();
+        BasicStatModifierBuffVisitor visitor = getStatModifierVisitor();
         for (Buff buff : buffs) {
             buff.accept(visitor);
         }
@@ -84,7 +84,7 @@ public abstract class Unit extends Entity {
             status();
         }
         // update buffs
-        BasicDotVisitor visitor = getUpdateVisitor(deltaTime);
+        BasicTicVisitor visitor = getTicVisitor(deltaTime);
         for (Buff buff : buffs) {
             buff.accept(visitor);
         }
@@ -93,6 +93,7 @@ public abstract class Unit extends Entity {
     public void receiveDamage(double damage) {
         if (!dodge()) {
             health -= damage;
+            this.status();
             if (isDead()) {
                 removeFromBattle();
             }
@@ -103,19 +104,19 @@ public abstract class Unit extends Entity {
         buffs.add(buff);
     }
 
-    protected BasicStatModifierBuffVisitor getStatVisitor() {
-        return new BasicStatModifierBuffVisitor(stats);
+    protected BasicStatModifierBuffVisitor getStatModifierVisitor() {
+        return new BasicStatModifierBuffVisitor(stats, this);
     }
 
-    protected BasicDotVisitor getUpdateVisitor(long deltaTime) {
-        return new BasicDotVisitor(deltaTime, this);
+    protected BasicTicVisitor getTicVisitor(long deltaTime) {
+        return new BasicTicVisitor(deltaTime, this);
     }
 
     public Stats getRawStats() {
         return stats;
     }
 
-    public boolean attackSucess() {
+    public boolean attackSuccess() {
         Random random = new Random();
         return (random.nextInt(100) + 1) < getStats().getStatisticValue(ACCURACY);
     }
@@ -131,5 +132,14 @@ public abstract class Unit extends Entity {
 
     public void setTeam(Army team) {
         this.team = team;
+    }
+
+    public boolean hasBuff(Buff buff) {
+        for (Buff currentBuff : buffs) {
+            if (currentBuff.getClass() == buff.getClass()) {
+                return true;
+            }
+        }
+        return false;
     }
 }
