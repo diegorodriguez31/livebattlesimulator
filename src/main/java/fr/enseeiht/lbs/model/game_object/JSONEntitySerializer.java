@@ -28,6 +28,7 @@ public class JSONEntitySerializer implements EntitySerializer {
     public Map<? extends String, ? extends Pair<EntityPrimitiveTypes, Stats>> parse(String parse) {
         JsonElement root = JsonParser.parseString(parse);
         HashMap<String, Pair<EntityPrimitiveTypes, Stats>> entityTypes = new HashMap<>();
+        if (root.isJsonNull()) return entityTypes;
         for (Map.Entry<String, JsonElement> entry : root.getAsJsonObject().entrySet()) {
             entityTypes.put(entry.getKey(), deserializeEntityType(entry.getValue().getAsJsonObject()));
         }
