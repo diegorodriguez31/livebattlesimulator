@@ -16,10 +16,13 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.*;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public abstract class BattleView extends JPanel implements PropertyChangeListener {
 
     protected final List<GraphicalEntity> graphicalEntities;
+    protected final ReadWriteLock lock;
 
     private final static HashMap<Class<? extends Entity>, String> ENTITY_SPRITE = new HashMap<>();
     public final static List<Color> TEAM_COLORS = new ArrayList<>();
@@ -55,11 +58,8 @@ public abstract class BattleView extends JPanel implements PropertyChangeListene
 
     protected BattleView() {
         this.setVisible(true);
-        //this.setPreferredSize(new Dimension(700, 700));
-        //this.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         this.graphicalEntities = new LinkedList<>();
-        //this.startObserving();
-        //setBackground(Color.RED);
+        lock = new ReentrantReadWriteLock();
     }
 
   /*  protected Vector2 worldToPixel(Vector2 world) {
@@ -87,9 +87,8 @@ public abstract class BattleView extends JPanel implements PropertyChangeListene
     }
 
     protected void modifiedGameObjectTreatment(PropertyChangeEvent propertyChangeEvent) {
-        synchronized (graphicalEntities) {
-            graphicalEntities.clear();
-        }
+        lock.writeLock().lock();
+        graphicalEntities.clear();
         for (Object gameObject : (List<?>) propertyChangeEvent.getNewValue()) {
             if (gameObject instanceof Entity) {
                 Entity entity = (Entity) gameObject;
@@ -109,16 +108,18 @@ public abstract class BattleView extends JPanel implements PropertyChangeListene
 
             }
         }
+        lock.writeLock().unlock();
     }
 
     @Override
     public void paint(Graphics graphics) {
         super.paint(graphics);
-        synchronized (this.graphicalEntities) {
-            for (GraphicalEntity entityGraphic : this.graphicalEntities) {
-                entityGraphic.paint(graphics);
-            }
+        lock.readLock().lock();
+        for (GraphicalEntity entityGraphic : this.graphicalEntities) {
+            entityGraphic.paint(graphics);
         }
+        lock.readLock().unlock();
+
     }
 
     public static String getCorrespondingSprite(Entity entity) {
@@ -134,6 +135,10 @@ public abstract class BattleView extends JPanel implements PropertyChangeListene
         Battle.removeObserver(this, Battle.PROPERTY_GAME_OBJECTS);
     }
 
+    public List<GraphicalEntity> getGraphicalEntities() {
+
+        return graphicalEntities;
+    }
 }
 
 

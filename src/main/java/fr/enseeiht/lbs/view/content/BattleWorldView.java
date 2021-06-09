@@ -67,10 +67,10 @@ public class BattleWorldView extends BattleView implements PropertyChangeListene
                 graphics.fillRect(x * tileSizeX, y * tileSizeY, (x + 1) * tileSizeX, (y + 1) * tileSizeY);
             }
         }
-        synchronized (this.graphicalEntities) {
-            for (GraphicalEntity entityGraphic : this.graphicalEntities) {
-                entityGraphic.paint(graphics);
-            }
+        lock.readLock().lock();
+        for (GraphicalEntity entityGraphic : this.graphicalEntities) {
+            entityGraphic.paint(graphics);
         }
+        lock.readLock().unlock();
     }
 }

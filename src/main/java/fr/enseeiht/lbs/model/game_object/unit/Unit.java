@@ -114,10 +114,6 @@ public abstract class Unit extends Entity {
         return new BasicTicVisitor(deltaTime, this);
     }
 
-    public Stats getRawStats() {
-        return stats;
-    }
-
     public boolean attackSuccess() {
         Random random = new Random();
         return (random.nextInt(100) + 1) < getStats().getStatisticValue(ACCURACY);
@@ -143,5 +139,13 @@ public abstract class Unit extends Entity {
             }
         }
         return false;
+    }
+
+    public List<Buff> getBuffs() {
+        return buffs;
+    }
+
+    public Stats getRawStats() {
+        return stats;
     }
 }

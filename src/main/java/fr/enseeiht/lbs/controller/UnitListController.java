@@ -5,6 +5,8 @@ import main.java.fr.enseeiht.lbs.model.game_object.EntityPrimitiveTypes;
 import main.java.fr.enseeiht.lbs.model.game_object.Stats;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
@@ -64,7 +66,7 @@ public class UnitListController extends JPanel {
         newButton.addActionListener(actionEvent -> {
             String selected = unitTypeListController.getSelectedUnitType();
             String name = newField.getText();
-            if (selected == null && name.length() > 0) return;
+            if (selected == null || name.length() == 0) return;
             EntityPrimitiveTypes entityPrimitiveType = EntityFactory.getEntityPrimitiveType(selected);
             Stats entityTypeStats = EntityFactory.getEntityTypeStats(selected);
             if (entityTypeStats == null || entityPrimitiveType == null) return;
@@ -87,19 +89,38 @@ public class UnitListController extends JPanel {
 
         unitTypeListController.addActionListener(actionEvent -> {
             if (actionEvent.getActionCommand() != null && EntityFactory.getInitialUnit().contains(actionEvent.getActionCommand())) {
-                newButton.setEnabled(true);
+                newButton.setEnabled(newField.getText().length() > 0);
                 delButton.setEnabled(false);
             } else if (actionEvent.getActionCommand() != null) {
-                newButton.setEnabled(true);
+                newButton.setEnabled(newField.getText().length() > 0);
                 delButton.setEnabled(true);
             } else {
                 newButton.setEnabled(false);
                 newButton.setEnabled(false);
             }
         });
+
+        newField.getDocument().addDocumentListener(new NameChangeListener());
     }
 
     public void addSelectActionListener(ActionListener listener) {
         unitTypeListController.addActionListener(listener);
+    }
+
+    private class NameChangeListener implements DocumentListener {
+        @Override
+        public void insertUpdate(DocumentEvent documentEvent) {
+            newButton.setEnabled(newField.getText().length() > 0 && unitTypeListController.getSelectedUnitType() != null);
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent documentEvent) {
+            newButton.setEnabled(newField.getText().length() > 0 && unitTypeListController.getSelectedUnitType() != null);
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent documentEvent) {
+            newButton.setEnabled(newField.getText().length() > 0 && unitTypeListController.getSelectedUnitType() != null);
+        }
     }
 }
