@@ -30,10 +30,21 @@ public class BattleSimulationView extends JPanel implements PropertyChangeListen
 
     private BattleSimulationView() {
         this.battleWorldView = new BattleWorldView();
+        JPanel westpanel = new JPanel();
+        JPanel eastpanel = new JPanel();
+        JPanel mainpanel = new JPanel();
+        mainpanel.setPreferredSize(new Dimension(700, 700));
+        westpanel.setPreferredSize(new Dimension(200,700));
+        eastpanel.setPreferredSize(new Dimension(200,700));
         this.speedController = new SpeedController();
+        mainpanel.add(battleWorldView);
 
         setLayout(new BorderLayout());
-        add(new HomePageButtonController(), BorderLayout.NORTH);
+        add(westpanel,BorderLayout.WEST);
+        add(eastpanel,BorderLayout.EAST);
+        HomePageButtonController cancelbutton = new HomePageButtonController();
+        cancelbutton.setFont(new Font("Sans Serif", Font.PLAIN, 20));
+        add(cancelbutton, BorderLayout.NORTH);
         add(battleWorldView, BorderLayout.CENTER);
         add(speedController, BorderLayout.SOUTH);
 

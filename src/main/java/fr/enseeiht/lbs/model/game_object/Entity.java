@@ -1,5 +1,7 @@
 package main.java.fr.enseeiht.lbs.model.game_object;
 
+import main.java.fr.enseeiht.lbs.model.world.World;
+import main.java.fr.enseeiht.lbs.model.world.WorldElement;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
 public abstract class Entity extends GameObject {
@@ -50,5 +52,28 @@ public abstract class Entity extends GameObject {
 
     public String getName() {
         return name;
+    }
+
+    public WorldElement getFieldElement(){
+        Vector2 position = this.getPosition();
+        int EntityY = (int) (position.getY()*1.08);
+        int EntityX = (int)(position.getX()*1.85);
+        if(EntityY >= World.getInstance().getSizeY()){ EntityY = World.getInstance().getSizeY();}
+        if(EntityX >= World.getInstance().getSizeX()){ EntityX = World.getInstance().getSizeX();}
+        getSqrSize();
+        for( int y=0;y<World.getInstance().getSizeY();y++){
+            if(y == EntityY) {
+                for (int x = 0; x < World.getInstance().getSizeX(); x++) {
+                    if ((x == EntityX)){
+                        return World.getInstance().getTile(x,y);
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    public void getSqrSize(){
+        System.out.println(getPosition().size());//max is around  with 93.5*60.15
+        //max array is 400.
     }
 }

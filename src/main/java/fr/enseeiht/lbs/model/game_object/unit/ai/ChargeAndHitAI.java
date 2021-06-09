@@ -14,10 +14,8 @@ import java.util.List;
 public class ChargeAndHitAI implements AI {
 
     private long cooldown;
-
     private IAttackAction attack;
     private IMovementAction movement;
-
     private Unit target;
 
     public ChargeAndHitAI(IAttackAction attack, IMovementAction movement) {

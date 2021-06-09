@@ -12,6 +12,7 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.dotVisitor.Basic
 import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.statModifierVisitor.BasicStatModifierBuffVisitor;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -65,6 +66,10 @@ public abstract class Unit extends Entity {
         System.out.println("\tRange : " + getStats().getStatisticValue(Statistic.RANGE));
         System.out.println("\tAccuracy : " + getStats().getStatisticValue(ACCURACY));
         System.out.println("\tAgility : " + getStats().getStatisticValue(Statistic.AGILITY));
+        System.out.println("\tElement : "+getFieldElement());
+        //tests
+        System.out.println("\t X :"+getPosition().getX());
+        System.out.println("\t Y :"+getPosition().getY());
     }
 
     // method inspired by Unity Game Motor
