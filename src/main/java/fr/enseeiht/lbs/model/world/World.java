@@ -77,7 +77,7 @@ public class World {
         createShapes(WorldElement.FOREST, nbForest);
         createShapes(WorldElement.LAVA, nbLava);
         createShapes(WorldElement.SNOW, nbSnow);
-        affichWorldElements();
+        //affichWorldElements();
 
         propertyChangeSupport.firePropertyChange(PROPERTY_RELOAD_MAP, null, this.worldElements);
     }

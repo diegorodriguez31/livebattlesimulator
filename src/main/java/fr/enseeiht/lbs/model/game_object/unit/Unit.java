@@ -1,5 +1,6 @@
 package main.java.fr.enseeiht.lbs.model.game_object.unit;
 
+import main.java.fr.enseeiht.lbs.LiveBattleSimulator;
 import main.java.fr.enseeiht.lbs.model.battle_simulator.Army;
 import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
 import main.java.fr.enseeiht.lbs.model.game_object.Entity;
@@ -11,7 +12,6 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.Buff;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.dotVisitor.BasicTicVisitor;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.statModifierVisitor.BasicStatModifierBuffVisitor;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,7 +93,9 @@ public abstract class Unit extends Entity {
     public void receiveDamage(double damage) {
         if (!dodge()) {
             health -= damage;
-            this.status();
+            if (LiveBattleSimulator.VERBOSE >= 2) {
+                this.status();
+            }
             if (isDead()) {
                 removeFromBattle();
             }

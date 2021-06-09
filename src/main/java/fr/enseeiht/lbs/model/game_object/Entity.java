@@ -1,5 +1,6 @@
 package main.java.fr.enseeiht.lbs.model.game_object;
 
+import main.java.fr.enseeiht.lbs.LiveBattleSimulator;
 import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.model.world.WorldElement;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
@@ -73,7 +74,9 @@ public abstract class Entity extends GameObject {
         return null;
     }
     public void getSqrSize(){
-        System.out.println(getPosition().size());//max is around  with 93.5*60.15
+        if (LiveBattleSimulator.VERBOSE >= 2){
+            System.out.println(getPosition().size());//max is around  with 93.5*60.15
+        }
         //max array is 400.
     }
 }
