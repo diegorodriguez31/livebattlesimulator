@@ -21,6 +21,9 @@ public class GroundMovementAction implements IMovementAction {
         }else if(this.self.getFieldElement() == WorldElement.WATER){
             speed = (float) ((self.getStats().getStatisticValue(Statistic.SPEED) * deltaTime / 1000));
             speed = (float) (0.3*speed);
+        }else if(this.self.getFieldElement() == WorldElement.SNOW){
+            speed = (float) ((self.getStats().getStatisticValue(Statistic.SPEED) * deltaTime / 1000));
+            speed = (float) (0.6*speed);
         } else{
             speed = (float) self.getStats().getStatisticValue(Statistic.SPEED) * deltaTime / 1000;
         }

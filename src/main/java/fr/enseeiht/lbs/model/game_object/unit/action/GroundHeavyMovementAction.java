@@ -26,6 +26,9 @@ public class GroundHeavyMovementAction implements IMovementAction{
             } else if(this.self.getFieldElement() == WorldElement.FOREST) {
                 speed = (float) ((self.getStats().getStatisticValue(Statistic.SPEED) * deltaTime / 1000));
                 speed = (float) (0.8*speed);
+            }else if(this.self.getFieldElement() == WorldElement.SNOW){
+                speed = (float) ((self.getStats().getStatisticValue(Statistic.SPEED) * deltaTime / 1000));
+                speed = (float) (0.6*speed);
             }else{
                 speed = (float) self.getStats().getStatisticValue(Statistic.SPEED) * deltaTime / 1000;
             }
