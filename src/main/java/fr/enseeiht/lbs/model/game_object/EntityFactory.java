@@ -1,6 +1,5 @@
 package main.java.fr.enseeiht.lbs.model.game_object;
 
-import main.java.fr.enseeiht.lbs.model.game_object.creators.*;
 import main.java.fr.enseeiht.lbs.utils.Pair;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 

@@ -17,7 +17,7 @@ public class Knight extends ArmoredUnit {
     }
 
     /**
-     * Le Knight régait de manière unique aux tics de dégâts
+     * Le Knight réagit de manière unique aux tics de dégâts
      * (voir KnightTicVisitor)
      */
     protected BasicTicVisitor getTicVisitor(long deltaTime) {
