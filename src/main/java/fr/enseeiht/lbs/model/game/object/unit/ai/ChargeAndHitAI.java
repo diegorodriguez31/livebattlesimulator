@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Intelligence artificielle d'une unité lié à la recherche de cible ennemie
+ * et au choix d'attaque ou de déplacement.
+ */
 public class ChargeAndHitAI implements AI {
 
     private long cooldown;

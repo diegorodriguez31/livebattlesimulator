@@ -1,7 +1,7 @@
 package main.java.fr.enseeiht.lbs.view.gui;
 
 /**
- * Une interface que doit implémenter toute vue de la fenêtre.
+ * Une interface que doit être implémentée par toute vue de la fenêtre.
  */
 public interface GuiComponent {
 

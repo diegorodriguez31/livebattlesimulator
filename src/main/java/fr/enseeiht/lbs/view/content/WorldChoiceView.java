@@ -7,6 +7,9 @@ import main.java.fr.enseeiht.lbs.view.gui.GuiComponent;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Vue de la personalisation du terrain avant la simulation de la bataille.
+ */
 public class WorldChoiceView extends JPanel implements GuiComponent {
 
     private static WorldView worldView;
@@ -21,8 +24,6 @@ public class WorldChoiceView extends JPanel implements GuiComponent {
     }
 
     private WorldChoiceView() {
-        //this.setLocation(100, 200);
-        //this.setSize(1200, 800);
         this.setBorder(BorderFactory.createEmptyBorder(50, 10, 10, 10));
 
         //Panneaux de choix à gauche

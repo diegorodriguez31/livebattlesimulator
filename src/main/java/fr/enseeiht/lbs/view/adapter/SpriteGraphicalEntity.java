@@ -6,6 +6,9 @@ import main.java.fr.enseeiht.lbs.utils.Vector2;
 import java.awt.*;
 import java.io.IOException;
 
+/**
+ * Affiche les sprites pour représenter les unités lors de la bataille.
+ */
 public class SpriteGraphicalEntity extends GraphicalEntity {
 
     private final String spritePath;

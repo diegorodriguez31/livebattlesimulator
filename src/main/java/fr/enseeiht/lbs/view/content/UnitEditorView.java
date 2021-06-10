@@ -8,6 +8,9 @@ import main.java.fr.enseeiht.lbs.view.gui.GuiComponent;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Vue de l'éditeur d'unités.
+ */
 public class UnitEditorView extends JPanel implements GuiComponent {
 
     private static UnitEditorView instance;

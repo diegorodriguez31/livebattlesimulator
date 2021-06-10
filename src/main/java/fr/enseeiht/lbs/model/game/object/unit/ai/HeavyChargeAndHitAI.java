@@ -12,6 +12,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Intelligence artificielle d'une unité lourde lié à la recherche de cible ennemie
+ * et au choix d'attaque ou de déplacement.
+ */
 public class HeavyChargeAndHitAI implements AI{
         private long cooldown;
         private IAttackAction attack;
