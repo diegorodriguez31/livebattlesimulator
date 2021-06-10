@@ -3,7 +3,8 @@ package main.java.fr.enseeiht.lbs.model.game_object.unit.visitor;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.*;
 
 /**
- * Spécifie les comportments à définir en fonction de chaque type de Buff
+ * Spécifie les comportments à définir
+ * en fonction de chaque type de Buff appliqué à une unité
  */
 public interface BuffVisitor {
     void visit(FireDebuff buff);

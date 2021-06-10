@@ -9,6 +9,9 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.statModifierVisi
 import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.statModifierVisitor.HorsemanStatModifierVisitor;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
+/**
+ * L'unité Horseman
+ */
 public class Horseman extends ArmoredUnit {
 
     public Horseman(String name, Stats stats, Vector2 position) {

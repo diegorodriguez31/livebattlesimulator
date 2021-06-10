@@ -11,6 +11,9 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.statModifierVisi
 import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.statModifierVisitor.TrollStatModifierVisitor;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
+/**
+ * L'unité Troll
+ */
 public class Troll extends ArmoredUnit {
 
     public Troll(String name, Stats stats, Vector2 position) {

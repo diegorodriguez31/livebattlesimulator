@@ -6,43 +6,53 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.FireDebuff;
 import main.java.fr.enseeiht.lbs.model.world.WorldElement;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
+/**
+ * Deplacement d'une unité lourde qui s'adapte au terrain.
+ */
 public class GroundHeavyMovementAction implements IMovementAction{
 
-        private Unit self;
-        private Vector2 target;
+    private Unit self;
+    private Vector2 target;
 
-        private final double DESERT_SPEED_MULTIPLIER = 0.5;
-        private final double WATER_SPEED_MULTIPLIER = 0.2;
-        private final double SNOW_SPEED_MULTIPLIER = 0.6;
-        private final double LAVA_SPEED_MULTIPLIER = 1.5;
-        private final double FOREST_SPEED_MULTIPLIER = 0.8;
+    /**
+     * Multiplicateurs de vitesses en fonction du terrain.
+     */
+    private final double DESERT_SPEED_MULTIPLIER = 0.5;
+    private final double WATER_SPEED_MULTIPLIER = 0.2;
+    private final double SNOW_SPEED_MULTIPLIER = 0.6;
+    private final double LAVA_SPEED_MULTIPLIER = 1.5;
+    private final double FOREST_SPEED_MULTIPLIER = 0.8;
 
-        public GroundHeavyMovementAction(Unit self) {
-            this.self = self;
-        }
+    public GroundHeavyMovementAction(Unit self) {
+        this.self = self;
+    }
 
-        @Override
-        public void execute(long deltaTime) {
-            double speed = self.getStats().getStatisticValue(Statistic.SPEED) * deltaTime / 1000;
+    /**
+     * On adapte la vitesse au terrain sur lequel l'unité se trouve.
+     * La lave ajoute un débuff de feu et fait courrir les unités plus vite.
+     */
+    @Override
+    public void execute(long deltaTime) {
+        double speed = self.getStats().getStatisticValue(Statistic.SPEED) * deltaTime / 1000;
 
-            WorldElement element = this.self.getFieldElement();
-            switch (element) {
-                case DESERT:
-                    speed *= DESERT_SPEED_MULTIPLIER;
-                    break;
-                case WATER:
-                    speed *= WATER_SPEED_MULTIPLIER;
-                    break;
-                case SNOW:
-                    speed *= SNOW_SPEED_MULTIPLIER;
-                    break;
-                case LAVA:
-                    speed *= LAVA_SPEED_MULTIPLIER;
-                    self.addBuffs(new FireDebuff(20));
-                    break;
-                case FOREST:
-                    speed *= FOREST_SPEED_MULTIPLIER;
-                    break;
+        WorldElement element = this.self.getFieldElement();
+        switch (element) {
+            case DESERT:
+                speed *= DESERT_SPEED_MULTIPLIER;
+                break;
+            case WATER:
+                speed *= WATER_SPEED_MULTIPLIER;
+                break;
+            case SNOW:
+                speed *= SNOW_SPEED_MULTIPLIER;
+                break;
+            case LAVA:
+                speed *= LAVA_SPEED_MULTIPLIER;
+                self.addBuffs(new FireDebuff(20));
+                break;
+            case FOREST:
+                speed *= FOREST_SPEED_MULTIPLIER;
+                break;
             }
 
             Vector2 deltaPos = target.sub(self.getPosition());

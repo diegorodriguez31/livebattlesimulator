@@ -15,22 +15,41 @@ import java.util.stream.Stream;
 
 import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.VERBOSE;
 
-
+/**
+ * Définit le fonctionnement d'une bataille lors d'une simulation.
+ * C'est un singleton.
+ */
 public class Battle {
 
+    /**
+     * Constante permetant de limiter le nombre de mise a jour par seconde
+     */
     public static final int DELTA_TIME_MIN = 1000 / 60;
+    
     private String name;
 
+    /**
+     * Objet permetant d'envoyer les events vis a vis de la battaile
+     * En dessous il y a les identifiants des types d'event
+     */
     private final static PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(Battle.class);
     public static final String PROPERTY_GAME_OBJECTS = "gameObjects";
     public static final String PROPERTY_RESULTS = "results";
 
     Objectif objectif;
     List<Army> armies;
+
+    /**
+     * Les game objetcs (unités, bâtiments, ...) sont manipulés par ces listes
+     * lors du déroulement du cycle de vie de la bataille.
+     */
     List<GameObject> objects;
     List<GameObject> startObjects;
     List<GameObject> endObjects;
 
+    /**
+     * Multiplicateurs de vitesse de déroulement de bataille.
+     */
     public static final float DEFAULT_DELTA_TIME_MULTIPLIER = 1.0f;
     public static final float STOPPED_DELTA_TIME_MULTIPLIER = 0.00f;
     public static final float MAX_DELTA_TIME_MULTIPLIER = 10.0f;

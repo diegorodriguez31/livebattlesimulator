@@ -8,6 +8,9 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.action.SamuraiAttack;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.ai.ChargeAndHitAI;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
+/**
+ * L'unité Samurai
+ */
 public class Samurai extends Unit {
 
     public Samurai(String name, Stats stats, Vector2 position) {

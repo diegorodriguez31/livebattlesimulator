@@ -13,7 +13,7 @@ import java.util.Objects;
 import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.mainFrame;
 
 /**
- * Controleur qui gère le choix nom de la bataille et le nombre d'armées.
+ * Contrôleur qui gère le choix nom de la bataille et le nombre d'armées.
  */
 public class BattleArmiesChoiceController extends JPanel implements GuiComponent {
 
@@ -28,6 +28,7 @@ public class BattleArmiesChoiceController extends JPanel implements GuiComponent
         }
         return instance;
     }
+
     public BattleArmiesChoiceController() {
         JLabel title = new JLabel("Préparez la bataille");
         title.setFont(new Font("Sans Serif", Font.PLAIN, 50));

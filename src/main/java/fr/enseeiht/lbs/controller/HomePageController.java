@@ -11,7 +11,7 @@ import java.util.Objects;
 import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.mainFrame;
 
 /**
- * Controleur qui gère la page d'accueil.
+ * Contrôleur qui gère la page d'accueil.
  */
 public class HomePageController extends JPanel implements GuiComponent {
 

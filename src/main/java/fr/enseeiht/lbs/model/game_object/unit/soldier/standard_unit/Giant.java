@@ -8,6 +8,9 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.action.GroundHeavyMoveme
 import main.java.fr.enseeiht.lbs.model.game_object.unit.ai.ChargeAndHitAI;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
+/**
+ * L'unité Giant
+ */
 public class Giant extends Unit {
 
     public Giant(String name, Stats stats, Vector2 position) {

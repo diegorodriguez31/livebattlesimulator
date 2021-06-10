@@ -9,6 +9,9 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.dotVisitor.Basic
 import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.dotVisitor.KnightTicVisitor;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
+/**
+ * L'unité Knight
+ */
 public class Knight extends ArmoredUnit {
 
     public Knight(String name, Stats stats, Vector2 position) {

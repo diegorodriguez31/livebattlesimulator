@@ -10,6 +10,10 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * Contrôleur qui gère les boutons et le champs de text de création, nommage et suppression d'unités
+ * dans le mode creator.
+ */
 public class UnitListController extends JPanel {
 
     private final UnitTypeListController unitTypeListController;

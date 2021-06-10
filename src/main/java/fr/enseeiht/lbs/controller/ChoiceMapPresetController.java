@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+/**
+ * Contrôleur qui gère la personalisation du terrain avant une bataille.
+ */
 public class ChoiceMapPresetController extends JPanel {
 
 
@@ -96,6 +99,10 @@ public class ChoiceMapPresetController extends JPanel {
 
     }
 
+    /**
+     * Met à jour le type de terrain sélectionné
+     * @param selectedWorld le nouveau type de terrain sélectionné
+     */
     public void updateActiveChoice(String selectedWorld) {
         switch (selectedWorld) {
             case DEFAULT_WORLD:

@@ -12,6 +12,9 @@ import main.java.fr.enseeiht.lbs.utils.Vector2;
 
 import java.util.List;
 
+/**
+ * L'unité Peasant
+ */
 public class Peasant extends Unit {
 
     /**

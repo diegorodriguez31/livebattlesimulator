@@ -10,6 +10,9 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.dotVisitor.Basic
 import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.dotVisitor.VikingTicVisitor;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
+/**
+ * L'unité Viking
+ */
 public class Viking extends ArmoredUnit {
 
     private double shield;

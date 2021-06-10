@@ -12,6 +12,9 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.statModifierVisi
 import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.statModifierVisitor.ImmuneStatModifierVisitor;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
+/**
+ * L'unité Alien
+ */
 public class Alien extends Unit {
 
     private int nbShotDone;

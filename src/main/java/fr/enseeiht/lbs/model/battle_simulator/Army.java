@@ -5,9 +5,16 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Définit les armées qui vont s'affronter lors des simulations de batailles.
+ */
 public class Army {
 
     private List<Unit> units;
+
+    /**
+     * Identifiant de l'armée, utilisé pour la manipulation graphique.
+     */
     private int armyIndex;
 
     public Army(int index) {
@@ -24,6 +31,10 @@ public class Army {
         unit.setTeam(this);
     }
 
+    /**
+     * Retourne le nombre d'unités en vie dans l'armée.
+     * Une unité est en vie si elle a sa santé > 0.
+     */
     public long getAliveUnitCount() {
         return units.stream().filter(unit -> unit.getHealth() > 0).count();
     }

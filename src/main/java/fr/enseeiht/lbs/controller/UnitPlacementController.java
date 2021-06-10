@@ -19,6 +19,11 @@ import java.util.stream.Collectors;
 
 import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.mainFrame;
 
+/**
+ * Contrôleur qui gère le placement des troupes et leur assignement à une armée
+ * lors des clicks à la souris sur le terrain.
+ * Il affiche la liste des unités présente dans l'armée sélectionnée.
+ */
 public class UnitPlacementController extends JPanel implements GuiComponent {
 
     private final Battle model;

@@ -6,10 +6,16 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.FireDebuff;
 import main.java.fr.enseeiht.lbs.model.world.WorldElement;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
+/**
+ * Deplacement d'une unité qui s'adapte au terrain.
+ */
 public class GroundMovementAction implements IMovementAction {
     private Unit self;
     private Vector2 target;
 
+    /**
+     * Multiplicateurs de vitesses en fonction du terrain.
+     */
     private final double DESERT_SPEED_MULTIPLIER = 0.7;
     private final double WATER_SPEED_MULTIPLIER = 0.3;
     private final double SNOW_SPEED_MULTIPLIER = 0.5;
@@ -19,6 +25,10 @@ public class GroundMovementAction implements IMovementAction {
         this.self = self;
     }
 
+    /**
+     * On adapte la vitesse au terrain sur lequel l'unité se trouve.
+     * La lave ajoute un débuff de feu et fait courrir les unités plus vite.
+     */
     @Override
     public void execute(long deltaTime) {
         double speed = self.getStats().getStatisticValue(Statistic.SPEED) * deltaTime / 1000;

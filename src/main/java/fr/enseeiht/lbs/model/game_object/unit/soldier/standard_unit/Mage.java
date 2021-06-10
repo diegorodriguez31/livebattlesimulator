@@ -8,6 +8,9 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.action.FlightMovementAct
 import main.java.fr.enseeiht.lbs.model.game_object.unit.ai.ChargeAndHitAI;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
+/**
+ * L'unité Mage
+ */
 public class Mage extends Unit {
 
     public Mage(String name, Stats stats, Vector2 position) {

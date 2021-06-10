@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.text.DecimalFormat;
 
+/**
+ * Contrôleur qui gère le lancement, la mise en pause et la vitesse de déroulement de la bataille.
+ */
 public class SpeedController extends JPanel{
 
 	private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#0.00");
@@ -102,6 +105,7 @@ public class SpeedController extends JPanel{
 			}
 		}
 	}
+
 	public void init(){
 		model.setDeltaTimeMultiplier(Battle.STOPPED_DELTA_TIME_MULTIPLIER);
 		this.storedDeltaTimeMultiplier = Battle.DEFAULT_DELTA_TIME_MULTIPLIER;

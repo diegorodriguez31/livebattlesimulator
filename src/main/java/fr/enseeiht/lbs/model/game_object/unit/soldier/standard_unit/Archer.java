@@ -8,6 +8,9 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.action.GroundMovementAct
 import main.java.fr.enseeiht.lbs.model.game_object.unit.ai.ChargeAndHitAI;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
+/**
+ * L'unité Archer
+ */
 public class Archer extends Unit {
 
     /**

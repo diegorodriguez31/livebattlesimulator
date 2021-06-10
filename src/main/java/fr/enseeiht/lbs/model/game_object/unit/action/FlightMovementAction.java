@@ -5,7 +5,7 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
 /**
- * Déplacement d'une unité
+ * Déplacement d'une unité sans prendre en compte les changements de terrain.
  */
 public class FlightMovementAction implements IMovementAction {
     private Unit self;

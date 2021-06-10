@@ -8,6 +8,9 @@ import main.java.fr.enseeiht.lbs.model.game_object.unit.action.GroundMovementAct
 import main.java.fr.enseeiht.lbs.model.game_object.unit.ai.ChargeAndHitAI;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
+/**
+ * L'unité Ninja
+ */
 public class Ninja extends Unit {
 
     public Ninja(String name, Stats stats, Vector2 position) {

@@ -10,6 +10,10 @@ import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Contrôleur qui gère l'affichage et la sauvegarde des unités et leurs statistiques
+ * dans le mode creator.
+ */
 public class UnitEditorController extends JPanel{
     String editedUnit;
     JPanel centerPanel;

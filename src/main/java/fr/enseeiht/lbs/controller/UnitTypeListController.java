@@ -12,6 +12,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Contrôleur qui gère les boutons de sélection de troupe à editer, copier ou supprimer
+ * dans le mode creator.
+ */
 public class UnitTypeListController extends JPanel implements PropertyChangeListener {
     private String selectedUnitType;
     private final HashMap<String, JButton> buttons = new HashMap<>();
