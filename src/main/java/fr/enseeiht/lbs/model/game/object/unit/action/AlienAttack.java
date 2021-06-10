@@ -38,11 +38,8 @@ public class AlienAttack extends AttackAction {
             target.kill();
             alienArmy.addUnit((Unit) entity);
             entity.setReady();
-
-        } else {
-            if (attaquant.attackSuccess()) {
-                target.receiveDamage(attaquant.getStats().getStatisticValue(Statistic.DAMAGE));
-            }
+        } else if (attaquant.attackSuccess()) {
+            target.receiveDamage(attaquant.getStats().getStatisticValue(Statistic.DAMAGE));
         }
 
         ((Alien) attaquant).updateNbShotDone();

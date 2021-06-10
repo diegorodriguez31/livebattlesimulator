@@ -18,4 +18,6 @@ public interface BuffVisitor {
     void visit(BreakArmorDebuff buff);
 
     void visit(StunDebuff buff);
+
+    void visit(TimedBuff buff);
 }

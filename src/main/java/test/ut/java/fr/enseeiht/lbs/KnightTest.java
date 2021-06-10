@@ -77,8 +77,8 @@ public class KnightTest {
     public void testHasBuff() {
         assertTrue(knight.getBuffs().isEmpty());
 
-        FireDebuff fire = new FireDebuff(10);
-        PoisonDebuff poison = new PoisonDebuff(10, 2.0);
+        FireDebuff fire = new FireDebuff(10, 1000);
+        PoisonDebuff poison = new PoisonDebuff(10, 2.0, 1000);
         knight.addBuffs(fire);
 
         assertTrue(knight.hasBuff(fire));

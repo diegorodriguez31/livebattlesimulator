@@ -22,6 +22,8 @@ public class GroundHeavyMovementAction implements IMovementAction{
     private final double SNOW_SPEED_MULTIPLIER = 0.6;
     private final double LAVA_SPEED_MULTIPLIER = 1.5;
     private final double FOREST_SPEED_MULTIPLIER = 0.8;
+    private final double LAVA_TIC_DAMAGE = 20;
+    private final long LAVA_TIC_DURATION = 1000;
 
     public GroundHeavyMovementAction(Unit self) {
         this.self = self;
@@ -48,7 +50,7 @@ public class GroundHeavyMovementAction implements IMovementAction{
                 break;
             case LAVA:
                 speed *= LAVA_SPEED_MULTIPLIER;
-                self.addBuffs(new FireDebuff(20));
+                self.addBuffs(new FireDebuff(LAVA_TIC_DAMAGE, LAVA_TIC_DURATION));
                 break;
             case FOREST:
                 speed *= FOREST_SPEED_MULTIPLIER;

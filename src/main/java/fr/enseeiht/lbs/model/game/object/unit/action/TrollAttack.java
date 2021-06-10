@@ -18,6 +18,7 @@ public class TrollAttack extends AttackAction {
      * Multiplicateur de temps entre chaque action de la cible
      */
     private static final double COOLDOWN_INCREASE_MULTIPLIER = 1.5;
+    public static final int POISON_DURATION = 3000;
 
     public TrollAttack(Unit attaquant) {
         super(attaquant);
@@ -36,7 +37,7 @@ public class TrollAttack extends AttackAction {
 
         if (attaquant.attackSuccess()) {
             target.receiveDamage(attaquant.getStats().getStatisticValue(Statistic.DAMAGE));
-            target.addBuffs(new PoisonDebuff(POISON_TIC_DAMAGE, COOLDOWN_INCREASE_MULTIPLIER));
+            target.addBuffs(new PoisonDebuff(POISON_TIC_DAMAGE, COOLDOWN_INCREASE_MULTIPLIER, POISON_DURATION));
         }
     }
 }
