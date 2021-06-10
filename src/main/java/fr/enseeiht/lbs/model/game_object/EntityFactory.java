@@ -10,8 +10,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
+/**
+ * Manage entity creation from entities JSON files
+ */
 public class EntityFactory {
-
 
     /**
      * Exception triggered in the case someone tries to modified the base unit of the game

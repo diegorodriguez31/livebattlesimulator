@@ -3,6 +3,9 @@ package main.java.fr.enseeiht.lbs.model.game_object;
 import java.util.HashMap;
 import java.util.Set;
 
+/**
+ * Map et manipule des statistiques.
+ */
 public class Stats {
     private HashMap<Statistic, Double> stats;
 
@@ -10,6 +13,9 @@ public class Stats {
         stats = new HashMap<>();
     }
 
+    /**
+     * Constructeur de copie.
+     */
     public Stats(Stats stats){
         this.stats = new HashMap<>();
         this.stats.putAll(stats.getStatistics());

@@ -11,7 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Fenêtre principale de l'application
+ * Fenêtre principale de l'application.
  * Elle change le contenu mais ne se ferme jamais.
  */
 public class LiveBattleSimulatorGUI extends JFrame {
