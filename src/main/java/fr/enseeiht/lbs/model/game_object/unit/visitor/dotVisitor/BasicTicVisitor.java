@@ -73,4 +73,12 @@ public class BasicTicVisitor implements BuffVisitor {
     public void visit(StunDebuff buff) {
         // do nothing
     }
+
+    /**
+     * Le buff limité dans le temps se fait décrémenter
+     */
+    @Override
+    public void visit(TimedBuff buff) {
+        buff.decDuration(deltaTime);
+    }
 }

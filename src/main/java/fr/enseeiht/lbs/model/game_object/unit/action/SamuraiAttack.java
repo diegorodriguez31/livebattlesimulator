@@ -14,6 +14,11 @@ public class SamuraiAttack extends AttackAction {
      */
     private static final double FIRE_TIC_DAMAGE = 10.0;
 
+    /**
+     * Durée des tics de feu
+     */
+    public static final int DURATION = 5000;
+
     public SamuraiAttack(Unit attaquant) {
         super(attaquant);
     }
@@ -31,7 +36,7 @@ public class SamuraiAttack extends AttackAction {
 
         if (attaquant.attackSuccess()) {
             target.receiveDamage(attaquant.getStats().getStatisticValue(Statistic.DAMAGE));
-            target.addBuffs(new FireDebuff(FIRE_TIC_DAMAGE));
+            target.addBuffs(new FireDebuff(FIRE_TIC_DAMAGE, DURATION));
         }
     }
 }

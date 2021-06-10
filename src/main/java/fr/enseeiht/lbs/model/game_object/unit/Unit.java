@@ -9,11 +9,14 @@ import main.java.fr.enseeiht.lbs.model.game_object.Stats;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.action.Action;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.ai.AI;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.Buff;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.FireDebuff;
+import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.PoisonDebuff;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.dotVisitor.BasicTicVisitor;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.statModifierVisitor.BasicStatModifierBuffVisitor;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -67,9 +70,6 @@ public abstract class Unit extends Entity {
         System.out.println("\tAccuracy : " + getStats().getStatisticValue(ACCURACY));
         System.out.println("\tAgility : " + getStats().getStatisticValue(Statistic.AGILITY));
         System.out.println("\tElement : "+getFieldElement());
-        //tests
-        System.out.println("\t X :"+getPosition().getX());
-        System.out.println("\t Y :"+getPosition().getY());
     }
 
     // method inspired by Unity Game Motor
@@ -85,8 +85,10 @@ public abstract class Unit extends Entity {
         }
         // update buffs
         BasicTicVisitor visitor = getTicVisitor(deltaTime);
-        for (Buff buff : buffs) {
+        for (Iterator<Buff> iterator = buffs.iterator(); iterator.hasNext(); ) {
+            Buff buff = iterator.next();
             buff.accept(visitor);
+            if(buff.isFinished()) iterator.remove();
         }
     }
 
@@ -103,7 +105,12 @@ public abstract class Unit extends Entity {
     }
 
     public void addBuffs(Buff buff) {
+
         if (!hasBuff(buff)) {
+            if (buff instanceof PoisonDebuff)
+            {
+                System.out.println(buff);
+            }
             buffs.add(buff);
         }
     }

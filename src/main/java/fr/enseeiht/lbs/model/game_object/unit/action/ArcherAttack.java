@@ -14,6 +14,7 @@ public class ArcherAttack extends AttackAction {
      * Montant des dégâts de tics de feu
      */
     private static final double FIRE_TIC_DAMAGE = 20.0;
+    private static final long FIRE_TIC_DURATION = 3000;
 
     /**
      * Indice de tir spécial (1 tir sur 3)
@@ -38,7 +39,7 @@ public class ArcherAttack extends AttackAction {
         if (attaquant.attackSuccess()) {
             target.receiveDamage(attaquant.getStats().getStatisticValue(Statistic.DAMAGE));
 
-            FireDebuff fireDebuff = new FireDebuff(FIRE_TIC_DAMAGE);
+            FireDebuff fireDebuff = new FireDebuff(FIRE_TIC_DAMAGE,FIRE_TIC_DURATION);
             if (((Archer) attaquant).getNbArrowsShot() == ARROWS_BEFORE_SPECIAL_SHOT) {
                 target.addBuffs(fireDebuff);
             }

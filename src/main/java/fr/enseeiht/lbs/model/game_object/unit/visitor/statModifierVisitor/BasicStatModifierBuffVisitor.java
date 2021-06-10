@@ -69,6 +69,11 @@ public class BasicStatModifierBuffVisitor implements BuffVisitor {
         stats.addStat(Statistic.COOLDOWN, getStats().getStatisticValue(Statistic.COOLDOWN) + buff.getDuration());
     }
 
+    @Override
+    public void visit(TimedBuff buff) {
+        // do nothing
+    }
+
     public Stats getStats() {
         return stats;
     }

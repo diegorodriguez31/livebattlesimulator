@@ -95,7 +95,7 @@ public class KnightBuffBehaviourTest {
      */
     @Test
     public void testPoisonDebuffWithArmor() {
-        knight.addBuffs(new PoisonDebuff(20, 2.0));
+        knight.addBuffs(new PoisonDebuff(20, 2.0, 1000));
         applyTicDamage();
 
         assertEquals(KNIGHT_RAW_HEALTH, knight.getHealth(), 0.1);
@@ -109,7 +109,7 @@ public class KnightBuffBehaviourTest {
     @Test
     public void testPoisonDebuffWithoutArmor() {
         knight.addBuffs(new BreakArmorDebuff());
-        knight.addBuffs(new PoisonDebuff(20, 2.0));
+        knight.addBuffs(new PoisonDebuff(20, 2.0, 1000));
         applyTicDamage();
 
         assertEquals(80.0, knight.getHealth(), 0.1);
@@ -122,7 +122,7 @@ public class KnightBuffBehaviourTest {
      */
     @Test
     public void testFireDebuffWithArmor() {
-        knight.addBuffs(new FireDebuff(10));
+        knight.addBuffs(new FireDebuff(10, 1000));
         applyTicDamage();
 
         assertEquals(KNIGHT_RAW_HEALTH, knight.getHealth(), 0.1);
@@ -136,7 +136,7 @@ public class KnightBuffBehaviourTest {
     @Test
     public void testFireDebuffWithoutArmor() {
         knight.addBuffs(new BreakArmorDebuff());
-        knight.addBuffs(new FireDebuff(10));
+        knight.addBuffs(new FireDebuff(10, 1000));
         applyTicDamage();
 
         assertEquals(90, knight.getHealth(), 0.1);
