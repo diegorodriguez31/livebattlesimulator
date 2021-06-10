@@ -172,6 +172,8 @@ public class UnitPlacementController extends JPanel implements GuiComponent {
     private void updateArmies() {
         // Remove all the buttons from the groupButton
         armySelectPanel.removeAll();
+        selectedArmy = 0;
+        selectedUnit = null;
         Collections.list(armyGroup.getElements()).forEach(armyGroup::remove);
         for (int i = 0; i < model.getArmies().size(); i++) {
             int tmpI = i;
