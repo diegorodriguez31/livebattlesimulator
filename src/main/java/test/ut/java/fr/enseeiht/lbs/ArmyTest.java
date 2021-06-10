@@ -1,15 +1,15 @@
 package main.java.test.ut.java.fr.enseeiht.lbs;
 
-import main.java.fr.enseeiht.lbs.model.battle_simulator.Army;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.armored_unit.Knight;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.standard_unit.Ninja;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.standard_unit.Peasant;
+import main.java.fr.enseeiht.lbs.model.battle.simulator.Army;
+import main.java.fr.enseeiht.lbs.model.game.object.unit.soldier.armored.unit.Knight;
+import main.java.fr.enseeiht.lbs.model.game.object.unit.soldier.standard.unit.Ninja;
+import main.java.fr.enseeiht.lbs.model.game.object.unit.soldier.standard.unit.Peasant;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static main.java.fr.enseeiht.lbs.model.game_object.EntityFactory.createEntity;
+import static main.java.fr.enseeiht.lbs.model.game.object.EntityFactory.createEntity;
 import static org.junit.Assert.assertEquals;
 
 /**

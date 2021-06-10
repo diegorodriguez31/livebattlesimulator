@@ -1,15 +1,15 @@
 package main.java.test.it.java.fr.enseeiht.lbs;
 
-import main.java.fr.enseeiht.lbs.model.game_object.unit.buff.*;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.armored_unit.Knight;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.visitor.dotVisitor.BasicTicVisitor;
+import main.java.fr.enseeiht.lbs.model.game.object.unit.buff.*;
+import main.java.fr.enseeiht.lbs.model.game.object.unit.soldier.armored.unit.Knight;
+import main.java.fr.enseeiht.lbs.model.game.object.unit.visitor.dot.visitor.BasicTicVisitor;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static main.java.fr.enseeiht.lbs.model.game_object.EntityFactory.createEntity;
-import static main.java.fr.enseeiht.lbs.model.game_object.Statistic.*;
+import static main.java.fr.enseeiht.lbs.model.game.object.EntityFactory.createEntity;
+import static main.java.fr.enseeiht.lbs.model.game.object.Statistic.*;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;

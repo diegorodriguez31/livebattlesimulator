@@ -1,7 +1,7 @@
 package main.java.fr.enseeiht.lbs.controller;
 
-import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
-import main.java.fr.enseeiht.lbs.model.battle_simulator.Extermination;
+import main.java.fr.enseeiht.lbs.model.battle.simulator.Battle;
+import main.java.fr.enseeiht.lbs.model.battle.simulator.Extermination;
 import main.java.fr.enseeiht.lbs.view.gui.GuiComponent;
 
 import javax.imageio.ImageIO;

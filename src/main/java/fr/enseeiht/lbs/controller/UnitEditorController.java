@@ -1,8 +1,8 @@
 package main.java.fr.enseeiht.lbs.controller;
 
-import main.java.fr.enseeiht.lbs.model.game_object.EntityFactory;
-import main.java.fr.enseeiht.lbs.model.game_object.Statistic;
-import main.java.fr.enseeiht.lbs.model.game_object.Stats;
+import main.java.fr.enseeiht.lbs.model.game.object.EntityFactory;
+import main.java.fr.enseeiht.lbs.model.game.object.Statistic;
+import main.java.fr.enseeiht.lbs.model.game.object.Stats;
 
 import javax.swing.*;
 import java.awt.*;

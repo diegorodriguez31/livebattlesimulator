@@ -1,10 +1,10 @@
 package main.java.fr.enseeiht.lbs.view.content;
 
-import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
-import main.java.fr.enseeiht.lbs.model.game_object.Entity;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.armored_unit.*;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.standard_unit.*;
+import main.java.fr.enseeiht.lbs.model.battle.simulator.Battle;
+import main.java.fr.enseeiht.lbs.model.game.object.Entity;
+import main.java.fr.enseeiht.lbs.model.game.object.unit.Unit;
+import main.java.fr.enseeiht.lbs.model.game.object.unit.soldier.armored.unit.*;
+import main.java.fr.enseeiht.lbs.model.game.object.unit.soldier.standard.unit.*;
 import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 import main.java.fr.enseeiht.lbs.view.adapter.GraphicalEntity;
