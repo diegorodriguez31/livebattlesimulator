@@ -1,8 +1,8 @@
 package main.java.fr.enseeiht.lbs.controller;
 
-import main.java.fr.enseeiht.lbs.model.game_object.EntityFactory;
-import main.java.fr.enseeiht.lbs.model.game_object.EntityPrimitiveTypes;
-import main.java.fr.enseeiht.lbs.model.game_object.Stats;
+import main.java.fr.enseeiht.lbs.model.game.object.EntityFactory;
+import main.java.fr.enseeiht.lbs.model.game.object.EntityPrimitiveTypes;
+import main.java.fr.enseeiht.lbs.model.game.object.Stats;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -10,6 +10,10 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * Contrôleur qui gère les boutons et le champs de text de création, nommage et suppression d'unités
+ * dans le mode creator.
+ */
 public class UnitListController extends JPanel {
 
     private final UnitTypeListController unitTypeListController;

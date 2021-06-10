@@ -1,10 +1,10 @@
 package main.java.fr.enseeiht.lbs.controller;
 
-import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
-import main.java.fr.enseeiht.lbs.model.battle_simulator.InvalidBattleStateException;
-import main.java.fr.enseeiht.lbs.model.game_object.Entity;
-import main.java.fr.enseeiht.lbs.model.game_object.EntityFactory;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
+import main.java.fr.enseeiht.lbs.model.battle.simulator.Battle;
+import main.java.fr.enseeiht.lbs.model.battle.simulator.InvalidBattleStateException;
+import main.java.fr.enseeiht.lbs.model.game.object.Entity;
+import main.java.fr.enseeiht.lbs.model.game.object.EntityFactory;
+import main.java.fr.enseeiht.lbs.model.game.object.unit.Unit;
 import main.java.fr.enseeiht.lbs.view.content.BattleWorldView;
 import main.java.fr.enseeiht.lbs.view.gui.GuiComponent;
 
@@ -19,6 +19,11 @@ import java.util.stream.Collectors;
 
 import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.mainFrame;
 
+/**
+ * Contrôleur qui gère le placement des troupes et leur assignement à une armée
+ * lors des clicks à la souris sur le terrain.
+ * Il affiche la liste des unités présente dans l'armée sélectionnée.
+ */
 public class UnitPlacementController extends JPanel implements GuiComponent {
 
     private final Battle model;

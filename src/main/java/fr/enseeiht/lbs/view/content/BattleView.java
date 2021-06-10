@@ -1,10 +1,10 @@
 package main.java.fr.enseeiht.lbs.view.content;
 
-import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
-import main.java.fr.enseeiht.lbs.model.game_object.Entity;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.armored_unit.*;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.standard_unit.*;
+import main.java.fr.enseeiht.lbs.model.battle.simulator.Battle;
+import main.java.fr.enseeiht.lbs.model.game.object.Entity;
+import main.java.fr.enseeiht.lbs.model.game.object.unit.Unit;
+import main.java.fr.enseeiht.lbs.model.game.object.unit.soldier.armored.unit.*;
+import main.java.fr.enseeiht.lbs.model.game.object.unit.soldier.standard.unit.*;
 import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.utils.Vector2;
 import main.java.fr.enseeiht.lbs.view.adapter.GraphicalEntity;
@@ -19,6 +19,9 @@ import java.util.*;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+/**
+ * Abstraction de la Vue qui affiche les unités lors de la bataille.
+ */
 public abstract class BattleView extends JPanel implements PropertyChangeListener {
 
     protected final List<GraphicalEntity> graphicalEntities;
@@ -60,14 +63,6 @@ public abstract class BattleView extends JPanel implements PropertyChangeListene
         this.setVisible(true);
         this.graphicalEntities = new LinkedList<>();
         lock = new ReentrantReadWriteLock();
-    }
-
-  /*  protected Vector2 worldToPixel(Vector2 world) {
-        return world.scale(GraphicalEntity.SUPER_PIXEL_SIZE);
-    }*/
-
-    protected Vector2 pixelToWorld(Vector2 pixel) {
-        return pixel.scale(1f / GraphicalEntity.SUPER_PIXEL_SIZE);
     }
 
     public Vector2 pixelCoordinatesToWorld(float x, float y) {
@@ -133,11 +128,6 @@ public abstract class BattleView extends JPanel implements PropertyChangeListene
 
     protected void stopObserving() {
         Battle.removeObserver(this, Battle.PROPERTY_GAME_OBJECTS);
-    }
-
-    public List<GraphicalEntity> getGraphicalEntities() {
-
-        return graphicalEntities;
     }
 }
 

@@ -2,8 +2,8 @@ package main.java.fr.enseeiht.lbs.view.content;
 
 import main.java.fr.enseeiht.lbs.controller.HomePageButtonController;
 import main.java.fr.enseeiht.lbs.controller.SpeedController;
-import main.java.fr.enseeiht.lbs.model.battle_simulator.Army;
-import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
+import main.java.fr.enseeiht.lbs.model.battle.simulator.Army;
+import main.java.fr.enseeiht.lbs.model.battle.simulator.Battle;
 import main.java.fr.enseeiht.lbs.view.gui.GuiComponent;
 
 import javax.swing.*;
