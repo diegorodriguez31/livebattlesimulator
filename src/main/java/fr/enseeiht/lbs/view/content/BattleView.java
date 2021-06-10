@@ -53,7 +53,7 @@ public abstract class BattleView extends JPanel implements PropertyChangeListene
         TEAM_COLORS.add(Color.PINK);
         COLORS_NAME.put(TEAM_COLORS.get(4), "Rose");
         TEAM_COLORS.add(Color.BLACK);
-        COLORS_NAME.put(TEAM_COLORS.get(5), "Dark");
+        COLORS_NAME.put(TEAM_COLORS.get(5), "Noire");
     }
 
     protected BattleView() {

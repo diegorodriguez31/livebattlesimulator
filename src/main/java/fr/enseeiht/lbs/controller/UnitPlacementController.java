@@ -5,7 +5,6 @@ import main.java.fr.enseeiht.lbs.model.battle_simulator.InvalidBattleStateExcept
 import main.java.fr.enseeiht.lbs.model.game_object.Entity;
 import main.java.fr.enseeiht.lbs.model.game_object.EntityFactory;
 import main.java.fr.enseeiht.lbs.model.game_object.unit.Unit;
-import main.java.fr.enseeiht.lbs.view.content.BattleView;
 import main.java.fr.enseeiht.lbs.view.content.BattleWorldView;
 import main.java.fr.enseeiht.lbs.view.gui.GuiComponent;
 
@@ -15,6 +14,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.mainFrame;
@@ -23,7 +23,9 @@ public class UnitPlacementController extends JPanel implements GuiComponent {
 
     private final Battle model;
     private String selectedUnit;
-    private final JComboBox<String> armySelect;
+    private int selectedArmy;
+    private final ButtonGroup armyGroup;
+    private final JPanel armySelectPanel;
     private final JPanel unitTypePanel;
     private final UnitListView unitListView;
     private final ButtonGroup group;
@@ -50,9 +52,9 @@ public class UnitPlacementController extends JPanel implements GuiComponent {
         battleWorldView.addMouseListener(new MouseInputListener() {
             @Override
             public void mouseReleased(MouseEvent mouseEvent) {
-                if (selectedUnit == null || armySelect.getSelectedIndex() < 0) return;
+                if (selectedUnit == null) return;
                 Entity entity = EntityFactory.createEntity(selectedUnit, battleWorldView.pixelCoordinatesToWorld(mouseEvent.getX(), mouseEvent.getY()));
-                model.getArmies().get(armySelect.getSelectedIndex()).addUnit((Unit) entity);
+                model.getArmies().get(selectedArmy).addUnit((Unit) entity);
                 entity.setReady();
             }
 
@@ -90,15 +92,20 @@ public class UnitPlacementController extends JPanel implements GuiComponent {
 
         //Setting up the army list
         this.unitListView = new UnitListView();
-        JScrollPane scrll = new JScrollPane(this.unitListView, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrll.setPreferredSize(new Dimension(10, 480));
+        JScrollPane scroll = new JScrollPane(this.unitListView, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scroll.setPreferredSize(new Dimension(10, 480));
 
-        //Setting up the army selector
-        this.armySelect = new JComboBox<>();
-        this.armySelect.addActionListener(actionEvent -> unitListView.updateUnitList());
+        //Setting up the army select
+        this.armySelectPanel = new JPanel();
+        this.armySelectPanel.setLayout(new BoxLayout(armySelectPanel, BoxLayout.Y_AXIS));
+        this.armyGroup = new ButtonGroup();
+        this.selectedArmy = 0;
+        Collections.list(group.getElements()).forEach((button) -> {
+            button.addActionListener(actionEvent -> unitListView.updateUnitList());
+        });
 
         JButton okButton = new JButton("OK");
-        okButton.setFont(new Font("Sans Serif", Font.PLAIN, 30));
+        okButton.setFont(new Font("Sans Serif", Font.PLAIN, 20));
         okButton.addActionListener(actionEvent -> {
             try {
                 Battle.getInstance().runAsync();
@@ -120,11 +127,11 @@ public class UnitPlacementController extends JPanel implements GuiComponent {
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.gridheight = 1;
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        armyPanel.add(this.armySelect, gridBagConstraints);
+        armyPanel.add(this.armySelectPanel, gridBagConstraints);
         gridBagConstraints.gridy = 1;
         gridBagConstraints.weighty = 1;
         gridBagConstraints.fill = GridBagConstraints.BOTH;
-        armyPanel.add(scrll, gridBagConstraints);
+        armyPanel.add(scroll, gridBagConstraints);
         gridBagConstraints.weighty = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 1;
@@ -149,18 +156,32 @@ public class UnitPlacementController extends JPanel implements GuiComponent {
                 .collect(Collectors.toList())) {
             JRadioButton button = new JRadioButton(buttonText);
             button.setActionCommand(buttonText);
-            button.addActionListener(actionEvent -> this.selectedUnit = actionEvent.getActionCommand());
+            button.addActionListener(actionEvent -> {
+                this.selectedUnit = actionEvent.getActionCommand();
+            });
             group.add(button);
             unitTypePanel.add(button);
         }
     }
 
     private void updateArmies() {
-        armySelect.removeAllItems();
+        // Remove all the buttons from the groupButton
+        armySelectPanel.removeAll();
+        Collections.list(armyGroup.getElements()).forEach(armyGroup::remove);
         for (int i = 0; i < model.getArmies().size(); i++) {
-            armySelect.addItem(BattleView.COLORS_NAME.get(BattleWorldView.TEAM_COLORS.get(i)));
+            int tmpI = i;
+            JRadioButton armyButton = new JRadioButton(BattleWorldView.COLORS_NAME.get(BattleWorldView.TEAM_COLORS.get(i)));
+            armyButton.addActionListener(e -> {
+                selectedArmy = tmpI;
+                unitListView.updateUnitList();
+            });
+            if (i == 0) armyButton.setSelected(true);
+            armyGroup.add(armyButton);
+            armySelectPanel.add(armyButton);
+            if(i == selectedArmy){
+                armyButton.setSelected(true);
+            }
         }
-        armySelect.setSelectedIndex(0);
     }
 
     @Override
@@ -171,10 +192,8 @@ public class UnitPlacementController extends JPanel implements GuiComponent {
 
     @Override
     public void init() {
-        armySelect.setSelectedIndex(-1);
         updateEntityTypes();
         updateArmies();
-
         battleWorldView.startObserving();
         unitListView.startObserving();
 
@@ -206,8 +225,7 @@ public class UnitPlacementController extends JPanel implements GuiComponent {
          */
         private void updateUnitList() {
             this.removeAll();
-            if (armySelect.getSelectedIndex() == -1) return;
-            model.getArmies().get(armySelect.getSelectedIndex()).getUnits().forEach(gameObject -> this.add(new JLabel("- " + gameObject.getName())));
+            model.getArmies().get(selectedArmy).getUnits().forEach(gameObject -> this.add(new JLabel("- " + gameObject.getName())));
             this.updateUI();
         }
     }

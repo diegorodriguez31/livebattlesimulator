@@ -271,12 +271,10 @@ public class World {
     }
 
     public WorldElement getTile(int xx, int yy) {
-        return this.worldElements[xx][yy];
+        if (xx < NB_TILES_X && yy < NB_TILES_Y) {
+            return this.worldElements[xx][yy];
+        }
+        return mainElement;
     }
-
-    public WorldElement getMainElement() {
-        return this.mainElement;
-    }
-
 }
 
