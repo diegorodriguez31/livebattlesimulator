@@ -1,8 +1,8 @@
 package main.java.fr.enseeiht.lbs.controller;
 
-import main.java.fr.enseeiht.lbs.model.game_object.EntityFactory;
-import main.java.fr.enseeiht.lbs.model.game_object.Statistic;
-import main.java.fr.enseeiht.lbs.model.game_object.Stats;
+import main.java.fr.enseeiht.lbs.model.game.object.EntityFactory;
+import main.java.fr.enseeiht.lbs.model.game.object.Statistic;
+import main.java.fr.enseeiht.lbs.model.game.object.Stats;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,6 +10,10 @@ import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Contrôleur qui gère l'affichage et la sauvegarde des unités et leurs statistiques
+ * dans le mode creator.
+ */
 public class UnitEditorController extends JPanel{
     String editedUnit;
     JPanel centerPanel;

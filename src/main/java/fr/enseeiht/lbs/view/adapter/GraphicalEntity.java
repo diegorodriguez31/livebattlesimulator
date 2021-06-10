@@ -8,6 +8,10 @@ import main.java.fr.enseeiht.lbs.view.gui.LiveBattleSimulatorGUI;
 
 import java.awt.*;
 
+/**
+ * Elément graphique associé à une entité.
+ * Par exemple l'élément affiché pour représenter une unité.
+ */
 public class GraphicalEntity extends Component {
 
     public static final int SUPER_PIXEL_SIZE = 11;

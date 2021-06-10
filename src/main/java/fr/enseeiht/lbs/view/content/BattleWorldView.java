@@ -4,11 +4,13 @@ import main.java.fr.enseeiht.lbs.model.world.World;
 import main.java.fr.enseeiht.lbs.model.world.WorldElement;
 import main.java.fr.enseeiht.lbs.view.adapter.GraphicalEntity;
 
-import javax.swing.*;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * Vue qui affiche les unités lors de la bataille.
+ */
 public class BattleWorldView extends BattleView implements PropertyChangeListener {
 
     public BattleWorldView() {
@@ -16,36 +18,17 @@ public class BattleWorldView extends BattleView implements PropertyChangeListene
         this.setLayout(new GridLayout(World.NB_TILES_X, World.NB_TILES_Y));//construit une grille de la même taille que le tableau de char
         this.setPreferredSize(new Dimension(700, 700));
         this.startObserving();
-        //this.updateWorldRepresentation();
         this.setVisible(true);
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
         super.propertyChange(propertyChangeEvent);
-        if (propertyChangeEvent.getPropertyName().equals(World.PROPERTY_RELOAD_MAP)) {
-            //updateWorldRepresentation();
-        }
-    }
-
-    private void updateWorldRepresentation() {
-        World world = World.getInstance();
-        removeAll();
-        for (int y = 0; y < World.NB_TILES_Y; y++) {
-            for (int x = 0; x < World.NB_TILES_X; x++) {
-                JLabel worldCase = new JLabel();
-                WorldElement worldElement = world.getTile(x, y); // prend le character du tableau qui est à sa place
-                worldCase.setBackground(WorldView.getCorrespondingColor(worldElement)); // la case est remplie de la couleur correspondante
-                worldCase.setOpaque(true);
-                this.add(worldCase);
-            }
-        }
     }
 
     public void startObserving() {
         super.startObserving();
         World.addObserver(this, World.PROPERTY_RELOAD_MAP);
-        //updateWorldRepresentation();
     }
 
     public void stopObserving() {
@@ -55,13 +38,10 @@ public class BattleWorldView extends BattleView implements PropertyChangeListene
 
     @Override
     public void paint(Graphics graphics) {
-
-        //super.paint(graphics);
         int tileSizeX = this.getSize().width / World.NB_TILES_X;
         int tileSizeY = this.getSize().height / World.NB_TILES_Y;
         for (int y = 0; y < World.NB_TILES_Y; y++) {
             for (int x = 0; x < World.NB_TILES_X; x++) {
-                JLabel worldCase = new JLabel();
                 WorldElement worldElement = World.getInstance().getTile(x, y); // prend le character du tableau qui est à sa place
                 graphics.setColor(WorldView.getCorrespondingColor(worldElement));
                 graphics.fillRect(x * tileSizeX, y * tileSizeY, (x + 1) * tileSizeX, (y + 1) * tileSizeY);

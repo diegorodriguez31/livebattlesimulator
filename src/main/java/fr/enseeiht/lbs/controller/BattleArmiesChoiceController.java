@@ -1,7 +1,7 @@
 package main.java.fr.enseeiht.lbs.controller;
 
-import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
-import main.java.fr.enseeiht.lbs.model.battle_simulator.Extermination;
+import main.java.fr.enseeiht.lbs.model.battle.simulator.Battle;
+import main.java.fr.enseeiht.lbs.model.battle.simulator.Extermination;
 import main.java.fr.enseeiht.lbs.view.gui.GuiComponent;
 
 import javax.imageio.ImageIO;
@@ -13,7 +13,7 @@ import java.util.Objects;
 import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.mainFrame;
 
 /**
- * Controleur qui gère le choix nom de la bataille et le nombre d'armées.
+ * Contrôleur qui gère le choix nom de la bataille et le nombre d'armées.
  */
 public class BattleArmiesChoiceController extends JPanel implements GuiComponent {
 
@@ -28,6 +28,7 @@ public class BattleArmiesChoiceController extends JPanel implements GuiComponent
         }
         return instance;
     }
+
     public BattleArmiesChoiceController() {
         JLabel title = new JLabel("Préparez la bataille");
         title.setFont(new Font("Sans Serif", Font.PLAIN, 50));

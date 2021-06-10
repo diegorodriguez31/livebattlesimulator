@@ -8,10 +8,12 @@ import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * Vue du terrain de la bataille.
+ */
 public class WorldView extends JPanel implements PropertyChangeListener {
 
     public WorldView() {
-        //this.setPreferredSize(new Dimension(700,700));
         this.setLayout(new GridLayout(World.NB_TILES_X, World.NB_TILES_Y));//construit une grille de la même taille que le tableau de char
         startObserving();
     }

@@ -7,6 +7,9 @@ import java.awt.*;
 
 import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.mainFrame;
 
+/**
+ * Contrôleur qui gère le chargement et la validation d'un terrain avant une bataille.
+ */
 public class ChoiceMapButtonsController extends JPanel {
 
     private static JButton reloadMapButton;

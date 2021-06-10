@@ -1,5 +1,8 @@
 package main.java.fr.enseeiht.lbs.utils;
 
+/**
+ * Vecteurs utilisés pour manipuler les objets lors de la simulation de bataille.
+ */
 public class Vector2 {
     private float x, y;
 
