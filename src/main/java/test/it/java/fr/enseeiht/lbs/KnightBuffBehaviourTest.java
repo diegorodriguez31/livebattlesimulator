@@ -173,7 +173,7 @@ public class KnightBuffBehaviourTest {
      */
     @Test
     public void testSlowDebuffWithArmor() {
-        knight.addBuffs(new SlowDebuff(0.5));
+        knight.addBuffs(new SlowDebuff(0.5, 1000));
         applyTicDamage();
 
         assertEquals(KNIGHT_RAW_HEALTH, knight.getHealth(), 0.1);
@@ -186,7 +186,7 @@ public class KnightBuffBehaviourTest {
     @Test
     public void testSlowDebuffWithoutArmor() {
        knight.addBuffs(new BreakArmorDebuff());
-       knight.addBuffs(new SlowDebuff(0.5));
+       knight.addBuffs(new SlowDebuff(0.5, 1000));
        applyTicDamage();
 
        assertEquals(KNIGHT_RAW_HEALTH, knight.getHealth(), 0.1);

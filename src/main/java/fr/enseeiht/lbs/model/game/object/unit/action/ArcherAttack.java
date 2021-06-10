@@ -39,9 +39,8 @@ public class ArcherAttack extends AttackAction {
         if (attaquant.attackSuccess()) {
             target.receiveDamage(attaquant.getStats().getStatisticValue(Statistic.DAMAGE));
 
-            FireDebuff fireDebuff = new FireDebuff(FIRE_TIC_DAMAGE,FIRE_TIC_DURATION);
             if (((Archer) attaquant).getNbArrowsShot() == ARROWS_BEFORE_SPECIAL_SHOT) {
-                target.addBuffs(fireDebuff);
+                target.addBuffs(new FireDebuff(FIRE_TIC_DAMAGE, FIRE_TIC_DURATION));
             }
 
             ((Archer) attaquant).updateNbArrowsShot();

@@ -42,7 +42,7 @@ public class BasicStatModifierBuffVisitor implements BuffVisitor {
      */
     @Override
     public void visit(SlowDebuff buff) {
-        stats.addStat(Statistic.SPEED, buff.getSlowAmount() * getStats().getStatisticValue(Statistic.SPEED));
+        stats.addStat(Statistic.SPEED, buff.getSlowMultiplier() * getStats().getStatisticValue(Statistic.SPEED));
     }
 
     /**
@@ -69,6 +69,9 @@ public class BasicStatModifierBuffVisitor implements BuffVisitor {
         stats.addStat(Statistic.COOLDOWN, getStats().getStatisticValue(Statistic.COOLDOWN) + buff.getDuration());
     }
 
+    /**
+     * Le temps n'influe pas sur les capacités
+     */
     @Override
     public void visit(TimedBuff buff) {
         // do nothing
