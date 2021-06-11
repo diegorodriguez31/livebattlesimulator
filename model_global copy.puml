@@ -1,5 +1,4 @@
 @startuml
-namespace model{
 
 class Battle {
     - Battle()
@@ -14,10 +13,7 @@ interface Objectif{
     + Army getWinner(Battle context)
 }
 
-class Army {
-    + addUnit(Unit unit);
-    + removeUnit(Unit unit);
-}
+class Army {}
 
 abstract class GameObject{
     + void setReady()
@@ -83,7 +79,7 @@ interface MoveAction{
     +setTarget(Vector2 target)
 }
 
-class UpdateBuffVisitor{
+class TickBuffVisitor{
     # float deltaTime
     + void visit(T visitor)
 }
@@ -91,6 +87,20 @@ class UpdateBuffVisitor{
 class StatsBuffVisitor{
     + void visit(T visitor)
     + Stats getStats()
+}
+
+enum EntityPrimitiveType{
+    
+}
+
+interface EntityCreator{
+    void createEntity(Stats stats)
+}
+
+
+class EntityFactory{
+    + void createEntity(String type)
+    + void setEntityType(String type, PrimitiveEntityType entityType, Stats stats)
 }
 
 Battle "1" o--> "0..n teams" Army
@@ -104,11 +114,14 @@ Battle "1" --> "1 instance "Battle
 
 
 Army "1 team" o--- "0..n units" Unit
+EntityFactory  o--- "0..n primitive" EntityPrimitiveType
+EntityPrimitiveType  o--- "0..n creator" EntityCreator
+EntityFactory  o--- "0..n stats" Stats
 
 AI ..> Action : "<<uses>>"
 Action --|> MoveAction
 Action --|> AttackAction
-Unit ..> UpdateBuffVisitor : "<<uses>>"
+Unit ..> TickBuffVisitor : "<<uses>>"
 Unit ..> StatsBuffVisitor : "<<uses>>"
 BuffVisitor <..> Buff : "<<uses>>"
 StatsBuffVisitor o--> "1 computedStats" Stats
@@ -119,18 +132,4 @@ UpdateBuffVisitor ..|> BuffVisitor
 Unit --|> Entity
 Battle --> PropertyChangeSupport
 
-}
-
-namespace view{
-
-}
-
-namespace controler{
-
-}
-
-view ..|> PropertyChangeListener
-
-model.PropertyChangeSupport o-- PropertyChangeListener
-controler x--> model.Battle
 @enduml
