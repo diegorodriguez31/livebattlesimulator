@@ -236,10 +236,10 @@ public class World {
         System.out.println();
     }
 
-    public void affichWorldElements(){
-        for(int y = 0; y< NB_TILES_Y; y++){
-            for(int x = 0; x< NB_TILES_X; x++){
-                System.out.print(worldElements[x][y]+" ");
+    public void affichWorldElements() {
+        for (int y = 0; y < NB_TILES_Y; y++) {
+            for (int x = 0; x < NB_TILES_X; x++) {
+                System.out.print(worldElements[x][y] + " ");
             }
             System.out.println();
         }
@@ -261,9 +261,9 @@ public class World {
         return worldElements;
     }
 
-    public WorldElement getWorldElementFromPosition(Vector2 position){
+    public WorldElement getWorldElementFromPosition(Vector2 position) {
         float positionX = Math.min(position.getX(), MAX_POSITION_X);
-        int elementIndexX = Math.round((positionX * NB_TILES_X ) / MAX_POSITION_X);
+        int elementIndexX = Math.round((positionX * NB_TILES_X) / MAX_POSITION_X);
 
         float positionY = Math.min(position.getY(), MAX_POSITION_Y);
         int elementIndexY = Math.round((positionY * NB_TILES_Y) / MAX_POSITION_Y);
@@ -271,7 +271,8 @@ public class World {
     }
 
     public WorldElement getTile(int xx, int yy) {
-        if (xx < NB_TILES_X && yy < NB_TILES_Y) {
+        if (xx < NB_TILES_X && yy < NB_TILES_Y && 0 <= xx
+                && 0 <= yy) {
             return this.worldElements[xx][yy];
         }
         return mainElement;
