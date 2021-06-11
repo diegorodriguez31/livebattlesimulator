@@ -271,8 +271,8 @@ public class World {
     }
 
     public WorldElement getTile(int xx, int yy) {
-        if (xx < NB_TILES_X && yy < NB_TILES_Y && 0 < xx
-                && 0 < yy) {
+        if (xx < NB_TILES_X && yy < NB_TILES_Y && 0 <= xx
+                && 0 <= yy) {
             return this.worldElements[xx][yy];
         }
         return mainElement;
