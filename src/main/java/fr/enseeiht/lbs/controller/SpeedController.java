@@ -1,12 +1,14 @@
 package main.java.fr.enseeiht.lbs.controller;
 
-import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
+import main.java.fr.enseeiht.lbs.model.battle.simulator.Battle;
 
 import javax.swing.*;
 import java.awt.*;
 import java.text.DecimalFormat;
 
-@SuppressWarnings("serial")
+/**
+ * Contrôleur qui gère le lancement, la mise en pause et la vitesse de déroulement de la bataille.
+ */
 public class SpeedController extends JPanel{
 
 	private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#0.00");
@@ -14,15 +16,15 @@ public class SpeedController extends JPanel{
 	private static final float HIGH_INCREMENT = 0.75f;
 	
 	private float storedDeltaTimeMultiplier;
-	
-	Battle model;
-	JButton slowerButton;
-	JButton playButton;
-	JButton fasterButton;
+
+	private Battle model;
+
+	private JButton slowerButton;
+	private JButton playButton;
+	private JButton fasterButton;
 
 	public SpeedController() {
 		this.model = Battle.getInstance();
-		this.storedDeltaTimeMultiplier = Battle.DEFAULT_DELTA_TIME_MULTIPLIER;
 
 		slowerButton = new JButton("⏪");
 		slowerButton.setEnabled(false);
@@ -69,40 +71,44 @@ public class SpeedController extends JPanel{
 				if (storedDeltaTimeMultiplier + HIGH_INCREMENT <= Battle.MAX_DELTA_TIME_MULTIPLIER )
 					storedDeltaTimeMultiplier += HIGH_INCREMENT;
 			}
-			//Update view and model
 			model.setDeltaTimeMultiplier(storedDeltaTimeMultiplier);
 			updateButtons();
 		});
+		//Update view and model
+		this.init();
 	}
 
 	private void updateButtons() {
 		float localDeltaTimeMultiplier = model.getDeltaTimeMultiplier();
-		
+
 		//If time is stopped
-		if ( localDeltaTimeMultiplier < Battle.MIN_DELTA_TIME_MULTIPLIER ) {
+		if ( localDeltaTimeMultiplier == Battle.STOPPED_DELTA_TIME_MULTIPLIER ) {
 			//update slower button
 			slowerButton.setEnabled(false);
 			//update play button
-			playButton.setText("▶"); 			
+			playButton.setText("▶");
+			playButton.setEnabled(true);
 			//update faster button
 			fasterButton.setEnabled(false);
 		}
 		//if time is not stopped
 		else {
 			//update play button
-			playButton.setText("⏸ (x"+ DECIMAL_FORMAT.format(storedDeltaTimeMultiplier) + ")"); 
+			playButton.setText("⏸ (x"+ DECIMAL_FORMAT.format(storedDeltaTimeMultiplier) + ")");
 			//update slower button
-			if (localDeltaTimeMultiplier - LOW_INCREMENT >= Battle.MIN_DELTA_TIME_MULTIPLIER) {	
-				slowerButton.setEnabled(true);
-			}else {
-				slowerButton.setEnabled(false);				
-			}
+			slowerButton.setEnabled(localDeltaTimeMultiplier - LOW_INCREMENT >= Battle.MIN_DELTA_TIME_MULTIPLIER);
 			//update faster button
-			if (localDeltaTimeMultiplier + HIGH_INCREMENT <= Battle.MAX_DELTA_TIME_MULTIPLIER) {
+			if ((localDeltaTimeMultiplier + HIGH_INCREMENT) <= Battle.MAX_DELTA_TIME_MULTIPLIER) {
 				fasterButton.setEnabled(true);
 			}else {
 				fasterButton.setEnabled(false);
 			}
 		}
+	}
+
+	public void init(){
+		model.setDeltaTimeMultiplier(Battle.STOPPED_DELTA_TIME_MULTIPLIER);
+		this.storedDeltaTimeMultiplier = Battle.DEFAULT_DELTA_TIME_MULTIPLIER;
+		updateButtons();
 	}
 }

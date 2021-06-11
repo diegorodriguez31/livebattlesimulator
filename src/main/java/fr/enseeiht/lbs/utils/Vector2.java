@@ -1,7 +1,10 @@
 package main.java.fr.enseeiht.lbs.utils;
 
+/**
+ * Vecteurs utilisés pour manipuler les objets lors de la simulation de bataille.
+ */
 public class Vector2 {
-    public float x, y;
+    private float x, y;
 
     /**
      * Copy constructor for vector2
@@ -79,7 +82,7 @@ public class Vector2 {
 
     /**
      * Returns the square of the size of the vector
-     * Faster than plain size can be used for size comparaison
+     * Faster than plain size can be used for size comparison
      *
      * @return the size
      */
@@ -98,7 +101,7 @@ public class Vector2 {
     }
 
     /**
-     * Scales the vector to be of lenght 1
+     * Scales the vector to be of length 1
      *
      * @return The normalized vector
      */
@@ -118,5 +121,13 @@ public class Vector2 {
     @Override
     public String toString() {
         return "(" + x + ", " + y + ")";
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
     }
 }

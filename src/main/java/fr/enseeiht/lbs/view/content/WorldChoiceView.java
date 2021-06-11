@@ -1,68 +1,66 @@
 package main.java.fr.enseeiht.lbs.view.content;
 
-import main.java.fr.enseeiht.lbs.controller.BtnReloadMapGUI;
-
-import main.java.fr.enseeiht.lbs.controller.ChoixMapButtonGUI;
-
+import main.java.fr.enseeiht.lbs.controller.ChoiceMapButtonsController;
+import main.java.fr.enseeiht.lbs.controller.ChoiceMapPresetController;
+import main.java.fr.enseeiht.lbs.view.gui.GuiComponent;
 
 import javax.swing.*;
 import java.awt.*;
 
-import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.mainFrame;
+/**
+ * Vue de la personalisation du terrain avant la simulation de la bataille.
+ */
+public class WorldChoiceView extends JPanel implements GuiComponent {
 
-public class WorldChoiceView extends JPanel {
+    private static WorldView worldView;
 
-    public WorldChoiceView() {
-        //panel principal
-        this.setLocation(100, 200);
-        this.setSize(1200, 800);
-        JFrame.setDefaultLookAndFeelDecorated(true);
-        JPanel northPanel = new JPanel();
-        JPanel southPanel = new JPanel();
-        GroupLayout layout = new GroupLayout(southPanel);
-        layout.setAutoCreateGaps(true);
-        layout.setAutoCreateContainerGaps(true);
+    private static WorldChoiceView instance;
 
-        //panels secondaire, gestions des tailles
-        southPanel.setLayout(layout);
-        WorldView mapView = new WorldView();
-        ChoiceWorldView choices = new ChoiceWorldView();
-        northPanel.setPreferredSize(new Dimension(1200, 50));
-        choices.setPreferredSize(new Dimension(300, 700));
-        southPanel.setPreferredSize(new Dimension(1200, 50));
-        mapView.setPreferredSize(new Dimension(700, 700));
-        mapView.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+    public static WorldChoiceView getInstance(){
+        if (instance == null){
+            instance = new WorldChoiceView();
+        }
+        return instance;
+    }
 
-        //gestion du button ok
-        JButton okButton = new JButton("OK");
-        okButton.setFont(new Font("Sans Serif", Font.PLAIN, 30));
-        okButton.addActionListener(actionEvent -> {
-            mainFrame().showUnitPlacement();
-            //new Thread(() -> Battle.getInstance().run()).start();
-        });
+    private WorldChoiceView() {
+        this.setBorder(BorderFactory.createEmptyBorder(50, 10, 10, 10));
 
+        //Panneaux de choix à gauche
+        ChoiceMapPresetController choixMapPresetController = ChoiceMapPresetController.getInstance();
+        choixMapPresetController.init();
+        choixMapPresetController.setBorder(BorderFactory.createEmptyBorder(0, 20, 20, 20));
 
-        JButton cancelButton = new JButton("Annuler");
-        cancelButton.setFont(new Font("Sans Serif", Font.PLAIN, 12));
+        //Boutons en bas de page
+        //Le bouton reload est cliqué afin d'initialiser un nouveau World !
+        ChoiceMapButtonsController navigation = new ChoiceMapButtonsController();
+        choixMapPresetController.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 20));
+        //navigation.setPreferredSize(new Dimension(1200, 50));
 
-        cancelButton.addActionListener(actionEvent -> {
-            mainFrame().showHomePage();
-        });
-
-        //gestion des layouts des panels secondaires et du placement des boutons
-
-        southPanel.add(cancelButton);
+        //Panneau central (la carte)
+        //Doit être créé après l'initialisation du world
+        worldView = new WorldView();
+        worldView.setPreferredSize(new Dimension(900, 600));
+        worldView.setBorder(BorderFactory.createEmptyBorder(0, 40, 20, 40));
 
         this.setLayout(new BorderLayout());
-        this.add(northPanel, BorderLayout.NORTH);
-        this.add(mapView, BorderLayout.CENTER);
-        this.add(choices, BorderLayout.WEST);
-        this.add(southPanel, BorderLayout.SOUTH);
-        southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
-        choices.setLayout((new BorderLayout()));
-        choices.add(new ChoixMapButtonGUI(), BorderLayout.CENTER);
-        southPanel.add(new BtnReloadMapGUI());
-        southPanel.add(okButton);
+        this.add(worldView, BorderLayout.CENTER);
+        this.add(choixMapPresetController, BorderLayout.WEST);
+        this.add(navigation, BorderLayout.SOUTH);
+
+        this.reset();
         this.setVisible(true);
+    }
+
+    @Override
+    public void reset(){
+        worldView.stopObserving();
+    }
+
+    @Override
+    public void init() {
+        worldView.startObserving();
+        ChoiceMapPresetController.getInstance().init();
+        ChoiceMapButtonsController.init();
     }
 }

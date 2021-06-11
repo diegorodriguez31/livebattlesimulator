@@ -1,13 +1,11 @@
 package main.java.fr.enseeiht.lbs;
 
-import main.java.fr.enseeiht.lbs.model.battle_simulator.Army;
-import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
-import main.java.fr.enseeiht.lbs.model.game_object.unit.soldier.Knight;
-import main.java.fr.enseeiht.lbs.utils.Vector2;
 import main.java.fr.enseeiht.lbs.view.gui.LiveBattleSimulatorGUI;
 
-import java.util.List;
-
+/**
+ * Classe principale de l'application.
+ * Contient la fonction main().
+ */
 public class LiveBattleSimulator {
     public static final int VERBOSE = 0;
 
@@ -15,15 +13,11 @@ public class LiveBattleSimulator {
         LiveBattleSimulatorGUI.getInstance();
     }
 
+    /**
+     * Accès à la fenêtre principale de l'application
+     * @return LiveBattleSimulatorGUI la fenêtre principale
+     */
     public static LiveBattleSimulatorGUI mainFrame() {
         return LiveBattleSimulatorGUI.getInstance();
-    }
-
-    public static void createArmies() {
-        List<Army> armies = Battle.getInstance().getArmies();
-
-        for (Army army : armies) {
-            army.addUnit(new Knight(new Vector2(10 * (army.getArmyIndex() + 1), 10 * (army.getArmyIndex() + 1))));
-        }
     }
 }

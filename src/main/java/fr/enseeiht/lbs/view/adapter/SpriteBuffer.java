@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Objects;
 
+/**
+ * Gère les sprites en ressources pour afficher les unités.
+ */
 public class SpriteBuffer {
     private final static HashMap<String, Image> buffer = new HashMap<>();
 

@@ -1,20 +1,33 @@
 package main.java.fr.enseeiht.lbs.controller;
 
-import main.java.fr.enseeiht.lbs.model.battle_simulator.Battle;
-import main.java.fr.enseeiht.lbs.model.battle_simulator.Extermination;
+import main.java.fr.enseeiht.lbs.model.battle.simulator.Battle;
+import main.java.fr.enseeiht.lbs.model.battle.simulator.Extermination;
+import main.java.fr.enseeiht.lbs.view.gui.GuiComponent;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.util.Objects;
 
 import static main.java.fr.enseeiht.lbs.LiveBattleSimulator.mainFrame;
 
 /**
- * Controleur qui gère le choix nom de la bataille et le nombre d'armées.
+ * Contrôleur qui gère le choix nom de la bataille et le nombre d'armées.
  */
-public class BattleArmiesChoiceController extends JPanel {
+public class BattleArmiesChoiceController extends JPanel implements GuiComponent {
 
-    JTextField battleName;
-    JSpinner nbArmiesSpinner;
+    private final JTextField battleName;
+    private final JSpinner nbArmiesSpinner;
+
+    private static BattleArmiesChoiceController instance;
+
+    public static BattleArmiesChoiceController getInstance(){
+        if (instance == null){
+            instance = new BattleArmiesChoiceController();
+        }
+        return instance;
+    }
 
     public BattleArmiesChoiceController() {
         JLabel title = new JLabel("Préparez la bataille");
@@ -31,16 +44,8 @@ public class BattleArmiesChoiceController extends JPanel {
         nbArmiesSpinner.setFont(new Font("Sans Serif", Font.PLAIN, 30));
         nbArmiesSpinner.setEditor(new JSpinner.DefaultEditor(nbArmiesSpinner));
 
-        JButton cancelButton = new JButton("Annuler");
-        cancelButton.setFont(new Font("Sans Serif", Font.PLAIN, 30));
-
-        cancelButton.addActionListener(actionEvent -> {
-            mainFrame().showHomePage();
-        });
-
         JButton okButton = new JButton("OK");
         okButton.setFont(new Font("Sans Serif", Font.PLAIN, 30));
-
         okButton.addActionListener(actionEvent -> {
             saveValues();
             mainFrame().showWorldSelection();
@@ -82,7 +87,9 @@ public class BattleArmiesChoiceController extends JPanel {
         add(okButton, layoutConstraint);
 
         layoutConstraint.gridy = 7;
-        add(cancelButton, layoutConstraint);
+        add(new HomePageButtonController(), layoutConstraint);
+
+        this.reset();
     }
 
     /**
@@ -96,5 +103,31 @@ public class BattleArmiesChoiceController extends JPanel {
         }
 
         Battle.getInstance().init(new Extermination(), (Integer) nbArmiesSpinner.getValue());
+    }
+
+    @Override
+    public void reset() {
+        //do nothing
+    }
+
+    @Override
+    public void init(){
+        battleName.setText("Nom de bataille");
+        nbArmiesSpinner.setValue(2);
+    }
+
+    /**
+     * Met le "Wallpaper.png" en fond d'écran de la page
+     * @param graphics graphiques de la page
+     */
+    @Override
+    public void paintComponent(Graphics graphics) {
+        try {
+            Image image = ImageIO.read(Objects.requireNonNull(HomePageController.class.getClassLoader().getResource("Wallpaper.png")));
+            graphics.drawImage(image, 0,0, this.getWidth(), this.getHeight(), null);
+        } catch (IOException e) {
+            e.printStackTrace();
+            super.paint(graphics);
+        }
     }
 }

@@ -1,0 +1,3 @@
+Manifest-Version: 1.3
+Main-Class: main.java.fr.enseeiht.lbs.LiveBattleSimulator
+
